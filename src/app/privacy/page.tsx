@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BRAND } from '@/lib/brand';
 
 export const metadata = {
   title: 'Privacy — FF Scout',
@@ -13,8 +14,8 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>Who we are, and who to complain to</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        FF Scout is built and operated by Manideep Daram, Hyderabad, India. Grievance Officer (as required by the DPDP Rules):
-        <a href="mailto:manideepdaram@gmail.com" style={{ color: 'var(--accent)' }}> manideepdaram@gmail.com</a>.
+        FF Scout is built and operated by {BRAND.founder}, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules):
+        <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}> {BRAND.email}</a>.
         We acknowledge grievances within 72 hours and resolve them within 30 days. If unsatisfied, you may approach the Data Protection Board of India.
       </p>
 
