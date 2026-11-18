@@ -3,7 +3,6 @@ import { Hero } from './components/Hero';
 import { Waitlist } from '@/components/Waitlist';
 import { Reveal } from '@/components/Reveal';
 import { buildHeroContext } from '@/lib/hero-data';
-
 export const dynamic = 'force-dynamic';
 
 // Without a reachable DATABASE_URL (e.g. first deploy before Neon is wired in),
@@ -21,19 +20,7 @@ export default async function HomePage() {
   const ctx = await getHeroContextSafe();
   return (
     <>
-      <Hero roster={ctx.roster} />
-
-      <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
-        <div className="shell">
-          <Reveal>
-            <div className="kpis">
-              <div className="kpi"><div className="kpi-num">{ctx.totalVerified}</div><div className="kpi-label">verified players across {ctx.collegeCount} affiliations</div></div>
-              <div className="kpi"><div className="kpi-num">₹499</div><div className="kpi-label">per tournament, full refund until roster locks</div></div>
-              <div className="kpi"><div className="kpi-num">24h</div><div className="kpi-label">from signup to unlock, screening by admin</div></div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <Hero ctx={ctx} />
 
       <section className="section" style={{ background: 'var(--panel)' }}>
         <div className="shell">
