@@ -12,9 +12,18 @@ const securityHeaders = [
   { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
 ];
 
+const staticAssetHeaders = [
+  { key: 'X-Content-Type-Options', value: 'nosniff' },
+  { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
+];
+
 const nextConfig = {
+  poweredByHeader: false,
   async headers() {
-    return [{ source: '/:path*', headers: securityHeaders }];
+    return [
+      { source: '/:path*', headers: securityHeaders },
+      { source: '/_next/static/:path*', headers: staticAssetHeaders },
+    ];
   },
 };
 
