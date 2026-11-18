@@ -6,8 +6,19 @@ import { buildHeroContext } from '@/lib/hero-data';
 
 export const dynamic = 'force-dynamic';
 
+// Without a reachable DATABASE_URL (e.g. first deploy before Neon is wired in),
+// render the landing with honest zeros instead of a 500. The error is logged for ops.
+async function getHeroContextSafe() {
+  try {
+    return await buildHeroContext();
+  } catch (err) {
+    console.error('hero context unavailable:', err);
+    return { totalVerified: 0, pendingCount: 0, collegeCount: 0, roster: [] };
+  }
+}
+
 export default async function HomePage() {
-  const ctx = await buildHeroContext();
+  const ctx = await getHeroContextSafe();
   return (
     <>
       <Hero roster={ctx.roster} />
