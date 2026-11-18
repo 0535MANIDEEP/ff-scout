@@ -62,7 +62,7 @@ if (!dbUrl) {
         passwordHash: 'x',
         displayName: 'EraseMe',
         userType: 'player',
-        role: 'fragger',
+        role: 'rusher',
         rank: 'Gold',
       },
     });
