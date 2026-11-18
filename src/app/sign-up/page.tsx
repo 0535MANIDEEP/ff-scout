@@ -22,7 +22,7 @@ export default function SignUpPage() {
         <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent — free for players, ₹499 for organizers.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
-          <label className="label">Email<input className="input" name="email" type="email" required /></label>
+          <label className="label">Email<input className="input" name="email" type="email" required autoComplete="email" /></label>
           <label className="label" style={{ marginTop: 10 }}>IGN (display name)<input className="input" type="text" name="displayName" placeholder="e.g. _aMNis_, Aura_Hype_, Frostshikari_" required autoComplete="nickname" /></label>
           <div className="row" style={{ marginTop: 10 }}>
             <label className="label">Password<input className="input" name="password" type="password" minLength={8} required autoComplete="new-password" /></label>
