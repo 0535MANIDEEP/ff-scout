@@ -4,6 +4,8 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { uploadProof } from './actions';
 import SubmitAction from './SubmitAction';
 import ProofUploadInput from './ProofUploadInput';
+import SignOut from '@/components/SignOut';
+import Link from 'next/link';
 
 const ERRORS: Record<string, string> = {
   missing: 'No file received — pick your screenshot again.',
@@ -20,7 +22,10 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
   const error = e ? ERRORS[e] : undefined;
   return (
     <div className="shell" style={{ paddingBottom: 48 }}>
-      <h1 style={{ marginTop: 32 }}>Upload your rank screenshot</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, marginTop: 32 }}>
+        <h1>Upload your rank screenshot</h1>
+        <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
+      </div>
       <p className="subtext">PNG, JPG or WebP, max 5MB. One screenshot per verification. Admin verifies manually in 24–48h.</p>
       {error && <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 12 }}>{error}</p>}
       <form action={uploadProof} className="form-card" style={{ marginTop: 20 }} encType="multipart/form-data">

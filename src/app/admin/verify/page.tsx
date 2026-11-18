@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { reviewProof } from './actions';
+import SignOut from '@/components/SignOut';
+import Link from 'next/link';
 
 export default async function AdminVerify() {
   const jar = await cookies();
@@ -23,7 +25,10 @@ export default async function AdminVerify() {
   });
   return (
     <div className="shell" style={{ paddingBottom: 48 }}>
-      <h1 style={{ marginTop: 32 }}>Verification queue ({proofs.length} pending)</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, marginTop: 32 }}>
+        <h1>Verification queue ({proofs.length} pending)</h1>
+        <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
+      </div>
       <div className="list" style={{ marginTop: 20 }}>
         {proofs.map(p => (
           <div className="rowitem" key={p.id}>
