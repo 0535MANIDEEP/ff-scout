@@ -3,7 +3,7 @@ import { prisma } from '@/lib/db';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   segment: z.enum(['organizer','player','sponsor']).default('organizer'),
   city: z.string().trim().max(80).optional(),
 });
