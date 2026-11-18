@@ -23,6 +23,7 @@ export default async function PlayerDashboard() {
       role: true,
       status: true,
       verified: true,
+      iglCapable: true,
       proofs: { select: { status: true } },
     },
   });
@@ -37,7 +38,7 @@ export default async function PlayerDashboard() {
           (bot, prefetch) can never log a user out. */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: 32 }}>
         <div><h1>Welcome, {user.displayName}</h1>
-          <p className="subtext">IGN {user.displayName} · {user.rank} rank · {user.role}</p></div>
+          <p className="subtext">IGN {user.displayName} · {user.rank} rank · {user.role}{user.iglCapable ? ' · can IGL' : ''}</p></div>
         <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
       </div>
       <div className="dashboard">

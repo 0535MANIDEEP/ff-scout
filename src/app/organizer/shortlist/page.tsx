@@ -6,7 +6,7 @@ import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import type { Role } from '@prisma/client';
 
-const ROLES: Role[] = ['fragger', 'sniper', 'support', 'igled', 'lurker'];
+const ROLES: Role[] = ['rusher', 'sniper', 'support', 'anchor', 'lurker'];
 
 export default async function OrganizerShortlist({ searchParams }: { searchParams: Promise<{ role?: string; rank?: string; city?: string }> }) {
   const jar = await cookies();
@@ -29,7 +29,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
     where,
     orderBy: { createdAt: 'desc' },
     take: 50,
-    select: { id: true, displayName: true, role: true, rank: true, college: true, city: true, verified: true, status: true },
+    select: { id: true, displayName: true, role: true, iglCapable: true, rank: true, college: true, city: true, verified: true, status: true },
   });
 
   const ranks = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Heroic', 'Master'];
@@ -68,7 +68,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
         ) : players.map(p => (
           <div className="rowitem" key={p.id}>
             <div>
-              <div className="tile-title">{p.displayName} <span className="small">· {p.rank} · {p.role} · {p.city}</span></div>
+              <div className="tile-title">{p.displayName} <span className="small">· {p.rank} · {p.role}{p.iglCapable ? ' · IGL' : ''} · {p.city}</span></div>
               <div className="tile-sub">{p.college || 'Affiliation withheld'} · {p.status}</div>
             </div>
             <span className="chip chip-sapphire">{p.verified ? 'Verified ✓' : 'Pending'}</span>

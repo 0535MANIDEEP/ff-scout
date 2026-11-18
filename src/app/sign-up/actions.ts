@@ -15,8 +15,9 @@ const schema = z.object({
   displayName: z.string().min(2).max(40),
   college: z.string().min(2).max(120),
   city: z.string().min(2).max(80),
-  role: z.enum(['fragger','sniper','support','igled','lurker']),
+  role: z.enum(['rusher','sniper','support','anchor','lurker']),
   rank: z.enum(['Bronze','Silver','Gold','Diamond','Heroic','Master']),
+  iglCapable: z.boolean().optional(),
 });
 
 export type ActionState = { ok: boolean; error?: string };
@@ -37,6 +38,7 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
     city: formData.get('city'),
     role: formData.get('role'),
     rank: formData.get('rank'),
+    iglCapable: formData.get('iglCapable') === 'on',
   });
   if (!parse.success) {
     return { ok: false, error: 'Missing or invalid fields.' };
@@ -63,6 +65,7 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
         status: 'looking',
         consentedAt: new Date(),
         ageConfirmed: true,
+        iglCapable: d.iglCapable ?? false,
       },
     });
   } catch (err) {

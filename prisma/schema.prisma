@@ -8,10 +8,10 @@ datasource db {
 }
 
 enum Role {
-  fragger
+  rusher
   sniper
   support
-  igled
+  anchor
   lurker
 }
 
@@ -37,6 +37,7 @@ model User {
   orgType       String?
   consentedAt   DateTime?
   ageConfirmed  Boolean   @default(false)
+  iglCapable    Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   proofs        VerificationProof[]

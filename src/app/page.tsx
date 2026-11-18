@@ -44,7 +44,7 @@ export default async function HomePage() {
           <div className="grid-3" style={{ marginTop: 36 }}>
             <Reveal delay={0}><article className="card">
               <h3>1. You tell us the event</h3>
-              <p>Name it, date it, city. Pick the roles you need — IGL, Rusher, AWM Sniper, Support, Anchor, Lurker. No fluff, no learning curve.</p>
+              <p>Name it, date it, city. Pick the combat roles you need — Rusher, AWM Sniper, Support, Anchor, Lurker. IGL is assigned per squad, not picked from a menu. No fluff, no learning curve.</p>
             </article></Reveal>
             <Reveal delay={120}><article className="card">
               <h3>2. We screen once</h3>
