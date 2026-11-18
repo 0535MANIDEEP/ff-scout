@@ -11,7 +11,7 @@ FF Scout connects **organizers** (who pay ₹499 per event) with **players** who
 ```
 docs/adr/              design decisions, chronological
 prisma/                schema.prisma, seed.js (dev-only seed/reset rules)
-public/                static assets — hero image, sakuga visuals, favicon
+public/                static assets — hero image, favicon
 src/app/               all routes (Next.js App Router)
 src/components/        reusable React components (Waitlist, Hero, InkButton)
 src/lib/               auth (JWT), prisma client, rate limiter, utilities
@@ -23,7 +23,7 @@ test/                  node:test smoke suite
 
 | Path | Audience | What it does |
 |---|---|---|
-| `/` | visitor | Landing page with sakuga-button hero CTA + small seeded roster cards |
+| `/` | visitor | Landing page with hand-rolled CTA + live seeded roster panel |
 | `/sign-up` | player | Player registration; asks for rank screenshot verification |
 | `/organizer/sign-up` | organizer | Organizer onboarding, gates creation of a roster |
 | `/verify` | player | Upload your rank screenshot for verification |
@@ -57,7 +57,7 @@ test/                  node:test smoke suite
 
 - `src/styles/globals.css` — design tokens. Change with intent only.
 - `prisma/schema.prisma` — change deliberately. See `docs/adr/0001-recruiter-first.md`.
-- Anything in `public/saki*` — sakuga bundled; do not edit or pretty print.
+- Motion is hand-rolled in `src/components/Reveal.tsx` + CSS keyframes — no animation library. Keep it opacity/transform only.
 
 ## Common tasks
 

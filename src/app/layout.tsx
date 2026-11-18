@@ -1,7 +1,6 @@
 ﻿import '../styles/globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Script from 'next/script';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ffscout.vercel.app'),
@@ -54,12 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" style={{ colorScheme: 'dark' }}>
       <body>
-        <Script src="/sakuga-core.js" strategy="afterInteractive" />
-        <Script src="/sakuga-button.js" strategy="afterInteractive" />
-        <Script src="/sakuga-tooltip.js" strategy="afterInteractive" />
-        <Script src="/sakuga-checkbox.js" strategy="afterInteractive" />
-        <Script src="/sakuga-input.js" strategy="afterInteractive" />
-        <Script src="/sakuga-progress.js" strategy="afterInteractive" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -85,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
             </nav>
-            <div style={{ marginTop: 12 }}><sakuga-button>Made by a human</sakuga-button></div>
+            <div style={{ marginTop: 12 }}><span className="footnote-badge">Made by a human</span></div>
           </div>
         </footer>
       </body>
