@@ -1,7 +1,10 @@
 import { SignJWT, jwtVerify } from 'jose';
 
-export const runtime = 'nodejs';
-
+// Signing key for session cookies. The hard-coded 'dev-only' fallback exists
+// so a local developer never sees "could not verify session" on day one —
+// but production must set SESSION_SECRET via the hosted platform's env.
+// If you change this string, every cookie signed with the old one dies at
+// the next deploy; all users will be logged out once.
 const encoder = new TextEncoder();
 const secret = encoder.encode(
   process.env.SESSION_SECRET || 'dev-only-not-for-production-ff-scout-secret-key-very-long'
@@ -22,6 +25,8 @@ export async function signSession(payload: SessionPayload) {
     .sign(secret);
 }
 
+// Returns null for every failure (missing token, wrong key, expired) — the
+// caller must treat null as "not logged in", never as an internal error.
 export async function verifySession(token: string): Promise<SessionPayload | null> {
   try {
     const { payload } = await jwtVerify(token, secret);
