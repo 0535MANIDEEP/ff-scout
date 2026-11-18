@@ -1,20 +1,20 @@
 'use client';
 
 import { useFormStatus } from 'react-dom';
-import Script from 'next/script';
 
 export default function SubmitAction({ children }: { children: React.ReactNode }) {
   const { pending } = useFormStatus();
   return (
     <>
-      <Script src="/sakuga-progress.js" strategy="afterInteractive" />
       {pending ? (
-        <>
-          <sakuga-progress value={0.58} label="Verifying screenshot" style={{ display: 'block', marginTop: 12 }} />
+        <div role="status" aria-live="polite" style={{ marginTop: 16 }}>
+          <div className="progress-track" role="progressbar" aria-label="Uploading rank screenshot">
+            <div className="progress-bar" />
+          </div>
           <p className="small" style={{ marginTop: 10, textAlign: 'center' }}>Uploading to admin queue — admin eye-verifies every upload, manually.</p>
-        </>
+        </div>
       ) : (
-        <button className="btn" type="submit" style={{ marginTop: 16, width: '100%' }}>
+        <button className="btn btn-block" type="submit">
           {children}
         </button>
       )}

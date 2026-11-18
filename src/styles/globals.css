@@ -75,9 +75,18 @@ h3 { font-family: var(--font-head); }
 .subtext { color: var(--muted); font-size: 17px; line-height: 1.55; }
 
 /* CTA row + tag button */
+/* Hand-rolled motion: opacity + translateY only. Reduced-motion respected. */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .progress-bar { animation: none; }
+}
+
 .cta-row { display: flex; gap: 10px; align-items: center; margin-top: 26px; flex-wrap: wrap; }
-.btn-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--accent); color: var(--accent); padding: 12px 18px; font-family: var(--font-ui); font-weight: 700; font-size: 14px; background: transparent; border-radius: 2px; }
-.btn-tag:hover { background: rgba(255,107,0,0.1); }
+.btn-tag { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--accent); color: var(--accent); padding: 12px 18px; font-family: var(--font-ui); font-weight: 700; font-size: 14px; background: transparent; border-radius: 2px; transition: background 0.15s ease, transform 0.15s ease; }
+.btn-tag:hover { background: rgba(255,107,0,0.1); transform: translateY(-1px); }
+.btn-tag:active { transform: translateY(0) scale(0.98); }
 
 /* HUD panel — esports screen read for the roster */
 .hud-panel {
@@ -136,7 +145,22 @@ h3 { font-family: var(--font-head); }
 .hp { height: 0; overflow: hidden; position: absolute; left: -9999px; }
 .form-card { max-width: 460px; margin: 64px auto; padding: 30px; background: var(--panel); border: 1px solid var(--panel-3); border-radius: 0; }
 .btn-ghost { display: inline-flex; align-items:center; border: 1px solid var(--panel-3); padding: 12px 18px; border-radius: 2px; color: var(--text); font-family: var(--font-ui); font-weight: 700; }
-.btn { background: var(--accent); color: #05060A; border: 0; padding: 12px 18px; font-family: var(--font-head); font-weight: 700; border-radius: 2px; cursor: pointer; font-size: 14px; }
+.btn { background: var(--accent); color: #05060A; border: 0; padding: 12px 18px; font-family: var(--font-head); font-weight: 700; border-radius: 2px; cursor: pointer; font-size: 14px; transition: background 0.15s ease, transform 0.15s ease; }
+.btn:hover { background: var(--accent-2); transform: translateY(-1px); }
+.btn:active { transform: translateY(0) scale(0.98); }
+.btn-block { width: 100%; margin-top: 16px; }
+
+/* Native checkbox, styled to the palette */
+.checkbox-row { display: flex; gap: 10px; align-items: flex-start; margin-top: 14px; font-size: 13px; color: var(--muted); line-height: 1.5; cursor: pointer; }
+.checkbox-row input[type="checkbox"] { accent-color: var(--accent); width: 18px; height: 18px; margin-top: 1px; flex-shrink: 0; cursor: pointer; }
+
+/* Indeterminate progress, honest about not knowing the actual percent */
+.progress-track { margin-top: 12px; height: 6px; background: var(--panel-3); overflow: hidden; }
+.progress-bar { height: 100%; width: 35%; background: var(--accent); animation: progress-slide 1.15s ease-in-out infinite alternate; }
+@keyframes progress-slide { from { transform: translateX(-60%); } to { transform: translateX(280%); } }
+
+.btn:focus-visible, .btn-tag:focus-visible, .checkbox-row input[type="checkbox"]:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.footnote-badge { display: inline-block; border: 1px solid var(--panel-3); color: var(--muted); padding: 6px 12px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700; }
 
 /* Dashboard/lists */
 .dashboard { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 24px; }
