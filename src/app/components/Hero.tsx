@@ -5,6 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
+// Mock roster shown on the landing page — kept deliberately small and
+// clearly seeded (demo players from prisma/seed.js) so a first-time visitor
+// sees exactly what the product does: filter by role and rank, shortlist, export.
 const players = [
   { handle: "RushKing_21", rank: "Heroic", region: "Secunderabad", role: "Rusher", tag: "Ganjikhana" },
   { handle: "iG_Lx0", rank: "Master", region: "Mumbai Tier-2", role: "AWM sniper", tag: "LAN Series" },
