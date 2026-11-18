@@ -5,15 +5,29 @@ import Script from 'next/script';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ffscout.vercel.app'),
-  title: 'FF Scout — Verified grassroots FF talent for organizers across India',
-  description: 'Searchable verified Free Fire rosters for Indian cafés, fests, sponsors and guilds.',
+  title: 'FF Scout — Free Fire roster finder for organizers in India',
+  description: 'Find verified Free Fire players for your college fest, café scrim night, esports activation, or guild recruit. One searchable pool, ranked honest, unlocked in minutes for Indian organizers.',
+  keywords: [
+    'free fire roster',
+    'free fire tournament India',
+    'free fire qualified players India',
+    'free fire college tournament',
+    'free fire tournament organizer India',
+    'free fire café scrims',
+    'free fire esports India',
+    'free fire guild recruitment India',
+    'free fire player verification',
+    'Indian free fire players',
+  ],
+  authors: [{ name: 'Manideep Daram', url: 'https://github.com/0535MANIDEEP' }],
   openGraph: {
     type: 'website',
-    title: 'FF Scout — Verified grassroots FF talent',
-    description: 'Searchable verified Free Fire rosters for Indian tournaments, cafés, and sponsors.',
+    title: 'FF Scout — Free Fire roster finder for tournament organizers in India',
+    description: 'Find verified Free Fire players for your college fest, café scrim night, esports activation or guild — one searchable pool, honest ranks, Indian organized tournaments.',
     url: 'https://ffscout.vercel.app/',
     siteName: 'FF Scout',
-    images: [{ url: '/hero-gaming.jpg', width: 1200, height: 900, alt: 'FF Scout verified grassroots Free Fire talent hero image' }],
+    images: [{ url: '/hero-gaming.jpg', width: 1200, height: 900, alt: 'FF Scout hero image – verified FF players across India' }],
+    locale: 'en_IN',
   },
   robots: { index: true, follow: true },
 };
@@ -44,6 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script src="/sakuga-button.js" strategy="afterInteractive" />
         <Script src="/sakuga-tooltip.js" strategy="afterInteractive" />
         <Script src="/sakuga-checkbox.js" strategy="afterInteractive" />
+        <Script src="/sakuga-input.js" strategy="afterInteractive" />
+        <Script src="/sakuga-progress.js" strategy="afterInteractive" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({

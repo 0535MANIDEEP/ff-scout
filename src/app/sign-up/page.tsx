@@ -1,5 +1,5 @@
 "use client"
-import { useActionState } from 'react';
+import { useActionState, useRef } from 'react';
 import { registerPlayer } from './actions';
 import type { ActionState } from './actions';
 
@@ -15,16 +15,17 @@ const roleLabel: Record<string, string> = {
 
 export default function SignUpPage() {
   const [state, action] = useActionState(registerPlayer, initial);
+  const formRef = useRef<HTMLFormElement>(null);
   return (
     <main className="shell">
       <div className="form-card">
         <h1>Join the roster pool</h1>
         <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent — free for players, ₹499 for organizers.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
-        <form action={action}>
+        <form ref={formRef} action={action}>
           <label className="label">Email<input className="input" name="email" type="email" required /></label>
+          <sakuga-input type="text" name="displayName" label="IGN (display name)" placeholder="e.g. _aMNis_, Aura_Hype_, Frostshikari_" required autoComplete="nickname" />
           <div className="row" style={{ marginTop: 10 }}>
-            <label className="label">IGN (display name)<input className="input" name="displayName" required autoComplete="nickname" /></label>
             <label className="label">Password<input className="input" name="password" type="password" minLength={8} required /></label>
           </div>
           <div className="row" style={{ marginTop: 10 }}>
@@ -45,7 +46,7 @@ export default function SignUpPage() {
           </div>
           <div className="hp"><input name="bot" /></div>
           <sakuga-checkbox name="agree" required label="One rank screenshot — admin eye verified. No fakes."></sakuga-checkbox>
-          <button className="btn" type="submit" style={{ marginTop: 16, width: '100%' }}>Create profile & enter the pool</button>
+          <sakuga-button onClick={() => formRef.current?.requestSubmit()}>Create profile & enter the pool</sakuga-button>
         </form>
       </div>
     </main>
