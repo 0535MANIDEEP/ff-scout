@@ -199,17 +199,17 @@ Enforcement is **server-side only** (`verifySession` in every action/route) — 
 
 ## 10. Action checklist (owner → effort)
 
-1. **Neon project + connection string → Vercel `DATABASE_URL` (Production)** → me: switch provider, first migration, prod smoke signup → **Manideep: ~10 min**
-2. `prisma migrate dev --name init` + commit `prisma/migrations/` → **me** (after 1)
-3. Blob: create store, wire `BLOB_READ_WRITE_TOKEN`, proof upload dual-write + backfill → **me** (after 1)
-4. 18+ gate + `ageConfirmed` + consent copy rewrite + `consentedAt` recording → **me, one PR** (recommended now — legal surface)
-5. Privacy page: real grievance contact (`manideepdaram@gmail.com`), DPDP rights named, retention table, processors, 18+ note; Terms: mirror refund promise → **me, one PR**
+1. ~~Neon project + connection string → Vercel `DATABASE_URL`~~ **done 2026-11-19** — provisioned via Vercel Marketplace (`ff-scout-db`, free_v3, ap-southeast-1), connected to prod+preview
+2. ~~`prisma migrate dev` + commit migrations~~ **done** — `20261118205620_init`
+3. Blob: create store, wire `BLOB_READ_WRITE_TOKEN`, proof upload dual-write + backfill → **me** (next)
+4. ~~18+ gate + `ageConfirmed` + consent copy rewrite + `consentedAt` recording~~ **done** — PR #16, `3a6aead`
+5. ~~Privacy page: real grievance contact, DPDP rights named, retention table, processors, 18+ note; Terms: mirror refund promise~~ **done** — PR #16
 6. `/api/me/export` (own data CSV) + erasure cascade runbook → **me** (before ₹499 goes public)
 7. `docs/runbook-breach.md` stub → **me**
-8. `.env.example` rewrite (remove NextAuth leftovers) → **me, trivial**
+8. ~~`.env.example` rewrite~~ **done** — PR #16 follow-up (postgres template)
 9. Rate limiter: email+IP key, atomic upsert; prune job → **me** (with migration)
 10. shareContact column + CSV contact gating + `/organizer` onboarding copy → **me** (required before first ₹499 sale)
-11. **Indian-advocate review of privacy/terms** (₹0 todo: law-school clinic, iProbono, or NALSA legal-aid org may help a pre-revenue founder) → **Manideep** — do not skip
-12. SPEC.md: mark the "55 minutes / TechStyle" line as target narrative, not past result → **Manideep (his call)**
-13. Vercel region `bom1` (Mumbai) for functions + Neon `ap-south-1` → **me** (with #1)
-14. Set `ffscout.vercel.app` metadata domain → already fixed in `d320bad` ✅
+11. **Indian-advocate review of privacy/terms** → **Manideep** — do not skip
+12. SPEC.md: mark the "55 minutes / TechStyle" line as target narrative → **Manideep (his call)**
+13. Vercel region Mumbai (`bom1`) not offered for functions here — Neon serves `ap-southeast-1` (Singapore), the India-closest option available on free tier
+14. ~~Set `ffscout.vercel.app` metadata domain~~ **done** — `ff-scout.vercel.app` everywhere (metadataBase, og, robots, sitemap, JSON-LD)
