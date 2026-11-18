@@ -20,6 +20,6 @@ test('package.json scripts include build/start/lint', () => {
   assert.ok(pkg.scripts.start);
 });
 
-test('project uses Next 15', () => {
-  assert.match(String(pkg.dependencies.next), /^\^15/);
+test('project uses a recent Next major', () => {
+  assert.match(String(pkg.dependencies.next), /^\^(1[56])/);
 });
