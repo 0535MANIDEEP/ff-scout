@@ -42,6 +42,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Script src="/sakuga-core.js" strategy="afterInteractive" />
         <Script src="/sakuga-button.js" strategy="afterInteractive" />
+        <Script src="/sakuga-tooltip.js" strategy="afterInteractive" />
+        <Script src="/sakuga-checkbox.js" strategy="afterInteractive" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({

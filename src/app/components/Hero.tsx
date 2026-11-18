@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 
 const players = [
@@ -11,6 +12,7 @@ const players = [
 ];
 
 export function Hero() {
+  const router = useRouter();
   return (
     <section className="relative overflow-hidden">
       <div className="absolute inset-0">
@@ -25,7 +27,7 @@ export function Hero() {
             Indian Free Fire organizers find verified rosters by role, rank and region. Gamer cafés, fest leads, sponsors, guild scouts — one searchable pool.
           </p>
           <div className="cta-row">
-            <Link href="/sign-up"><button className="btn btn-lg">Join the pool</button></Link>
+            <sakuga-button onClick={() => router.push('/sign-up')}>Join the pool</sakuga-button>
             <Link href="/organizer/sign-up" className="btn-ghost">I organize events</Link>
           </div>
         </motion.div>
@@ -34,7 +36,12 @@ export function Hero() {
             <div key={p.handle} className="mock-card" style={{ padding: 12 }}>
               <div className="tile-title">{p.handle}</div>
               <div className="tile-sub">{p.region} · {p.role}</div>
-              <div className="chip chip-balanced" style={{ marginTop: 6 }}>{p.tag}</div>
+              <div className="chip chip-balanced" style={{ marginTop: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                {p.tag}
+                <sakuga-tooltip text="Seed demo — real stats come from ranked proofs once verified">
+                  <span style={{ opacity: 0.7, marginLeft: 'auto' }}>ⓘ</span>
+                </sakuga-tooltip>
+              </div>
             </div>
           ))}
         </motion.div>

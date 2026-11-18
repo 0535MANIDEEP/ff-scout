@@ -44,6 +44,7 @@ export default function SignUpPage() {
             </label>
           </div>
           <div className="hp"><input name="bot" /></div>
+          <sakuga-checkbox name="agree" required label="One rank screenshot — admin eye verified. No fakes."></sakuga-checkbox>
           <button className="btn" type="submit" style={{ marginTop: 16, width: '100%' }}>Create profile & enter the pool</button>
         </form>
       </div>
