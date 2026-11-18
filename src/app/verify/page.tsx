@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { uploadProof } from './actions';
 import SubmitAction from './SubmitAction';
+import ProofUploadInput from './ProofUploadInput';
 
 const ERRORS: Record<string, string> = {
   missing: 'No file received — pick your screenshot again.',
@@ -23,7 +24,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
       <p className="subtext">PNG, JPG or WebP, max 5MB. One screenshot per verification. Admin verifies manually in 24–48h.</p>
       {error && <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 12 }}>{error}</p>}
       <form action={uploadProof} className="form-card" style={{ marginTop: 20 }} encType="multipart/form-data">
-        <label className="label">Rank screenshot<input className="input" type="file" name="screenshot" accept="image/png,image/jpeg,image/webp" required /></label>
+        <ProofUploadInput />
         <SubmitAction>Submit for verification</SubmitAction>
       </form>
     </div>

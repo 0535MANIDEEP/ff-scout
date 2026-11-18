@@ -47,7 +47,9 @@ model VerificationProof {
   id         String   @id @default(cuid())
   userId     String
   user       User     @relation(fields: [userId], references: [id])
-  fileData   String   // base64 PNG — screenshots only, v1
+  fileData   String?  // base64 PNG — fallback when Cloudinary envs are unset (dev mode)
+  fileUrl    String?  // Cloudinary secure_url — used in production
+  publicId   String?  // Cloudinary public_id — needed for purge/delete
   fileName   String
   mimeType   String
   status     String   @default("pending") // pending | approved | rejected
