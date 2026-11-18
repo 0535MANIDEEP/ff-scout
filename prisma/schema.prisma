@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  fragger
+  sniper
+  support
+  igled
+  lurker
+}
+
+model Player {
+  id          String   @id @default(cuid())
+  displayName String
+  role        Role
+  college     String?
+  city        String
+  rank        String
+  verified    Boolean  @default(false)
+  status      String   @default("looking")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  matches     Match[]
+}
+
+model Organization {
+  id         String   @id @default(cuid())
+  name       String
+  orgType    String
+  city       String
+  email      String
+  createdAt  DateTime @default(now())
+  matches    Match[]
+}
+
+model VerificationProof {
+  id        String   @id @default(cuid())
+  playerId  String
+  proofData String
+  verifiedAt DateTime?
+}
+
+model Match {
+  id         String   @id @default(cuid())
+  playerId   String
+  player     Player   @relation(fields: [playerId], references: [id])
+  orgId      String
+  org        Organization @relation(fields: [orgId], references: [id])
+  accepted   Boolean  @default(false)
+  paidAt     DateTime?
+}
