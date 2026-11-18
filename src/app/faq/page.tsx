@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     q: 'How do organizers get their tournament listed on FF Scout?',
-    a: 'Email date, prize pool, and city to admin@ffscout.dev. Within one working day we will verify the event and get it into the organizer shortlist preview.'
+    a: 'Email date, prize pool, and city to manideepdaram@gmail.com. Within one working day we will verify the event and get it into the organizer shortlist preview.'
   },
   {
     q: 'Is there a free trial or a plan to test the shortlist before paying?',

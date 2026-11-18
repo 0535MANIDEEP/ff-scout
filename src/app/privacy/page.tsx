@@ -43,7 +43,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>Where your data lives</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        Application hosting: Vercel Inc. (USA). Database: Neon (AWS region, India preferred). Images: Vercel Blob.
+        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Images: Cloudinary Inc. (USA).
         These processors are bound by their DPAs. Data may be transferred outside India where the DPDP Rules permit — no DPDP-blacklisted destination is used, and we re-check whenever those rules change. Backups follow the same terms.
       </p>
 
