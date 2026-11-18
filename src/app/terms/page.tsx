@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Terms() {
   return (
-    <main className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
+    <div className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
       <h1>Terms</h1>
 
       <h2 style={{ marginTop: 24 }}>Organizers</h2>
@@ -38,6 +38,6 @@ export default function Terms() {
         FF Scout is not affiliated with Garena International II Private Limited, or with any Free Fire tournament organiser. Free Fire and Garena are trademarks of Garena International II Private Limited. All references to them in this document are for identification and compatibility only.
       </p>
       <p style={{ marginTop: 32 }}><Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link></p>
-    </main>
+    </div>
   );
 }

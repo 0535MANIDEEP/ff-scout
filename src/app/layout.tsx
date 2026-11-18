@@ -1,6 +1,13 @@
 ﻿import '../styles/globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+
+// Self-hosted at build time via next/font — no render-blocking external CSS,
+// no system-font fallback masquerading as the design system.
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const grotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' });
+const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ffscout.vercel.app'),
@@ -51,8 +58,9 @@ function Header() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ colorScheme: 'dark' }}>
+    <html lang="en" style={{ colorScheme: 'dark' }} className={`${inter.variable} ${grotesk.variable} ${jbmono.variable}`}>
       <body>
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -68,7 +76,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }) }}
         />
         <Header />
-        <main>{children}</main>
+        <main id="main-content" tabIndex={-1}>{children}</main>
         <footer className="shell" role="contentinfo">
           <div className="footnote">
             FF Scout — verified grassroots Free Fire talent for Indian organizers. Built by Manideep Daram. India-focused. Free Fire is a registered trademark of Garena.
@@ -78,6 +86,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
             </nav>
+            <p style={{ marginTop: 10, fontSize: 12 }}>
+              <a href="mailto:manideepdaram@gmail.com" style={{ color: 'var(--muted)' }}>manideepdaram@gmail.com</a>
+            </p>
             <div style={{ marginTop: 12 }}><span className="footnote-badge">Made by a human</span></div>
           </div>
         </footer>

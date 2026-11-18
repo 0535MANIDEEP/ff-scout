@@ -9,7 +9,7 @@ const initial: ActionState = { ok: true };
 export default function LoginPage() {
   const [state, action] = useActionState(login, initial);
   return (
-    <main className="shell">
+    <div className="shell">
       <div className="form-card">
         <h1>Welcome back</h1>
         <p className="subtext" style={{ marginBottom: 16 }}>Players or organizers — sign in to continue.</p>
@@ -21,7 +21,7 @@ export default function LoginPage() {
         </form>
         <p style={{ marginTop: 14, fontSize: 12 }}>New here? <Link href="/sign-up" style={{ color: 'var(--accent)' }}>Join as player</Link> · <Link href="/organizer/sign-up" style={{ color: 'var(--accent)' }}>Organizer signup</Link></p>
       </div>
-    </main>
+    </div>
   );
 }
 
