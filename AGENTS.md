@@ -12,3 +12,5 @@ The ten golden rules, applied authentically to FF Scout.
 8. **Emotionally literate.** Celebration, combo mechanics, subtle kinetic typography — every interaction feels purposeful, like Free Fire's screen-break and release rhythms.
 9. **Security first.** No secrets in git. Environment variables go to provider dashboards first. Auth stays session-based.
 10. **Shipped, tested, accessible, documented.** A feature without a README section and a reachable route is not done.
+11. **Decisions in the repo, not in chat.** Every real design point goes in `docs/adr/` or `docs/codemap.md`. If a chat holds the deciding thought and nothing does, the next engineer will re-derive it.
+

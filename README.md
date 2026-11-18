@@ -1,26 +1,55 @@
-# FF Scout — AGENTS.md (Quick Reference)
+# FF Scout
 
-Product line: **The verified grassroots Free Fire talent pool for Indian organizers.**
-We match verified rosters to organizers across:
-- College fest organizers (e.g., Ganjikhana Game Nite, VJIT eSports Club)
-- Tier-2/3 tournament organizer collectives
-- Gamer-café LAN event hosts
-- Pro-clan scouting (paid slot)
-- Sponsor activations on a ₹15,000/campaign basis
+Verified Free Fire rosters for Indian tournament organizers. A self-hosted, open-source, India-first recruiting tool for the esports grassroots scene.
 
-Who it is NOT:
-- Recruitment app for pro players (they already have an agent)
-- A streaming platform
-- A bracket/leaderboard tool
+**Live:** [ffscout.vercel.app](https://ffscout.vercel.app) — mostly placeholder seed data today. Real organizers onboard on week 1.
 
-Money flow:
-- Free to join the pool
-- ₹499 / unlock per organizer's single event
-- ₹999 / annual pro-scout export (5 exports)
-- ₹15,000 / sponsor activation for verified cohorts
+## What it solves
 
-Engineering contract:
-- `main` → CI green before push
-- Every screen needs real data or honest fraction
-- No feature without a pilot organizer confirming payment readiness
-- No new dependencies without an npm audit + update-by-necessity reason
+Indian FF tournament organizers — college fest leads, café LAN operators, esports café owners, sponsors — have a shortlist problem: hundreds of DMs, wrong ranks, wrong roles, wasted hours, forged screenshots. FF Scout hands them one verified shortlist with role, rank, and region.
+
+## Who pays · who joins
+
+| Who | What | Cost |
+|---|---|---|
+| **Tournament organizers** | Unlock one shortlist/searchable export per event | ₹499 per event |
+| **Players** | Upload rank screenshot → admin verifies → appear in roster pool | Free |
+| **Sponsors** | Buy unlockable cohorts across cities | negotiated |
+
+This model is deliberate — see `docs/adr/0001-recruiter-first.md`.
+
+## Repository layout
+
+See [docs/codemap.md](docs/codemap.md). Decision log lives in `docs/adr/`.
+
+## Run it locally
+
+```bash
+npm install                     # needs Node 20+
+npx prisma db push              # builds test.db
+npm run dev
+```
+
+Open the app. Login as:
+
+- `admin@ffscout.dev` / `ffscout-admin-demo` — admin role, verification queue
+- `org@rajawadilans.dev` / `ffscout-admin-demo` — organizer, shortlist dashboard
+- `<player>@ffscout.dev` / `ffscout-admin-demo` — any seeded player
+
+All passwords are `ffscout-admin-demo` in the demo seed.
+
+## Build & verify
+
+```bash
+npm run lint          # tsc --noEmit
+npm test              # self-contained: pushes schema to test.db, seeds, asserts
+npm run build          # production build (Turbopack)
+```
+
+## Deploy
+
+Vercel git-connected from `main` — git push here → live. The CD workflow tags releases (`v0.2.0` etc.).
+
+## License
+
+MIT.
