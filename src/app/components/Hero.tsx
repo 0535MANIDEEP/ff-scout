@@ -8,21 +8,21 @@ import type { HeroRosterEntry } from "@/lib/hero-data";
 export function Hero({ roster }: { roster: HeroRosterEntry[] }) {
   const router = useRouter();
   return (
-    <section className="shell relative py-12 md:py-20">
+    <section className="shell relative py-20 md:py-28">
       <div className="hero-grid">
         <div>
-          <h1>
-            Roster wins.<br />
-            <span style={{ color: "#FF6B00" }}>Screened once.</span><br />
-            Pooled for India.
+          <span className="eyebrow-inline">FREE FIRE ROSTER FINDER · INDIA</span>
+          <h1 style={{ fontSize: 'clamp(42px, 5.6vw, 72px)', marginTop: 12, maxWidth: '15ch' }}>
+            A verified roster for your next tournament.
           </h1>
-          <p className="subtext" style={{ marginTop: 18, maxWidth: "42ch" }}>
-            Real Free Fire competitive rosters screened by admin — by role, rank and region. One pool, one ₹499 unlock per event.
+          <p className="subtext" style={{ marginTop: 18, maxWidth: '42ch' }}>
+            ₹499 per event. Players screened by admin — one event, one hire. Cafés, colleges, sponsors and guild scouts unlock only when it works.
           </p>
-          <div className="cta-row">
-            <sakuga-button onClick={() => router.push('/sign-up')}>Join the pool</sakuga-button>
-            <Link href="/organizer/sign-up" className="btn-tag">I run events →</Link>
+          <div className="cta-row" style={{ marginTop: 28 }}>
+            <Link href="/organizer/sign-up" className="btn" style={{ fontSize: 16, padding: '14px 22px' }}>Unlock verified rosters →</Link>
+            <Link href="/sign-up" className="btn-tag">I want to be scouted</Link>
           </div>
+          <p style={{ fontSize: 12, color: 'var(--muted)', marginTop: 16 }}>₹499 per event. Full refund until roster locks. Players never pay.</p>
         </div>
 
         <motion.figure
@@ -33,19 +33,19 @@ export function Hero({ roster }: { roster: HeroRosterEntry[] }) {
           aria-label="Live roster preview"
         >
           <div className="hud-panel-head">
-            <span>ROSTER · LIVE</span>
-            <span>{roster.length} VERIF</span>
+            <span>READY NOW · HYDERABAD</span>
+            <span>{roster.length}/6 VERIFIED</span>
           </div>
           {roster.length === 0 ? (
-            <p className="hud-empty">No verified roster yet. The first signup signs up the whole product — be it.</p>
+            <p className="hud-empty">No verified roster yet. You can be the first.</p>
           ) : roster.slice(0, 4).map((p) => (
-            <div key={p.id} className="hud-row">
+            <Link key={p.id} href="/sign-up" className="hud-row" style={{ textDecoration: 'none' }}>
               <span className="hud-handle">{p.displayName}</span>
               <span className="hud-meta">{p.role ?? '—'} · {p.rank}</span>
               <span className="hud-tag">{p.college ?? p.city}</span>
-            </div>
+            </Link>
           ))}
-          <figcaption className="hud-caption">Seed data from local SQLite. Toggle via <code>npm run dev</code> on Windows.</figcaption>
+          <figcaption className="hud-caption">Admin-verified, updated live. Full stats after sign-up.</figcaption>
         </motion.figure>
       </div>
     </section>
