@@ -4,9 +4,10 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
+import { isCloudinaryConfigured, uploadProofImage } from '@/lib/cloudinary';
 import { z } from 'zod';
 
-const schema = z.object({ name: z.string(), type: z.string(), data: z.string().min(1) });
+const schema = z.object({ name: z.string(), type: z.string() });
 
 // Screenshots only. Cap at 5MB and allowlist raster image types —
 // no SVG (admin renders these), no arbitrary uploads masquerading as proofs.
@@ -23,14 +24,22 @@ export async function uploadProof(_formData: FormData) {
   if (f.size > MAX_BYTES) redirect('/verify?e=size');
   if (!ALLOWED_TYPES.has(f.type)) redirect('/verify?e=type');
   const bytes = Buffer.from(await f.arrayBuffer());
-  const dataUri = `data:${f.type};base64,${bytes.toString('base64')}`;
-  const parse = schema.safeParse({ name: f.name, type: f.type, data: dataUri });
+  const parse = schema.safeParse({ name: f.name, type: f.type });
   if (!parse.success) redirect('/verify?e=invalid');
+
+  let data: { fileData?: string; fileUrl?: string; publicId?: string };
+  if (isCloudinaryConfigured()) {
+    const { secureUrl, publicId } = await uploadProofImage(bytes, f.type, f.name);
+    data = { fileUrl: secureUrl, publicId };
+  } else {
+    data = { fileData: `data:${f.type};base64,${bytes.toString('base64')}` };
+  }
+
   await prisma.verificationProof.create({
-    data: { userId: s.userId, fileData: dataUri, fileName: f.name, mimeType: f.type, status: 'pending' },
+    data: { userId: s.userId, ...data, fileName: f.name, mimeType: f.type, status: 'pending' },
   });
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'proof_upload', detail: JSON.stringify({ fileName: f.name, size: f.size }) } });
+    await prisma.auditLog.create({ data: { userId: s.userId, action: 'proof_upload', detail: JSON.stringify({ fileName: f.name, size: f.size, storage: data.fileUrl ? 'cloudinary' : 'inline' }) } });
   } catch { /* audit failure must not block the upload */ }
   revalidatePath('/player');
   redirect('/player');

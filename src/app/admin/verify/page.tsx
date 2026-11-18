@@ -1,16 +1,26 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifySession } from '@/lib/auth';
+import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { reviewProof } from './actions';
 
 export default async function AdminVerify() {
   const jar = await cookies();
-  const token = jar.get('ffscout_session')?.value;
+  const token = jar.get(SESSION_COOKIE_NAME)?.value;
   const s = token ? await verifySession(token) : null;
   if (!s) redirect('/login');
   if (s.userType !== 'admin') redirect('/player');
-  const proofs = await prisma.verificationProof.findMany({ where: { status: 'pending' }, include: { user: true }, orderBy: { createdAt: 'asc' } });
+  const proofs = await prisma.verificationProof.findMany({
+    where: { status: 'pending' },
+    orderBy: { createdAt: 'asc' },
+    select: {
+      id: true,
+      fileData: true,
+      fileUrl: true,
+      mimeType: true,
+      user: { select: { displayName: true, rank: true, college: true, email: true } },
+    },
+  });
   return (
     <div className="shell" style={{ paddingBottom: 48 }}>
       <h1 style={{ marginTop: 32 }}>Verification queue ({proofs.length} pending)</h1>
@@ -20,7 +30,13 @@ export default async function AdminVerify() {
             <div>
               <div className="tile-title">{p.user.displayName} · {p.user.rank} · {p.user.college || 'Affiliation withheld'}</div>
               <div className="tile-sub">{p.user.email}</div>
-              {p.fileData.startsWith('data:') && <img src={p.fileData} alt="rank" style={{ maxWidth: 280, objectFit: 'cover', borderRadius: 8, marginTop: 8 }} />}
+              {(p.fileUrl ?? (p.fileData?.startsWith('data:') ? p.fileData : null)) && (
+                <img
+                  src={p.fileUrl ?? p.fileData ?? ''}
+                  alt="Rank screenshot awaiting verification"
+                  style={{ maxWidth: 280, objectFit: 'cover', borderRadius: 8, marginTop: 8 }}
+                />
+              )}
             </div>
             <form action={reviewProof} className="admin-actions">
               <input type="hidden" name="id" value={p.id} />
