@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BRAND } from '@/lib/brand';
 
 export const metadata = {
   title: 'Terms — FF Scout',
@@ -15,7 +16,7 @@ export default function Terms() {
         <li>One event unlock covers only that one tournament or scrim series</li>
         <li>₹499 per event is fully refundable on request until you lock your roster for the tournament (before you download and approve it). After the lock, the unlock is non-refundable</li>
         <li>Factual accuracy is required — FF Scout verifies ranks but organizers must still confirm finals</li>
-        <li>Disputes go to manideepdaram@gmail.com within 14 days of the event</li>
+        <li>Disputes go to <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a> within 14 days of the event</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>Players</h2>

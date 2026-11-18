@@ -38,7 +38,7 @@ export default async function HomePage() {
       <section className="section" style={{ background: 'var(--panel)' }}>
         <div className="shell">
           <Reveal>
-            <h2 style={{ maxWidth: '42ch' }}>A team for your tournament, in <span style={{ color: '#ff6b00' }}>one shortlist</span></h2>
+            <h2 style={{ maxWidth: '42ch' }}>A team for your tournament, in <span style={{ color: 'var(--accent)' }}>one shortlist</span></h2>
             <p className="lead" style={{ marginTop: 12 }}>Cafés, college fests, sponsored scrims and guild trials — verified Indian Free Fire rosters are scoped to your event, screened once by our admin, and locked the moment you approve them. You see the ranks; the players see your invite.</p>
           </Reveal>
           <div className="grid-3" style={{ marginTop: 36 }}>
