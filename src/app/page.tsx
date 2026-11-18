@@ -1,47 +1,56 @@
-import { Hero } from './components/Hero';
 import Link from 'next/link';
+import { Hero } from './components/Hero';
 import { Waitlist } from '@/components/Waitlist';
+import { buildHeroContext } from '@/lib/hero-data';
 
-export default function HomePage() {
+export const dynamic = 'force-dynamic';
+
+export default async function HomePage() {
+  const ctx = await buildHeroContext();
   return (
     <>
-      <Hero />
+      <Hero roster={ctx.roster} />
 
-      <section className="section" style={{ background: 'var(--panel)', borderTop: '1px solid var(--line)' }}>
+      <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
         <div className="shell">
-          <h2>One organiser, one shortlist</h2>
-          <p className="lead">Indian grassroots organizers juggle dozens of WhatsApp groups, sponsor sheets, and zero screening. FF Scout is one verified pool across cafés, fests, sponsors and guilds.</p>
+          <h2>Indian grassroots, one pool</h2>
+          <p className="lead">Cafés, fest leads, sponsors and guild scouts juggle dozens of WhatsApp groups and zero screening. FF Scout is one verified pool across the country — no leaked rosters, no fake ranks, no missing members on the day.</p>
+          <div className="kpis">
+            <div className="kpi"><div className="kpi-num">{ctx.totalVerified}</div><div className="kpi-label">verified players</div></div>
+            <div className="kpi"><div className="kpi-num">{ctx.pendingCount}</div><div className="kpi-label">pending proofs</div></div>
+            <div className="kpi"><div className="kpi-num">{ctx.collegeCount}</div><div className="kpi-label">affiliations represented</div></div>
+          </div>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" style={{ background: 'var(--panel)', borderTop: '1px solid var(--line)' }}>
         <div className="shell">
-          <h2>Three things FF Scout does</h2>
+          <h2>What FF Scout actually does</h2>
           <div className="grid-2">
             <div className="card card-highlight">
-              <h3>Verified profiles, not aspiration</h3>
-              <p>Rank screenshot uploaded, admin-approved, one profile per person.</p>
+              <h3>Verified, not aspiration</h3>
+              <p>Rank screenshot uploaded, admin manually eye-verified. One profile per person. Players who lie are removed permanently.</p>
             </div>
             <div className="card">
-              <h3>Roles that match the job</h3>
-              <p>Rusher, AWM Sniper, Support, Anchor, IGL, Lurker. Organisers filter by what the match needs.</p>
+              <h3>Filters that match the job</h3>
+              <p>Rusher, AWM Sniper, Support, Anchor, IGL, Lurker. Organisers filter by role needed for the event — not weapon preference.</p>
             </div>
             <div className="card">
-              <h3>₹499 unlock, once per event</h3>
-              <p>Pay once per tournament - café night, LAN series, fest, sponsor activation. Not monthly. Not per-seat.</p>
+              <h3>₹499 to unlock one event</h3>
+              <p>Pay only when your tournament actually needs the roster. Not monthly. Not per-seat. Never before a real sign-up.</p>
             </div>
             <div className="card">
               <h3>₹0 for players</h3>
-              <p>Everyone registers free. Organisers pay only when they need the verified roster, never before.</p>
+              <p>Players never pay a rupee. Organizers pay only when they need verified rosters. The verification queue is free.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
+      <section className="section">
         <div className="shell">
           <h2>FF roles organisers ask for</h2>
-          <p className="lead">Each profile tags one role and one weapon specialty. Sample from the demo seeds.</p>
+          <p className="lead">Each verified profile is tagged one role and one skill priority.</p>
           <table className="roles-table">
             <thead><tr><th>Role</th><th>Loadout</th><th>What organisers check</th></tr></thead>
             <tbody>
@@ -56,10 +65,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section" style={{ background: 'var(--panel)', borderTop: '1px solid var(--line)' }}>
+      <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
         <div className="shell">
-          <h2>Your city not on the map yet?</h2>
-          <p className="lead">Tell us where you run events. One email unlock gets you verified shortlists for your city once we onboard your neighborhood organizers.</p>
+          <h2>Not in your city yet?</h2>
+          <p className="lead">Tell us where you organise events. Once we onboard your neighbourhood organisers, your city gets unlocked — ₹499 to the event, full refund if the roster fails.</p>
           <Waitlist />
         </div>
       </section>
