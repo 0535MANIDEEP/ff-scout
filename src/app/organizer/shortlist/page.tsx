@@ -18,13 +18,13 @@ export default async function OrganizerShortlist() {
   return (
     <main className="shell" style={{ paddingBottom: 48 }}>
       <h1 style={{ marginTop: 32 }}>Shortlist builder</h1>
-      <p className="subtext">Filter verified Indian college FF players. ₹499 per event unlock coming shortly.</p>
+      <p className="subtext">Filter verified FF rosters across colleges, cafés, LANs, guilds and sponsor activations. ₹499 per event unlock coming shortly.</p>
       <div className="list" style={{ marginTop: 20 }}>
         {players.map(p => (
           <div className="rowitem" key={p.id}>
             <div>
               <div className="tile-title">{p.displayName} <span className="small">· {p.rank} · {p.role} · {p.city}</span></div>
-              <div className="tile-sub">{p.college || 'College withheld'} · {p.status}</div>
+              <div className="tile-sub">{p.college || 'Affiliation withheld'} · {p.status}</div>
             </div>
             <span className="chip chip-sapphire">{p.verified ? 'Verified ✓' : 'Pending'}</span>
           </div>

@@ -1,35 +1,26 @@
-# FF Scout
+# FF Scout — AGENTS.md (Quick Reference)
 
-Verified Free Fire grassroots-competitive matching between Indian college organizers/festival leads and players. See `SPEC.md` for the one-page definition and `RULES.md` for the engineering rules.
+Product line: **The verified grassroots Free Fire talent pool for Indian organizers.**
+We match verified rosters to organizers across:
+- College fest organizers (e.g., Ganjikhana Game Nite, VJIT eSports Club)
+- Tier-2/3 tournament organizer collectives
+- Gamer-café LAN event hosts
+- Pro-clan scouting (paid slot)
+- Sponsor activations on a ₹15,000/campaign basis
 
-## Run (local)
-```bash
-npm install
-npm run dev
-```
-Open http://localhost:3000.
+Who it is NOT:
+- Recruitment app for pro players (they already have an agent)
+- A streaming platform
+- A bracket/leaderboard tool
 
-## Environment
-Copy `.env.example` → `.env.local` and fill values.
-**No secrets are committed.** Vercel reads env from project settings.
+Money flow:
+- Free to join the pool
+- ₹499 / unlock per organizer's single event
+- ₹999 / annual pro-scout export (5 exports)
+- ₹15,000 / sponsor activation for verified cohorts
 
-## Deploy to Vercel + Neon (free tier)
-```bash
-git push origin main
-# Vercel auto-deploys; CI verifies the build first.
-```
-
-## Layout
-```
-src/app/              Next.js App Router
-src/app/components/   UI primitives (Button, Card)
-src/lib/              db, auth, clients
-prisma/               schema.prisma + seed.ts
-.github/workflows/    ci.yml
-```
-
-## Screenshot & verify
-Players upload a `rank` screenshot → admin verifies in queue → `players.verified = true`.
-
-## License
-MIT.
+Engineering contract:
+- `main` → CI green before push
+- Every screen needs real data or honest fraction
+- No feature without a pilot organizer confirming payment readiness
+- No new dependencies without an npm audit + update-by-necessity reason

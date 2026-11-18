@@ -19,7 +19,7 @@ export default function SignUpPage() {
     <main className="shell">
       <div className="form-card">
         <h1>Join the roster pool</h1>
-        <p className="subtext" style={{ marginBottom: 16 }}>Verified Indian college FF players — free for players, ₹499 for organizers.</p>
+        <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent — free for players, ₹499 for organizers.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
           <label className="label">Email<input className="input" name="email" type="email" required /></label>
@@ -28,7 +28,7 @@ export default function SignUpPage() {
             <label className="label">Password<input className="input" name="password" type="password" minLength={8} required /></label>
           </div>
           <div className="row" style={{ marginTop: 10 }}>
-            <label className="label">College<input className="input" name="college" required /></label>
+            <label className="label">Affiliation (college, café, LAN, guild, sponsor)<input className="input" name="college" placeholder="VJIT / Ganjikhana / Predator Cyber..." required /></label>
             <label className="label">City<input className="input" name="city" required /></label>
           </div>
           <div className="row" style={{ marginTop: 10 }}>

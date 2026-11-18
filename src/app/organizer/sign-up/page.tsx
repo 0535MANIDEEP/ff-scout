@@ -14,9 +14,9 @@ export default function OrgSignUpPage() {
         <p className="subtext" style={{ marginBottom: 16 }}>Verified rosters for your fest. ₹499 per event to unlock the shortlist.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
-          <label className="label">Organization name<input className="input" name="orgName" required placeholder="Ganjikhana Cyber Smash" /></label>
+          <label className="label">Organization name<input className="input" name="orgName" required placeholder="Rajawadi Cyber Game Nite" /></label>
           <div className="row" style={{ marginTop: 10 }}>
-            <label className="label">Type<select className="input" name="orgType">{['College Fest','Club','Tournament Series','Private Guild','LAN Event','Expo'].map(x=><option key={x}>{x}</option>)}</select></label>
+            <label className="label">Type<select className="input" name="orgType">{['College fest','LAN / gaming café','Sponsor activation','Guild','Tournament series','Community scrims'].map(x=><option key={x}>{x}</option>)}</select></label>
             <label className="label">City<input className="input" name="city" required defaultValue="Hyderabad" /></label>
           </div>
           <label className="label" style={{ marginTop: 10 }}>Contact person<input className="input" name="displayName" required /></label>

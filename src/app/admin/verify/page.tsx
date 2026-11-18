@@ -18,7 +18,7 @@ export default async function AdminVerify() {
         {proofs.map(p => (
           <div className="rowitem" key={p.id}>
             <div>
-              <div className="tile-title">{p.user.displayName} · {p.user.rank} · {p.user.college}</div>
+              <div className="tile-title">{p.user.displayName} · {p.user.rank} · {p.user.college || 'Affiliation withheld'}</div>
               <div className="tile-sub">{p.user.email}</div>
               {p.fileData.startsWith('data:') && <img src={p.fileData} alt="rank" style={{ maxWidth: 280, objectFit: 'cover', borderRadius: 8, marginTop: 8 }} />}
             </div>
