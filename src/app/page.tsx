@@ -1,5 +1,6 @@
 import { Hero } from './components/Hero';
 import Link from 'next/link';
+import { Waitlist } from '@/components/Waitlist';
 
 export default function HomePage() {
   return (
@@ -57,9 +58,9 @@ export default function HomePage() {
 
       <section className="section" style={{ background: 'var(--panel)', borderTop: '1px solid var(--line)' }}>
         <div className="shell">
-          <span className="section-eyebrow">How billing works</span>
-          <h2>₹499, once</h2>
-          <p className="lead">Once per event, once per café series, once per sponsor activation. Not monthly. Not per-seat. Players never pay.</p>
+          <h2>Your city not on the map yet?</h2>
+          <p className="lead">Tell us where you run events. One email unlock gets you verified shortlists for your city once we onboard your neighborhood organizers.</p>
+          <Waitlist />
         </div>
       </section>
     </>

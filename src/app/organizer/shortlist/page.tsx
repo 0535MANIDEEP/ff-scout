@@ -23,7 +23,15 @@ export default async function OrganizerShortlist() {
         <a className="btn-ghost" href="/organizer/shortlist/download" style={{ textDecoration: 'none' }}>Download CSV shortlist (₹499 pending)</a>
       </div>
       <div className="list" style={{ marginTop: 20 }}>
-        {players.map(p => (
+        {players.length === 0 ? (
+          <div className="card" style={{ textAlign: 'center', padding: 40 }}>
+            <h3>Roster pool is empty</h3>
+            <p className="subtext" style={{ marginTop: 8, marginBottom: 14 }}>
+              Verified players join when they upload their screenshot. Organizers verify theirs, too. If you are not seeing anyone, the Admin is still reviewing batches.
+            </p>
+            <Link href="/sign-up" className="btn" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>Add a player</Link>
+          </div>
+        ) : players.map(p => (
           <div className="rowitem" key={p.id}>
             <div>
               <div className="tile-title">{p.displayName} <span className="small">· {p.rank} · {p.role} · {p.city}</span></div>
@@ -32,7 +40,6 @@ export default async function OrganizerShortlist() {
             <span className="chip chip-sapphire">{p.verified ? 'Verified ✓' : 'Pending'}</span>
           </div>
         ))}
-        {players.length === 0 && <div className="card">No verified players yet — you’ll be the first to pick from.</div>}
       </div>
     </main>
   );
