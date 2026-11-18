@@ -16,8 +16,11 @@ export default async function PlayerDashboard() {
   const approved = user.proofs.filter(p => p.status === 'approved').length;
   return (
     <main className="shell" style={{ paddingBottom: 48 }}>
-      <h1 style={{ marginTop: 32 }}>Welcome, {user.displayName}</h1>
-      <p className="subtext">IGN {user.displayName} · {user.rank} rank · {user.role}</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: 32 }}>
+        <div><h1>Welcome, {user.displayName}</h1>
+          <p className="subtext">IGN {user.displayName} · {user.rank} rank · {user.role}</p></div>
+        <form action="/sign-out" method="post"><button className="btn-ghost" type="submit">Sign out</button></form>
+      </div>
       <div className="dashboard">
         <section className="card">
           <h3>Rank verification</h3>

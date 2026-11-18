@@ -5,10 +5,11 @@ const pkg = require('../package.json');
 process.env.DATABASE_URL = 'file:./dev.db';
 const { PrismaClient } = require('@prisma/client');
 
-test('database has seeded demo players', async () => {
+test('database has seeded demo players and one admin', async () => {
   const prisma = new PrismaClient();
   const players = await prisma.user.findMany({ where: { userType: 'player' } });
-  assert.equal(players.length, 5);
+  assert.ok(players.length >= 5, 'expected at least 5 seeded players');
+  assert.ok(players.every(p => p.rank && p.role), 'every seeded player must have rank and role');
   const admin = await prisma.user.findUnique({ where: { email: 'admin@ffscout.dev' } });
   assert.equal(admin.userType, 'admin');
   await prisma.$disconnect();

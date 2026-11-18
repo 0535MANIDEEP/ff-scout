@@ -19,6 +19,9 @@ export default async function OrganizerShortlist() {
     <main className="shell" style={{ paddingBottom: 48 }}>
       <h1 style={{ marginTop: 32 }}>Shortlist builder</h1>
       <p className="subtext">Filter verified FF rosters across colleges, cafés, LANs, guilds and sponsor activations. ₹499 per event unlock coming shortly.</p>
+      <div className="shell" style={{ display: 'flex', gap: 10, marginTop: 16 }}>
+        <a className="btn-ghost" href="/organizer/shortlist/download" style={{ textDecoration: 'none' }}>Download CSV shortlist (₹499 pending)</a>
+      </div>
       <div className="list" style={{ marginTop: 20 }}>
         {players.map(p => (
           <div className="rowitem" key={p.id}>

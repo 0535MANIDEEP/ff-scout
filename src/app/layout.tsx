@@ -23,6 +23,7 @@ function Header() {
         </Link>
         <nav className="nav">
           <Link href="/organizer/shortlist">Organizers</Link>
+          <Link href="/login">Sign in</Link>
           <Link href="/sign-up" className="nav-cta">Join as Player</Link>
         </nav>
       </div>
