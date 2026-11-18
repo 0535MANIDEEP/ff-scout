@@ -52,7 +52,7 @@ export default function Privacy() {
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li><strong>Access:</strong> ask for a copy of what we hold about you — we reply with a CSV of your account and proof metadata.</li>
         <li><strong>Correction:</strong> ask us to fix wrong details (e.g., wrong IGN).</li>
-        <li><strong>Erasure:</strong> ask us to delete your account; we delete the user row, cascade-delete your verification screenshots, null out log references, and confirm within 72 hours.</li>
+        <li><strong>Erasure:</strong> use Settings → Delete account, or email the Grievance Officer — we delete the user row, cascade-delete your verification screenshots, and confirm within 72 hours.</li>
         <li><strong>Grievance:</strong> if we fail, contact the Grievance Officer above; beyond that, the Data Protection Board of India.</li>
         <li><strong>Withdraw consent:</strong> email us; we erase your data on receipt.</li>
       </ul>
