@@ -2,11 +2,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
-import { IBM_Plex_Mono } from "next/font/google";
-import { cn } from "@/lib/utils";
-import { InkRoot } from '@/components/InkRoot';
-
-const ibmPlexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://ffscout.vercel.app'),
@@ -43,7 +38,7 @@ function Header() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" style={{ colorScheme: 'dark' }} className={cn(ibmPlexMono.variable)}>
+    <html lang="en" style={{ colorScheme: 'dark' }}>
       <body>
         <Script src="/sakuga-core.js" strategy="afterInteractive" />
         <Script src="/sakuga-button.js" strategy="afterInteractive" />
@@ -61,22 +56,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             description: 'Searchable verified Free Fire rosters for Indian tournaments and cafés.'
           }) }}
         />
-        <InkRoot>
-          <Header />
-          <main>{children}</main>
-          <footer className="shell" role="contentinfo">
-            <div className="footnote">
-              FF Scout — verified grassroots Free Fire talent for Indian organizers. Built by Manideep Daram. India-focused. Free Fire and Garena are trademarks of Garena International II Private Limited — all marks property of their owners.
-              <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
-                <Link href="/about">About</Link>
-                <Link href="/faq">FAQ</Link>
-                <Link href="/terms">Terms</Link>
-                <Link href="/privacy">Privacy</Link>
-              </nav>
-              <div style={{ marginTop: 12 }}><sakuga-button>Made by a human</sakuga-button></div>
-            </div>
-          </footer>
-        </InkRoot>
+        <Header />
+        <main>{children}</main>
+        <footer className="shell" role="contentinfo">
+          <div className="footnote">
+            FF Scout — verified grassroots Free Fire talent for Indian organizers. Built by Manideep Daram. India-focused. Free Fire is a registered trademark of Garena.
+            <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
+              <Link href="/about">About</Link>
+              <Link href="/faq">FAQ</Link>
+              <Link href="/terms">Terms</Link>
+              <Link href="/privacy">Privacy</Link>
+            </nav>
+            <div style={{ marginTop: 12 }}><sakuga-button>Made by a human</sakuga-button></div>
+          </div>
+        </footer>
       </body>
     </html>
   );

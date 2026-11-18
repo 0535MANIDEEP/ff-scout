@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
 
 const players = [
   { handle: "RushKing_21", rank: "Heroic", region: "Secunderabad", role: "Rusher", tag: "Ganjikhana" },
@@ -26,7 +25,7 @@ export function Hero() {
             Indian Free Fire organizers find verified rosters by role, rank and region. Gamer cafés, fest leads, sponsors, guild scouts — one searchable pool.
           </p>
           <div className="cta-row">
-            <Link href="/sign-up"><Button size="lg">Join the pool</Button></Link>
+            <Link href="/sign-up"><button className="btn btn-lg">Join the pool</button></Link>
             <Link href="/organizer/sign-up" className="btn-ghost">I organize events</Link>
           </div>
         </motion.div>
