@@ -10,7 +10,7 @@ const grotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-grotesk', 
 const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ffscout.vercel.app'),
+  metadataBase: new URL('https://ff-scout.vercel.app'),
   title: 'FF Scout — Free Fire roster finder for organizers in India',
   description: 'Find verified Free Fire players for your college fest, café scrim night, esports activation, or guild recruit. One searchable pool, ranked honest, unlocked in minutes for Indian organizers.',
   keywords: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: 'website',
     title: 'FF Scout — Free Fire roster finder for tournament organizers in India',
     description: 'Find verified Free Fire players for your college fest, café scrim night, esports activation or guild — one searchable pool, honest ranks, Indian organized tournaments.',
-    url: 'https://ffscout.vercel.app/',
+    url: 'https://ff-scout.vercel.app/',
     siteName: 'FF Scout',
     images: [{ url: '/hero-gaming.jpg', width: 1200, height: 900, alt: 'FF Scout hero image – verified FF players across India' }],
     locale: 'en_IN',
@@ -67,7 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             '@context': 'https://schema.org',
             '@type': 'WebApplication',
             name: 'FF Scout',
-            url: 'https://ffscout.vercel.app/',
+            url: 'https://ff-scout.vercel.app/',
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web',
             offers: { '@type': 'Offer', price: '499', priceCurrency: 'INR' },

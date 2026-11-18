@@ -21,6 +21,10 @@ const schema = z.object({
 export type ActionState = { ok: boolean; error?: string };
 
 export async function registerOrganizer(_: ActionState, formData: FormData): Promise<ActionState> {
+  const agree = formData.get('agree') === 'on';
+  const is18 = formData.get('is18') === 'on';
+  if (!agree) return { ok: false, error: 'You must agree to the Privacy Notice to create an account.' };
+  if (!is18) return { ok: false, error: 'FF Scout is 18+. Confirm your age to continue.' };
   const emailRaw = String(formData.get('email') ?? '').trim().toLowerCase();
   const rl = await checkRateLimit(`org-signup:${emailRaw}`, 3, 60 * 60 * 1000);
   if (!rl.ok) return { ok: false, error: `Too many attempts. Try again in ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s).` };
@@ -50,6 +54,8 @@ export async function registerOrganizer(_: ActionState, formData: FormData): Pro
         orgName: d.orgName.trim(),
         orgType: d.orgType.trim(),
         city: d.city.trim(),
+        consentedAt: new Date(),
+        ageConfirmed: true,
       },
     });
   } catch (err) {
