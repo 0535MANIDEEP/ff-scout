@@ -5,7 +5,8 @@ import { cookies } from 'next/headers';
 import { hash } from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { signSession } from '@/lib/auth';
+import { Prisma } from '@prisma/client';
+import { signSession, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS } from '@/lib/auth';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
@@ -41,22 +42,32 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) return { ok: false, error: 'IGN or email already registered.' };
   const passwordHash = await hash(d.password, 10);
-  const user = await prisma.user.create({
-    data: {
-      email,
-      passwordHash,
-      displayName: d.displayName.trim(),
-      userType: 'player',
-      college: d.college.trim(),
-      city: d.city.trim(),
-      role: d.role,
-      rank: d.rank,
-      status: 'looking',
-    },
-  });
+  // The findUnique above is a check, not a guarantee — two concurrent signups
+  // with the same email both pass it. The unique index is the real gate; P2002 is the answer.
+  let user;
+  try {
+    user = await prisma.user.create({
+      data: {
+        email,
+        passwordHash,
+        displayName: d.displayName.trim(),
+        userType: 'player',
+        college: d.college.trim(),
+        city: d.city.trim(),
+        role: d.role,
+        rank: d.rank,
+        status: 'looking',
+      },
+    });
+  } catch (err) {
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+      return { ok: false, error: 'IGN or email already registered.' };
+    }
+    throw err;
+  }
   const token = await signSession({ userId: user.id, userType: 'player', displayName: user.displayName, email: user.email });
   const jar = await cookies();
-  jar.set('ffscout_session', token, { httpOnly: true, sameSite: 'lax', path: '/', maxAge: 60*60*24*7 });
+  jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
   try {
     await prisma.auditLog.create({ data: { userId: user.id, action: 'signup', detail: JSON.stringify({ email, role: d.role, rank: d.rank }) } });
   } catch { /* never let an audit-write failure block signup */ }

@@ -14,6 +14,7 @@ export default async function OrganizerShortlist() {
     where: { userType: 'player' },
     orderBy: { createdAt: 'desc' },
     take: 50,
+    select: { id: true, displayName: true, role: true, rank: true, college: true, city: true, verified: true, status: true },
   });
   return (
     <main className="shell" style={{ paddingBottom: 48 }}>

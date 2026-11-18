@@ -2,22 +2,39 @@
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifySession } from '@/lib/auth';
+import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 
 export async function reviewProof(formData: FormData) {
   const jar = await cookies();
-  const token = jar.get('ffscout_session')?.value;
+  const token = jar.get(SESSION_COOKIE_NAME)?.value;
   const s = token ? await verifySession(token) : null;
   if (!s || s.userType !== 'admin') return;
-  const id = String(formData.get('id'));
-  const verdict = String(formData.get('verdict'));
+  const id = String(formData.get('id') ?? '');
+  const verdict = String(formData.get('verdict') ?? '');
+  if (!id || (verdict !== 'approve' && verdict !== 'reject')) return;
   if (verdict === 'approve') {
-    await prisma.verificationProof.update({ where: { id }, data: { status: 'approved', reviewedAt: new Date(), reviewerId: s.userId } });
-    const proof = await prisma.verificationProof.findUnique({ where: { id } });
-    if (proof) await prisma.user.update({ where: { id: proof.userId }, data: { verified: true } });
+    // Proof flip + player verified flip + audit entry must be all-or-nothing.
+    await prisma.$transaction(async (tx) => {
+      const proof = await tx.verificationProof.update({
+        where: { id },
+        data: { status: 'approved', reviewedAt: new Date(), reviewerId: s.userId },
+      });
+      await tx.user.update({ where: { id: proof.userId }, data: { verified: true } });
+      await tx.auditLog.create({
+        data: { userId: s.userId, action: 'proof_approved', detail: JSON.stringify({ proofId: id, playerId: proof.userId }) },
+      });
+    });
   } else {
-    await prisma.verificationProof.update({ where: { id }, data: { status: 'rejected', reviewedAt: new Date(), reviewerId: s.userId } });
+    await prisma.$transaction(async (tx) => {
+      await tx.verificationProof.update({
+        where: { id },
+        data: { status: 'rejected', reviewedAt: new Date(), reviewerId: s.userId },
+      });
+      await tx.auditLog.create({
+        data: { userId: s.userId, action: 'proof_rejected', detail: JSON.stringify({ proofId: id }) },
+      });
+    });
   }
   revalidatePath('/admin/verify');
   redirect('/admin/verify');
