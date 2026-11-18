@@ -196,3 +196,34 @@ h3 { font-family: var(--font-head); }
   .nav { gap: 10px; font-size: 12px; }
   .nav a:not(.nav-cta) { display: none; }
 }
+
+/* Field manual — /learn. HUD tiles, left index, zero decoration without a job. */
+.learn-grid { display: grid; grid-template-columns: 280px 1fr; gap: 28px; align-items: start; }
+.manual-index { position: sticky; top: 84px; display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--panel-3); padding: 14px; background: var(--panel); }
+.manual-index-title { font-family: var(--font-ui); font-size: 10px; font-weight: 800; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 4px; }
+.manual-index a { display: flex; gap: 10px; align-items: baseline; padding: 8px 10px; color: var(--muted); font-size: 13px; border-left: 2px solid transparent; }
+.manual-index a:hover { color: var(--text); border-left-color: var(--accent); }
+.manual-index a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; color: var(--text); }
+.manual-index-num { font-family: var(--font-ui); font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--cyan); }
+
+.hud-tile { background: var(--panel); border: 1px solid var(--panel-3); border-left: 2px solid var(--accent); padding: 16px 18px; }
+.hud-tile-tag { font-family: var(--font-ui); font-size: 10px; font-weight: 800; letter-spacing: 0.16em; color: var(--cyan); }
+.hud-tile-title { font-size: 22px; margin-top: 6px; letter-spacing: -0.01em; }
+.hud-tile-brief { color: var(--muted); font-size: 13px; margin-top: 4px; max-width: 60ch; }
+.hud-tile-block { margin-top: 14px; }
+.hud-tile-heading { font-family: var(--font-ui); font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); margin-bottom: 6px; }
+.hud-tile ul { padding-left: 18px; }
+.hud-tile li { color: var(--muted); font-size: 13.5px; line-height: 1.6; margin-bottom: 4px; }
+.hud-tile-links { list-style: none; padding: 0; margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.hud-tile-links li { display: flex; gap: 10px; align-items: baseline; }
+.where { font-family: var(--font-ui); font-size: 9px; font-weight: 800; letter-spacing: 0.12em; padding: 2px 6px; border: 1px solid var(--panel-3); color: var(--muted); flex-shrink: 0; }
+.where-official { color: var(--success); border-color: var(--success); }
+.where-community { color: var(--risk); border-color: var(--risk); }
+.where-video { color: var(--cyan); border-color: var(--cyan); }
+.hud-tile-links a { font-size: 13px; color: var(--text); border-bottom: 1px solid var(--panel-3); }
+.hud-tile-links a:hover { border-bottom-color: var(--accent); color: var(--accent-2); }
+
+@media (max-width: 860px) {
+  .learn-grid { grid-template-columns: 1fr; }
+  .manual-index { position: static; }
+}
