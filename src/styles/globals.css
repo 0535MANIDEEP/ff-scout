@@ -34,6 +34,7 @@ code { font-family: var(--font-jbmono), ui-monospace, monospace; font-size: 0.9e
 
 /* Main chrome */
 .shell { max-width: 1200px; margin: 0 auto; padding: 0 22px; }
+.page-narrow { max-width: 860px; margin: 0 auto; padding: 48px 24px 96px; }
 
 /* Keyboard affordances */
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
@@ -85,9 +86,11 @@ h3 { font-family: var(--font-head); }
 .subtext { color: var(--muted); font-size: 17px; line-height: 1.55; }
 
 /* CTA row + tag button */
-/* Hand-rolled motion: opacity + translateY only. Reduced-motion respected. */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1); }
-.reveal.is-visible { opacity: 1; transform: none; }
+/* Hand-rolled motion: opacity + translateY only. Reduced-motion respected.
+   Content ships visible; motion arms only when JS is live. */
+.reveal { opacity: 1; transform: none; }
+.reveal.is-armed { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.2, 0.7, 0.3, 1); }
+.reveal.is-armed.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
   .progress-bar { animation: none; }
@@ -144,7 +147,8 @@ h3 { font-family: var(--font-head); }
 
 /* Role tables — scoreboard aesthetic */
 .roles-table { width: 100%; border-collapse: collapse; margin-top: 28px; }
-.roles-table th, .roles-table td { padding: 10px 12px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--panel-3); }
+.table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 4px; }
+.roles-table th, .roles-table td { padding: 10px 12px; text-align: left; font-size: 13px; border-bottom: 1px solid var(--panel-3); white-space: nowrap; }
 .roles-table th { font-family: var(--font-ui); text-transform: uppercase; font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
 .roles-table tr:last-child td { border-bottom: 0; }
 

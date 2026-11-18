@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { BRAND } from '@/lib/brand';
 
-// Self-hosted at build time via next/font — no render-blocking external CSS,
+// Self-hosted at build time via next/font, no render-blocking external CSS,
 // no system-font fallback masquerading as the design system.
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const grotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' });
@@ -12,7 +12,7 @@ const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', d
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
-  title: `${BRAND.name} — ${BRAND.descriptor}`,
+  title: `${BRAND.name}, ${BRAND.descriptor}`,
   description: BRAND.description,
   keywords: [
     'free fire roster',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   authors: [{ name: BRAND.founder, url: BRAND.founderGithub }],
   openGraph: {
     type: 'website',
-    title: `${BRAND.name} — Free Fire roster finder for tournament organizers in India`,
+    title: `${BRAND.name}, Free Fire roster finder for tournament organizers in India`,
     description: BRAND.description,
     url: BRAND.url,
     siteName: BRAND.name,
@@ -87,7 +87,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content" tabIndex={-1}>{children}</main>
         <footer className="shell" role="contentinfo">
           <div className="footnote">
-            {BRAND.name} — {BRAND.tagline}. Built by {BRAND.founder}. {BRAND.country}-focused. {BRAND.trademark}
+            {BRAND.name}, {BRAND.tagline}. Built by {BRAND.founder}. {BRAND.country}-focused. {BRAND.trademark}
             <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
               <Link href="/learn">Learn</Link>
               <Link href="/about">About</Link>

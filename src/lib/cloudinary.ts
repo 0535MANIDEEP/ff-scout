@@ -1,12 +1,12 @@
 import { createHash, randomBytes } from 'node:crypto';
 
-// Cloudinary integration — deliberately SDK-free. The upload is one signed
+// Cloudinary integration, deliberately SDK-free. The upload is one signed
 // multipart POST; pulling the whole SDK to sign a sha1 would add a dependency
 // we cannot audit. Free tier (25 credits/month) is far above our pilot use:
 // proofs are re-encoded to <=1600px JPEG (~150–400 KB), so 25 GB of storage
 // and 25 GB of bandwidth cover thousands of players.
 //
-// Env (all optional — if unset we fall back to base64-in-Postgres, dev mode):
+// Env (all optional, if unset we fall back to base64-in-Postgres, dev mode):
 //   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
 const FOLDER = 'ff-scout/proofs';

@@ -48,7 +48,7 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) return { ok: false, error: 'IGN or email already registered.' };
   const passwordHash = await hash(d.password, 10);
-  // The findUnique above is a check, not a guarantee — two concurrent signups
+  // The findUnique above is a check, not a guarantee, two concurrent signups
   // with the same email both pass it. The unique index is the real gate; P2002 is the answer.
   let user;
   try {

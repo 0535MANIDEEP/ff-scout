@@ -6,7 +6,7 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { eraseAccount } from '@/lib/account';
 
-// DPDP: withdraw consent / erase on request. Admins cannot self-delete here —
+// DPDP: withdraw consent / erase on request. Admins cannot self-delete here , 
 // a lockout of the only moderator is a worse risk than forcing one email.
 export async function deleteAccount(): Promise<void> {
   const jar = await cookies();
@@ -19,7 +19,7 @@ export async function deleteAccount(): Promise<void> {
   try {
     await prisma.auditLog.create({ data: { action: 'account_erased', detail: JSON.stringify({ email }) } });
   } catch {
-    // best effort — the row is already gone
+    // best effort, the row is already gone
   }
   jar.delete(SESSION_COOKIE_NAME);
   redirect('/?erased=1');

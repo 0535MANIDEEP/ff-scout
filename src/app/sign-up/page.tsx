@@ -19,7 +19,7 @@ export default function SignUpPage() {
     <div className="shell">
       <div className="form-card">
         <h1>Join the roster pool</h1>
-        <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent — free for players, ₹499 for organizers.</p>
+        <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent, free for players, ₹499 for organizers.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
           <label className="label">Email<input className="input" name="email" type="email" required autoComplete="email" /></label>
@@ -44,9 +44,9 @@ export default function SignUpPage() {
             </label>
           </div>
           <div className="hp"><input name="bot" /></div>
-          <label className="checkbox-row"><input type="checkbox" name="iglCapable" /><span>I can IGL — I call a squad (strategy, rotations, final call). Verified by organizers after review.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="iglCapable" /><span>I can IGL, I call a squad (strategy, rotations, final call). Verified by organizers after review.</span></label>
           <label className="checkbox-row"><input type="checkbox" name="is18" required /><span>I am 18 or older.</span></label>
-          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a> — my IGN, affiliation and rank are shown to organizers who unlock an event; I can erase everything by emailing the grievance officer.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a>, my IGN, affiliation and rank are shown to organizers who unlock an event; I can erase everything by emailing the grievance officer.</span></label>
           <button className="btn btn-block" type="submit">Create profile & enter the pool</button>
         </form>
       </div>

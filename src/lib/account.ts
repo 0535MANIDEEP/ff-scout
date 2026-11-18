@@ -2,7 +2,7 @@ import { prisma } from './db';
 import { destroyProofImage } from './cloudinary';
 
 // DPDP erasure: remove a user's row and everything linked to it.
-// Order matters — proofs carry Cloudinary assets, so those are destroyed first.
+// Order matters, proofs carry Cloudinary assets, so those are destroyed first.
 // Audit references are nulled, not deleted: the log records that an action
 // happened, not who did it. Rate-limit rows keyed on the account's email die too.
 // Throws on unexpected failure; the caller reports to the user.

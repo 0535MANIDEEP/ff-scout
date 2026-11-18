@@ -7,7 +7,7 @@ import { BRAND } from '@/lib/brand';
 import SignOut from '@/components/SignOut';
 
 export default async function PlayerDashboard() {
-  // Server-side auth check — the pattern used on every protected page in this
+  // Server-side auth check, the pattern used on every protected page in this
   // project: read the session cookie, verify its signature + expiry, look up
   // the user fresh from the DB. Never trust a cookie without re-verifying.
   const jar = await cookies();
@@ -45,9 +45,9 @@ export default async function PlayerDashboard() {
         <section className="card">
           <h3>Rank verification</h3>
           <div className="kv"><span>Rank</span><span>{user.rank}</span></div>
-          <div className="kv"><span>K/D / ADPR</span><span>Not yet — capture after verification</span></div>
+          <div className="kv"><span>K/D / ADPR</span><span>Not yet, capture after verification</span></div>
           <div className="kv"><span>Verified screenshots</span><span>{approved > 0 ? `${approved} approved` : 'None yet'}</span></div>
-          <div className="kv"><span>Pending review</span><span className="pending">{pending > 0 ? `${pending} awaiting` : '—'}</span></div>
+          <div className="kv"><span>Pending review</span><span className="pending">{pending > 0 ? `${pending} awaiting` : ', '}</span></div>
           <div className="kv"><span>Profile status</span><span>{user.verified ? 'Verified ✓' : 'Awaiting screen upload'}</span></div>
           <Link href="/verify" className="btn" style={{ marginTop: 14, display: 'inline-flex', textDecoration: 'none' }}>Upload rank screenshot</Link>
         </section>

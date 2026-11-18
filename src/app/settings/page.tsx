@@ -6,7 +6,7 @@ import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import { deleteAccount, setAvailability } from './actions';
 
-export const metadata = { title: 'Settings — FF Scout' };
+export const metadata = { title: 'Settings, FF Scout' };
 
 export default async function Settings({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const jar = await cookies();
@@ -21,7 +21,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
   if (!user) redirect('/login');
   const isAdmin = user.userType === 'admin';
   return (
-    <div className="shell" style={{ maxWidth: 720, padding: '48px 0 96px' }}>
+    <div className="page-narrow">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16 }}>
         <h1>Settings</h1>
         <SignOut />

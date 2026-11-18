@@ -9,7 +9,7 @@ import { z } from 'zod';
 
 const schema = z.object({ name: z.string(), type: z.string() });
 
-// Screenshots only. Cap at 5MB and allowlist raster image types —
+// Screenshots only. Cap at 5MB and allowlist raster image types , 
 // no SVG (admin renders these), no arbitrary uploads masquerading as proofs.
 const MAX_BYTES = 5 * 1024 * 1024;
 const ALLOWED_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp']);

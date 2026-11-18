@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const raw = await request.json().catch(() => null);
   const parsed = schema.safeParse(raw);
   if (!parsed.success) return new Response('Invalid input', { status: 422 });
-  // One email gets one submission per hour — this is a signup, not a mailer.
+  // One email gets one submission per hour, this is a signup, not a mailer.
   const rl = await checkRateLimit(`waitlist:${parsed.data.email.trim().toLowerCase()}`, 3, 60 * 60 * 1000);
   if (!rl.ok) {
     return new Response(JSON.stringify({ ok: false, error: 'Too many attempts. Try later.' }), { status: 429, headers: { 'content-type': 'application/json' } });
