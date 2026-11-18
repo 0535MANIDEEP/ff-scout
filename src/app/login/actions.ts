@@ -9,7 +9,7 @@ import { signSession } from '@/lib/auth';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(1),
 });
 
