@@ -54,6 +54,7 @@ function Header() {
           <span>{BRAND.name}</span>
         </Link>
         <nav className="nav" aria-label="Main navigation">
+          <Link href="/learn">Learn</Link>
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
           <Link href="/sign-up" className="nav-cta">Join the pool</Link>
@@ -88,6 +89,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <div className="footnote">
             {BRAND.name} — {BRAND.tagline}. Built by {BRAND.founder}. {BRAND.country}-focused. {BRAND.trademark}
             <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
+              <Link href="/learn">Learn</Link>
               <Link href="/about">About</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/terms">Terms</Link>
