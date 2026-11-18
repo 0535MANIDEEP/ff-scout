@@ -42,7 +42,7 @@ export async function registerOrganizer(_: ActionState, formData: FormData): Pro
   const existing = await prisma.user.findUnique({ where: { email } });
   if (existing) return { ok: false, error: 'Email already registered.' };
   const passwordHash = await hash(d.password, 10);
-  // Same check-then-act race as player signup — the unique index is the real gate.
+  // Same check-then-act race as player signup, the unique index is the real gate.
   let user;
   try {
     user = await prisma.user.create({

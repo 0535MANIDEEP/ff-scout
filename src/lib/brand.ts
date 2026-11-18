@@ -1,6 +1,6 @@
 // Single source of truth for brand identity. If the name, URL, pricing or
 // contact ever change, everything (metadata, robots, sitemap, JSON-LD,
-// footer, legal pages) changes here — no hunting through files.
+// footer, legal pages) changes here, no hunting through files.
 //
 // For per-deployment overrides set NEXT_PUBLIC_SITE_URL in the platform's env
 // (e.g. a preview deploy). Local dev needs nothing.
@@ -30,7 +30,7 @@ export const BRAND = {
   garenaName: 'Garena International II Private Limited',
 } as const;
 
-// Path helpers — one place, absolute always.
+// Path helpers, one place, absolute always.
 export const brandAsset = (p: string) => `${BRAND.url}${p.startsWith('/') ? p : `/${p}`}`;
-export const brandTitle = (section: string) => `${section} — ${BRAND.name}`;
+export const brandTitle = (section: string) => `${section}, ${BRAND.name}`;
 export const brandDescription = () => BRAND.description;

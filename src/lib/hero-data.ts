@@ -17,7 +17,7 @@ export interface HeroContext {
 }
 
 // Hero reads counts and the latest roster on every request. Deliberately
-// no thank-you numbers and no auto-magic — counts come from the database
+// no thank-you numbers and no auto-magic, counts come from the database
 // exactly as they are today, warts and all.
 export async function buildHeroContext(): Promise<HeroContext> {
   const [totalVerified, pendingCount, collegeRows, roster] = await Promise.all([

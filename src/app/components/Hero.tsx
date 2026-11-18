@@ -16,7 +16,7 @@ export function Hero({ roster }: { roster: HeroRosterEntry[] }) {
             A verified roster for your next tournament.
           </h1>
           <p className="subtext" style={{ marginTop: 18, maxWidth: '42ch' }}>
-            ₹499 per event. Players screened by admin — one event, one hire. Cafés, colleges, sponsors and guild scouts unlock only when it works.
+            ₹499 per event. Players screened by admin, one event, one hire. Cafés, colleges, sponsors and guild scouts unlock only when it works.
           </p>
           <div className="cta-row" style={{ marginTop: 28 }}>
             <Link href="/organizer/sign-up" className="btn" style={{ fontSize: 16, padding: '14px 22px' }}>Unlock verified rosters →</Link>
@@ -41,7 +41,7 @@ export function Hero({ roster }: { roster: HeroRosterEntry[] }) {
           ) : roster.slice(0, 4).map((p) => (
             <Link key={p.id} href="/sign-up" className="hud-row" style={{ textDecoration: 'none' }}>
               <span className="hud-handle">{p.displayName}</span>
-              <span className="hud-meta">{p.role ?? '—'} · {p.rank}</span>
+              <span className="hud-meta">{p.role ?? ', '} · {p.rank}</span>
               <span className="hud-tag">{p.college ?? p.city}</span>
             </Link>
           ))}
