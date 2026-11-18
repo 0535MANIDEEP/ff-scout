@@ -12,3 +12,5 @@ prisma/dev.db
 prisma/dev.db-journal
 test.db
 .vercel
+.env*
+tsconfig.tsbuildinfo
