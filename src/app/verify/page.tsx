@@ -18,7 +18,7 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
   const { e } = await searchParams;
   const error = e ? ERRORS[e] : undefined;
   return (
-    <main className="shell" style={{ paddingBottom: 48 }}>
+    <div className="shell" style={{ paddingBottom: 48 }}>
       <h1 style={{ marginTop: 32 }}>Upload your rank screenshot</h1>
       <p className="subtext">PNG, JPG or WebP, max 5MB. One screenshot per verification. Admin verifies manually in 24–48h.</p>
       {error && <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 12 }}>{error}</p>}
@@ -26,6 +26,6 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
         <label className="label">Rank screenshot<input className="input" type="file" name="screenshot" accept="image/png,image/jpeg,image/webp" required /></label>
         <SubmitAction>Submit for verification</SubmitAction>
       </form>
-    </main>
+    </div>
   );
 }

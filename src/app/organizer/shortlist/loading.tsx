@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="shell" style={{ padding: '48px 0' }}>
+    <div className="shell" style={{ padding: '48px 0' }}>
       <span className="skel skel-title" />
       <p style={{ height: 14, marginTop: 14 }} className="skel" />
       <div className="list" style={{ marginTop: 20 }}>
@@ -14,6 +14,6 @@ export default function Loading() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

@@ -17,7 +17,7 @@ export default async function OrganizerShortlist() {
     select: { id: true, displayName: true, role: true, rank: true, college: true, city: true, verified: true, status: true },
   });
   return (
-    <main className="shell" style={{ paddingBottom: 48 }}>
+    <div className="shell" style={{ paddingBottom: 48 }}>
       <h1 style={{ marginTop: 32 }}>Shortlist builder</h1>
       <p className="subtext">Filter verified FF rosters across colleges, cafés, LANs, guilds and sponsor activations. ₹499 per event unlock coming shortly.</p>
       <div className="shell" style={{ display: 'flex', gap: 10, marginTop: 16 }}>
@@ -42,6 +42,6 @@ export default async function OrganizerShortlist() {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 }

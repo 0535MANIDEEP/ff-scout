@@ -34,7 +34,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <main className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
+    <div className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
       <h1>Frequently asked</h1>
       <p className="subtext" style={{ marginTop: 12 }}>
         The questions we hear most from FF tournament organizers, casters, guild captains — answered plainly.
@@ -50,6 +50,6 @@ export default function FAQ() {
       <p style={{ marginTop: 32 }}>
         <Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link>
       </p>
-    </main>
+    </div>
   );
 }

@@ -21,7 +21,7 @@ export default async function PlayerDashboard() {
   const approved = user.proofs.filter(p => p.status === 'approved').length;
 
   return (
-    <main className="shell" style={{ paddingBottom: 48 }}>
+    <div className="shell" style={{ paddingBottom: 48 }}>
       {/* Header row: greeting + sign-out. Sign-out is a POST so a stray GET
           (bot, prefetch) can never log a user out. */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: 32 }}>
@@ -47,6 +47,6 @@ export default async function PlayerDashboard() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

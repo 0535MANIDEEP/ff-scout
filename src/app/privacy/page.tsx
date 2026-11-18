@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function Privacy() {
   return (
-    <main className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
+    <div className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
       <h1>Privacy</h1>
       <p className="subtext" style={{ marginTop: 12 }}>Last updated: 18 November 2026. India-focused.</p>
 
@@ -34,6 +34,6 @@ export default function Privacy() {
         We are not a data-broker. No we do not sell your email or phone number to any third party. No we do not sell user lists to sponsors. When a sponsor activation happens, we describe the cohort as "100+ verified FF rosters in [city]" — never person-level.
       </p>
       <p style={{ marginTop: 32 }}><Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link></p>
-    </main>
+    </div>
   );
 }
