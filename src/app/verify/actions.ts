@@ -29,7 +29,7 @@ export async function uploadProof(_formData: FormData) {
 
   let data: { fileData?: string; fileUrl?: string; publicId?: string };
   if (isCloudinaryConfigured()) {
-    const { secureUrl, publicId } = await uploadProofImage(bytes, f.type, f.name);
+    const { secureUrl, publicId } = await uploadProofImage(bytes, f.type);
     data = { fileUrl: secureUrl, publicId };
   } else {
     data = { fileData: `data:${f.type};base64,${bytes.toString('base64')}` };
