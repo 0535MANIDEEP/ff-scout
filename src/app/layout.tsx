@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+﻿import '../styles/globals.css';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
@@ -6,11 +6,21 @@ import { IBM_Plex_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { InkRoot } from '@/components/InkRoot';
 
-const ibmPlexMono = IBM_Plex_Mono({subsets:['latin'],weight:['400','500'],variable:'--font-mono'});
+const ibmPlexMono = IBM_Plex_Mono({ subsets: ['latin'], weight: ['400', '500'], variable: '--font-mono' });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://ffscout.vercel.app'),
   title: 'FF Scout — Verified grassroots FF talent for organizers across India',
-  description: 'Searchable verified Free Fire gym rosters for Indian gamer cafés, fests, sponsors and pro guilds.',
+  description: 'Searchable verified Free Fire rosters for Indian cafés, fests, sponsors and guilds.',
+  openGraph: {
+    type: 'website',
+    title: 'FF Scout — Verified grassroots FF talent',
+    description: 'Searchable verified Free Fire rosters for Indian tournaments, cafés, and sponsors.',
+    url: 'https://ffscout.vercel.app/',
+    siteName: 'FF Scout',
+    images: [{ url: '/hero-gaming.jpg', width: 1200, height: 900, alt: 'FF Scout verified grassroots Free Fire talent hero image' }],
+  },
+  robots: { index: true, follow: true },
 };
 
 function Header() {
@@ -18,13 +28,13 @@ function Header() {
     <header className="topbar">
       <div className="shell topbar-inner">
         <Link href="/" className="logo">
-          <span className="logo-mark">FF</span>
+          <span className="logo-mark" aria-hidden="true">FF</span>
           <span>FF Scout</span>
         </Link>
-        <nav className="nav">
-          <Link href="/organizer/shortlist">Organizers</Link>
-          <Link href="/login">Sign in</Link>
-          <Link href="/sign-up" className="nav-cta">Join as Player</Link>
+        <nav className="nav" aria-label="Main navigation">
+          <Link href="/about">About</Link>
+          <Link href="/faq">FAQ</Link>
+          <Link href="/sign-up" className="nav-cta">Join the pool</Link>
         </nav>
       </div>
     </header>
@@ -37,12 +47,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <Script src="/sakuga-core.js" strategy="afterInteractive" />
         <Script src="/sakuga-button.js" strategy="afterInteractive" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: 'FF Scout',
+            url: 'https://ffscout.vercel.app/',
+            applicationCategory: 'GameApplication',
+            operatingSystem: 'Web',
+            offers: { '@type': 'Offer', price: '499', priceCurrency: 'INR' },
+            creator: { '@type': 'Person', name: 'Manideep Daram', email: 'manideepdaram@gmail.com' },
+            description: 'Searchable verified Free Fire rosters for Indian tournaments and cafés.'
+          }) }}
+        />
         <InkRoot>
           <Header />
-          {children}
-          <footer className="shell">
+          <main>{children}</main>
+          <footer className="shell" role="contentinfo">
             <div className="footnote">
-              FF Scout — verified grassroots Free Fire talent for Indian organizers. Built by Manideep Daram. India-focused. Free Fire is a registered trademark of Garena.
+              FF Scout — verified grassroots Free Fire talent for Indian organizers. Built by Manideep Daram. India-focused. Free Fire and Garena are trademarks of Garena International II Private Limited — all marks property of their owners.
+              <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
+                <Link href="/about">About</Link>
+                <Link href="/faq">FAQ</Link>
+                <Link href="/terms">Terms</Link>
+                <Link href="/privacy">Privacy</Link>
+              </nav>
               <div style={{ marginTop: 12 }}><sakuga-button>Made by a human</sakuga-button></div>
             </div>
           </footer>
