@@ -8,7 +8,7 @@ const initial: ActionState = { ok: true };
 export default function OrgSignUpPage() {
   const [state, action] = useActionState(registerOrganizer, initial);
   return (
-    <main className="shell">
+    <div className="shell">
       <div className="form-card">
         <h1>Organizer signup</h1>
         <p className="subtext" style={{ marginBottom: 16 }}>Verified rosters for your fest. ₹499 per event to unlock the shortlist.</p>
@@ -27,7 +27,7 @@ export default function OrgSignUpPage() {
           <button className="btn" type="submit" style={{ marginTop: 16, width: '100%' }}>Create organizer account</button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
 

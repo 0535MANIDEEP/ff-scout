@@ -16,7 +16,7 @@ const roleLabel: Record<string, string> = {
 export default function SignUpPage() {
   const [state, action] = useActionState(registerPlayer, initial);
   return (
-    <main className="shell">
+    <div className="shell">
       <div className="form-card">
         <h1>Join the roster pool</h1>
         <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent — free for players, ₹499 for organizers.</p>
@@ -48,7 +48,7 @@ export default function SignUpPage() {
           <button className="btn btn-block" type="submit">Create profile & enter the pool</button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }
 

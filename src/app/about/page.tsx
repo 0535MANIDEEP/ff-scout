@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function About() {
   return (
-    <main className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
+    <div className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
       <h1>About FF Scout</h1>
       <p className="subtext" style={{ marginTop: 12 }}>Independent builder · India · Free Fire grassroots, 2026</p>
 
@@ -36,6 +36,6 @@ export default function About() {
       <p style={{ marginTop: 32 }}>
         <Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link>
       </p>
-    </main>
+    </div>
   );
 }
