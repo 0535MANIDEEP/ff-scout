@@ -35,6 +35,8 @@ model User {
   status        String    @default("looking")
   orgName       String?
   orgType       String?
+  consentedAt   DateTime?
+  ageConfirmed  Boolean   @default(false)
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   proofs        VerificationProof[]

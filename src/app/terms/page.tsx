@@ -13,9 +13,9 @@ export default function Terms() {
       <h2 style={{ marginTop: 24 }}>Organizers</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>One event unlock covers only that one tournament or scrim series</li>
-        <li>₹499 is non-refundable once the shortlist CSV has been downloaded</li>
+        <li>₹499 per event is fully refundable on request until you lock your roster for the tournament (before you download and approve it). After the lock, the unlock is non-refundable</li>
         <li>Factual accuracy is required — FF Scout verifies ranks but organizers must still confirm finals</li>
-        <li>Disputes go to admin@ffscout.dev within 14 days of the event</li>
+        <li>Disputes go to manideepdaram@gmail.com within 14 days of the event</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>Players</h2>
