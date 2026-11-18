@@ -6,11 +6,11 @@ import type { ActionState } from './actions';
 const initial: ActionState = { ok: true };
 
 const roleLabel: Record<string, string> = {
-  fragger: 'Rusher',
+  rusher: 'Rusher (entry)',
   sniper: 'AWM Sniper',
-  support: 'Support',
-  igled: 'IGL / In-Game Leader',
-  lurker: 'Lurker',
+  support: 'Support (revives, utility)',
+  anchor: 'Anchor (holds positions)',
+  lurker: 'Lurker (flank/off-angle)',
 };
 
 export default function SignUpPage() {
@@ -44,6 +44,7 @@ export default function SignUpPage() {
             </label>
           </div>
           <div className="hp"><input name="bot" /></div>
+          <label className="checkbox-row"><input type="checkbox" name="iglCapable" /><span>I can IGL — I call a squad (strategy, rotations, final call). Verified by organizers after review.</span></label>
           <label className="checkbox-row"><input type="checkbox" name="is18" required /><span>I am 18 or older.</span></label>
           <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a> — my IGN, affiliation and rank are shown to organizers who unlock an event; I can erase everything by emailing the grievance officer.</span></label>
           <button className="btn btn-block" type="submit">Create profile & enter the pool</button>
