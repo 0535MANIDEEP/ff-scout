@@ -44,7 +44,8 @@ export default function SignUpPage() {
             </label>
           </div>
           <div className="hp"><input name="bot" /></div>
-          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>One rank screenshot — admin eye verified. No fakes.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="is18" required /><span>I am 18 or older.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a> — my IGN, affiliation and rank are shown to organizers who unlock an event; I can erase everything by emailing the grievance officer.</span></label>
           <button className="btn btn-block" type="submit">Create profile & enter the pool</button>
         </form>
       </div>

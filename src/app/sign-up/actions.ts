@@ -22,6 +22,10 @@ const schema = z.object({
 export type ActionState = { ok: boolean; error?: string };
 
 export async function registerPlayer(_: ActionState, formData: FormData): Promise<ActionState> {
+  const agree = formData.get('agree') === 'on';
+  const is18 = formData.get('is18') === 'on';
+  if (!agree) return { ok: false, error: 'You must agree to the Privacy Notice to enter the pool.' };
+  if (!is18) return { ok: false, error: 'FF Scout is 18+. Confirm your age to continue.' };
   const emailRaw = String(formData.get('email') ?? '').trim().toLowerCase();
   const rl = await checkRateLimit(`signup:${emailRaw}`, 3, 60 * 60 * 1000);
   if (!rl.ok) return { ok: false, error: `Too many attempts. Try again in ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s).` };
@@ -57,6 +61,8 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
         role: d.role,
         rank: d.rank,
         status: 'looking',
+        consentedAt: new Date(),
+        ageConfirmed: true,
       },
     });
   } catch (err) {
