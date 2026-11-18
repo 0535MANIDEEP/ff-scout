@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { compare } from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { signSession } from '@/lib/auth';
+import { signSession, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS } from '@/lib/auth';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
@@ -29,7 +29,7 @@ export async function login(_: ActionState, formData: FormData): Promise<ActionS
   if (!ok) return { ok: false, error: 'Invalid email or password.' };
   const token = await signSession({ userId: user.id, userType: user.userType, displayName: user.displayName, email: user.email });
   const jar = await cookies();
-  jar.set('ffscout_session', token, { httpOnly: true, sameSite: 'lax', path: '/', maxAge: 60*60*24*7 });
+  jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
   try {
     await prisma.auditLog.create({ data: { userId: user.id, action: 'login', detail: JSON.stringify({ email, type: user.userType }) } });
   } catch { /* never let an audit-write failure block login */ }
