@@ -25,7 +25,7 @@ export default function OrgSignUpPage() {
             <label className="label">Password<input className="input" name="password" type="password" minLength={8} required autoComplete="new-password" /></label>
           </div>
           <label className="checkbox-row"><input type="checkbox" name="is18" required /><span>I am 18 or older.</span></label>
-          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a> — I may request a verified shortlist, and deletion deletes everything.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I agree to the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a>, I may request a verified shortlist, and deletion deletes everything.</span></label>
           <button className="btn" type="submit" style={{ marginTop: 16, width: '100%' }}>Create organizer account</button>
         </form>
       </div>

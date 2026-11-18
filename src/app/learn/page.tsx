@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { LEARN_CHAPTERS } from '@/lib/learn';
 
 export const metadata: Metadata = {
-  title: 'Field Manual — FF Scout',
+  title: 'Field Manual, FF Scout',
   description: 'How to get verified, the five combat roles (and why IGL is a designation), running a verified scrim, and honest sources. For Indian Free Fire players and organizers.',
 };
 
@@ -18,7 +18,7 @@ export default function LearnPage() {
     <div className="shell" style={{ padding: '40px 0 80px' }}>
       <p className="eyebrow-inline">FIELD MANUAL · FREE FIRE INDIA</p>
       <h1 style={{ marginTop: 10, fontSize: 'clamp(34px, 4.5vw, 56px)', maxWidth: '22ch' }}>Learn the game the way we read it.</h1>
-      <p className="subtext" style={{ marginTop: 12, maxWidth: '56ch' }}>Written for players who want to be verified, and organizers who need a shortlist that doesn&rsquo;t waste their day. Everything external is labelled — official channels, community work, and honest search links instead of fabricated authority.</p>
+      <p className="subtext" style={{ marginTop: 12, maxWidth: '56ch' }}>Written for players who want to be verified, and organizers who need a shortlist that doesn&rsquo;t waste their day. Everything external is labelled, official channels, community work, and honest search links instead of fabricated authority.</p>
 
       <div className="learn-grid" style={{ marginTop: 40 }}>
         <nav className="manual-index" aria-label="Chapters">

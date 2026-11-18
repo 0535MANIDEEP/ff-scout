@@ -8,7 +8,7 @@ import SignOut from '@/components/SignOut';
 import Link from 'next/link';
 
 const ERRORS: Record<string, string> = {
-  missing: 'No file received — pick your screenshot again.',
+  missing: 'No file received, pick your screenshot again.',
   size: 'That file is over 5MB. Compress it or pick a smaller screenshot.',
   type: 'PNG, JPG or WebP only. Screenshots must be raster images.',
   invalid: 'Could not process that file. Try another screenshot.',

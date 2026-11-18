@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { BRAND } from '@/lib/brand';
 
 export const metadata = {
-  title: 'FAQ — FF Scout',
+  title: 'FAQ, FF Scout',
   description: 'Who pays, how rank verification works, what happens when a player tries to cheat. Honest answers for Free Fire tournament organizers across India.',
 };
 
 const faqs = [
   {
     q: 'Why does FF Scout charge organizers and never the players?',
-    a: 'The organizer is the one getting the shortlist they need to run their Free Fire tournament — the rosters, the ranks, the IDs. A player should never pay to climb into the same pool as other hopefuls. Events pay the entry fee; the prize goes to the players in their event.'
+    a: 'The organizer is the one getting the shortlist they need to run their Free Fire tournament, the rosters, the ranks, the IDs. A player should never pay to climb into the same pool as other hopefuls. Events pay the entry fee; the prize goes to the players in their event.'
   },
   {
     q: 'How does rank verification actually work?',
@@ -17,11 +17,11 @@ const faqs = [
   },
   {
     q: 'What if a player tries to lie about their rank?',
-    a: 'The UID and screenshot sequence will not match the previous verification. The player stays out of the pool. Organizers who find an anomaly can flag the player — flagged multiple times and handled by admin.'
+    a: 'The UID and screenshot sequence will not match the previous verification. The player stays out of the pool. Organizers who find an anomaly can flag the player, flagged multiple times and handled by admin.'
   },
   {
     q: 'How much does it cost to unlock a shortlist?',
-    a: '₹499 per tournament event. Not per seat, not per player — per event. One unlock covers the shortlist for the whole event.'
+    a: '₹499 per tournament event. Not per seat, not per player, per event. One unlock covers the shortlist for the whole event.'
   },
   {
     q: 'How do organizers get their tournament listed on FF Scout?',
@@ -29,16 +29,16 @@ const faqs = [
   },
   {
     q: 'Is there a free trial or a plan to test the shortlist before paying?',
-    a: 'Every tournament registered on FF Scout gets one preview of their roster shortlist — enough to see they are using it. Beyond that, each event costs ₹499.'
+    a: 'Every tournament registered on FF Scout gets one preview of their roster shortlist, enough to see they are using it. Beyond that, each event costs ₹499.'
   },
 ];
 
 export default function FAQ() {
   return (
-    <div className="shell" style={{ padding: '48px 0 96px', maxWidth: 760 }}>
+    <div className="page-narrow">
       <h1>Frequently asked</h1>
       <p className="subtext" style={{ marginTop: 12 }}>
-        The questions we hear most from FF tournament organizers, casters, guild captains — answered plainly.
+        The questions we hear most from FF tournament organizers, casters, guild captains, answered plainly.
       </p>
       <dl style={{ marginTop: 24 }}>
         {faqs.map(({ q, a }) => (

@@ -16,7 +16,7 @@ export default function ProofUploadInput() {
     const file = e.target.files?.[0];
     if (!file) return;
     if (file.size <= 300 * 1024) {
-      setHint(`Ready — ${Math.round(file.size / 1024)} KB, no processing needed.`);
+      setHint(`Ready, ${Math.round(file.size / 1024)} KB, no processing needed.`);
       return;
     }
     try {
@@ -24,25 +24,25 @@ export default function ProofUploadInput() {
       const scale = Math.min(1, MAX_EDGE / Math.max(bmp.width, bmp.height));
       if (scale >= 1) {
         bmp.close();
-        setHint(`Ready — ${Math.round(file.size / 1024)} KB.`);
+        setHint(`Ready, ${Math.round(file.size / 1024)} KB.`);
         return;
       }
       const canvas = document.createElement('canvas');
       canvas.width = Math.round(bmp.width * scale);
       canvas.height = Math.round(bmp.height * scale);
       const ctx = canvas.getContext('2d');
-      if (!ctx) { bmp.close(); setHint('Ready (could not optimize — will upload original).'); return; }
+      if (!ctx) { bmp.close(); setHint('Ready (could not optimize, will upload original).'); return; }
       ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
       bmp.close();
       const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/jpeg', JPEG_QUALITY));
-      if (!blob) { setHint('Ready (could not optimize — will upload original).'); return; }
+      if (!blob) { setHint('Ready (could not optimize, will upload original).'); return; }
       const optimized = new File([blob], file.name.replace(/\.[^.]+$/, '') + '.jpg', { type: 'image/jpeg' });
       const dt = new DataTransfer();
       dt.items.add(optimized);
       e.target.files = dt.files;
-      setHint(`Optimized to ${Math.round(optimized.size / 1024)} KB before upload — stays under 1 credit far longer.`);
+      setHint(`Optimized to ${Math.round(optimized.size / 1024)} KB before upload, stays under 1 credit far longer.`);
     } catch {
-      setHint('Ready (could not optimize — will upload original).');
+      setHint('Ready (could not optimize, will upload original).');
     }
   }
 
