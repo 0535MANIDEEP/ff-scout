@@ -30,7 +30,7 @@ export interface ProofUpload {
   publicId: string;
 }
 
-export async function uploadProofImage(bytes: Buffer, mimeType: string, originalName: string): Promise<ProofUpload> {
+export async function uploadProofImage(bytes: Buffer, mimeType: string): Promise<ProofUpload> {
   const cloud = process.env.CLOUDINARY_CLOUD_NAME;
   const key = process.env.CLOUDINARY_API_KEY;
   const secret = process.env.CLOUDINARY_API_SECRET;
@@ -54,8 +54,6 @@ export async function uploadProofImage(bytes: Buffer, mimeType: string, original
   form.set('overwrite', 'false');
   form.set('public_id', publicId);
   form.set('signature', signature);
-  // keep the filename meaningful for admins, no PII beyond what they uploaded
-  form.set('context', `original_name=${encodeURIComponent(originalName).slice(0, 120)}`);
 
   const res = await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(cloud)}/image/upload`, {
     method: 'POST',
