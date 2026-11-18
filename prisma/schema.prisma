@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -15,43 +15,50 @@ enum Role {
   lurker
 }
 
-model Player {
-  id          String   @id @default(cuid())
-  displayName String
-  role        Role
-  college     String?
-  city        String
-  rank        String
-  verified    Boolean  @default(false)
-  status      String   @default("looking")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  matches     Match[]
+enum UserType {
+  player
+  organizer
+  admin
 }
 
-model Organization {
-  id         String   @id @default(cuid())
-  name       String
-  orgType    String
-  city       String
-  email      String
-  createdAt  DateTime @default(now())
-  matches    Match[]
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  passwordHash  String
+  displayName   String
+  userType      UserType
+  role          Role?
+  college       String?
+  city          String    @default("Hyderabad")
+  rank          String    @default("Heroic")
+  verified      Boolean   @default(false)
+  status        String    @default("looking")
+  orgName       String?
+  orgType       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  proofs        VerificationProof[]
+  matches       Match[]
 }
 
 model VerificationProof {
-  id        String   @id @default(cuid())
-  playerId  String
-  proofData String
-  verifiedAt DateTime?
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  fileData   String   // base64 PNG — screenshots only, v1
+  fileName   String
+  mimeType   String
+  status     String   @default("pending") // pending | approved | rejected
+  createdAt  DateTime @default(now())
+  reviewedAt DateTime?
+  reviewerId String?
 }
 
 model Match {
   id         String   @id @default(cuid())
   playerId   String
-  player     Player   @relation(fields: [playerId], references: [id])
+  player     User     @relation(fields: [playerId], references: [id])
   orgId      String
-  org        Organization @relation(fields: [orgId], references: [id])
   accepted   Boolean  @default(false)
   paidAt     DateTime?
 }
