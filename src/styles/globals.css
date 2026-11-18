@@ -1,9 +1,6 @@
-/* FF Scout — design tokens (gaming season 2026).
-   One fire accent, one highlight, one ink canvas.
-   Spacing scale: Fibonacci (13, 21, 34, 55, 89) with an 8px base, so every
-   step lands on the φ ratio. Type scale steps by roughly φ^(1/2) from a
-   16px base: 12.7 / 16 / 20 / 25.6 / 33 / 42 / 53. */
-:root {
+/* FF Scout — design tokens. Fire ink (dark default) and paper (light).
+   φ spacing 8px base; φ type scale from 16px. */
+:root, :root[data-theme="dark"] {
   --bg: #05060A;
   --panel: #0E1020;
   --panel-2: #171A2E;
@@ -11,15 +8,20 @@
   --line: #232741;
   --text: #EDEEF6;
   --muted: #8B92B5;
+  --on-accent: #05060A;
   --accent: #FF6B00;
   --accent-2: #FF8A2B;
+  --accent-on-bg: #FF8A2B;
   --cyan: #00D4FF;
   --success: #22C55E;
   --danger: #F87171;
   --risk: #EAB308;
-  --radius: 5px; /* φ-rounded step below 8px base */
+  --radius: 5px;
+  --input-bg: #090B17;
+  --hud-top: #0F1226;
+  --hud-bottom: #0A0C1D;
+  --topbar-bg: rgba(5,6,10,0.82);
 
-  /* φ spacing (Fibonacci, 8px base) */
   --s1: 8px;
   --s2: 13px;
   --s3: 21px;
@@ -28,18 +30,39 @@
   --s6: 89px;
   --s7: 144px;
 
-  /* φ type scale, ratios kept simple for round numbers */
-  --t-xs: 0.732rem;   /* 11.7px */
-  --t-sm: 0.86rem;    /* 13.7px */
-  --t-body: 1rem;     /* 16px */
-  --t-lead: 1.272rem; /* 20.4px */
-  --t-h3: 1.618rem;   /* 25.9px */
-  --t-h2: 2.058rem;   /* 32.9px */
-  --t-h1: 2.618rem;   /* 41.9px */
-  --t-hero: 4.236rem; /* 67.8px */
+  --t-xs: 0.732rem;
+  --t-sm: 0.86rem;
+  --t-body: 1rem;
+  --t-lead: 1.272rem;
+  --t-h3: 1.618rem;
+  --t-h2: 2.058rem;
+  --t-h1: 2.618rem;
+  --t-hero: 4.236rem;
 
   --font-ui: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-head: var(--font-grotesk), var(--font-inter), system-ui, sans-serif;
+}
+
+:root[data-theme="light"] {
+  --bg: #F5F6F7;
+  --panel: #FFFFFF;
+  --panel-2: #ECEEF1;
+  --panel-3: #D8DBE1;
+  --line: #E2E4E9;
+  --text: #16181F;
+  --muted: #5A6274;
+  --on-accent: #05060A;
+  --accent: #FF6B00;
+  --accent-2: #FF8A2B;
+  --accent-on-bg: #C2410C;
+  --cyan: #0369A1;
+  --success: #15803D;
+  --danger: #B91C1C;
+  --risk: #A16207;
+  --input-bg: #FFFFFF;
+  --hud-top: #FFF6ED;
+  --hud-bottom: #FDEBDC;
+  --topbar-bg: rgba(255,255,255,0.82);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -66,22 +89,25 @@ code { font-family: var(--font-jbmono), ui-monospace, monospace; font-size: 0.9e
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 
 /* Skip link: hidden until focused */
-.skip-link { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--accent); color: #05060A; padding: 10px 14px; font-weight: 800; font-family: var(--font-head); text-decoration: none; border-radius: 2px; }
+.skip-link { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--accent); color: var(--on-accent); padding: 10px 14px; font-weight: 800; font-family: var(--font-head); text-decoration: none; border-radius: 2px; }
 .skip-link:focus-visible { left: 8px; }
 
 /* Nav */
 .topbar {
   position: sticky; top: 0; z-index: 40;
-  background: rgba(5,6,10,0.82);
+  background: var(--topbar-bg);
   backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--panel-2);
 }
 .topbar-inner { display: flex; justify-content: space-between; align-items: center; height: var(--s6); }
 .logo { display: flex; align-items: center; gap: var(--s2); font-family: var(--font-head); font-weight: 700; letter-spacing: 0.02em; font-size: var(--t-lead); }
-.logo-mark { width: var(--s4); height: var(--s4); border-radius: 4px; background: var(--accent); display: grid; place-items: center; font-family: var(--font-head); font-size: var(--t-sm); color: #05060A; font-weight: 900; }
+.logo-mark { width: var(--s4); height: var(--s4); border-radius: 4px; background: var(--accent); display: grid; place-items: center; font-family: var(--font-head); font-size: var(--t-sm); color: var(--on-accent); font-weight: 900; }
 .nav { display: flex; align-items: center; gap: var(--s3); font-size: var(--t-sm); color: var(--muted); font-weight: 600; }
 .nav a:hover { color: var(--text); }
-.nav-cta { background: var(--text); color: #05060A !important; padding: var(--s1) var(--s2); border-radius: 4px; font-weight: 800; }
+.nav-cta { background: var(--text); color: var(--bg) !important; padding: var(--s1) var(--s2); border-radius: 4px; font-weight: 800; }
+.theme-toggle { width: 36px; height: 36px; display: inline-grid; place-items: center; border: 1px solid var(--panel-3); background: transparent; color: var(--muted); border-radius: 4px; cursor: pointer; transition: color 0.15s ease, border-color 0.15s ease; }
+.theme-toggle:hover { color: var(--text); border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 
 /* Hero — tournament desk: asymmetric split, copy left, board right */
 .eyebrow-inline {
@@ -109,7 +135,7 @@ code { font-family: var(--font-jbmono), ui-monospace, monospace; font-size: 0.9e
 .hero-fine { font-size: var(--t-sm); color: var(--muted); margin-top: var(--s2); }
 .btn-xl { font-size: var(--t-lead); padding: var(--s2) var(--s5); }
 .hud-board {
-  background: linear-gradient(180deg, #101330 0%, #0A0C1D 100%);
+  background: linear-gradient(180deg, var(--hud-top), var(--hud-bottom));
   border: 1px solid var(--panel-3);
   border-top: 2px solid var(--accent);
   padding: var(--s3);
@@ -187,12 +213,12 @@ h3 { font-family: var(--font-head); font-size: var(--t-lead); }
 
 /* Forms: ep-rectangular, labels stacked above inputs. */
 .label { display: block; color: var(--muted); font-size: var(--t-xs); margin-bottom: var(--s1); font-weight: 700; letter-spacing: 0.02em; }
-.input { background: #090B17; border: 1px solid var(--panel-3); color: var(--text); padding: var(--s2) var(--s2); border-radius: 2px; font-size: var(--t-body); width: 100%; font-family: var(--font-ui); }
+.input { background: var(--input-bg); border: 1px solid var(--panel-3); color: var(--text); padding: var(--s2) var(--s2); border-radius: 2px; font-size: var(--t-body); width: 100%; font-family: var(--font-ui); }
 .input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .hp { height: 0; overflow: hidden; position: absolute; left: -9999px; }
 .form-card { max-width: 460px; margin: var(--s5) auto; padding: var(--s4); background: var(--panel); border: 1px solid var(--panel-3); border-radius: 0; }
 .btn-ghost { display: inline-flex; align-items:center; border: 1px solid var(--panel-3); padding: var(--s2) var(--s3); border-radius: 2px; color: var(--text); font-family: var(--font-ui); font-weight: 700; }
-.btn { background: var(--accent); color: #05060A; border: 0; padding: var(--s2) var(--s3); font-family: var(--font-head); font-weight: 700; border-radius: 2px; cursor: pointer; font-size: var(--t-body); transition: background 0.15s ease, transform 0.15s ease; text-decoration: none; }
+.btn { background: var(--accent); color: var(--on-accent); border: 0; padding: var(--s2) var(--s3); font-family: var(--font-head); font-weight: 700; border-radius: 2px; cursor: pointer; font-size: var(--t-body); transition: background 0.15s ease, transform 0.15s ease; text-decoration: none; }
 .btn:hover { background: var(--accent-2); transform: translateY(-1px); }
 .btn:active { transform: translateY(0) scale(0.98); }
 .btn-block { width: 100%; margin-top: 16px; }
