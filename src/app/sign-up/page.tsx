@@ -25,7 +25,7 @@ export default function SignUpPage() {
           <label className="label">Email<input className="input" name="email" type="email" required /></label>
           <label className="label" style={{ marginTop: 10 }}>IGN (display name)<input className="input" type="text" name="displayName" placeholder="e.g. _aMNis_, Aura_Hype_, Frostshikari_" required autoComplete="nickname" /></label>
           <div className="row" style={{ marginTop: 10 }}>
-            <label className="label">Password<input className="input" name="password" type="password" minLength={8} required /></label>
+            <label className="label">Password<input className="input" name="password" type="password" minLength={8} required autoComplete="new-password" /></label>
           </div>
           <div className="row" style={{ marginTop: 10 }}>
             <label className="label">Affiliation (college, café, LAN, guild, sponsor)<input className="input" name="college" placeholder="VJIT / Ganjikhana / Predator Cyber..." required /></label>
