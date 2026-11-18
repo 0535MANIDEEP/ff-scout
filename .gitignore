@@ -10,3 +10,4 @@ prisma/migrations/*.sql
 !prisma/migrations/migration_lock.toml
 prisma/dev.db
 prisma/dev.db-journal
+test.db
