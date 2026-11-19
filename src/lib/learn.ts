@@ -344,7 +344,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
       {
         heading: 'Shared screenshots',
         lines: [
-          'The same ADPR image circulating in five WhatsApp groups. Final Circle admin eye-checks screenshots for obvious reuse, but if someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
+          'The same ADPR image circulating in five WhatsApp groups. Final Circle verifiers eye-check screenshots for obvious reuse, but if someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
         ],
       },
       {

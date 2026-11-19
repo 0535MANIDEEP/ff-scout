@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 // Pill toggle switch: knob slides to sun for light, moon for dark.
 // Labels live on the ends of the track; the knob covers the inactive half.
 export default function ThemeToggle() {
-  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+  const [theme, setTheme] = useState<'dark' | 'light'>('light');
 
   useEffect(() => {
     const t = (document.documentElement.dataset.theme as 'dark' | 'light') || 'dark';

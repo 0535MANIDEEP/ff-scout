@@ -1,0 +1,11 @@
+{
+  "roles": [
+    { "id": "rusher", "label": "Rusher", "short": "R", "iglEligible": true, "order": 1, "desc": "Rusher (entry)" },
+    { "id": "sniper", "label": "AWM Sniper", "short": "S", "iglEligible": true, "order": 2, "desc": "AWM Sniper" },
+    { "id": "support", "label": "Support", "short": "U", "iglEligible": true, "order": 3, "desc": "Support (revives, utility)" },
+    { "id": "anchor", "label": "Anchor", "short": "A", "iglEligible": true, "order": 4, "desc": "Anchor (holds positions)" },
+    { "id": "lurker", "label": "Lurker", "short": "L", "iglEligible": true, "order": 5, "desc": "Lurker (flank/off-angle)" }
+  ],
+  "iglChip": "I",
+  "iglRingClassSuffix": "igl"
+}

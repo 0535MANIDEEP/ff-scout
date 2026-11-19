@@ -1,0 +1,17 @@
+{
+  "verify": {
+    "missing": "Nothing attached yet — tap \"Rank screenshot\" and pick the image again.",
+    "size": "That file goes past 5MB. Compress it, or crop the shot and try once more.",
+    "type": "PNG, JPG or WebP — screenshots must be regular images, no SVG or PDF.",
+    "invalid": "We couldn't read that file — another screenshot usually does it."
+  },
+  "roles": {
+    "bad": "That role change didn't make sense — pick a role and save again.",
+    "self": "You can't demote your own admin account. Let another admin handle it, or do it deliberately from the database.",
+    "last": "This is the only admin account — demoting it would lock everyone out. Promote another admin first."
+  },
+  "settings": {
+    "admin": "Admin accounts can't self-delete from here. Ask the owner to remove it, or do it deliberately from the database.",
+    "confirm": "Type DELETE in the box — that one word is the whole safety catch."
+  }
+}

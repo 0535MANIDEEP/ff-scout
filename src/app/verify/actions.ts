@@ -6,8 +6,13 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { isCloudinaryConfigured, uploadProofImage } from '@/lib/cloudinary';
 import { z } from 'zod';
+import { RANKS, ROLE_IDS } from '@/lib/config';
 
 const schema = z.object({ name: z.string(), type: z.string(), gameUid: z.string().regex(/^[0-9]{6,20}$/, 'UID must be digits') });
+const detailsSchema = z.object({
+  rank: z.enum(RANKS as [string, ...string[]]),
+  role: z.enum(ROLE_IDS as [string, ...string[]]),
+});
 
 // Screenshots only. Cap at 5MB and allowlist raster image types , 
 // no SVG (admin renders these), no arbitrary uploads masquerading as proofs.
@@ -27,6 +32,8 @@ export async function uploadProof(_formData: FormData) {
   const gameUidRaw = String(_formData.get('gameUid') ?? '').trim();
   const parse = schema.safeParse({ name: f.name, type: f.type, gameUid: gameUidRaw });
   if (!parse.success) redirect('/verify?e=invalid');
+  const details = detailsSchema.safeParse({ rank: _formData.get('rank'), role: _formData.get('role') });
+  if (!details.success) redirect('/verify?e=invalid');
 
   let data: { fileData?: string; fileUrl?: string; publicId?: string };
   if (isCloudinaryConfigured()) {
@@ -36,9 +43,13 @@ export async function uploadProof(_formData: FormData) {
     data = { fileData: `data:${f.type};base64,${bytes.toString('base64')}` };
   }
 
-  await prisma.verificationProof.create({
-    data: { userId: s.userId, ...data, fileName: f.name, mimeType: f.type, status: 'pending', gameUid: parse.data.gameUid },
-  });
+  const role = details.data.role as import('@prisma/client').Role;
+  await prisma.$transaction([
+    prisma.user.update({ where: { id: s.userId }, data: { rank: details.data.rank, role } }),
+    prisma.verificationProof.create({
+      data: { userId: s.userId, ...data, fileName: f.name, mimeType: f.type, status: 'pending', gameUid: parse.data.gameUid },
+    }),
+  ]);
   try {
     await prisma.auditLog.create({ data: { userId: s.userId, action: 'proof_upload', detail: JSON.stringify({ fileName: f.name, size: f.size, storage: data.fileUrl ? 'cloudinary' : 'inline', gameUid: parse.data.gameUid }) } });
   } catch { /* audit failure must not block the upload */ }

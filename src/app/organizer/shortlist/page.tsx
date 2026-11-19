@@ -2,8 +2,11 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
+import RoleAvatar from '@/components/RoleAvatar';
+import { RANKS } from '@/lib/config';
 import type { Role } from '@prisma/client';
 
 const ROLES: Role[] = ['rusher', 'sniper', 'support', 'anchor', 'lurker'];
@@ -13,11 +16,10 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
   const token = jar.get(SESSION_COOKIE_NAME)?.value;
   const s = token ? await verifySession(token) : null;
   if (!s) redirect('/login');
-  if (s.userType !== 'organizer' && s.userType !== 'admin') redirect('/player');
+  if (!s || !hasPermission(roleFromDb(s.userType), 'roster:search')) redirect('/player');
 
   const { role: roleRaw, rank, city } = await searchParams;
   const role = ROLES.includes(roleRaw as Role) ? (roleRaw as Role) : undefined;
-  const RANKS = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Heroic', 'Master'];
   const safeRank = rank && RANKS.includes(rank) ? rank : undefined;
   const where = {
     userType: 'player' as const,
@@ -32,9 +34,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
     select: { id: true, displayName: true, role: true, iglCapable: true, rank: true, college: true, city: true, verified: true, status: true },
   });
 
-  const ranks = ['Bronze', 'Silver', 'Gold', 'Diamond', 'Heroic', 'Master'];
-
-  return (
+    return (
     <div className="shell" style={{ paddingBottom: 48 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginTop: 32, gap: 16 }}>
         <h1>Shortlist builder</h1>
@@ -49,7 +49,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
         </select>
         <select className="input" name="rank" defaultValue={safeRank ?? ''} aria-label="Rank" style={{ minWidth: 140 }}>
           <option value="">All ranks</option>
-          {ranks.map(r => <option key={r} value={r}>{r}</option>)}
+          {RANKS.map(r => <option key={r} value={r}>{r}</option>)}
         </select>
         <input className="input" name="city" defaultValue={city ?? ''} placeholder="City contains…" aria-label="City" style={{ minWidth: 180 }} />
         <button className="btn" type="submit">Filter</button>
@@ -63,12 +63,12 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
         {players.length === 0 ? (
           <div className="card" style={{ textAlign: 'center', padding: 40 }}>
             <h3>No players match</h3>
-            <p className="subtext" style={{ marginTop: 8 }}>Verified players join when they upload their screenshot. Loosen the filters or check back after the admin reviews the queue.</p>
+            <p className="subtext" style={{ marginTop: 8 }}>Verified players join when they upload their screenshot. Loosen the filters, or check back shortly — the verifiers review every upload.</p>
           </div>
         ) : players.map(p => (
           <div className="rowitem" key={p.id}>
             <div>
-              <div className="tile-title">{p.displayName} <span className="small">· {p.rank} · {p.role}{p.iglCapable ? ' · IGL' : ''} · {p.city}</span></div>
+              <div className="tile-title" style={{ display: 'flex', gap: 12, alignItems: 'center' }}><RoleAvatar role={p.role} iglCapable={p.iglCapable} size={44} /><span>{p.displayName} <span className="small">· {p.rank} · {p.role}{p.iglCapable ? ' · IGL' : ''} · {p.city}</span></span></div>
               <div className="tile-sub">{p.college || 'Affiliation withheld'} · {p.status}</div>
             </div>
             <span className="chip chip-sapphire">{p.verified ? 'Verified ✓' : 'Pending'}</span>

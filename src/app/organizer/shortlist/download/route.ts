@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 
 // CSV cells: quote when they contain a comma/quote/newline, and prefix any
@@ -12,18 +13,23 @@ function csvCell(v: string): string {
   return out;
 }
 
+// Rank tiers, low to high. CSV exports must be ordered by actual tier, not
+// alphabetically ('Bronze' < 'Diamond' < 'Gold'...).
+const RANK_ORDER = ['Bronze', 'Silver', 'Gold', 'Platinum', 'Diamond', 'Heroic', 'Elite Master', 'Grandmaster'];
+const rankWeight = (r: string) => { const i = RANK_ORDER.indexOf(r); return i === -1 ? -1 : i; };
+
 export async function GET() {
   const jar = await cookies();
   const token = jar.get(SESSION_COOKIE_NAME)?.value;
   const session = token ? await verifySession(token) : null;
   if (!session) redirect('/login');
-  if (session.userType !== 'organizer' && session.userType !== 'admin') redirect('/player');
+  if (!session || !hasPermission(roleFromDb(session.userType), 'roster:export')) redirect('/player');
 
-  const players = await prisma.user.findMany({
+  const playersRaw = await prisma.user.findMany({
     where: { userType: 'player', verified: true },
-    orderBy: { rank: 'asc' },
-    select: { displayName: true, rank: true, role: true, iglCapable: true, college: true, city: true, status: true, proofs: { select: { gameUid: true }, where: { status: 'approved' }, take: 1 } },
+    select: { displayName: true, rank: true, role: true, iglCapable: true, college: true, city: true, status: true, createdAt: true, proofs: { select: { gameUid: true }, where: { status: 'approved' }, take: 1 } },
   });
+  const players = [...playersRaw].sort((a, b) => rankWeight(b.rank) - rankWeight(a.rank) || b.createdAt.getTime() - a.createdAt.getTime());
   const header = 'handle,rank,role,igl,affiliation,city,status,gameUid';
   const rows = players.map(p =>
     [p.displayName, p.rank, p.role ?? '', p.iglCapable ? 'yes' : 'no', p.college ?? '', p.city, p.status, p.proofs[0]?.gameUid ?? ''].map(csvCell).join(',')
@@ -36,7 +42,7 @@ export async function GET() {
     status: 200,
     headers: {
       'content-type': 'text/csv; charset=utf-8',
-      'content-disposition': 'attachment; filename="ffscout-shortlist.csv"',
+      'content-disposition': 'attachment; filename="final-circle-shortlist.csv"',
       'cache-control': 'no-store',
     },
   });
