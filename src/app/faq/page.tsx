@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'How much does it cost to unlock a shortlist?',
-    a: '₹499 per tournament event. Not per seat, not per player, per event. One unlock covers the shortlist for the whole event.'
+    a: 'During the pilot phase our shortlist is free. At launch, ₹499 per tournament event — not per seat, not per player. One unlock covers the shortlist for the whole event.'
   },
   {
     q: 'How do organizers get their tournament listed on FF Scout?',
@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: 'Is there a free trial or a plan to test the shortlist before paying?',
-    a: 'Every tournament registered on FF Scout gets one preview of their roster shortlist, enough to see they are using it. Beyond that, each event costs ₹499.'
+    a: 'During the pilot, every registered tournament downloads its roster shortlist free. At launch, each additional event costs ₹499.'
   },
 ];
 

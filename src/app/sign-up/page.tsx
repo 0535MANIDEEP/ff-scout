@@ -19,7 +19,7 @@ export default function SignUpPage() {
     <div className="shell">
       <div className="form-card">
         <h1>Join the roster pool</h1>
-        <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent, free for players, ₹499 for organizers.</p>
+        <p className="subtext" style={{ marginBottom: 16 }}>Verified grassroots Indian FF talent. Free for players, free for organizers during the pilot — no payment flow exists yet; ₹499 per event starts with payments, later.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
           <label className="label">Email<input className="input" name="email" type="email" required autoComplete="email" /></label>

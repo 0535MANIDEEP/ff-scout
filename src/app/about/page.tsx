@@ -16,7 +16,7 @@ export default function About() {
         FF Scout started from a brutal observation: Indian college and grassroots Free Fire organizers recruit from group chats that spill into 200-member rectangles. 90% of applications are spam, the 10% real ones end up nowhere because nobody verifies them. Organisers waste 6–10 hours per tournament just verifying ranks, and organizers put out fake claims themselves because there is no verification layer for themselves or their brand activation partners.
       </p>
       <p className="subtext" style={{ marginTop: 10 }}>
-        FF Scout is one person's attempt to compress that 8 hours into a single verified shortlist with filter, export and contact. One side pays (₹499 per event); the other side earns a role on a verified roster that pays out of the tournament prize pool.
+        FF Scout is one person's attempt to compress that 8 hours into a single verified shortlist with filter, export and contact. One side pays — at launch, ₹499 per event. Pilot phase: free. the other side earns a role on a verified roster that pays out of the tournament prize pool.
       </p>
 
       <h2 style={{ marginTop: 32 }}>Who this is for</h2>

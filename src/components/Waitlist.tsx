@@ -34,7 +34,7 @@ export function Waitlist() {
         <option value="player">Player</option>
         <option value="sponsor">Sponsor</option>
       </select>
-      <button className="btn" type="submit" disabled={status === 'loading' || !/^[^@]+@[^@]+\.[^@]+$/.test(email)}>{status === 'loading' ? 'Joining…' : 'Notify me'}</button>
+      <button className="btn" type="submit" disabled={status === 'loading' || !/^[^@]+@[^@]+\.[^@]+$/.test(email)}>{status === 'loading' ? 'Joining…' : 'Notify me when we launch in my city'}</button>
       {status === 'done' && <span className="approved" style={{ alignSelf: 'center' }}>You are on the list.</span>}
       {status === 'error' && <span style={{ alignSelf: 'center', color: 'var(--danger)' }}>Something went wrong</span>}
     </form>
