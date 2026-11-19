@@ -22,11 +22,11 @@ export async function GET() {
   const players = await prisma.user.findMany({
     where: { userType: 'player', verified: true },
     orderBy: { rank: 'asc' },
-    select: { displayName: true, rank: true, role: true, iglCapable: true, college: true, city: true, status: true },
+    select: { displayName: true, rank: true, role: true, iglCapable: true, college: true, city: true, status: true, proofs: { select: { gameUid: true }, where: { status: 'approved' }, take: 1 } },
   });
-  const header = 'handle,rank,role,igl,affiliation,city,status';
+  const header = 'handle,rank,role,igl,affiliation,city,status,gameUid';
   const rows = players.map(p =>
-    [p.displayName, p.rank, p.role ?? '', p.iglCapable ? 'yes' : 'no', p.college ?? '', p.city, p.status].map(csvCell).join(',')
+    [p.displayName, p.rank, p.role ?? '', p.iglCapable ? 'yes' : 'no', p.college ?? '', p.city, p.status, p.proofs[0]?.gameUid ?? ''].map(csvCell).join(',')
   );
   const body = [header, ...rows].join('\n');
   try {

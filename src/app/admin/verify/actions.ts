@@ -26,13 +26,14 @@ export async function reviewProof(formData: FormData) {
       });
     });
   } else {
+    const reviewerNote = String(formData.get('reviewerNote') ?? '').trim().slice(0, 280) || null;
     await prisma.$transaction(async (tx) => {
       await tx.verificationProof.update({
         where: { id },
-        data: { status: 'rejected', reviewedAt: new Date(), reviewerId: s.userId },
+        data: { status: 'rejected', reviewedAt: new Date(), reviewerId: s.userId, reviewerNote },
       });
       await tx.auditLog.create({
-        data: { userId: s.userId, action: 'proof_rejected', detail: JSON.stringify({ proofId: id }) },
+        data: { userId: s.userId, action: 'proof_rejected', detail: JSON.stringify({ proofId: id, note: reviewerNote }) },
       });
     });
   }

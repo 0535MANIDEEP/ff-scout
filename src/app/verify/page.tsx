@@ -26,9 +26,10 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
         <h1>Upload your rank screenshot</h1>
         <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
       </div>
-      <p className="subtext">PNG, JPG or WebP, max 5MB. One screenshot per verification. Admin verifies manually in 24–48h.</p>
+      <p className="subtext">Show the screenshot with your <strong>UID visible</strong> — the 9–12 digit number in your profile. Admin uses it to confirm the screenshot matches an account, not a random Heroic. Max 5MB. One upload per verification.</p>
       {error && <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 12 }}>{error}</p>}
       <form action={uploadProof} className="form-card" style={{ marginTop: 20 }} encType="multipart/form-data">
+        <label className="label">Free Fire UID (required — from your profile)<input className="input" type="text" name="gameUid" inputMode="numeric" pattern="[0-9]{6,20}" required placeholder="2384019283" /></label>
         <ProofUploadInput />
         <SubmitAction>Submit for verification</SubmitAction>
       </form>
