@@ -16,7 +16,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hero-line-accent">Verified once.</span>
           </h1>
           <p className="hero-sub">
-            ₹499 per event. Cafés, fests, sponsors and guilds unlock verified Free Fire rosters. Players screened by an admin, not by a form. You see the ranks; the players see your invite.
+            Cafés, fests, sponsors, guild trials. One admin eye-verifies every screenshot on FF Scout before a roster enters the pool. ₹499 per event. Players never pay.
           </p>
           <div className="cta-row">
             <Link href="/organizer/sign-up" className="btn btn-xl">Unlock verified rosters</Link>
@@ -37,7 +37,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hud-board-count">{ctx.roster.length}/6 VERIFIED</span>
           </div>
           {roster.length === 0 ? (
-            <p className="hud-empty">No verified roster yet. You are looking at an empty board, not a brochure.</p>
+            <p className="hud-empty">No verified roster yet. You are looking at an honest board, not a stock photo. Admin eye-verification is the bottleneck — first batch reviews any day.</p>
           ) : (
             roster.slice(0, 5).map((p) => (
               <Link key={p.id} href="/sign-up" className="hud-row" style={{ textDecoration: 'none' }}>
@@ -47,7 +47,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
               </Link>
             ))
           )}
-          <figcaption className="hud-caption">Admin-verified, updated live.</figcaption>
+          <figcaption className="hud-caption">Admin-verified, updated live, from the real pool.</figcaption>
         </motion.figure>
       </div>
 

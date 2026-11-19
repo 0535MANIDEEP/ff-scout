@@ -1,17 +1,17 @@
 ﻿import '../styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
-import { Inter, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
 import { BRAND } from '@/lib/brand';
 import ThemeToggle from '@/components/ThemeToggle';
 
 // Self-hosted at build time via next/font, no render-blocking external CSS,
 // no system-font fallback masquerading as the design system.
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
-const grotesk = Space_Grotesk({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' });
+const inter = Inter({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' });
+const anton = Anton({ subsets: ['latin'], variable: '--font-anton', weight: '400', display: 'swap' });
 const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', display: 'swap' });
 
-const themeInit = `(function(){try{var t=localStorage.getItem('ff-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.dataset.theme='dark';}})()`;
+const themeInit = `(function(){try{var t=localStorage.getItem('ff-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.dataset.theme='light';}})()`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
@@ -69,7 +69,7 @@ function Header() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="dark" className={`${inter.variable} ${grotesk.variable} ${jbmono.variable}`}>
+    <html lang="en" suppressHydrationWarning data-theme="light" className={`${inter.variable} ${anton.variable} ${jbmono.variable}`}>
       <body>
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         <a className="skip-link" href="#main-content">Skip to content</a>
