@@ -10,7 +10,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
     <section className="hero-full">
       <div className="shell hero-desk">
         <div className="hero-copy">
-          <span className="eyebrow-inline">HYDERABAD ROSTER DESK · FF INDIA</span>
+          <span className="eyebrow-inline">INDIA ROSTER DESK · FREE FIRE</span>
           <h1 className="hero-headline">
             One shortlist.
             <span className="hero-line-accent">Verified once.</span>

@@ -3,10 +3,10 @@
 export const BRAND = {
   name: 'Final Circle',
   mark: 'FC',
-  tagline: 'The roster you call when the circle closes.',
+  tagline: 'A ranked circle of screened Free Fire talent — for organizers across India',
   descriptor: 'Free Fire roster finder for Indian organizers',
   descriptorTagline: 'Free Fire roster finder · India',
-  description: 'Free Fire roster finder for Indian organizers. One verified shortlist of ranked, screened players — opened by café owners, fest leads, sponsors and guilds.',
+  description: 'Ranked screened Free Fire rosters for Indian organizers — café owners, fest leads, sponsors and guild trials. Verified by one human admin. One shortlist per event. Pilot-free for players.',
   // Domain: finalcircle.gg is the target. Not purchased yet — until then the
   // canonical URL stays the Vercel deployment. Set NEXT_PUBLIC_SITE_URL in
   // Vercel when the domain is live.
@@ -14,7 +14,7 @@ export const BRAND = {
   email: 'manideepdaram@gmail.com',
   founder: 'Manideep Daram',
   founderGithub: 'https://github.com/0535MANIDEEP',
-  city: 'Hyderabad',
+  city: 'India',
   country: 'India',
   locale: 'en_IN',
   pricing: {

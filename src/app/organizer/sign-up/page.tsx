@@ -17,7 +17,7 @@ export default function OrgSignUpPage() {
           <label className="label">Organization name<input className="input" name="orgName" required placeholder="Rajawadi Cyber Game Nite" /></label>
           <div className="row" style={{ marginTop: 10 }}>
             <label className="label">Type<select className="input" name="orgType">{['College fest','LAN / gaming café','Sponsor activation','Guild','Tournament series','Community scrims'].map(x=><option key={x}>{x}</option>)}</select></label>
-            <label className="label">City<input className="input" name="city" required defaultValue="Hyderabad" /></label>
+            <label className="label">City<input className="input" name="city" required defaultValue="India" /></label>
           </div>
           <label className="label" style={{ marginTop: 10 }}>Contact person<input className="input" name="displayName" required /></label>
           <div className="row" style={{ marginTop: 10 }}>
