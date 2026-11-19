@@ -41,8 +41,8 @@ The pivot: **Final Circle is a match platform.** Organizers post matches; player
 
 | Field | Values |
 |---|---|
-| `mode` | `casual` (fun) · `serious` · `tournament` · `esports` — extensible string |
-| `gameType` | `BR` · `CS` |
+| `mode` | `casual` · `competitive` · `ranked` · `esports` — extensible string |
+| `gameType` | `BR` · `CS` · `BR/CS` |
 | `entry` | `free` · `paid` (with `entryFee` note, optional) |
 | `prize` | `none` · `pool` (with `prizePool` note, optional) |
 | `status` | `open` · `closed` |
