@@ -38,8 +38,8 @@ export default async function HomePage() {
               <p>Players upload rank screenshots. Admin eye-verifies each manually. Nothing enters the pool without our sign-off, ever.</p>
             </article></Reveal>
             <Reveal delay={240}><article className="card">
-              <h3>3. You unlock in ₹499</h3>
-              <p>Per event, not per player. Full refund if roster doesn't work for your match. We take the risk, not you.</p>
+              <h3>3. You unlock it free (pilot)</h3>
+              <p>Per event, not per player. At launch: ₹499 per event, full refund until roster locks. Pilot phase: free. Either way, we hold the risk.</p>
             </article></Reveal>
           </div>
         </div>
@@ -53,8 +53,8 @@ export default async function HomePage() {
             <thead><tr><th>Format</th><th>Before FF Scout</th><th>With FF Scout</th></tr></thead>
             <tbody>
               <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on day</td><td>10 verified players with ranked screenshots, confirmed 5 days ahead</td></tr>
-              <tr><td>College fest FF event</td><td>Random entrants, admin hours wasted screening rank</td><td>₹499 unlock, one admin-verified roster, ready to play</td></tr>
-              <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Verified Heroic players only, performance conditional on match-day</td></tr>
+              <tr><td>College fest FF event</td><td>Random entrants, admin hours wasted screening rank</td><td>Verified roster, valid for your event — free in pilot</td></tr>
+              <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Verified Heroic players, publicly visible dev history and rank</td></tr>
               <tr><td>Guild trial</td><td>Hundreds of applicants, wrong ROLE</td><td>Shortlisted by role/rank, ₹999/yr, unlimited trials</td></tr>
             </tbody>
           </table></div></Reveal>
@@ -64,8 +64,8 @@ export default async function HomePage() {
       <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
         <div className="shell">
           <Reveal>
-            <h2>₹499 unlocks verified roster access</h2>
-            <p className="lead" style={{ marginTop: 12 }}>One purchase per event covers your entire shortlist. Refund until roster locks. If you don&apos;t like the picks, we don&apos;t charge.</p>
+            <h2>₹499 unlocks verified roster access — at launch. Pilot is free.</h2>
+            <p className="lead" style={{ marginTop: 12 }}>Paid pilot. One purchase per event covers your entire shortlist... when it launches. Refund until roster locks. Pilot: no payment flow, nothing to refund. At launch: full refund until roster locks.</p>
             <Link href="/organizer/sign-up" className="btn" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, fontSize: 16, padding: '14px 24px' }}>
               Start your tournament →
             </Link>
@@ -77,7 +77,7 @@ export default async function HomePage() {
         <div className="shell">
           <Reveal>
             <h2>Not in your city yet?</h2>
-            <p className="lead" style={{ marginTop: 12 }}>Tell us where you organise events. Once we onboard your city, sponsors start buying from your verified rosters, ₹499 locked refund until your first match.</p>
+            <p className="lead" style={{ marginTop: 12 }}>Tell us where you organise events. We onboard grassroots partners city by city, starting with Hyderabad.</p>
             <Waitlist />
           </Reveal>
         </div>

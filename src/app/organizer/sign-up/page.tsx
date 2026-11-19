@@ -11,7 +11,7 @@ export default function OrgSignUpPage() {
     <div className="shell">
       <div className="form-card">
         <h1>Organizer signup</h1>
-        <p className="subtext" style={{ marginBottom: 16 }}>Verified rosters for your fest. ₹499 per event to unlock the shortlist.</p>
+        <p className="subtext" style={{ marginBottom: 16 }}>Verified rosters for your fest. Pilot phase: shortlist is free right now. ₹499 per event starts when payments go live.</p>
         {state?.error && <p style={{ color: 'var(--danger)', marginBottom: 10, fontSize: 13 }}>{state.error}</p>}
         <form action={action}>
           <label className="label">Organization name<input className="input" name="orgName" required placeholder="Rajawadi Cyber Game Nite" /></label>

@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             url: BRAND.url,
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web',
-            offers: { '@type': 'Offer', price: String(BRAND.pricing.eventUnlock), priceCurrency: BRAND.pricing.currency },
+            offers: { '@type': 'Offer', price: '0', priceCurrency: BRAND.pricing.currency, priceValidUntil: '2099-12-31' },
             creator: { '@type': 'Person', name: BRAND.founder, email: BRAND.email },
             description: `Searchable verified Free Fire rosters for Indian tournaments and cafés.`
           }) }}
