@@ -25,7 +25,7 @@ export default function Privacy() {
         <li><strong>Verification (players):</strong> one screenshot of your rank. Used solely for rank review, then deleted 30 days after the decision. Never included in any organizer export.</li>
         <li><strong>Shortlist unlock (organizers):</strong> you see verified players&apos; display name, rank, role, affiliation, city and status. Contact details are shown only if the player opted in to be contacted. We never share passwords or verification evidence with anyone.</li>
         <li><strong>Waitlist (visitors):</strong> email, segment (organizer/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
-        <li><strong>Operational logs:</strong> sign-in and admin actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
+        <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>18+ only</h2>
@@ -60,7 +60,7 @@ export default function Privacy() {
       <h2 style={{ marginTop: 24 }}>Retention, plainly</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>Account data, until you erase it (and always on request).</li>
-        <li>Verification screenshots, deleted 30 days after the admin approves or rejects.</li>
+        <li>Verification screenshots, deleted 30 days after the review decision.</li>
         <li>Audit logs, 90 days.</li>
         <li>Waitlist, until launch + 90 days, then deleted.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>

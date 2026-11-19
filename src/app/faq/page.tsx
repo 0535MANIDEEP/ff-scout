@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'What if a player fakes a screenshot or a UID?',
-    a: 'The UID in the screenshot will not match a fresh upload next season or another account. The player stays out of the pool. Organizers who spot an anomaly flag it, and repeated flags are handled by the admin as a permanent ban from the pool.'
+    a: 'The UID in the screenshot will not match a fresh upload next season or another account. The player stays out of the pool. Organizers who spot an anomaly flag it, and repeated flags get the account removed from the pool.'
   },
   {
     q: 'How much does an unlock cost?',

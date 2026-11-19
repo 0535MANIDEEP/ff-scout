@@ -54,7 +54,7 @@ export default async function PlayerDashboard() {
           <h3>Quick actions</h3>
           <div className="list">
             <Link href="/settings" className="rowitem" style={{ textDecoration: 'none' }}><span>Availability</span><span className="chip">{user.status}</span></Link>
-            <div className="rowitem"><span>Contact admin</span><a href={`mailto:${BRAND.email}`} className="chip chip-sapphire">Email</a></div>
+            <div className="rowitem"><span>Contact us</span><a href={`mailto:${BRAND.email}`} className="chip chip-sapphire">Email</a></div>
           </div>
         </section>
       </div>

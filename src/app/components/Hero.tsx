@@ -47,14 +47,14 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
               </Link>
             ))
           )}
-          <figcaption className="hud-caption">Admin-verified, updated live, from the real pool.</figcaption>
+          <figcaption className="hud-caption">Screened, updated live, from the real pool.</figcaption>
         </motion.figure>
       </div>
 
       <div className="ticker" aria-hidden="true">
         <div className="shell ticker-inner">
           <div className="ticker-item"><strong>{ctx.totalVerified}</strong><span>verified across {ctx.collegeCount} affiliations</span></div>
-          <div className="ticker-item"><strong>{ctx.pendingCount}</strong><span>waiting on admin review</span></div>
+          <div className="ticker-item"><strong>{ctx.pendingCount}</strong><span>waiting on review</span></div>
           <div className="ticker-item"><strong>Pilot</strong><span>free shortlist right now</span></div>
           <div className="ticker-item"><strong>0</strong><span>players who ever paid us</span></div>
         </div>

@@ -24,10 +24,10 @@ export const LEARN_CHAPTERS: Chapter[] = [
     id: 'screenshot',
     tag: 'DRILL',
     title: 'A screenshot that passes',
-    brief: 'What the verification admin actually needs to see, and how to capture it in 30 seconds.',
+    brief: 'What a verification check actually needs to see, and how to capture it in 30 seconds.',
     blocks: [
       {
-        heading: 'What the admin looks at',
+        heading: 'What the check looks at',
         lines: [
           'Open the screen that shows your rank and your ADPR (kill/death) together, the one the game shows you after a ranked match.',
           'Your UID must be visible somewhere on the screen (profile page works).',

@@ -61,7 +61,7 @@ export default async function HomePage() {
             </article></Reveal>
             <Reveal delay={120}><article className="card">
               <h3>2. We screen once</h3>
-              <p>Players upload rank screenshots. Admin eye-verifies each manually. Nothing enters the pool without our sign-off, ever.</p>
+              <p>Players upload rank screenshots. Every one is checked by hand before it enters the pool. Nothing gets in unscreened.</p>
             </article></Reveal>
             <Reveal delay={240}><article className="card">
               <h3>3. You unlock it free (pilot)</h3>
@@ -79,7 +79,7 @@ export default async function HomePage() {
             <thead><tr><th>Format</th><th>Before Final Circle</th><th>With Final Circle</th></tr></thead>
             <tbody>
               <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on day</td><td>10 verified players with ranked screenshots, in your CSV the same day</td></tr>
-              <tr><td>College fest FF event</td><td>Random entrants, admin hours wasted screening rank</td><td>Verified roster, valid for your event — free in pilot</td></tr>
+              <tr><td>College fest FF event</td><td>Random entrants, hours wasted screening rank</td><td>Verified roster, valid for your event — free in pilot</td></tr>
               <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Verified Heroic players, publicly visible dev history and rank</td></tr>
               <tr><td>Guild trial</td><td>Hundreds of applicants, wrong role</td><td>Shortlisted by role and rank, ₹499 per event at launch, free in pilot</td></tr>
             </tbody>
