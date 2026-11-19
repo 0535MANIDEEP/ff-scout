@@ -59,6 +59,7 @@ function Header() {
         </Link>
         <nav className="nav" aria-label="Main navigation">
           <Link href="/learn">Learn</Link>
+          <Link href="/uid-check">UID check</Link>
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
           <ThemeToggle />
