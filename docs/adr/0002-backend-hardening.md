@@ -1,6 +1,6 @@
 # ADR 0002 — Backend hardening pass (2026-11-19)
 
-Context: FF Scout's backend is Next.js server actions + Prisma + JWT session cookies, SQLite in dev, Postgres targeted for prod (Neon). A pre-launch audit surfaced flaws that matter more than any new feature.
+Context: Final Circle's backend is Next.js server actions + Prisma + JWT session cookies, SQLite in dev, Postgres targeted for prod (Neon). A pre-launch audit surfaced flaws that matter more than any new feature.
 
 ## Decisions
 

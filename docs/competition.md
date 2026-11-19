@@ -1,6 +1,6 @@
-# FF Scout — Competitive scan (2026-11-19)
+# Final Circle — Competitive scan (2026-11-19)
 
-Positioning question: what existing thing is FF Scout, and what is it not?
+Positioning question: what existing thing is Final Circle, and what is it not?
 
 ## Who already does FF recruitment in India
 

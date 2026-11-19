@@ -1,4 +1,4 @@
-# FF Scout — Editable content map
+# Final Circle — Editable content map
 
 If you (the buyer) want to change copy without touching code structure, edit these files.
 

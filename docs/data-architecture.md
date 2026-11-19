@@ -1,4 +1,4 @@
-# FF Scout — Data Architecture
+# Final Circle — Data Architecture
 
 Status: live design, 2026-11-19. Applies to the deployed app (`ff-scout.vercel.app`) and dev (`file:./dev.db`). Supersedes nothing; extends ADR 0001 (recruiter-first) and ADR 0002 (backend hardening).
 
@@ -161,7 +161,7 @@ npx prisma migrate deploy            # CI/Vercel build step, prod-safe
 
 ## 8. DPDP Act 2023 — engineering map (not legal advice)
 
-DPDP treats FF Scout as a **Data Fiduciary**; users are **Data Principals**; Vercel/Neon are **Data Processors**. Obligations and where they land:
+DPDP treats Final Circle as a **Data Fiduciary**; users are **Data Principals**; Vercel/Neon are **Data Processors**. Obligations and where they land:
 
 | Obligation | Status today | Action |
 |---|---|---|

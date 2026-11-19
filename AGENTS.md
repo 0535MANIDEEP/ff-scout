@@ -1,6 +1,6 @@
-# FF Scout — Working Rules
+# Final Circle — Working Rules
 
-The ten golden rules, applied authentically to FF Scout.
+The ten golden rules, applied authentically to Final Circle.
 
 1. **People first, code second.** Nothing ships unless a real organizer has said, aloud, the product matters today. Code adapts to their who and why, not the other way around. Every feature exists only if at least one pilot organizer pays for it.
 2. **Intent must be readable in the repo.** The product line, roles, pricing, monetization layers, and dismissals live in SPEC.md. If you cannot explain those in 60 seconds from reading the repo, the repo is incomplete.

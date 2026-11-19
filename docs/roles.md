@@ -1,4 +1,4 @@
-# FF Scout — Role taxonomy (2026-11-19)
+# Final Circle — Role taxonomy (2026-11-19)
 
 ## The five combat roles
 
@@ -22,7 +22,7 @@ We use **five combat roles** because they are what players actually declare and 
 
 IGL (in-game leader) is a **designation**, not a combat style: one player per squad, usually the most experienced, calls rotations and the final call — while playing one of the five above (Gurugamer explicitly notes IGLs commonly play Support or Sniper). Treating IGL as a selectable peer role produced two failure modes: (1) every sign-up ticks it for ego; (2) organizers can't tell a genuine caller from a name.
 
-FF Scout therefore does **not** offer IGL as a role. Instead:
+Final Circle therefore does **not** offer IGL as a role. Instead:
 - Sign-up exposes `iglCapable` — an opt-in, unverified self-declaration.
 - Organizers see it as a flag next to the role ("IGL"), never as a substitute for a role.
 - Verification of calling skill comes from shortlist captain review (stewarding a full match), not from a form checkbox.

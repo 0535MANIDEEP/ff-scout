@@ -1,4 +1,4 @@
-# FF Scout — Client Handoff
+# Final Circle — Client Handoff
 
 This is what you (the owner) or your buyer does once the pilot is proven. Everything below is either already set up or 30 minutes of work using the components shipped here.
 
