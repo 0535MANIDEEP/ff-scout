@@ -2,9 +2,15 @@
 // the pool half of the page still works, and the live half reports honestly
 // that it is not enabled instead of failing silently.
 //
+// Provider: GamesKinbo Free Fire Info API — docs at https://api.gameskinbo.com/documentation.
 // Free tier (₹0, no card): 50 calls/month, 5 req/min. Key goes in the Vercel
-// dashboard, never in git. Response fields are whitelisted below: whatever the
-// provider returns outside this list never leaves the server.
+// dashboard, never in git. Regions are sent uppercase exactly as the provider
+// documents (BD, IND, BR, ...). shapeProfile whitelists every field: whatever
+// the provider returns outside that list never leaves the server.
+//
+// Rank codes are passed through as the provider reports them (e.g. 325), not
+// mapped to tier names — the provider does not document the mapping, and
+// guessing would put words in the game's mouth.
 
 const ENDPOINT = 'https://api.gameskinbo.com/ff-info/get';
 
@@ -14,9 +20,9 @@ export type LiveProfile = {
   likes: number | null;
   region: string | null;
   season: number | null;
-  brRank: string;
+  brRank: number | null;   // provider rank code, e.g. 325 — not a tier name
   brPoints: number | null;
-  csRank: string;
+  csRank: number | null;
   csPoints: number | null;
   guild: string | null;
   guildMembers: number | null;
@@ -27,25 +33,7 @@ export type LiveOutcome =
   | { state: 'ok'; profile: LiveProfile }
   | { state: 'disabled' }    // no key configured on this deployment
   | { state: 'quota' }       // free monthly allowance or per-minute limit hit
-  | { state: 'not_found' }
   | { state: 'error' };
-
-// Rank codes as the game reports them, mapped to tier names. Unknown codes
-// read as Unranked rather than guessing a tier the game may have renamed.
-const RANK_BY_CODE: Record<number, string> = {
-  100: 'Bronze I', 110: 'Bronze II', 120: 'Bronze III',
-  200: 'Silver I', 210: 'Silver II', 220: 'Silver III',
-  300: 'Gold I', 310: 'Gold II', 320: 'Gold III',
-  400: 'Platinum I', 410: 'Platinum II', 420: 'Platinum III',
-  500: 'Diamond I', 510: 'Diamond II', 520: 'Diamond III',
-  600: 'Heroic', 700: 'Grandmaster',
-};
-
-function rankName(code: unknown): string {
-  const n = Number(code);
-  if (!n) return 'Unranked';
-  return RANK_BY_CODE[n] ?? 'Unranked';
-}
 
 function points(value: unknown): number | null {
   const n = Number(value);
@@ -61,13 +49,36 @@ function dateInIndia(value: unknown): string | null {
   return d.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
 }
 
+// Pure shaping: raw provider payload -> whitelisted profile. Returns null when
+// the body is unreadable. Exported for tests.
+export function shapeProfile(raw: Record<string, unknown> | null): LiveProfile | null {
+  const account = raw?.AccountInfo as Record<string, unknown> | undefined;
+  if (!account) return null;
+  const profile = (raw?.AccountProfileInfo ?? {}) as Record<string, unknown>;
+  const guild = (raw?.GuildInfo ?? {}) as Record<string, unknown>;
+  return {
+    nickname: String(account.AccountName ?? 'Unknown'),
+    level: points(account.AccountLevel),
+    likes: points(account.AccountLikes),
+    region: account.AccountRegion ? String(account.AccountRegion) : null,
+    season: points(account.AccountSeasonId),
+    brRank: points(profile.BrMaxRank),
+    brPoints: points(profile.BrRankPoint),
+    csRank: points(profile.CsMaxRank),
+    csPoints: points(profile.CsRankPoint),
+    guild: guild.GuildName ? String(guild.GuildName) : null,
+    guildMembers: points(guild.MemberNum),
+    lastLogin: dateInIndia(account.AccountLastLogin),
+  };
+}
+
 export async function fetchLiveProfile(uid: string, region: string): Promise<LiveOutcome> {
   const key = process.env.GAMESKINBO_API_KEY;
   if (!key) return { state: 'disabled' };
 
   let res: Response;
   try {
-    res = await fetch(`${ENDPOINT}?uid=${encodeURIComponent(uid)}&region=${encodeURIComponent(region)}`, {
+    res = await fetch(`${ENDPOINT}?uid=${encodeURIComponent(uid)}&region=${encodeURIComponent(region.toUpperCase())}`, {
       headers: { 'x-api-key': key, accept: 'application/json' },
       signal: AbortSignal.timeout(7000), // Vercel Hobby functions cap at 10s
       cache: 'no-store',
@@ -76,31 +87,16 @@ export async function fetchLiveProfile(uid: string, region: string): Promise<Liv
     return { state: 'error' };
   }
 
-  if (res.status === 402 || res.status === 429) return { state: 'quota' };
+  // 429 covers both the per-minute cap and the monthly allowance (provider docs).
+  if (res.status === 429) return { state: 'quota' };
+  // Everything else (401 bad key, 402 invalid UID/upstream error, 5xx) means the
+  // lookup did not happen. 402 is never a payment prompt on this provider.
   if (!res.ok) return { state: 'error' };
 
   const raw = await res.json().catch(() => null) as Record<string, unknown> | null;
-  const account = raw?.AccountInfo as Record<string, unknown> | undefined;
-  if (!account) return { state: 'not_found' };
-
-  const profile = (raw?.AccountProfileInfo ?? {}) as Record<string, unknown>;
-  const guild = (raw?.GuildInfo ?? {}) as Record<string, unknown>;
-
-  return {
-    state: 'ok',
-    profile: {
-      nickname: String(account.AccountName ?? 'Unknown'),
-      level: points(account.AccountLevel),
-      likes: points(account.AccountLikes),
-      region: account.AccountRegion ? String(account.AccountRegion) : null,
-      season: points(account.AccountSeasonId),
-      brRank: rankName(profile.BrMaxRank),
-      brPoints: points(profile.BrRankPoint),
-      csRank: rankName(profile.CsMaxRank),
-      csPoints: points(profile.CsRankPoint),
-      guild: guild.GuildName ? String(guild.GuildName) : null,
-      guildMembers: points(guild.MemberNum),
-      lastLogin: dateInIndia(account.AccountLastLogin),
-    },
-  };
+  const profile = shapeProfile(raw);
+  // An unreadable body is an upstream problem, not a missing player — claiming
+  // "no profile came back" here would be a guess.
+  if (!profile) return { state: 'error' };
+  return { state: 'ok', profile };
 }

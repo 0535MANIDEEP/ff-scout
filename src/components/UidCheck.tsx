@@ -10,17 +10,16 @@ type Result = {
   live: LiveOutcome;
 };
 
+// Exactly the regions the provider documents; anything else would be a guess.
 const REGIONS: [string, string][] = [
-  ['ind', 'India'], ['bd', 'Bangladesh'], ['pk', 'Pakistan'], ['sg', 'Singapore'],
-  ['th', 'Thailand'], ['vn', 'Vietnam'], ['my', 'Malaysia'], ['ph', 'Philippines'],
-  ['id', 'Indonesia'], ['br', 'Brazil'], ['mena', 'Middle East'], ['ru', 'Russia'],
-  ['us', 'United States'], ['latam', 'Latin America'], ['sa', 'South Africa'],
+  ['bd', 'Bangladesh'], ['ind', 'India'], ['br', 'Brazil'], ['us', 'United States'],
+  ['sac', 'South America'], ['na', 'North America'], ['th', 'Thailand'],
+  ['id', 'Indonesia'], ['sg', 'Singapore'], ['pk', 'Pakistan'],
 ];
 
 const LIVE_COPY: Record<Exclude<LiveOutcome, { state: 'ok' }>['state'], string> = {
   disabled: 'Live game lookup is not switched on for this deployment yet. The pool check below always works.',
   quota: 'The free monthly lookup allowance is used up for now. The pool check below still works.',
-  not_found: 'No public profile came back for that UID and region. Check the digits and the region.',
   error: 'The game lookup service did not answer. Try once more in a moment.',
 };
 

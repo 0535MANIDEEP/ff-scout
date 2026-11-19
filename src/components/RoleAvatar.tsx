@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { ROLE_LABEL } from '@/lib/config';
+import { GAME_ROLE_LABEL } from '@/lib/config';
 
 // Fixed, recognizable role avatars: flat glyph on an ink tile.
 // No uploads, no GIFs — nothing to moderate, nothing to store, nothing to fake.
@@ -19,7 +19,7 @@ const GLYPHS: Record<string, ReactNode> = {
   neutral: (<circle cx="64" cy="64" r="24" stroke={BONE} strokeWidth="9" fill="none" />),
 };
 
-const LABELS: Record<string, string> = { ...ROLE_LABEL, neutral: 'Organizer' };
+const LABELS: Record<string, string> = { ...GAME_ROLE_LABEL, neutral: 'Organizer' };
 
 export default function RoleAvatar({ role, iglCapable, size = 44 }: { role?: Role; iglCapable?: boolean; size?: number }) {
   const body = GLYPHS[role ?? 'neutral'] ?? GLYPHS.neutral;

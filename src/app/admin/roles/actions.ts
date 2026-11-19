@@ -20,6 +20,8 @@ export async function setRole(formData: FormData) {
   const target = String(formData.get('role') ?? '') as Role;
   const reason = String(formData.get('reason') ?? '').trim().slice(0, 140);
   if (!userId || !VALID.includes(target)) redirect('/admin/roles?e=bad');
+  // The audit log is only worth something if every change carries a reason.
+  if (!reason) redirect('/admin/roles?e=reason');
 
   // Lockout guards, forget one of these and you've got a dead admin panel.
   if (userId === s.userId && target !== 'admin') redirect('/admin/roles?e=self');

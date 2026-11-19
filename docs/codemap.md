@@ -4,7 +4,7 @@ For any new engineer landing here — this is what to read, in order, to be prod
 
 ## The mental model
 
-Final Circle connects **organizers** (who pay ₹499 per event) with **players** who uploaded a rank screenshot. The **admin** verifies each screenshot manually. Once verified, an organiser can download a CSV of the shortlisted roster.
+Final Circle connects **organizers** (who pay ₹499 per event) with **players** who uploaded a rank screenshot. A **human verifier** checks each screenshot manually. Once verified, an organiser can download a CSV of the shortlisted roster.
 
 ## Folder structure
 
@@ -31,7 +31,10 @@ test/                  node:test smoke suite
 | `/organizer/shortlist` | organizer | After login: roster + filters + CSV download |
 | `/organizer/shortlist/download` | admin + organizer | Generates the CSV |
 | `/admin/verify` | admin | Review queue: approve/reject screenshots |
+| `/uid-check` | visitor | Free UID check: verified-pool status + live game profile (see ADR 0003) |
+| `/learn` | visitor | Field manual — how ranks, roles and verification work |
 | `/api/waitlist` | visitor | Email capture for landing-page waitlist |
+| `/api/uid-check` | visitor | JSON: pool half (own DB) + live half (env-gated provider) |
 | `/sign-out` | anyone logged in | POST endpoint; clears cookie |
 | `/about` | visitor | About page |
 | `/faq` | visitor | 12 honest answers — expandable via accordion is overkill |

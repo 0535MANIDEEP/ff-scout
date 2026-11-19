@@ -7,6 +7,7 @@
   },
   "roles": {
     "bad": "That role change didn't make sense — pick a role and save again.",
+    "reason": "Every role change needs a one-line reason — it goes in the audit log.",
     "self": "You can't demote your own admin account. Let another admin handle it, or do it deliberately from the database.",
     "last": "This is the only admin account — demoting it would lock everyone out. Promote another admin first."
   },

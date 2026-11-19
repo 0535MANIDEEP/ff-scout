@@ -23,8 +23,9 @@ export default function UidCheckPage() {
         <p className="subtext" style={{ maxWidth: '62ch' }}>
           <strong>How the pool answer is earned.</strong> A UID enters the verified pool only after a
           human reviewer matches the UID against an approved rank screenshot. Live profile data comes
-          from a third-party provider of the game’s public account fields; Final Circle is independent,
-          not affiliated with Garena or Free Fire.
+          from a third-party provider of the game’s public account fields — rank codes are shown
+          exactly as the provider reports them. Final Circle is independent, not affiliated with
+          Garena or Free Fire.
         </p>
       </section>
     </div>
