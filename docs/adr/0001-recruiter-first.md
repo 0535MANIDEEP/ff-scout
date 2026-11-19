@@ -16,7 +16,7 @@ ADRs are numbered chronological. When you change an earlier decision, write a ne
 
 **Context:** Every recruiter in this space has a Discord/WhatsApp group. Neither is scheduled here.
 
-**Decision:** FF Scout does not build messaging in v1. Coordinate via CSV export once and via coordinator WhatsApp groups, which is where this audience already lives.
+**Decision:** Final Circle does not build messaging in v1. Coordinate via CSV export once and via coordinator WhatsApp groups, which is where this audience already lives.
 
 **Why:** we do not want moderation liability, and we will not win vs Discord in the first 18 months. Export + email is good enough for a ₹499 paid event.
 
@@ -34,7 +34,7 @@ ADRs are numbered chronological. When you change an earlier decision, write a ne
 
 ## ADR-004 — Next.js 16 + Turbopack + Prisma captures a schema that already exists in production
 
-**Context:** FF Scout runs with `prisma db push`, not migrations, while the schema is in flux.
+**Context:** Final Circle runs with `prisma db push`, not migrations, while the schema is in flux.
 
 **Decision:** `db push --accept-data-loss` is a dev-only tool. Schema is managed by capturing the resulting `prisma/schema.prisma` in git. When the shape stabilises, we will pick migrations and retire `db push`.
 

@@ -40,7 +40,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
         <h1>Shortlist builder</h1>
         <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
       </div>
-      <p className="subtext">Filter verified FF rosters across colleges, cafés, LANs, guilds and sponsor activations. ₹499 per event unlock coming shortly.</p>
+      <p className="subtext">Filter verified FF rosters. Pilot phase: shortlist is free right now. ₹499 per event unlocks at launch.</p>
 
       <form method="get" action="/organizer/shortlist" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 16 }}>
         <select className="input" name="role" defaultValue={role ?? ''} aria-label="Role" style={{ minWidth: 140 }}>
@@ -57,7 +57,7 @@ export default async function OrganizerShortlist({ searchParams }: { searchParam
       </form>
 
       <div className="shell" style={{ display: 'flex', gap: 10, marginTop: 16 }}>
-        <a className="btn-ghost" href="/organizer/shortlist/download" style={{ textDecoration: 'none' }}>Download CSV shortlist (₹499 pending)</a>
+        <a className="btn-ghost" href="/organizer/shortlist/download" style={{ textDecoration: 'none' }}>Download shortlist CSV (free in pilot)</a>
       </div>
       <div className="list" style={{ marginTop: 20 }}>
         {players.length === 0 ? (

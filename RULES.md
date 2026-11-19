@@ -1,4 +1,4 @@
-# FF Scout — Working Rules
+# Final Circle — Working Rules
 
 Apply the 10 Golden Rules to this project, with one adaptation per rule.
 These are inversions of aspiration into practice — audits, not philosophy.

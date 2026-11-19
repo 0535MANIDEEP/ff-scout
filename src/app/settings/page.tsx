@@ -6,7 +6,7 @@ import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import { deleteAccount, setAvailability } from './actions';
 
-export const metadata = { title: 'Settings, FF Scout' };
+export const metadata = { title: 'Settings, Final Circle' };
 
 export default async function Settings({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const jar = await cookies();

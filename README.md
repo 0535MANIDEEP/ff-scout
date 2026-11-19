@@ -1,4 +1,4 @@
-# FF Scout
+# Final Circle
 
 Verified Free Fire rosters for Indian tournament organizers. A self-hosted, open-source, India-first recruiting tool for the esports grassroots scene.
 
@@ -6,7 +6,7 @@ Verified Free Fire rosters for Indian tournament organizers. A self-hosted, open
 
 ## What it solves
 
-Indian FF tournament organizers — college fest leads, café LAN operators, esports café owners, sponsors — have a shortlist problem: hundreds of DMs, wrong ranks, wrong roles, wasted hours, forged screenshots. FF Scout hands them one verified shortlist with role, rank, and region.
+Indian FF tournament organizers — college fest leads, café LAN operators, esports café owners, sponsors — have a shortlist problem: hundreds of DMs, wrong ranks, wrong roles, wasted hours, forged screenshots. Final Circle hands them one verified shortlist with role, rank, and region.
 
 ## Who pays · who joins
 

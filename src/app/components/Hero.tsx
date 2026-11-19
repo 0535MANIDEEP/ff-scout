@@ -16,13 +16,13 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hero-line-accent">Verified once.</span>
           </h1>
           <p className="hero-sub">
-            Cafés, fests, sponsors, guild trials. One admin eye-verifies every screenshot on FF Scout before a roster enters the pool. ₹499 per event. Players never pay.
+            Cafés, fests, sponsor activations, guild trials. One admin eye-verifies every screenshot before any roster enters the pool. Pilot phase: organizers pay nothing yet. Players never pay.
           </p>
           <div className="cta-row">
             <Link href="/organizer/sign-up" className="btn btn-xl">Unlock verified rosters</Link>
             <Link href="/sign-up" className="btn-ghost">I want to be scouted</Link>
           </div>
-          <p className="hero-fine">₹499 per event · full refund until the roster locks · players never pay</p>
+          <p className="hero-fine">Pilot phase: shortlist is free right now · full refund becomes refund-until-lock at launch · players never pay</p>
         </div>
 
         <motion.figure
@@ -55,7 +55,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
         <div className="shell ticker-inner">
           <div className="ticker-item"><strong>{ctx.totalVerified}</strong><span>verified across {ctx.collegeCount} affiliations</span></div>
           <div className="ticker-item"><strong>{ctx.pendingCount}</strong><span>waiting on admin review</span></div>
-          <div className="ticker-item"><strong>₹499</strong><span>per event, refund until lock</span></div>
+          <div className="ticker-item"><strong>Pilot</strong><span>free shortlist right now</span></div>
           <div className="ticker-item"><strong>0</strong><span>players who ever paid us</span></div>
         </div>
       </div>

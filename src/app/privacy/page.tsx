@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { BRAND } from '@/lib/brand';
 
 export const metadata = {
-  title: 'Privacy, FF Scout',
-  description: 'What FF Scout collects, why, how it is stored, and how to reach the grievance officer.',
+  title: 'Privacy, Final Circle',
+  description: 'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
 };
 
 export default function Privacy() {
@@ -14,7 +14,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>Who we are, and who to complain to</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        FF Scout is built and operated by {BRAND.founder}, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules):
+        Final Circle is built and operated by {BRAND.founder}, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules):
         <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}> {BRAND.email}</a>.
         We acknowledge grievances within 72 hours and resolve them within 30 days. If unsatisfied, you may approach the Data Protection Board of India.
       </p>
@@ -30,7 +30,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>18+ only</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        FF Scout is for users 18 years or older. By signing up you confirm you are 18+, recorded with your consent.
+        Final Circle is for users 18 years or older. By signing up you confirm you are 18+, recorded with your consent.
         We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, write to the grievance officer and we will erase the account.
       </p>
 
@@ -44,7 +44,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>Where your data lives</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Images: Cloudinary Inc. (USA).
+        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Proof images, only the screenshots you upload, live on Cloudinary Inc. (USA). Nothing else leaves these three providers.
         These processors are bound by their DPAs. Data may be transferred outside India where the DPDP Rules permit, no DPDP-blacklisted destination is used, and we re-check whenever those rules change. Backups follow the same terms.
       </p>
 

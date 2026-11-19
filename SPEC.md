@@ -1,4 +1,4 @@
-# SPEC — FF Scout
+# SPEC — Final Circle
 
 ## One line
 
@@ -6,7 +6,7 @@ The single verified pool of Free Fire talent in India — searchable by anyone r
 
 ## The problem in one line
 
-Anyone organizing FF competitive events in India can't filter the 20 DMs they got against an honest pool before they send out slot information to 10 of them. Organizers face the same shortlist problem whether they are a Ganjikhana fest lead, a gamer café owner in Tier 2, a tournament series organizer, or a sponsor activator in Tier 2/3. FF Scout is that filter.
+Anyone organizing FF competitive events in India can't filter the 20 DMs they got against an honest pool before they send out slot information to 10 of them. Organizers face the same shortlist problem whether they are a Ganjikhana fest lead, a gamer café owner in Tier 2, a tournament series organizer, or a sponsor activator in Tier 2/3. Final Circle is that filter.
 
 ## Who it serves
 
