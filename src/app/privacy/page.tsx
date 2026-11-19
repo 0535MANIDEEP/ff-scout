@@ -68,7 +68,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>What we never do</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        We do not sell your email, phone, or data to anyone, ever. We do not sell roster lists to sponsors; sponsorships are described as aggregate cohorts (e.g., "100+ verified rosters, Hyderabad"), never as person-level lists.
+        We do not sell your email, phone, or data to anyone, ever. We do not sell roster lists to sponsors; sponsorships are described as aggregate cohorts (e.g., "100+ verified rosters, India"), never as person-level lists.
       </p>
 
       <p style={{ marginTop: 32 }}><Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link></p>

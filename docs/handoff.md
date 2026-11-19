@@ -75,7 +75,7 @@ The site is deliberately small. Almost every string lives in one of seven files.
 - [ ] (Optional) Add custom domain
 - [ ] (Optional) Set up email notifications for waitlist (Resend free tier)
 - [ ] (Optional) Keep watching `/admin/verify` daily until pilot cohort verified
-- [ ] (Optional) Promote homegrown IGN competition: share `/sign-up` in Hyderabad FF Discord/WhatsApp
+- [ ] (Optional) Promote homegrown IGN competition: share `/sign-up` in India FF Discord/WhatsApp
 
 ## Honest status of this release
 

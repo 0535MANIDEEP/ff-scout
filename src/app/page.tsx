@@ -77,7 +77,7 @@ export default async function HomePage() {
         <div className="shell">
           <Reveal>
             <h2>Not in your city yet?</h2>
-            <p className="lead" style={{ marginTop: 12 }}>Tell us where you organise events. We onboard grassroots partners city by city, starting with Hyderabad.</p>
+            <p className="lead" style={{ marginTop: 12 }}>Tell us where you organise events. We onboard grassroots partners city by city, starting with India.</p>
             <Waitlist />
           </Reveal>
         </div>

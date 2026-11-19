@@ -77,7 +77,7 @@ WaitlistEntry    standalone
 | role | enum fragger/sniper/support/igled/lurker | nullable (organizers) |
 | rank | string → **enum (+)** | Bronze…Master |
 | college | nullable | affiliation; organizers see this |
-| city | default Hyderabad | |
+| city | default India | |
 | status | string → enum(+) looking/playing/inactive | |
 | orgName, orgType | nullable (organizers) | |
 | verified | Boolean | set true only via admin transaction |
@@ -168,7 +168,7 @@ DPDP treats Final Circle as a **Data Fiduciary**; users are **Data Principals**;
 | **Itemized notice** (purpose, data, rights, grievance contact) before/at collection | ❌ missing — signup has only the checkbox, vague copy | Rewrite signup copy + link `/privacy`; record `consentedAt` + notice version |
 | **Free, specific, informed, unambiguous consent** | ⚠️ checkbox exists, copy is not specific ("One rank screenshot — no fakes" is a rule, not consent) | Copy: "I agree to the Privacy Notice and to my IGN, affiliation and rank screenshot being shared with organizers who unlock an event; I can erase everything by emailing the grievance officer." |
 | **Children (<18)**: verifiable parental consent; no tracking/profiling/targeted ads | ❌ absent — FF audience skews to 16–24 | **18+ gate**: checkbox "I am 18 or older" + `ageConfirmed`. Under-18 excluded until a parental-consent flow exists. No behavioral profiling (we have none — keep it that way) |
-| **Purpose limitation** | ✅ shortlist/CSV usage matches stated purpose | Keep sponsor cohorts described as ranges ("100+ verified rosters in Hyderabad"), never person-level — privacy page already promises this; hold the line in code review |
+| **Purpose limitation** | ✅ shortlist/CSV usage matches stated purpose | Keep sponsor cohorts described as ranges ("100+ verified rosters in India"), never person-level — privacy page already promises this; hold the line in code review |
 | **Data minimization** | ⚠️ collects what it needs; `Match` unused | Prune unused tables at migration time, or justify each |
 | **Storage limitation / retention** | ❌ no deletion ever happens | Retention table in `privacy` page + 30d proof purge cron + `AuditLog` 90d purge + account erasure cascade (test: create→erase→assert gone) |
 | **Data Principal rights** (access, correction, erasure, grievance) | ⚠️ privacy page lists `admin@ffscout.dev` — **not a real mailbox** | Grievance Officer contact = `manideepdaram@gmail.com` (publish name + email + SLA 72h); access request → CSV of own row; correction → reply-based; erasure → cascade delete |
