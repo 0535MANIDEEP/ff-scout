@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
 import { BRAND } from '@/lib/brand';
 import ThemeToggle from '@/components/ThemeToggle';
+import BackToTop from '@/components/BackToTop';
 
 // Self-hosted at build time via next/font, no render-blocking external CSS,
 // no system-font fallback masquerading as the design system.
@@ -20,10 +21,11 @@ export const metadata: Metadata = {
   keywords: [
     'free fire roster',
     'free fire tournament India',
-    'free fire qualified players India',
+    'free fire cash prize matches',
     'free fire college tournament',
     'free fire tournament organizer India',
     'free fire café scrims',
+    'free fire prize money event',
     'free fire esports India',
     'free fire guild recruitment India',
     'free fire player verification',
@@ -60,6 +62,7 @@ function Header() {
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
           <ThemeToggle />
+          <Link href="/login" style={{ fontSize: 14 }}>Log in</Link>
           <Link href="/sign-up" className="nav-cta">Join the pool</Link>
         </nav>
       </div>
@@ -82,7 +85,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             url: BRAND.url,
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web',
-            offers: { '@type': 'Offer', price: '0', priceCurrency: BRAND.pricing.currency, priceValidUntil: '2099-12-31' },
             creator: { '@type': 'Person', name: BRAND.founder, email: BRAND.email },
             description: `Searchable verified Free Fire rosters for Indian tournaments and cafés.`
           }) }}
@@ -91,7 +93,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main id="main-content" tabIndex={-1}>{children}</main>
         <footer className="shell" role="contentinfo">
           <div className="footnote">
-            {BRAND.name}, {BRAND.tagline}. Built by {BRAND.founder}. {BRAND.country}-focused. {BRAND.trademark}
+            {BRAND.name}. {BRAND.tagline}. Built by {BRAND.founder}. Independent, not affiliated with Garena or Free Fire. {BRAND.trademark}
             <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12 }}>
               <Link href="/learn">Learn</Link>
               <Link href="/about">About</Link>
@@ -99,12 +101,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/terms">Terms</Link>
               <Link href="/privacy">Privacy</Link>
             </nav>
+            {process.env.SPONSOR_LINE && (
+              <p style={{ marginTop: 10, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--muted)' }}>Presented by {process.env.SPONSOR_LINE}</p>
+            )}
             <p style={{ marginTop: 10, fontSize: 12 }}>
               <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--muted)' }}>{BRAND.email}</a>
             </p>
-            <div style={{ marginTop: 12 }}><span className="footnote-badge">Made by a human</span></div>
           </div>
         </footer>
+        <BackToTop />
       </body>
     </html>
   );

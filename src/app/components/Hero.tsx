@@ -16,13 +16,13 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hero-line-accent">Verified once.</span>
           </h1>
           <p className="hero-sub">
-            Cafés, fests, sponsor activations, guild trials. One admin eye-verifies every screenshot before any roster enters the pool. Pilot phase: organizers pay nothing yet. Players never pay.
+            Prize money on the table? You deserve players who actually have the rank to win it. Cafés, fests, sponsor activations, guild trials — anyone putting up MONEY for a Free Fire match gets a roster screened by a human verifier and an export they can act on. Pilot phase: organizers pay nothing yet. Players never pay.
           </p>
           <div className="cta-row">
             <Link href="/organizer/sign-up" className="btn btn-xl">Unlock verified rosters</Link>
             <Link href="/sign-up" className="btn-ghost">I want to be scouted</Link>
           </div>
-          <p className="hero-fine">Pilot phase: shortlist is free right now · full refund becomes refund-until-lock at launch · players never pay</p>
+          <p className="hero-fine">Pilot: shortlist is free right now · at launch ₹499 per event, refund until you lock · players never pay</p>
         </div>
 
         <motion.figure
@@ -37,7 +37,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hud-board-count">{ctx.roster.length}/6 VERIFIED</span>
           </div>
           {roster.length === 0 ? (
-            <p className="hud-empty">No verified roster yet. You are looking at an honest board, not a stock photo. Admin eye-verification is the bottleneck — first batch reviews any day.</p>
+            <p className="hud-empty">No verified roster yet. You are looking at an honest board, not a stock photo. Every screenshot gets a human eye-check — first batch reviews any day.</p>
           ) : (
             roster.slice(0, 5).map((p) => (
               <Link key={p.id} href="/sign-up" className="hud-row" style={{ textDecoration: 'none' }}>

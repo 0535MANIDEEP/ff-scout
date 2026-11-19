@@ -14,31 +14,21 @@ const schema = z.object({
   password: z.string().min(8),
   displayName: z.string().min(2).max(40),
   college: z.string().min(2).max(120),
-  city: z.string().min(2).max(80),
-  role: z.enum(['rusher','sniper','support','anchor','lurker']),
-  rank: z.enum(['Bronze','Silver','Gold','Diamond','Heroic','Master']),
-  iglCapable: z.boolean().optional(),
 });
 
 export type ActionState = { ok: boolean; error?: string };
 
 export async function registerPlayer(_: ActionState, formData: FormData): Promise<ActionState> {
   const agree = formData.get('agree') === 'on';
-  const is18 = formData.get('is18') === 'on';
-  if (!agree) return { ok: false, error: 'You must agree to the Privacy Notice to enter the pool.' };
-  if (!is18) return { ok: false, error: 'Final Circle is 18+. Confirm your age to continue.' };
+  if (!agree) return { ok: false, error: "One tick away — the Privacy Notice is the only paperwork we'll ever ask of you." };
   const emailRaw = String(formData.get('email') ?? '').trim().toLowerCase();
   const rl = await checkRateLimit(`signup:${emailRaw}`, 3, 60 * 60 * 1000);
-  if (!rl.ok) return { ok: false, error: `Too many attempts. Try again in ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s).` };
+  if (!rl.ok) return { ok: false, error: `Too many tries in a short time. Give it ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s) — the limit is doing its job, not you.` };
   const parse = schema.safeParse({
     email: emailRaw,
     password: formData.get('password'),
     displayName: formData.get('displayName'),
     college: formData.get('college'),
-    city: formData.get('city'),
-    role: formData.get('role'),
-    rank: formData.get('rank'),
-    iglCapable: formData.get('iglCapable') === 'on',
   });
   if (!parse.success) {
     return { ok: false, error: 'Missing or invalid fields.' };
@@ -59,13 +49,12 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
         displayName: d.displayName.trim(),
         userType: 'player',
         college: d.college.trim(),
-        city: d.city.trim(),
-        role: d.role,
-        rank: d.rank,
+        city: 'India',
+        role: 'rusher',
+        rank: 'Bronze',
         status: 'looking',
         consentedAt: new Date(),
         ageConfirmed: true,
-        iglCapable: d.iglCapable ?? false,
       },
     });
   } catch (err) {
@@ -78,7 +67,7 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
   const jar = await cookies();
   jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
   try {
-    await prisma.auditLog.create({ data: { userId: user.id, action: 'signup', detail: JSON.stringify({ email, role: d.role, rank: d.rank }) } });
+    await prisma.auditLog.create({ data: { userId: user.id, action: 'signup', detail: JSON.stringify({ email }) } });
   } catch { /* never let an audit-write failure block signup */ }
   redirect('/player');
 }

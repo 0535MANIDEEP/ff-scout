@@ -22,7 +22,7 @@ function getSecret(): Uint8Array {
 
 export interface SessionPayload {
   userId: string;
-  userType: 'player' | 'organizer' | 'admin';
+  userType: 'player' | 'organizer' | 'admin' | 'moderator';
   displayName: string;
   email: string;
 }

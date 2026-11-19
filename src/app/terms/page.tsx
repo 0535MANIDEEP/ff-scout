@@ -22,7 +22,7 @@ export default function Terms() {
       <h2 style={{ marginTop: 24 }}>Players</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>You verify once, then you keep the verified badge until you choose to delete your account</li>
-        <li>Verification is by admin eye-review, not automation; it takes time, plan accordingly</li>
+        <li>Verification is by human review, not automation; it takes time, plan accordingly</li>
         <li>Players who upload fake screenshots are banned permanently and any verified roster place for them is re-offered</li>
         <li>Payment milestones (prize distribution) are handled inside the tournament, not by Final Circle</li>
       </ul>
@@ -30,7 +30,7 @@ export default function Terms() {
       <h2 style={{ marginTop: 24 }}>Sponsors</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>Sponsor activations list the number of verified players and the city; no player list is exposed</li>
-        <li>₹15,000 flat unlock per activation cohort; refund conditions depend on verification outcome</li>
+        <li>Sponsor cohorts are priced on request during the pilot; nothing is charged while the pilot runs</li>
         <li>Final payment arrangements happen between sponsor and prize-pool operator, not Final Circle</li>
       </ul>
 

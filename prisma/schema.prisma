@@ -19,6 +19,7 @@ enum UserType {
   player
   organizer
   admin
+  moderator
 }
 
 model User {
@@ -38,6 +39,7 @@ model User {
   consentedAt   DateTime?
   ageConfirmed  Boolean   @default(false)
   iglCapable    Boolean   @default(false)
+  paidUntil     DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   proofs        VerificationProof[]

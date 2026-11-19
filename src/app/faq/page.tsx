@@ -8,28 +8,32 @@ export const metadata = {
 
 const faqs = [
   {
-    q: 'Why does Final Circle charge organizers and never the players?',
-    a: 'The organizer is the one getting the shortlist they need to run their Free Fire tournament, the rosters, the ranks, the IDs. A player should never pay to climb into the same pool as other hopefuls. Events pay the entry fee; the prize goes to the players in their event.'
+    q: 'Why do organizers pay and players never do?',
+    a: 'The organizer saves hours of DMs and re-verification; the player gets a verified shot at a paid roster. The side whose work shrinks pays; the side who wins on skill gets paid.'
   },
   {
-    q: 'How does rank verification actually work?',
-    a: 'A player uploads screenshots of their Free Fire ranked page. The admin cross-checks the rank tier, the player ID shown, and the time of the screenshot. No AI decides rank; a person reviews every upload. If the upload is convincing, the player is in the pool. If not, it is rejected and the player can re-upload.'
+    q: 'I am hosting a prize match, not a big tournament. Does it work for me?',
+    a: 'Yes. Anyone putting up a prize and running a Free Fire match — café owner, fest lead, guild captain, YouTuber, college society, sponsor activation — hits the same wall: which of these 60 applicants actually has the rank they claim? We don\'t bracket or broadcast your match; we make sure the players who show up are real.',
   },
   {
-    q: 'What if a player tries to lie about their rank?',
-    a: 'The UID and screenshot sequence will not match the previous verification. The player stays out of the pool. Organizers who find an anomaly can flag the player, flagged multiple times and handled by admin.'
+    q: 'How does verification work?',
+    a: 'A player uploads a screenshot of their Free Fire ranked page plus their in-game UID. A verifier checks the tier against the shot, the UID against the tier, and the freshness of the image. No AI decides rank. If the upload convinces, the player enters the pool; if not, the player gets the reason and can re-upload.'
   },
   {
-    q: 'How much does it cost to unlock a shortlist?',
-    a: 'During the pilot phase our shortlist is free. At launch, ₹499 per tournament event — not per seat, not per player. One unlock covers the shortlist for the whole event.'
+    q: 'What if a player fakes a screenshot or a UID?',
+    a: 'The UID in the screenshot will not match a fresh upload next season or another account. The player stays out of the pool. Organizers who spot an anomaly flag it, and repeated flags are handled by the admin as a permanent ban from the pool.'
   },
   {
-    q: 'How do organizers get their tournament listed on Final Circle?',
-    a: `Email date, prize pool, and city to ${BRAND.email}. Within one working day we will verify the event and get it into the organizer shortlist preview.`
+    q: 'How much does an unlock cost?',
+    a: 'Pilot: free. At launch, ₹499 per event — not per seat, not per player. One unlock covers the shortlist for the whole event.'
   },
   {
-    q: 'Is there a free trial or a plan to test the shortlist before paying?',
-    a: 'During the pilot, every registered tournament downloads its roster shortlist free. At launch, each additional event costs ₹499.'
+    q: 'How do I get my prize match on Final Circle?',
+    a: `Email date, prize pool and city to ${BRAND.email}. There is no listing process yet; pilot partners are onboarded city by city as capacity allows, starting with Hyderabad.`
+  },
+  {
+    q: 'Can I try the shortlist before paying anything?',
+    a: 'Yes. The pilot is free for every registered tournament. When payments launch, each new event costs ₹499; the pilot remains free until then.'
   },
 ];
 

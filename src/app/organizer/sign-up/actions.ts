@@ -23,11 +23,11 @@ export type ActionState = { ok: boolean; error?: string };
 export async function registerOrganizer(_: ActionState, formData: FormData): Promise<ActionState> {
   const agree = formData.get('agree') === 'on';
   const is18 = formData.get('is18') === 'on';
-  if (!agree) return { ok: false, error: 'You must agree to the Privacy Notice to create an account.' };
-  if (!is18) return { ok: false, error: 'Final Circle is 18+. Confirm your age to continue.' };
+  if (!agree) return { ok: false, error: "We need the Privacy Notice ticked — it's how we hold your roster data; one click, then you're in." };
+  if (!is18) return { ok: false, error: 'Final Circle is 18+. One confirmation does it.' };
   const emailRaw = String(formData.get('email') ?? '').trim().toLowerCase();
   const rl = await checkRateLimit(`org-signup:${emailRaw}`, 3, 60 * 60 * 1000);
-  if (!rl.ok) return { ok: false, error: `Too many attempts. Try again in ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s).` };
+  if (!rl.ok) return { ok: false, error: `Too many tries in a short time. Give it ${Math.max(1, Math.ceil(rl.retryAfterSeconds / 60))} minute(s) — the limit is doing its job, not you.` };
   const parse = schema.safeParse({
     email: emailRaw,
     password: formData.get('password'),
@@ -36,11 +36,11 @@ export async function registerOrganizer(_: ActionState, formData: FormData): Pro
     orgType: formData.get('orgType'),
     city: formData.get('city'),
   });
-  if (!parse.success) return { ok: false, error: 'Missing or invalid fields.' };
+  if (!parse.success) return { ok: false, error: 'A couple of details look off — check the email format and that the password is at least 8 characters.' };
   const d = parse.data;
   const email = d.email;
   const existing = await prisma.user.findUnique({ where: { email } });
-  if (existing) return { ok: false, error: 'Email already registered.' };
+  if (existing) return { ok: false, error: 'That email already has an account with us — sign in instead, or try a different email.' };
   const passwordHash = await hash(d.password, 10);
   // Same check-then-act race as player signup, the unique index is the real gate.
   let user;
@@ -60,7 +60,7 @@ export async function registerOrganizer(_: ActionState, formData: FormData): Pro
     });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
-      return { ok: false, error: 'Email already registered.' };
+      return { ok: false, error: 'That email already has an account with us — sign in instead.' };
     }
     throw err;
   }

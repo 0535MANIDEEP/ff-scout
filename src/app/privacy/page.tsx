@@ -22,7 +22,7 @@ export default function Privacy() {
       <h2 style={{ marginTop: 24 }}>What we collect, from whom, why</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li><strong>Account (players &amp; organizers):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match organizers to players.</li>
-        <li><strong>Verification (players):</strong> one screenshot of your rank. Used solely for admin eye-verification, then deleted 30 days after the admin decision. Never included in any organizer export.</li>
+        <li><strong>Verification (players):</strong> one screenshot of your rank. Used solely for rank review, then deleted 30 days after the decision. Never included in any organizer export.</li>
         <li><strong>Shortlist unlock (organizers):</strong> you see verified players&apos; display name, rank, role, affiliation, city and status. Contact details are shown only if the player opted in to be contacted. We never share passwords or verification evidence with anyone.</li>
         <li><strong>Waitlist (visitors):</strong> email, segment (organizer/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
         <li><strong>Operational logs:</strong> sign-in and admin actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>

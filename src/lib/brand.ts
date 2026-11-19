@@ -18,9 +18,9 @@ export const BRAND = {
   country: 'India',
   locale: 'en_IN',
   pricing: {
+    // Launch price per event. guildAnnual/sponsorActivation are deliberately NOT
+    // listed — no such tiers exist and none are promised anywhere.
     eventUnlock: 499,
-    guildAnnual: 1999,
-    sponsorActivation: 15000,
     currency: 'INR',
   },
   trademark: 'Free Fire and Garena are trademarks of Garena International II Private Limited.',

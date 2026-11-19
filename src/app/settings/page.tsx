@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
-import { deleteAccount, setAvailability } from './actions';
+import { deleteAccount, setAvailability, setIgl } from './actions';
+import { COPY } from '@/lib/config';
 
 export const metadata = { title: 'Settings, Final Circle' };
 
@@ -16,17 +17,19 @@ export default async function Settings({ searchParams }: { searchParams: Promise
   const { e } = await searchParams;
   const user = await prisma.user.findUnique({
     where: { id: s.userId },
-    select: { email: true, displayName: true, userType: true, status: true, verified: true, createdAt: true },
+    select: { email: true, displayName: true, userType: true, status: true, verified: true, createdAt: true, iglCapable: true },
   });
   if (!user) redirect('/login');
   const isAdmin = user.userType === 'admin';
+  const igl = user.iglCapable;
   return (
     <div className="page-narrow">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16 }}>
         <h1>Settings</h1>
         <SignOut />
       </div>
-      {e === 'admin' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Admin accounts cannot self-delete. Remove or demote the admin from the database, or ask the owner to do it.</p>}
+      {e === 'admin' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>{COPY.settings.admin}</p>}
+      {e === 'confirm' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>{COPY.settings.confirm}</p>}
 
       <section className="card" style={{ marginTop: 20 }}>
         <h3>Account</h3>
@@ -49,6 +52,10 @@ export default async function Settings({ searchParams }: { searchParams: Promise
             </select>
             <button className="btn" type="submit">Save</button>
           </form>
+          <form action={setIgl} style={{ marginTop: 12 }}>
+            <label className="checkbox-row"><input type="checkbox" name="igl" defaultChecked={igl} /><span>I can lead a squad (IGL — shot-calling in-game).</span></label>
+            <button className="btn-ghost" type="submit" style={{ marginTop: 8 }}>Save IGL flag</button>
+          </form>
         </section>
       )}
 
@@ -61,6 +68,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
           <p className="small">Admin accounts cannot self-delete from here.</p>
         ) : (
           <form action={deleteAccount}>
+            <label className="label" style={{ marginBottom: 10 }}>Type <strong>DELETE</strong> to confirm<input className="input" name="confirm" autoComplete="off" placeholder="DELETE" style={{ marginTop: 6 }} /></label>
             <button className="btn" style={{ background: 'var(--danger)' }} type="submit">Delete my account permanently</button>
           </form>
         )}

@@ -6,13 +6,9 @@ import SubmitAction from './SubmitAction';
 import ProofUploadInput from './ProofUploadInput';
 import SignOut from '@/components/SignOut';
 import Link from 'next/link';
+import { RANKS, COPY } from '@/lib/config';
 
-const ERRORS: Record<string, string> = {
-  missing: 'No file received, pick your screenshot again.',
-  size: 'That file is over 5MB. Compress it or pick a smaller screenshot.',
-  type: 'PNG, JPG or WebP only. Screenshots must be raster images.',
-  invalid: 'Could not process that file. Try another screenshot.',
-};
+const ERRORS: Record<string, string> = COPY.verify as Record<string, string>;
 
 export default async function VerifyPage({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const jar = await cookies();
@@ -26,10 +22,14 @@ export default async function VerifyPage({ searchParams }: { searchParams: Promi
         <h1>Upload your rank screenshot</h1>
         <div style={{ display: 'flex', gap: 8 }}><Link href="/settings" className="btn-ghost" style={{ textDecoration: 'none' }}>Settings</Link><SignOut /></div>
       </div>
-      <p className="subtext">Show the screenshot with your <strong>UID visible</strong> — the 9–12 digit number in your profile. Admin uses it to confirm the screenshot matches an account, not a random Heroic. Max 5MB. One upload per verification.</p>
+      <p className="subtext">Screenshot first, details after — that's the order. A human verifier checks your rank against the shot.</p>
       {error && <p style={{ color: 'var(--danger)', fontSize: 13, marginTop: 12 }}>{error}</p>}
       <form action={uploadProof} className="form-card" style={{ marginTop: 20 }} encType="multipart/form-data">
-        <label className="label">Free Fire UID (required — from your profile)<input className="input" type="text" name="gameUid" inputMode="numeric" pattern="[0-9]{6,20}" required placeholder="2384019283" /></label>
+        <label className="label">Free Fire UID<input className="input" type="text" name="gameUid" inputMode="numeric" pattern="[0-9]{6,20}" required placeholder="2384019283" /></label>
+        <div className="row" style={{ marginTop: 10, gap: 12 }}>
+          <label className="label">Rank<select className="input" name="rank" required><option value="" disabled>Pick rank</option>{RANKS.map(r => <option key={r} value={r}>{r}</option>)}</select></label>
+          <label className="label">Role<select className="input" name="role" required><option value="" disabled>Pick role</option><option value="rusher">Rusher</option><option value="sniper">AWM Sniper</option><option value="support">Support</option><option value="anchor">Anchor</option><option value="lurker">Lurker</option></select></label>
+        </div>
         <ProofUploadInput />
         <SubmitAction>Submit for verification</SubmitAction>
       </form>

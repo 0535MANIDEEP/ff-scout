@@ -19,7 +19,7 @@ async function main() {
 
   const players = [
     ['RushKing_21', 'Rajawadi LAN', 'Heroic', 'rusher', true],
-    ['iG_Lx0', 'In association with Vertex gaming co.', 'Master', 'sniper', true],
+    ['iG_Lx0', 'In association with Vertex gaming co.', 'Elite Master', 'sniper', true],
     ['Koje_Falcon', 'Hyderabad Squad', 'Diamond', 'sniper', true],
     ['Honor_Chur', 'VJIT', 'Diamond', 'support', true],
     ['DeadlyViper', 'Pro Guild', 'Heroic', 'anchor', false],

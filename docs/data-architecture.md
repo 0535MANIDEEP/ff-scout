@@ -74,8 +74,8 @@ WaitlistEntry    standalone
 | passwordHash | bcrypt | never selected into views |
 | displayName | string | IGN shown on roster |
 | userType | enum player/organizer/admin | |
-| role | enum fragger/sniper/support/igled/lurker | nullable (organizers) |
-| rank | string → **enum (+)** | Bronze…Master |
+| role | enum rusher/sniper/support/anchor/lurker | nullable (organizers); IGL is a `iglCapable` flag, not a role |
+| rank | string → **enum (+)** | Bronze, Silver, Gold, Platinum, Diamond, Heroic, Elite Master, Grandmaster |
 | college | nullable | affiliation; organizers see this |
 | city | default India | |
 | status | string → enum(+) looking/playing/inactive | |
