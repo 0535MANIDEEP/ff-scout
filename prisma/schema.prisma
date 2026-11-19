@@ -53,6 +53,8 @@ model VerificationProof {
   publicId   String?  // Cloudinary public_id — needed for purge/delete
   fileName   String
   mimeType   String
+  gameUid    String?  // Free Fire UID — the one cross-check organizers own
+  reviewerNote String? // optional admin note, shown to player on reject
   status     String   @default("pending") // pending | approved | rejected
   createdAt  DateTime @default(now())
   reviewedAt DateTime?

@@ -7,7 +7,7 @@ import { prisma } from '@/lib/db';
 import { isCloudinaryConfigured, uploadProofImage } from '@/lib/cloudinary';
 import { z } from 'zod';
 
-const schema = z.object({ name: z.string(), type: z.string() });
+const schema = z.object({ name: z.string(), type: z.string(), gameUid: z.string().regex(/^[0-9]{6,20}$/, 'UID must be digits') });
 
 // Screenshots only. Cap at 5MB and allowlist raster image types , 
 // no SVG (admin renders these), no arbitrary uploads masquerading as proofs.
@@ -24,7 +24,8 @@ export async function uploadProof(_formData: FormData) {
   if (f.size > MAX_BYTES) redirect('/verify?e=size');
   if (!ALLOWED_TYPES.has(f.type)) redirect('/verify?e=type');
   const bytes = Buffer.from(await f.arrayBuffer());
-  const parse = schema.safeParse({ name: f.name, type: f.type });
+  const gameUidRaw = String(_formData.get('gameUid') ?? '').trim();
+  const parse = schema.safeParse({ name: f.name, type: f.type, gameUid: gameUidRaw });
   if (!parse.success) redirect('/verify?e=invalid');
 
   let data: { fileData?: string; fileUrl?: string; publicId?: string };
@@ -36,10 +37,10 @@ export async function uploadProof(_formData: FormData) {
   }
 
   await prisma.verificationProof.create({
-    data: { userId: s.userId, ...data, fileName: f.name, mimeType: f.type, status: 'pending' },
+    data: { userId: s.userId, ...data, fileName: f.name, mimeType: f.type, status: 'pending', gameUid: parse.data.gameUid },
   });
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'proof_upload', detail: JSON.stringify({ fileName: f.name, size: f.size, storage: data.fileUrl ? 'cloudinary' : 'inline' }) } });
+    await prisma.auditLog.create({ data: { userId: s.userId, action: 'proof_upload', detail: JSON.stringify({ fileName: f.name, size: f.size, storage: data.fileUrl ? 'cloudinary' : 'inline', gameUid: parse.data.gameUid }) } });
   } catch { /* audit failure must not block the upload */ }
   revalidatePath('/player');
   redirect('/player');

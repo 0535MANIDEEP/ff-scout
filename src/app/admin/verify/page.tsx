@@ -20,6 +20,7 @@ export default async function AdminVerify() {
       fileData: true,
       fileUrl: true,
       mimeType: true,
+      gameUid: true,
       user: { select: { displayName: true, rank: true, college: true, email: true } },
     },
   });
@@ -34,7 +35,7 @@ export default async function AdminVerify() {
           <div className="rowitem" key={p.id}>
             <div>
               <div className="tile-title">{p.user.displayName} · {p.user.rank} · {p.user.college || 'Affiliation withheld'}</div>
-              <div className="tile-sub">{p.user.email}</div>
+              <div className="tile-sub"><span className="small">{p.user.email}</span> · UID <strong>{p.gameUid ?? '—'}</strong></div>
               {(p.fileUrl ?? (p.fileData?.startsWith('data:') ? p.fileData : null)) && (
                 <img
                   src={p.fileUrl ?? p.fileData ?? ''}
@@ -45,6 +46,7 @@ export default async function AdminVerify() {
             </div>
             <form action={reviewProof} className="admin-actions">
               <input type="hidden" name="id" value={p.id} />
+              <label className="label" style={{ minWidth: 220 }}>Reject reason (optional, shown to player)<input type="text" className="input" name="reviewerNote" placeholder="Screenshot shows another player's rank" /></label>
               <button className="btn" name="verdict" value="approve">Approve</button>
               <button className="btn-ghost" name="verdict" value="reject">Reject</button>
             </form>

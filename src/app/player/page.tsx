@@ -24,10 +24,12 @@ export default async function PlayerDashboard() {
       status: true,
       verified: true,
       iglCapable: true,
-      proofs: { select: { status: true } },
+      proofs: { select: { status: true, reviewerNote: true, createdAt: true }, orderBy: { createdAt: 'desc' }, take: 1 },
     },
   });
   if (!user) redirect('/login');
+
+  const lastProof = user.proofs[0];
 
   const pending = user.proofs.filter(p => p.status === 'pending').length;
   const approved = user.proofs.filter(p => p.status === 'approved').length;
@@ -45,7 +47,7 @@ export default async function PlayerDashboard() {
         <section className="card">
           <h3>Rank verification</h3>
           <div className="kv"><span>Rank</span><span>{user.rank}</span></div>
-          <div className="kv"><span>K/D / ADPR</span><span>Not yet, capture after verification</span></div>
+          <div className="kv"><span>Last decision</span><span>{lastProof ? (lastProof.status === 'rejected' ? `Rejected, ${lastProof.reviewerNote ?? 'no reason given'}` : lastProof.status === 'approved' ? 'Approved' : 'Awaiting review') : 'No upload yet'}</span></div>
           <div className="kv"><span>Verified screenshots</span><span>{approved > 0 ? `${approved} approved` : 'None yet'}</span></div>
           <div className="kv"><span>Pending review</span><span className="pending">{pending > 0 ? `${pending} awaiting` : ', '}</span></div>
           <div className="kv"><span>Profile status</span><span>{user.verified ? 'Verified ✓' : 'Awaiting screen upload'}</span></div>
