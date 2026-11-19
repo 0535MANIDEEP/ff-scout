@@ -4,7 +4,7 @@ For any new engineer landing here — this is what to read, in order, to be prod
 
 ## The mental model
 
-FF Scout connects **organizers** (who pay ₹499 per event) with **players** who uploaded a rank screenshot. The **admin** verifies each screenshot manually. Once verified, an organiser can download a CSV of the shortlisted roster.
+Final Circle connects **organizers** (who pay ₹499 per event) with **players** who uploaded a rank screenshot. The **admin** verifies each screenshot manually. Once verified, an organiser can download a CSV of the shortlisted roster.
 
 ## Folder structure
 

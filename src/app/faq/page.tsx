@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { BRAND } from '@/lib/brand';
 
 export const metadata = {
-  title: 'FAQ, FF Scout',
+  title: 'FAQ, Final Circle',
   description: 'Who pays, how rank verification works, what happens when a player tries to cheat. Honest answers for Free Fire tournament organizers across India.',
 };
 
 const faqs = [
   {
-    q: 'Why does FF Scout charge organizers and never the players?',
+    q: 'Why does Final Circle charge organizers and never the players?',
     a: 'The organizer is the one getting the shortlist they need to run their Free Fire tournament, the rosters, the ranks, the IDs. A player should never pay to climb into the same pool as other hopefuls. Events pay the entry fee; the prize goes to the players in their event.'
   },
   {
@@ -24,7 +24,7 @@ const faqs = [
     a: 'During the pilot phase our shortlist is free. At launch, ₹499 per tournament event — not per seat, not per player. One unlock covers the shortlist for the whole event.'
   },
   {
-    q: 'How do organizers get their tournament listed on FF Scout?',
+    q: 'How do organizers get their tournament listed on Final Circle?',
     a: `Email date, prize pool, and city to ${BRAND.email}. Within one working day we will verify the event and get it into the organizer shortlist preview.`
   },
   {

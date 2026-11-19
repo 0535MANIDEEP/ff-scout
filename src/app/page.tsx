@@ -50,7 +50,7 @@ export default async function HomePage() {
           <Reveal><h2>What this actually replaces</h2>
           <p className="lead" style={{ marginTop: 12 }}>No more 200-member WhatsApp groups, no fake ranks, no ghost players on the day. One shortlist, paid only if it works.</p></Reveal>
           <Reveal delay={80}><div className="table-wrap"><table className="roles-table">
-            <thead><tr><th>Format</th><th>Before FF Scout</th><th>With FF Scout</th></tr></thead>
+            <thead><tr><th>Format</th><th>Before Final Circle</th><th>With Final Circle</th></tr></thead>
             <tbody>
               <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on day</td><td>10 verified players with ranked screenshots, confirmed 5 days ahead</td></tr>
               <tr><td>College fest FF event</td><td>Random entrants, admin hours wasted screening rank</td><td>Verified roster, valid for your event — free in pilot</td></tr>

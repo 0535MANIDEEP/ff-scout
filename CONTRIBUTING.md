@@ -1,6 +1,6 @@
 # Branching & workflow
 
-`ffscout.vercel.app` is the production home of FF Scout. This repo uses a light `gitflow`-ish model that scales from solo work to a small team.
+`ffscout.vercel.app` is the production home of Final Circle. This repo uses a light `gitflow`-ish model that scales from solo work to a small team.
 
 ## Branches
 

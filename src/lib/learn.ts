@@ -93,7 +93,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
         heading: 'And IGL?',
         lines: [
           'IGL is a designation, not a role, one player per squad (usually the most experienced) makes the rotation calls and the final call. An IGL still plays one of the five above.',
-          'On FF Scout, players can tag "I can IGL" as a capability at sign-up. It is an unverified self-declaration, real verification comes from shortlist captain review, not a checkbox.',
+          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is an unverified self-declaration, real verification comes from shortlist captain review, not a checkbox.',
         ],
       },
     ],
@@ -294,7 +294,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
       {
         heading: 'After the result',
         lines: [
-          'Rate each shortlisted player 1–5. Tell FF Scout if anyone lied about role or rank, that player is removed from the pool permanently.',
+          'Rate each shortlisted player 1–5. Tell Final Circle if anyone lied about role or rank, that player is removed from the pool permanently.',
           'If the roster genuinely failed you, email for the refund before the next event cycle.',
         ],
       },
@@ -333,24 +333,24 @@ export const LEARN_CHAPTERS: Chapter[] = [
     id: 'discipline',
     tag: 'DISCIPLINE',
     title: 'Don\u2019t get played',
-    brief: 'The three fraud patterns that show up most in Indian FF grassroots, and how FF Scout blocks them.',
+    brief: 'The three fraud patterns that show up most in Indian FF grassroots, and how Final Circle blocks them.',
     blocks: [
       {
         heading: 'Boosted accounts',
         lines: [
-          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. FF Scout cannot catch this, but organizers who see your match history can.',
+          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. Final Circle cannot catch this, but organizers who see your match history can.',
         ],
       },
       {
         heading: 'Shared screenshots',
         lines: [
-          'The same ADPR image circulating in five WhatsApp groups. FF Scout admin eye-checks screenshots for obvious reuse, but if someone asks you to \u201cshare your rank SS to get verified,\u201d that is not FF Scout. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
+          'The same ADPR image circulating in five WhatsApp groups. Final Circle admin eye-checks screenshots for obvious reuse, but if someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
         ],
       },
       {
         heading: 'Paying for verification',
         lines: [
-          'FF Scout charges organizers ₹499 per event. Players never pay. Anyone asking you for money to \u201cspeed up verification\u201d is scamming you. Report it, we remove them from the pool permanently.',
+          'Final Circle charges organizers ₹499 per event. Players never pay. Anyone asking you for money to \u201cspeed up verification\u201d is scamming you. Report it, we remove them from the pool permanently.',
         ],
       },
     ],

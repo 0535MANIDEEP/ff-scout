@@ -1,18 +1,15 @@
-// Single source of truth for brand identity. If the name, URL, pricing or
-// contact ever change, everything (metadata, robots, sitemap, JSON-LD,
-// footer, legal pages) changes here, no hunting through files.
-//
-// For per-deployment overrides set NEXT_PUBLIC_SITE_URL in the platform's env
-// (e.g. a preview deploy). Local dev needs nothing.
-
+// Final Circle is the working title. The site is live as "Final Circle" until the
+// Final Circle migration ships — but every string lives here for exactly that.
 export const BRAND = {
-  name: 'FF Scout',
-  mark: 'FF',
-  tagline: 'Verified grassroots Free Fire talent for Indian organizers',
-  descriptor: 'Free Fire roster finder for organizers in India',
+  name: 'Final Circle',
+  mark: 'FC',
+  tagline: 'The roster you call when the circle closes.',
+  descriptor: 'Free Fire roster finder for Indian organizers',
   descriptorTagline: 'Free Fire roster finder · India',
-  description:
-    'Find verified Free Fire players for your college fest, café scrim night, esports activation, or guild recruit. One searchable pool, ranked honest, unlocked in minutes for Indian organizers.',
+  description: 'Free Fire roster finder for Indian organizers. One verified shortlist of ranked, screened players — opened by café owners, fest leads, sponsors and guilds.',
+  // Domain: finalcircle.gg is the target. Not purchased yet — until then the
+  // canonical URL stays the Vercel deployment. Set NEXT_PUBLIC_SITE_URL in
+  // Vercel when the domain is live.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://ff-scout.vercel.app',
   email: 'manideepdaram@gmail.com',
   founder: 'Manideep Daram',
@@ -30,7 +27,6 @@ export const BRAND = {
   garenaName: 'Garena International II Private Limited',
 } as const;
 
-// Path helpers, one place, absolute always.
 export const brandAsset = (p: string) => `${BRAND.url}${p.startsWith('/') ? p : `/${p}`}`;
-export const brandTitle = (section: string) => `${section}, ${BRAND.name}`;
+export const brandTitle = (section: string) => `${section} — ${BRAND.name}`;
 export const brandDescription = () => BRAND.description;

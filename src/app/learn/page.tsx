@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { LEARN_CHAPTERS } from '@/lib/learn';
 
 export const metadata: Metadata = {
-  title: 'Field Manual, FF Scout',
+  title: 'Field Manual, Final Circle',
   description: 'How to get verified, the five combat roles (and why IGL is a designation), running a verified scrim, and honest sources. For Indian Free Fire players and organizers.',
 };
 
