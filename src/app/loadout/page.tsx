@@ -26,7 +26,7 @@ export default function Loadout() {
         {GEAR.map(g => (
           <div key={g.label} className="card" style={{ padding: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', alignItems: 'baseline' }}>
-              <h3 style={{ fontSize: 22 }}>{g.label}</h3>
+              <h2 style={{ fontSize: 22, margin: 0 }}>{g.label}</h2>
               <span className="mono small" style={{ color: 'var(--accent)' }}>{g.price}</span>
             </div>
             <p className="subtext" style={{ marginTop: 8 }}>{g.note}</p>

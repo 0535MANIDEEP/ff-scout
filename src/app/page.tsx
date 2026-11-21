@@ -29,7 +29,7 @@ export default async function HomePage() {
       <section className="section" aria-labelledby="fig2">
         <div className="shell">
           <div className="fig2">
-            <div className="fig2-cap"><span id="fig2">FIG. 2</span> THE WHOLE LOOP, NOTHING HIDDEN</div>
+            <h2 className="fig2-cap" id="fig2"><span>FIG. 2</span> THE WHOLE LOOP, NOTHING HIDDEN</h2>
             <div className="fig2-steps">
               {[
                 ['01', 'POST', 'A host posts a match: mode, BR or CS, free entry only, no advertised prize. No approval queue.'],
