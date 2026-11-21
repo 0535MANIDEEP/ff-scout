@@ -1,39 +1,47 @@
-# Final Circle — Editable content map
+# Final Circle: Editable content map
 
-If you (the buyer) want to change copy without touching code structure, edit these files.
+If you want to change copy without touching code structure, edit these files. Each entry: file path → what the user sees.
 
-Each entry: file path → what the user sees.
+Product truth lives in `SPEC.md` and the free-entry notice lives in `src/lib/free-entry.ts`. Legal background is research, not legal advice. A qualified lawyer must review final copy before launch.
 
 ## Site-wide
 
-- `src/lib/brand.ts` — Name, mark, tagline, email, founder, pricing, city, trademark line. Every page imports `BRAND` from here. Change once; changes everywhere.
+- `src/lib/brand.ts`: Name, mark, tagline, description, email, founder, URL and trademark line. Every page imports `BRAND` from here.
+- `src/lib/free-entry.ts`: The global disclosure line, the free-entry constants and the payment-report threshold. Change here, not in individual pages.
+- `src/app/layout.tsx`: Footer copy, metadata and appearance control.
 
 ## Landing page (`/`)
 
-- Hero headline — `src/app/components/Hero.tsx`, the `<h1 className="hero-headline">` block
-- Hero subhead — same file, `<p className="hero-sub">`
-- Hero ticker strip — same file, `<div className="ticker">` — four stats; the first and second pull from the DB, the third and fourth are hardcoded kindness-honest
-- Verification board empty state — same file, `<p className="hud-empty">`
-- Waiting on admin review count wording — same file, `{ctx.pendingCount}` — driven by DB; don't fake it
-- "How it works" 3 cards — `src/app/page.tsx`, the grid-3 block with 3 `<article className="card">` elements
-- "What this replaces" table — same file, 4 rows
-- Final CTA "₹499 unlocks..." — same file, 1 section
-- City-unlock prompt — same file, 1 section with `<Waitlist />`
-- Footer copy — `src/app/layout.tsx`, `<footer>...</footer>`
+- Hero headline, subhead, disclosure and open-match preview: `src/app/components/Hero.tsx`. The preview rows and the first two ticker numbers come from the database. The third ticker item is the fixed 18+ free-entry label.
+- "The whole loop" three steps (post, join, roster): `src/app/page.tsx`, the `fig2-steps` block.
+- "One board, both sides of the lobby" three cards: same file, the `grid-3` block.
+- "What this replaces" table: same file, four rows.
+- Free-entry disclosure section and `/safety` link: same file, the section rendering `GLOBAL_DISCLOSURE`.
+- City waitlist: same file, the `<Waitlist />` section. Emails are stored, not sent.
 
 ## Auth screens
 
-- Sign-up (`/sign-up`) — `src/app/sign-up/page.tsx`
-- Organizer sign-up (`/organizer/sign-up`) — `src/app/organizer/sign-up/page.tsx`
-- Log in (`/login`) — `src/app/login/page.tsx`
+- Sign-up (`/sign-up`): `src/app/sign-up/page.tsx`. Records the 18+ confirmation.
+- Log in (`/login`): `src/app/login/page.tsx`
+- Sponsor sign-up (`/sponsor/sign-up`): `src/app/sponsor/sign-up/page.tsx`
+
+## Match and sponsor routes
+
+- Board (`/matches`) and detail (`/matches/[id]`): `src/app/matches/page.tsx` and `src/app/matches/[id]/page.tsx`. The detail page carries the report form.
+- Post (`/post`) and weekly series (`/post/series`): `src/app/post/page.tsx` and `src/app/post/series/page.tsx`. Both write free-entry terms from `src/lib/free-entry.ts`.
+- Hosted matches and series (`/player/posted`): `src/app/player/posted/page.tsx`.
+- Sponsor directory (`/sponsors`) and CSV export (`/sponsors/export`): `src/app/sponsors/page.tsx` and `src/app/sponsors/export/route.ts`. Only opted-in players appear.
 
 ## Public info pages
 
-- About (`/about`) — `src/app/about/page.tsx`
-- FAQ (`/faq`) — `src/app/faq/page.tsx`, array of `{ q, a }`
-- Terms (`/terms`) — `src/app/terms/page.tsx`
-- Privacy (`/privacy`) — `src/app/privacy/page.tsx`
-- Learn (`/learn`) — `src/lib/learn.ts` array of chapters
+- About (`/about`): `src/app/about/page.tsx`
+- FAQ (`/faq`): `src/app/faq/page.tsx`, array of `{ q, a }`
+- Terms (`/terms`): `src/app/terms/page.tsx`
+- Privacy (`/privacy`): `src/app/privacy/page.tsx`
+- Safety and legal (`/safety`): `src/app/safety/page.tsx`. Full free-entry, reporting and grievance notice.
+- Advertise (`/advertise`): `src/app/advertise/page.tsx`. Sponsor placement and funded free event notice.
+- Loadout (`/loadout`): `src/app/loadout/page.tsx` and `src/lib/aff.ts`. Affiliate links are disclosed here.
+- Learn (`/learn`): `src/lib/learn.ts` array of chapters
 
 ## Adding a new FAQ
 
@@ -59,7 +67,7 @@ const items = [
 
 ## Changing the accent color
 
-Edit the `--accent` token in `:root` and `:root[data-theme="light"]` in `src/styles/globals.css`. Everything pulls from the variable; nothing is hardcoded.
+Defaults live in `:root` and `:root[data-theme="light"]` in `src/styles/globals.css`. `src/lib/appearance.ts` applies the per-browser preset or custom accent and stores it in `fc-appearance`. Change the defaults in CSS, not in the browser override.
 
 ## Changing fonts
 
@@ -67,20 +75,19 @@ Edit `next/font/google` imports in `src/app/layout.tsx`. Must be self-hosted via
 
 ## Changing metadata (title/description/OG)
 
-`src/app/layout.tsx` exports `metadata`. Edit strings there. `metadataBase` pulls from `BRAND.url`.
+`src/app/layout.tsx` exports `metadata`. Each route also exports its own metadata. `metadataBase` pulls from `BRAND.url`.
 
 ## Sitemap / robots
 
-`src/app/sitemap.ts` and `src/app/robots.ts` — both read from `BRAND.url`. Edit there to add/remove URLs.
+`src/app/sitemap.ts` and `src/app/robots.ts`: both read from `BRAND.url`. Edit there to add or remove URLs.
 
 ## What NOT to touch without engineering help
 
-- `src/app/**/actions.ts` — server-side actions; auth is action-bound
-- `src/lib/auth.ts`, `src/lib/db.ts`, `src/lib/account.ts`, `src/lib/cloudinary.ts`
-- `src/middleware.ts` (if it exists yet)
-- `prisma/schema.prisma` — schema changes must go through a migration; never edit the file without committing a migration
-- `test/*` — the CI gate depends on these
+- `src/app/**/actions.ts`: server-side actions; auth is action-bound
+- `src/lib/auth.ts`, `src/lib/db.ts`, `src/lib/account.ts`, `src/lib/free-entry.ts`, `src/lib/permissions.ts`
+- `prisma/schema.prisma`: schema changes must go through a migration; never edit the file without committing a migration
+- `test/*`: the CI gate depends on these
 
 ## Honesty contract for copy edits
 
-Every claim on a public page must be either (a) sourced from the DB live at request time, or (b) explicitly framed as "pilot phase", "coming soon", or "planned". No "10,000 players trust us" placeholders. No "Trusted by X". No testimonials. The audit check before any copy change: can a skeptical visitor verify this by looking at our DB or by emailing the grievance officer? If no, rewrite.
+Every public claim must be either sourced from the database at request time or framed honestly as a plan. No invented counts, testimonials or trusted-by lines. No copy that asks a player for money or advertises a prize. The disclosure line must match `src/lib/free-entry.ts` on every route. Any legal claim stays background only until a qualified lawyer reviews the final product and copy.

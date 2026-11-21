@@ -1,51 +1,49 @@
-# Final Circle — Competitive scan (2026-11-19)
+# Final Circle: Competitive scan (2026-11-19)
 
 Positioning question: what existing thing is Final Circle, and what is it not?
+
+This scan is background from before the 2026-11-22 free-entry reset. Competitor descriptions are as recorded then and were not rechecked. Product direction now comes from `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. Legal background is research, not legal advice. A qualified lawyer must review final copy before launch.
 
 ## Who already does FF recruitment in India
 
 | Player | What it is | Weakness for a grassroots organizer |
 |---|---|---|
-| **Krew (trykrew.com)** | Live LFG lobby finder + college/clan tournaments, approved by Krew team, no payments handled. Mobile/web. Genuinely close competitor on positioning. | No verification of who's real. Discord/WhatsApp chaos recreated in nicer form. Monetization unclear — risk of it being "app you try, not pay for" |
-| **GamerFlick (gamerflick.in)** | Full tournament app: brackets, prize, coin economy. Live in India for FF/BGMI/Valorant. | A bracket app + gambling-adjacent coin culture. Filter function absent — problems like fake ranks and ghosting players remain |
-| **Squadlink (squadlink.in)** | "Gaming identity platform" — profile, coaching, matchmaking. Announced, pre-launch | AI everything, multi-game, no verification stance |
-| **Free Fire India Arena (FFIA)** | Garena-managed official ecosystem | Official tournament authority — not a recruiting tool for grassroots |
+| **Krew (trykrew.com)** | Live LFG lobby finder + college/clan tournaments, approved by Krew team, no payments handled. Mobile/web. Genuinely close competitor on positioning. | Discord/WhatsApp chaos recreated in nicer form. Monetization unclear. |
+| **GamerFlick (gamerflick.in)** | Full tournament app: brackets, prize, coin economy. Live in India for FF/BGMI/Valorant. | A bracket app with a gambling-adjacent coin culture. |
+| **Squadlink (squadlink.in)** | "Gaming identity platform": profile, coaching, matchmaking. Announced, pre-launch | AI everything, multi-game, no verification stance |
+| **Free Fire India Arena (FFIA)** | Garena-managed official ecosystem | Official tournament authority, not a community notice board |
 | **Free Fire India Esports Discord** | Recruitment threads | Manual, unverified, completion-posted noise |
 
-## Global esports recruiting — the feature bar
+## Global esports recruiting: the feature bar
 
-| Player | Notable mechanic | What we take |
+| Player | Notable mechanic | Relevance to Final Circle now |
 |---|---|---|
-| **Seek Team** | Gaming CVs, basic free, contact flow | Verified CV concept — ours is weaker (screenshots only). Later: optional clip URL |
-| **Callup.gg** | Search open-to-teams players; intro only opens on player consent; Pro $9.99/mo | The *consent* gate when contacting a player. Our CSV is no consent here — players sign up knowing organizers see their basic profile |
-| **Tournament Suite** | Talent directory + org dashboard | Not for us — too broad |
-| **Campeon/Tryouts.gg** | Paid tryout facilitation | Not relevant in India grassroots |
-| **Rostered.gg** | Verified badges are *reviewed*, org joins are invite-based | Our admin eye-verify workflow is this, minus hype; plus the "orgs cannot add you, you must accept" model is close to Callup's consent gate |
+| **Seek Team** | Gaming CVs, basic free, contact flow | Not our model. We do not maintain player CVs or screen players. |
+| **Callup.gg** | Search open-to-teams players; intro only opens on player consent; Pro $9.99/mo | The consent idea survives as sponsor opt-in visibility. The subscription does not. |
+| **Tournament Suite** | Talent directory + org dashboard | Not for us, too broad |
+| **Campeon/Tryouts.gg** | Paid tryout facilitation | Not relevant to a free notice board |
+| **Rostered.gg** | Verified badges are reviewed, org joins are invite-based | Not our model. No badges, no review queue. |
 
-## What they all get wrong for Indian grassroots organizers
+## What this scan still tells us
 
-1. **Platform, not filter** — every competitor wants players, tournaments, brackets, social graph, coaching AI, a coin. An organizer with a ₹499 problem wants one shortlist in <20 minutes, not a platform to maintain.
-2. **Subscriptions** — Callup charges monthly; this market tips at ₹3000-5000 lifetime look. ₹499/event is the right handle.
-3. **Verification is automated or fake** — kda-stats self-claim or nothing. Admin eye-on screenshot is the honest bar.
-4. **No double-entry for proof** — every form asks for the same screenshot. We ask once, verify once.
+1. **Platforms add weight.** Most competitors want brackets, social graphs, coaching or a coin. Final Circle is a board for posting and joining matches.
+2. **Screening is a trap.** Verification promises and shortlist gating are the norm elsewhere. Final Circle does not verify players, issue badges or maintain a shortlist.
+3. **Consent is worth keeping.** Sponsor discovery covers only players who turn on visibility, and exports contain no email addresses.
+4. **Money is the wrong lever.** Free entry with no advertised prize is the line this product stays on. That is a product rule, not a claim of legal compliance.
 
-## What they do better — steal cheap
+## What we deliberately do not do
 
-- Player consent/visibility toggle (open/closed to offers) — we already have `status: looking/playing/inactive`.
-- Verified badge with a *review* meaning — we have this via admin eye-verify; make the meaning explicit everywhere.
-- Roster edge view — Callup shows a player in one org's roster max; useful. Not building it until pilots say so.
-
-## What we deliberately don't do (ever)
-
-- Matchmaking/suggestions, AI roster builder, "AI scouting"
-- Bracket/scheduling/payments
-- Admin-impersonating moderation pipeline; all review is human, all appeals by email
-- Subscriptions. One ₹499 per event unlock; players free forever; sponsors pay per cohort, not per seat
+- Matchmaking, suggestions, AI roster building or AI scouting
+- Brackets, a prize economy, checkout or any payment rail
+- Verification queues, badges, screenshot review or a shortlist gated by payment
+- A human approval queue for posting, weekly series or report consequences
+- Subscriptions, unlock fees or a paid organizer tier
+- Sponsors with a real-money gaming link
 
 ## Our one-line differentiation
 
-**"The verified filter India's FF organizers use between recruitment posts and roster locks"** — verified by a human, priced per event, no platform bloat.
+**A free notice board for Indian Free Fire matches. Hosts post, players join, and Final Circle handles no money.**
 
-## Decision — none required
+## Decision: none required
 
-This scan changes no code in v1. It confirms: stay verification-first, one cohort at a time, zero feature additions until two paying organizers say the same thing.
+The scan changes no code. It confirms the board stays free, simple and opt-in. Current direction is in `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.

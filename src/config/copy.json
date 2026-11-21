@@ -1,0 +1,18 @@
+{
+  "verify": {
+    "missing": "Nothing attached yet. Pick the image again.",
+    "size": "That file goes past 5MB. Compress it and try once more.",
+    "type": "PNG, JPG or WebP only. No SVG or PDF.",
+    "invalid": "We couldn't read that file. Try another image."
+  },
+  "roles": {
+    "bad": "That role change didn't make sense. Pick a role and save again.",
+    "reason": "Every role change needs a one-line reason. It goes in the audit log.",
+    "self": "You can't demote your own account. Let another admin handle it, or do it deliberately from the database.",
+    "last": "This is the only admin account. Demoting it would lock everyone out. Promote another admin first."
+  },
+  "settings": {
+    "admin": "Admin accounts can't self-delete from here. Ask the owner to remove it, or do it deliberately from the database.",
+    "confirm": "Type DELETE in the box. That one word is the whole safety catch."
+  }
+}

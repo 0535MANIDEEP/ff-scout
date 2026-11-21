@@ -1,11 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LEARN_CHAPTERS } from '@/lib/learn';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Field Manual, Final Circle',
-  description: 'How to get verified, the five combat roles (and why IGL is a designation), running a verified scrim, and honest sources. For Indian Free Fire players and organizers.',
-};
+export const metadata = publicMetadata(
+  'Learn, the Final Circle field manual for Free Fire',
+  'Field guides for Indian Free Fire players and hosts: combat roles, characters, maps, skill combos and honest sources.',
+  '/learn',
+);
 
 const WHERE_LABEL: Record<string, string> = {
   official: 'OFFICIAL',
@@ -18,7 +19,7 @@ export default function LearnPage() {
     <div className="shell" style={{ padding: '40px 0 80px' }}>
       <p className="eyebrow-inline">FIELD MANUAL · FREE FIRE INDIA</p>
       <h1 style={{ marginTop: 10, fontSize: 'clamp(34px, 4.5vw, 56px)', maxWidth: '22ch' }}>Learn the game the way we read it.</h1>
-      <p className="subtext" style={{ marginTop: 12, maxWidth: '56ch' }}>Written for players who want to be verified, and organizers who need a shortlist that doesn&rsquo;t waste their day. Everything external is labelled, official channels, community work, and honest search links instead of fabricated authority.</p>
+      <p className="subtext" style={{ marginTop: 12, maxWidth: '56ch' }}>Written for players who want to play better and hosts running matches. Everything external is labelled, official channels, community work, and honest search links instead of fabricated authority.</p>
 
       <div className="learn-grid" style={{ marginTop: 40 }}>
         <nav className="manual-index" aria-label="Chapters">
@@ -29,7 +30,7 @@ export default function LearnPage() {
               <span>{c.title}</span>
             </a>
           ))}
-          <Link href="/sign-up" className="btn btn-block" style={{ marginTop: 16, textAlign: 'center' }}>Join the pool</Link>
+          <Link href="/sign-up" className="btn btn-block" style={{ marginTop: 16, textAlign: 'center' }}>Find a match</Link>
         </nav>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>

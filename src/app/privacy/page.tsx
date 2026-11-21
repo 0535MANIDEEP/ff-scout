@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { BRAND } from '@/lib/brand';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Privacy, Final Circle',
-  description: 'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
-};
+export const metadata = publicMetadata(
+  'Privacy Notice, Final Circle',
+  'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
+  '/privacy',
+);
 
 export default function Privacy() {
   return (
@@ -21,11 +23,11 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>What we collect, from whom, why</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li><strong>Account (players &amp; organizers):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match organizers to players.</li>
-        <li><strong>Verification (players):</strong> one screenshot of your rank. Used solely for admin eye-verification, then deleted 30 days after the admin decision. Never included in any organizer export.</li>
-        <li><strong>Shortlist unlock (organizers):</strong> you see verified players&apos; display name, rank, role, affiliation, city and status. Contact details are shown only if the player opted in to be contacted. We never share passwords or verification evidence with anyone.</li>
-        <li><strong>Waitlist (visitors):</strong> email, segment (organizer/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
-        <li><strong>Operational logs:</strong> sign-in and admin actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
+        <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match hosts to players.</li>
+        <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. Sponsors see a player&apos;s profile only if the player opted in, never an email address. We never share passwords with anyone.</li>
+        <li><strong>Waitlist (visitors):</strong> email, segment (host/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
+        <li><strong>Match reports:</strong> category, reason, reporter and timestamp. Used to apply automatic match closures and posting pauses. No human reviews a report before the automatic consequence applies.</li>
+        <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>18+ only</h2>
@@ -36,7 +38,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>What we do NOT collect</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>Phone numbers, UPI or bank details (payments, when they begin, use a compliant gateway, we receive only the payment status)</li>
+        <li>Phone numbers, UPI details, bank details or payment credentials</li>
         <li>Precise location, contacts, chat messages, voice data, web history</li>
         <li>Analytics beyond what our hosting provider records to serve pages</li>
         <li>Marketing profiles, advertising identifiers, automated profiling of any kind</li>
@@ -44,15 +46,15 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>Where your data lives</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Proof images, only the screenshots you upload, live on Cloudinary Inc. (USA). Nothing else leaves these three providers.
+        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Nothing else leaves these two providers.
         These processors are bound by their DPAs. Data may be transferred outside India where the DPDP Rules permit, no DPDP-blacklisted destination is used, and we re-check whenever those rules change. Backups follow the same terms.
       </p>
 
       <h2 style={{ marginTop: 24 }}>Your rights under DPDP</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li><strong>Access:</strong> ask for a copy of what we hold about you, we reply with a CSV of your account and proof metadata.</li>
+        <li><strong>Access:</strong> ask for a copy of what we hold about you, we reply with a CSV of your account and profile details.</li>
         <li><strong>Correction:</strong> ask us to fix wrong details (e.g., wrong IGN).</li>
-        <li><strong>Erasure:</strong> use Settings → Delete account, or email the Grievance Officer, we delete the user row, cascade-delete your verification screenshots, and confirm within 72 hours.</li>
+        <li><strong>Erasure:</strong> use Settings → Delete account, or email the Grievance Officer. We delete the user row and confirm within 72 hours.</li>
         <li><strong>Grievance:</strong> if we fail, contact the Grievance Officer above; beyond that, the Data Protection Board of India.</li>
         <li><strong>Withdraw consent:</strong> email us; we erase your data on receipt.</li>
       </ul>
@@ -60,15 +62,15 @@ export default function Privacy() {
       <h2 style={{ marginTop: 24 }}>Retention, plainly</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>Account data, until you erase it (and always on request).</li>
-        <li>Verification screenshots, deleted 30 days after the admin approves or rejects.</li>
         <li>Audit logs, 90 days.</li>
+        <li>Report records (category, reason, reporter and timestamp), 90 days, with operational logs.</li>
         <li>Waitlist, until launch + 90 days, then deleted.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>What we never do</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        We do not sell your email, phone, or data to anyone, ever. We do not sell roster lists to sponsors; sponsorships are described as aggregate cohorts (e.g., "100+ verified rosters, India"), never as person-level lists.
+        We do not sell your email, phone, or data to anyone, ever. Sponsors see only players who opted in, never email addresses.
       </p>
 
       <p style={{ marginTop: 32 }}><Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link></p>
