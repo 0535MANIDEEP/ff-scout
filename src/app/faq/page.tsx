@@ -1,35 +1,46 @@
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 import { BRAND } from '@/lib/brand';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'FAQ, Final Circle',
-  description: 'Who pays, how rank verification works, what happens when a player tries to cheat. Honest answers for Free Fire tournament organizers across India.',
-};
+export const metadata = publicMetadata(
+  'FAQ: free entry, no money handled, Final Circle',
+  'Free entry, no money handled by Final Circle, reporting, and how the board works. Honest answers for Indian Free Fire players and hosts.',
+  '/faq',
+);
 
-const faqs = [
+const faqs: { q: string; a: ReactNode }[] = [
   {
-    q: 'Why does Final Circle charge organizers and never the players?',
-    a: 'The organizer is the one getting the shortlist they need to run their Free Fire tournament, the rosters, the ranks, the IDs. A player should never pay to climb into the same pool as other hopefuls. Events pay the entry fee; the prize goes to the players in their event.'
+    q: 'Does it cost anything?',
+    a: 'No. Posting and joining are free. Every listing is free entry and Final Circle handles no money. 18+ only.',
   },
   {
-    q: 'How does rank verification actually work?',
-    a: 'A player uploads screenshots of their Free Fire ranked page. The admin cross-checks the rank tier, the player ID shown, and the time of the screenshot. No AI decides rank; a person reviews every upload. If the upload is convincing, the player is in the pool. If not, it is rejected and the player can re-upload.'
+    q: 'Can I advertise a cash prize or charge entry?',
+    a: <>No. We do not advertise cash prizes or entry fees on any listing, and no player pays the platform to join. The reason is in <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.</>,
   },
   {
-    q: 'What if a player tries to lie about their rank?',
-    a: 'The UID and screenshot sequence will not match the previous verification. The player stays out of the pool. Organizers who find an anomaly can flag the player, flagged multiple times and handled by admin.'
+    q: 'Someone asked me to pay. What now?',
+    a: <>Do not pay. Open the match and choose Report this match, pick the payment request category and add a short note. If two players who joined report the same payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. More detail is on <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.</>,
   },
   {
-    q: 'How much does it cost to unlock a shortlist?',
-    a: 'During the pilot phase our shortlist is free. At launch, ₹499 per tournament event — not per seat, not per player. One unlock covers the shortlist for the whole event.'
+    q: 'How does Final Circle earn?',
+    a: 'Sponsor placements, disclosed affiliate links on the loadout page, and sponsor-funded free events. Players never pay the platform. There is no rate card and no checkout here.',
   },
   {
-    q: 'How do organizers get their tournament listed on Final Circle?',
-    a: `Email date, prize pool, and city to ${BRAND.email}. Within one working day we will verify the event and get it into the organizer shortlist preview.`
+    q: 'Is this an official or registered e-sport?',
+    a: <>No. Final Circle is an independent notice board, not an official Garena or Free Fire service and not a registered e-sport. We are not legal counsel and this is not a legal compliance promise. The background is on <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.</>,
   },
   {
-    q: 'Is there a free trial or a plan to test the shortlist before paying?',
-    a: 'During the pilot, every registered tournament downloads its roster shortlist free. At launch, each additional event costs ₹499.'
+    q: 'Does Final Circle verify ranks?',
+    a: 'No. Players enter their own rank. We do not verify players or issue verified badges. Hosts see the rank a player entered.',
+  },
+  {
+    q: 'I am hosting a small match, not a big tournament. Does it work for me?',
+    a: 'Yes. Cafés, fest leads, guild captains, creators and college societies can post a match. Players join themselves and the host sees who joined, with UID and self-declared rank. Final Circle does not bracket or broadcast your match.',
+  },
+  {
+    q: 'How do I get my match on Final Circle?',
+    a: 'Post it yourself with Post a match. It goes on the board immediately. Posting is free and every listing is free entry.',
   },
 ];
 
@@ -38,7 +49,7 @@ export default function FAQ() {
     <div className="page-narrow">
       <h1>Frequently asked</h1>
       <p className="subtext" style={{ marginTop: 12 }}>
-        The questions we hear most from FF tournament organizers, casters, guild captains, answered plainly.
+        The questions players and hosts ask most, answered plainly.
       </p>
       <dl style={{ marginTop: 24 }}>
         {faqs.map(({ q, a }) => (
@@ -48,7 +59,8 @@ export default function FAQ() {
           </div>
         ))}
       </dl>
-      <p style={{ marginTop: 32 }}>
+      <p style={{ marginTop: 32, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <Link href="/safety" className="btn" style={{ textDecoration: 'none' }}>Read safety and legal</Link>
         <Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link>
       </p>
     </div>

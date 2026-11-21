@@ -1,39 +1,34 @@
 import { prisma } from '@/lib/db';
 
-export interface HeroRosterEntry {
+export interface HeroMatchEntry {
   id: string;
-  displayName: string;
-  rank: string;
-  role: string | null;
-  college: string | null;
+  title: string;
+  mode: string;
+  gameType: string;
+  date: Date;
   city: string;
+  entry: string;
+  prize: string;
 }
 
 export interface HeroContext {
-  totalVerified: number;
-  pendingCount: number;
-  collegeCount: number;
-  roster: HeroRosterEntry[];
+  openMatchCount: number;
+  totalPlayers: number;
+  matches: HeroMatchEntry[];
 }
 
-// Hero reads counts and the latest roster on every request. Deliberately
-// no thank-you numbers and no auto-magic, counts come from the database
-// exactly as they are today, warts and all.
+// Hero reads counts and the latest open matches on every request. Deliberately
+// no invented numbers — every figure comes from the database exactly as it is.
 export async function buildHeroContext(): Promise<HeroContext> {
-  const [totalVerified, pendingCount, collegeRows, roster] = await Promise.all([
-    prisma.user.count({ where: { userType: 'player', verified: true } }),
-    prisma.verificationProof.count({ where: { status: 'pending' } }),
-    prisma.user.findMany({
-      where: { userType: 'player', verified: true, college: { not: null } },
-      select: { college: true },
-      distinct: ['college'],
-    }),
-    prisma.user.findMany({
-      where: { userType: 'player', verified: true },
-      select: { id: true, displayName: true, rank: true, role: true, college: true, city: true },
-      orderBy: { updatedAt: 'desc' },
+  const [openMatchCount, totalPlayers, matches] = await Promise.all([
+    prisma.match.count({ where: { status: 'open' } }),
+    prisma.user.count({ where: { userType: 'player' } }),
+    prisma.match.findMany({
+      where: { status: 'open' },
+      orderBy: { date: 'asc' },
       take: 6,
+      select: { id: true, title: true, mode: true, gameType: true, date: true, city: true, entry: true, prize: true },
     }),
   ]);
-  return { totalVerified, pendingCount, collegeCount: collegeRows.length, roster };
+  return { openMatchCount, totalPlayers, matches };
 }
