@@ -54,9 +54,9 @@ if (!dbUrl) {
   test('applyTemplateEdit: joined occurrences keep original terms; 0-join future slots update', async () => {
     const user = await makeUser();
     const series = await prisma.matchSeries.create({ data: { organizerId: user.id, title: 'Old Title', mode: 'BR', gameType: 'BR/CS', entry: 'free', prize: 'none', city: 'Hyderabad', online: false, durationMinutes: 90, dayOfWeek: 5, startTimeLocal: '20:00', status: 'active' } });
-    const joined = await makeMatch({ organizerId: user.id, title: 'Old Title', mode: 'BR', gameType: 'BR/CS', entry: 'free', prize: 'none', status: 'open', date: new Date(Date.now() + 3 * 86_400_000 + 3_600_000), endsAt: new Date(Date.now() + 3 * 86_400_000 + 3_600_000 + 90_000), seriesId: series.id });
+    const joined = await makeMatch({ organizerId: user.id, title: 'Old Title', mode: 'BR', gameType: 'BR/CS', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'open', date: new Date(Date.now() + 3 * 86_400_000 + 3_600_000), endsAt: new Date(Date.now() + 3 * 86_400_000 + 3_600_000 + 90_000), seriesId: series.id });
     await prisma.matchEntry.create({ data: { matchId: joined.id, playerId: user.id } });
-    const futureEmpty = await makeMatch({ organizerId: user.id, title: 'Old Title', mode: 'BR', gameType: 'BR/CS', entry: 'free', prize: 'none', status: 'open', date: new Date(Date.now() + 7 * 86_400_000), endsAt: new Date(Date.now() + 7 * 86_400_000 + 90_000), seriesId: series.id });
+    const futureEmpty = await makeMatch({ organizerId: user.id, title: 'Old Title', mode: 'BR', gameType: 'BR/CS', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'open', date: new Date(Date.now() + 7 * 86_400_000), endsAt: new Date(Date.now() + 7 * 86_400_000 + 90_000), seriesId: series.id });
 
     await applyTemplateEdit(series.id, { title: 'New Title', mode: 'casual', gameType: 'CS', entry: 'paid', prize: 'pool', city: 'Hyderabad', online: true, slots: 8, durationMinutes: 60 });
 
@@ -68,13 +68,13 @@ if (!dbUrl) {
     const reFetchedEmpty = await prisma.match.findUnique({ where: { id: futureEmpty.id } });
     assert.equal(reFetchedEmpty.title, 'New Title', '0-join future slot receives new template');
     assert.equal(reFetchedEmpty.mode, 'casual');
-    assert.ok(reFetchedEmpty.endsAt.getTime() - reFetchedEmpty.date.getTime() === 60_000, 'new duration reflected in endsAt');
+    assert.ok(reFetchedEmpty.endsAt.getTime() - reFetchedEmpty.date.getTime() === 60 * 60_000, 'new duration reflected in endsAt');
   });
 
   test('applyScheduleEdit: purges future 0-join slots, keeps joined ones, regenerates window', async () => {
     const user = await makeUser();
     const series = await prisma.matchSeries.create({ data: { organizerId: user.id, title: 'S', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', online: false, durationMinutes: 90, dayOfWeek: 5, startTimeLocal: '20:00', status: 'active' } });
-    const oldSlot = await makeMatch({ organizerId: user.id, title: 'S', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'open', date: new Date(Date.now() + 3 * 86_400_000), endsAt: new Date(Date.now() + 3 * 86_400_000 + 90_000), seriesId: series.id });
+    const oldSlot = await makeMatch({ organizerId: user.id, title: 'S', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'open', date: new Date(Date.now() + 3 * 86_400_000), endsAt: new Date(Date.now() + 3 * 86_400_000 + 90_000), seriesId: series.id });
 
     await applyScheduleEdit(series.id); // regenerates the 2-week window; old 0-join slot must be gone
 

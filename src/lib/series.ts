@@ -76,7 +76,7 @@ export async function autoPauseCheck(series: { id: string; resumedAt: Date | nul
   if (shouldAutoPause(finished.map(f => f._count.entries), MATCH.autoPauseAfterDeadOccurrences)) {
     await prisma.matchSeries.update({ where: { id: series.id }, data: { status: 'paused' } });
     try {
-      await prisma.auditLog.create({ data: { action: 'series:auto_pause', detail: JSON.stringify({ seriesId: series.id, deadOccurrences: finished.map(f => f.id) }) } });
+      await prisma.auditLog.create({ data: { userId: series.organizerId, action: 'series:auto_pause', detail: JSON.stringify({ seriesId: series.id, deadOccurrences: finished.map(f => f.id) }) } });
     } catch { /* audit must not block */ }
     return true;
   }

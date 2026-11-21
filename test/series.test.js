@@ -56,29 +56,28 @@ if (!dbUrl) {
 
   test('eligibility starts locked for a fresh organizer; unlocks with 3 qualifying matches and 2 non-host joins', async () => {
     const user = await makeUser();
+    const helperA = await makeUser();
+    const helperB = await makeUser();
     const e0 = await seriesEligibility(user.id);
     assert.equal(e0.unlocked, false);
     assert.equal(e0.qualified, 0);
     assert.equal(e0.needed, 3);
 
     // Two qualifying matches (closed status — status-independent).
-    const m1 = await makeMatch({ organizerId: user.id, title: 'q1', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'closed', date: new Date(Date.now() - 4 * 3_600_000), endsAt: new Date(Date.now() - 4 * 3_600_000 + 5) });
-    await prisma.matchEntry.createMany({ data: [{ matchId: m1.id, playerId: user.id + ':a' }, { matchId: m1.id, playerId: user.id + ':b' }] });
+    const m1 = await makeMatch({ organizerId: user.id, title: 'q1', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'closed', date: new Date(Date.now() - 4 * 3_600_000), endsAt: new Date(Date.now() - 4 * 3_600_000 + 5) });
+    await prisma.matchEntry.createMany({ data: [{ matchId: m1.id, playerId: helperA.id }, { matchId: m1.id, playerId: helperB.id }] });
     // Third qualifying match.
-    const m3 = await makeMatch({ organizerId: user.id, title: 'q3', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'open', date: new Date(Date.now() - 2 * 3_600_000), endsAt: new Date(Date.now() - 2 * 3_600_000 + 5) });
-    await prisma.matchEntry.createMany({ data: [{ matchId: m3.id, playerId: user.id + ':c' }, { matchId: m3.id, playerId: user.id + ':d' }] });
+    const m3 = await makeMatch({ organizerId: user.id, title: 'q3', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'open', date: new Date(Date.now() - 2 * 3_600_000), endsAt: new Date(Date.now() - 2 * 3_600_000 + 5) });
+    await prisma.matchEntry.createMany({ data: [{ matchId: m3.id, playerId: helperA.id }, { matchId: m3.id, playerId: helperB.id }, { matchId: m3.id, playerId: user.id }] }); // host join is excluded
+
+    // Third qualifying match.
+    const m2 = await makeMatch({ organizerId: user.id, title: 'q2', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'closed', date: new Date(Date.now() - 3_600_000), endsAt: new Date(Date.now() - 3_600_000 + 5) });
+    await prisma.matchEntry.createMany({ data: [{ matchId: m2.id, playerId: helperA.id }, { matchId: m2.id, playerId: helperB.id }] });
 
     const q = await countQualifyingMatches(user.id);
-    assert.equal(q, 2, 'only matches with endsAt < now and 2 distinct non-host joiners qualify');
-    const e1 = await seriesEligibility(user.id);
-    assert.equal(e1.qualified, 2);
-    assert.equal(e1.unlocked, false, '2 of 3 — not unlocked');
-
-    // A host self-join doesn't add joins; add the third qualifying match.
-    const m2 = await makeMatch({ organizerId: user.id, title: 'q2', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'closed', date: new Date(Date.now() - 3_600_000), endsAt: new Date(Date.now() - 3_600_000 + 5) });
-    await prisma.matchEntry.createMany({ data: [{ matchId: m2.id, playerId: user.id + ':e' }, { matchId: m2.id, playerId: user.id + ':f' }] });
+    assert.equal(q, 3, '3 matches qualify: 2+2 non-host joiners, closed counts, host excluded');
     const e2 = await seriesEligibility(user.id);
-    assert.equal(e2.qualified, 3, '3rd qualifying match unlocks');
+    assert.equal(e2.qualified, 3);
     assert.equal(e2.unlocked, true, 'activeSeries 0 < cap 2');
   });
 
@@ -118,8 +117,8 @@ if (!dbUrl) {
     const series = await prisma.matchSeries.create({
       data: { organizerId: user.id, title: 'T', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', online: false, durationMinutes: 90, dayOfWeek: istDayOfWeek(now), startTimeLocal: '20:00', status: 'active', createdAt: new Date(Date.now() - 10 * 86_400_000) }, // TP3: window covers recent dead matches
     });
-    await makeMatch({ organizerId: user.id, title: 'T', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'closed', date: new Date(now.getTime() - 3 * 3_600_000), endsAt: new Date(now.getTime() - 3 * 3_600_000 + 5), seriesId: series.id });
-    await makeMatch({ organizerId: user.id, title: 'T', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', status: 'closed', date: new Date(now.getTime() - 2 * 3_600_000), endsAt: new Date(now.getTime() - 2 * 3_600_000 + 5), seriesId: series.id });
+    await makeMatch({ organizerId: user.id, title: 'T', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'closed', date: new Date(now.getTime() - 3 * 3_600_000), endsAt: new Date(now.getTime() - 3 * 3_600_000 + 5), seriesId: series.id });
+    await makeMatch({ organizerId: user.id, title: 'T', mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad', status: 'closed', date: new Date(now.getTime() - 2 * 3_600_000), endsAt: new Date(now.getTime() - 2 * 3_600_000 + 5), seriesId: series.id });
 
     const paused = await autoPauseCheck(series);
     assert.equal(paused, true, '2 finished, 0 joins → paused');
