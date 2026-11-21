@@ -1,12 +1,17 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
 import { MATCH } from '@/lib/config';
+import { runSeriesSweep } from '@/lib/series-sweep';
+import { seriesCueLabel } from '@/lib/schedule';
 
 export const metadata = { title: 'Matches, Final Circle' };
 export const dynamic = 'force-dynamic';
 
 export default async function MatchesBoard({ searchParams }: { searchParams: Promise<{ mode?: string; type?: string; city?: string; entry?: string; prize?: string }> }) {
   const sp = await searchParams;
+  // Flag 4: board render = sweep tick; fault-isolated, board always renders.
+  try { await runSeriesSweep(); } catch { /* never break the board */ }
+  const now = new Date();
   const mode = MATCH.modes.includes(sp.mode ?? '') ? sp.mode : undefined;
   const type = MATCH.gameTypes.includes(sp.type ?? '') ? sp.type : undefined;
   const entry = MATCH.entry.includes(sp.entry ?? '') ? sp.entry : undefined;
@@ -27,9 +32,31 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
     select: {
       id: true, title: true, mode: true, gameType: true, entry: true, entryFee: true,
       prize: true, prizePool: true, date: true, city: true, online: true, slots: true,
+      status: true, endsAt: true, series: { select: { dayOfWeek: true, startTimeLocal: true } },
       organizer: { select: { displayName: true } },
     },
   });
+
+  const happening = matches.filter(m => m.status === 'open' && m.date <= now && now <= m.endsAt).sort((a, b) => a.date.getTime() - b.date.getTime());
+  const upcoming = matches.filter(m => m.status === 'open' && m.date > now).sort((a, b) => a.date.getTime() - b.date.getTime());
+
+  const row = (m: (typeof matches)[number]) => (
+    <Link key={m.id} href={`/matches/${m.id}`} className="rowitem" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div style={{ minWidth: 0 }}>
+        <strong style={{ fontSize: 16 }}>{m.title}</strong>
+        <div className="small" style={{ marginTop: 2 }}>
+          {m.gameType} · {m.mode} · {m.online ? 'Online' : m.city} · {new Date(m.date).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}
+        </div>
+        <div className="small" style={{ color: 'var(--muted)' }}>posted by {m.organizer.displayName}</div>
+      </div>
+      <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+        <div className="chip">{m.entry === 'paid' ? `Paid${m.entryFee ? ` · ${m.entryFee}` : ''}` : 'Free entry'}</div>
+        <div className="small" style={{ marginTop: 6 }}>{m.prize === 'pool' ? `Prize ${m.prizePool ?? ''}` : 'No prize'}</div>
+        {m.slots ? <div className="small" style={{ marginTop: 4 }}>{m.slots} slots</div> : null}
+        {m.series ? <div className="chip" style={{ marginTop: 4, fontWeight: 400, opacity: 0.85 }}>{seriesCueLabel(m.series.dayOfWeek, m.series.startTimeLocal)}</div> : null}
+      </div>
+    </Link>
+  );
 
   return (
     <div className="shell" style={{ paddingBottom: 48 }}>
@@ -71,27 +98,23 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
         {(mode || type || entry || prize || city) && <Link href="/matches" className="btn-ghost" style={{ textDecoration: 'none' }}>Clear</Link>}
       </form>
 
-      {matches.length === 0 ? (
+      {happening.length === 0 && upcoming.length === 0 ? (
         <p className="subtext" style={{ marginTop: 28 }}>Nothing posted yet. You are looking at an honest board — the first match appears when someone posts it.</p>
       ) : (
-        <div className="list" style={{ marginTop: 20 }}>
-          {matches.map(m => (
-            <Link key={m.id} href={`/matches/${m.id}`} className="rowitem" style={{ textDecoration: 'none', color: 'inherit' }}>
-              <div style={{ minWidth: 0 }}>
-                <strong style={{ fontSize: 16 }}>{m.title}</strong>
-                <div className="small" style={{ marginTop: 2 }}>
-                  {m.gameType} · {m.mode} · {m.online ? 'Online' : m.city} · {new Date(m.date).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}
-                </div>
-                <div className="small" style={{ color: 'var(--muted)' }}>posted by {m.organizer.displayName}</div>
-              </div>
-              <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                <div className="chip">{m.entry === 'paid' ? `Paid${m.entryFee ? ` · ${m.entryFee}` : ''}` : 'Free entry'}</div>
-                <div className="small" style={{ marginTop: 6 }}>{m.prize === 'pool' ? `Prize ${m.prizePool ?? ''}` : 'No prize'}</div>
-                {m.slots ? <div className="small" style={{ marginTop: 4 }}>{m.slots} slots</div> : null}
-              </div>
-            </Link>
-          ))}
-        </div>
+        <>
+          {happening.length > 0 && (
+            <div>
+              <h2 style={{ fontSize: 15, marginBottom: 8 }}>Happening now</h2>
+              <div className="list" style={{ marginTop: 8 }}>{happening.map(row)}</div>
+            </div>
+          )}
+          {upcoming.length > 0 && (
+            <div style={{ marginTop: 24 }}>
+              <h2 style={{ fontSize: 15, marginBottom: 8 }}>Next up</h2>
+              <div className="list" style={{ marginTop: 8 }}>{upcoming.map(row)}</div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
