@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { prisma } from '@/lib/db';
+import { normalizeTeamName } from '@/lib/team';
 import { joinMatch, leaveMatch, reportMatch } from './actions';
 
 export const metadata = { title: 'Match, Final Circle' };
@@ -14,6 +15,7 @@ const ERRORS: Record<string, string> = {
   retry: 'Someone just took the last slot. Try once more.',
   reported: 'You already reported this match.',
   invalid: 'Something was missing. Try again.',
+  team: 'Team name must be 2–30 characters.',
 };
 
 export default async function MatchDetail({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<Record<string, string | undefined>> }) {
@@ -42,6 +44,12 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
   const closed = match.status !== 'open';
   const full = match.slots != null && match.slots <= 0;
 
+  const profile = s
+    ? await prisma.user.findUnique({ where: { id: s.userId }, select: { teamName: true } })
+    : null;
+  const prefillTeam = profile?.teamName ? normalizeTeamName(profile.teamName) : '';
+  const isEsportsish = match.mode === 'esports' || match.mode === 'competitive';
+
   return (
     <div className="page-narrow">
       <Link href="/matches" className="btn-ghost" style={{ textDecoration: 'none', display: 'inline-flex', marginTop: 28 }}>← All matches</Link>
@@ -66,6 +74,15 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
           Entry fees and prize pools are settled directly between you and the host. Final Circle never handles money.
         </p>
       </section>
+
+      {isEsportsish && !joined && (
+        <div style={{ marginTop: 14 }}>
+          <label className="label">Team / Guild name
+            <input className="input" name="teamName" defaultValue={prefillTeam} placeholder="Optional — helps organizers group squads" maxLength={30} />
+          </label>
+          <p className="small" style={{ marginTop: 2, color: 'var(--muted)' }}>2–30 characters. Optional.</p>
+        </div>
+      )}
 
       <div style={{ marginTop: 18, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
         {closed ? (

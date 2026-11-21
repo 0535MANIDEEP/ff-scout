@@ -6,6 +6,7 @@ import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
+import { normalizeTeamName, isValidTeamName } from '@/lib/team';
 import { revalidatePath } from 'next/cache';
 
 async function session() {
@@ -26,9 +27,13 @@ export async function joinMatch(formData: FormData) {
   const matchId = String(formData.get('matchId') ?? '');
   if (!matchId) redirect('/matches?e=invalid');
 
+  const teamRaw = formData.get('teamName');
+  const teamName = normalizeTeamName(typeof teamRaw === 'string' ? teamRaw : null);
+  if (teamName && !isValidTeamName(teamName)) redirect(`/matches/${matchId}?e=team`);
+
   try {
     await prisma.$transaction(async (tx) => {
-      const m = await tx.match.findUnique({ where: { id: matchId }, select: { status: true, slots: true } });
+      const m = await tx.match.findUnique({ where: { id: matchId }, select: { status: true, slots: true, mode: true } });
       if (!m || m.status !== 'open') throw new MatchClosed();
       if (m.slots != null && m.slots <= 0) throw new MatchFull();
 
@@ -41,7 +46,9 @@ export async function joinMatch(formData: FormData) {
         if (stillOpen === 0) throw new MatchClosed();
       }
 
-      await tx.matchEntry.create({ data: { matchId, playerId: s.userId } });
+      // esports: store the optional squad/guild name exactly as entered; none for other modes.
+      const teamStored = m.mode === 'esports' || m.mode === 'competitive' ? teamName || null : null;
+      await tx.matchEntry.create({ data: { matchId, playerId: s.userId, teamName: teamStored } });
     }, { isolationLevel: 'Serializable' });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') redirect(`/matches/${matchId}?e=already`);
