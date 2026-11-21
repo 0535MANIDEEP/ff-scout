@@ -66,7 +66,7 @@ export async function editSeries(formData: FormData) {
   const templateData = {
     title: d.title, mode: d.mode, gameType: d.gameType, entry: d.entry, entryFee: d.entryFee ?? null,
     prize: d.prize, prizePool: d.prizePool ?? null, city: d.city, online: d.online === 'yes', slots: d.slots,
-    durationMinutes: d.durationMinutes,
+    durationMinutes: d.durationMinutes, dayOfWeek: d.dayOfWeek, startTimeLocal: d.startTimeLocal,
   };
   await prisma.matchSeries.update({
     where: { id },

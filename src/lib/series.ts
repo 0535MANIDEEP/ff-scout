@@ -65,7 +65,7 @@ export async function materializeSeries(seriesId: string, now = new Date()): Pro
   return dates.length;
 }
 
-export async function autoPauseCheck(series: { id: string; resumedAt: Date | null; createdAt: Date }, now = new Date()): Promise<boolean> {
+export async function autoPauseCheck(series: { id: string; organizerId: string; resumedAt: Date | null; createdAt: Date }, now = new Date()): Promise<boolean> {
   const windowStart = series.resumedAt ?? series.createdAt;
   const finished = await prisma.match.findMany({
     where: { seriesId: series.id, endsAt: { lt: now }, date: { gte: windowStart } },

@@ -27,14 +27,39 @@ async function main() {
   const prisma = new PrismaClient({ datasources: { db: { url: loadUrl() } } });
   const nextEmail = (flag) => args[args.indexOf(flag) + 1];
 
+  if (cmd === '--dump') {
+    const orgEmail = args[args.indexOf('--dump') + 1];
+    const org = await prisma.user.findUnique({ where: { email: orgEmail }, select: { id: true } });
+    if (!org) { console.log('org not found'); return; }
+    const series = await prisma.matchSeries.findMany({ where: { organizerId: org.id }, select: { id: true, title: true, status: true, dayOfWeek: true, startTimeLocal: true } });
+    console.log('series:', JSON.stringify(series));
+    const ms = await prisma.match.findMany({ where: { organizerId: org.id }, select: { id: true, title: true, date: true, status: true } });
+    console.log('matches:', JSON.stringify(ms));
+    return;
+  }
+
+  if (cmd === '--latest-e2e-email') {
+    const u = await prisma.$queryRawUnsafe('SELECT "email" FROM "User" WHERE "displayName" = ' + "'qa-series-org'" + ' ORDER BY "createdAt" DESC LIMIT 1');
+    console.log(u[0] ? u[0].email : '');
+    return;
+  }
+
   if (cmd === '--setup') {
+    const { hashSync } = require(path.join(root, 'node_modules', 'bcryptjs'));
+    const password = 'ffTestPass123';
     const orgEmail = args[args.indexOf('--setup') + 1];
     const helpers = args[args.indexOf('--helpers') + 1].split(',');
     const now = new Date();
-    const org = await prisma.user.create({ data: { email: orgEmail, passwordHash: 'qa', displayName: 'qa-series-org', userType: 'player' } });
+    // Idempotent: update existing QA rows (re-runs after partial failures) then create missing ones.
+    await prisma.user.updateMany({ where: { email: orgEmail }, data: { passwordHash: hashSync(password, 10) } });
+    const org = await prisma.user.findUnique({ where: { email: orgEmail }, select: { id: true } })
+      ?? await prisma.user.create({ data: { email: orgEmail, passwordHash: hashSync(password, 10), displayName: 'qa-series-org', userType: 'player' } });
     const createdHelpers = [];
     for (const h of helpers) {
-      createdHelpers.push(await prisma.user.create({ data: { email: h, passwordHash: 'qa', displayName: 'qa-helper', userType: 'player' } }));
+      await prisma.user.updateMany({ where: { email: h }, data: { passwordHash: hashSync(password, 10) } });
+      const u = await prisma.user.findUnique({ where: { email: h }, select: { id: true } })
+        ?? await prisma.user.create({ data: { email: h, passwordHash: hashSync(password, 10), displayName: 'qa-helper', userType: 'player' } });
+      createdHelpers.push({ id: u.id });
     }
     // 3 qualifying matches: endsAt past, closed, 2 distinct non-host joiners each.
     for (let i = 0; i < 3; i++) {
@@ -61,14 +86,14 @@ async function main() {
     if (!series) throw new Error('no series found');
     // E2E: backdate series.createdAt so the two dead occurrences fall inside the TP3 window
     // (windowStart = COALESCE(resumedAt, createdAt)); unit tests cover the resume-window edge.
-    await prisma.matchSeries.update({ where: { id: series.id }, data: { createdAt: new Date(Date.now() - 30 * 86400_000) } });
+    await prisma.matchSeries.update({ where: { id: series.id }, data: { createdAt: new Date(Date.now() - 30 * 86400_000), lastGeneratedAt: null } });
     const now = new Date();
     // Two finished 0-join occurrences: endsAt in the past, date >= windowStart.
     for (let i = 0; i < 2; i++) {
       const d = new Date(now.getTime() - (i + 1) * 2 * 3_600_000);
       await prisma.match.create({
         data: {
-          organizerId: org.id, title: `Dead ${i}`, mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none',
+          organizerId: org.id, title: `Dead ${i}`, mode: 'BR', gameType: 'BR', entry: 'free', prize: 'none', city: 'Hyderabad',
           status: 'closed', seriesId: series.id, date: d, endsAt: new Date(d.getTime() + 5),
         },
       });
@@ -105,9 +130,7 @@ async function main() {
   }
 
   if (cmd === '--scrub') {
-    const orgEmail = args[args.indexOf('--scrub') + 1];
-    const helpers = args[args.indexOf('--helpers') + 1].split(',');
-    const ids = (await prisma.user.findMany({ where: { email: { in: [orgEmail, ...helpers] } } })).map(u => u.id);
+    const ids = (await prisma.user.findMany({ where: { email: { contains: 'qa+series-e2e-' } } })).map(u => u.id);
     await prisma.match.deleteMany({ where: { organizerId: { in: ids } } }); // cascades entries
     await prisma.matchSeries.deleteMany({ where: { organizerId: { in: ids } } });
     await prisma.user.deleteMany({ where: { id: { in: ids } } });

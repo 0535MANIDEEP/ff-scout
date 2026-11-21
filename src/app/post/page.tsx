@@ -76,7 +76,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <label className="label">Duration
             <select className="input" name="durationMinutes" required>
-              {MATCH.durationOptionsMinutes.map(v => <option key={v} value={v}>{v} min</option>)}
+              {MATCH.durationOptionsMinutes.map(v => <option key={v} value={v} selected={v === MATCH.defaultDurationMinutes}>{v} min</option>)}
             </select>
           </label>
         </div>
