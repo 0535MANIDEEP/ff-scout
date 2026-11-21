@@ -12,3 +12,15 @@ test('match taxonomy covers modes, BR/CS, entry, prize, status', () => {
   assert.deepEqual(json.prize, ['none', 'pool']);
   assert.deepEqual(json.status, ['open', 'closed']);
 });
+
+test('match config carries scheduled-matches ladder, cadence, duration, and sweep keys', () => {
+  assert.equal(json.trustLadderMinMatches, 3);
+  assert.equal(json.trustLadderMinJoins, 2);
+  assert.equal(json.activeSeriesCap, 2);
+  assert.equal(json.lookaheadWeeks, 2);
+  assert.equal(json.autoPauseAfterDeadOccurrences, 2);
+  assert.deepEqual(json.durationOptionsMinutes, [60, 90, 120]);
+  assert.equal(json.defaultDurationMinutes, 90);
+  assert.ok(json.durationOptionsMinutes.includes(json.defaultDurationMinutes), 'default must be a valid option');
+  assert.equal(json.lazyGenThrottleMinutes, 15);
+});

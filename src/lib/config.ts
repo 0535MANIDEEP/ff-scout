@@ -40,6 +40,14 @@ const matchRoot = z.object({
   entry: z.array(z.string().min(1)).min(1),
   prize: z.array(z.string().min(1)).min(1),
   status: z.array(z.string().min(1)).min(1),
+  trustLadderMinMatches: z.number().int().positive(),
+  trustLadderMinJoins: z.number().int().positive(),
+  activeSeriesCap: z.number().int().positive(),
+  lookaheadWeeks: z.number().int().positive(),
+  autoPauseAfterDeadOccurrences: z.number().int().positive(),
+  durationOptionsMinutes: z.array(z.number().int().positive()).min(1),
+  defaultDurationMinutes: z.number().int().positive(),
+  lazyGenThrottleMinutes: z.number().int().positive(),
 });
 export const MATCH = matchRoot.parse(matchJson);
 
