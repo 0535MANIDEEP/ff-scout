@@ -1,58 +1,52 @@
 # Final Circle
 
-Verified Free Fire rosters for Indian tournament organizers. A self-hosted, open-source, India-first recruiting tool for the esports grassroots scene.
+Final Circle is a free notice board for Free Fire matches in India. Hosts post, players join, and players never pay.
 
-**Live:** [ffscout.vercel.app](https://ffscout.vercel.app) — mostly placeholder seed data today. Real organizers onboard on week 1.
+> Free entry only. No money handled by Final Circle. 18+.
 
-## What it solves
+**Live:** [ffscout.vercel.app](https://ffscout.vercel.app)
 
-Indian FF tournament organizers — college fest leads, café LAN operators, esports café owners, sponsors — have a shortlist problem: hundreds of DMs, wrong ranks, wrong roles, wasted hours, forged screenshots. Final Circle hands them one verified shortlist with role, rank, and region.
+## What it does
 
-## Free UID check
+- A host posts a free match at `/post` and manages it at `/player/posted`.
+- A player joins from `/matches/[id]`. In competitive and esports modes the join can include an optional team or guild name.
+- Weekly series are templates that create future match occurrences. The trust ladder is self-serve: three hosted matches with at least two distinct non-host joiners unlock weekly series, up to two active at a time. Two zero-join occurrences pause a series automatically.
+- Every match has a report form with a category. Two payment-request reports from players who joined close the match and pause the host's posting for exactly seven days from server time, and an audit log entry is written. There is no human review before the consequence.
+- Sponsors discover players who opted in through `/sponsors` and the CSV export. Placements and funded free events are arranged by email through `/advertise`.
 
-`/uid-check` answers two questions for any Free Fire UID, no login, free forever: whether that UID sits in the verified pool (our own data, unlimited) and what the game's public profile shows (third-party provider, env-gated, honest about being off until a key is set). See `docs/adr/0003-uid-check.md`.
+Final Circle does not collect, hold or pay money, run escrow, verify players, issue badges, or settle money disputes. There is no payment gateway and no checkout. Revenue comes from disclosed sponsor placements, disclosed affiliate links on `/loadout`, and sponsor-funded free events. Players never pay the platform.
 
-## Who pays · who joins
+## Read the full notice
 
-| Who | What | Cost |
-|---|---|---|
-| **Tournament organizers** | Unlock one shortlist/searchable export per event | ₹499 per event |
-| **Players** | Upload rank screenshot → a human verifier checks it → appear in roster pool | Free |
-| **Sponsors** | Buy unlockable cohorts across cities | negotiated |
+- [Safety and legal](https://ff-scout.vercel.app/safety) gives the free-entry rule, the no-money rule, reporting, the grievance path and how we earn.
+- [SPEC.md](SPEC.md) is the product source of truth. [ADR 0005](docs/adr/0005-legal-safe-free-entry-and-revenue.md) records the decision behind the reset.
+- Grievance contact: manideepdaram@gmail.com.
 
-This model is deliberate — see `docs/adr/0001-recruiter-first.md`.
-
-## Repository layout
-
-See [docs/codemap.md](docs/codemap.md). Decision log lives in `docs/adr/`.
+The legal background in those documents is research, not legal advice. A qualified lawyer must review the final product and copy before launch.
 
 ## Run it locally
 
+Requires Node 20+ and a Postgres database. Prisma reads `DATABASE_URL` from the environment or `.env.local`.
+
 ```bash
-npm install                     # needs Node 20+
-npx prisma db push              # builds test.db
+npm install
+npx prisma migrate deploy   # apply the additive migrations to your database
 npm run dev
 ```
 
-Open the app. Login as:
+Create an account through `/sign-up`. There is no seeded verification or unlock flow. Do not run `prisma/seed.js` against a real database.
 
-- `admin@ffscout.dev` / `ffscout-admin-demo` — admin role, verification queue
-- `org@rajawadilans.dev` / `ffscout-admin-demo` — organizer, shortlist dashboard
-- `<player>@ffscout.dev` / `ffscout-admin-demo` — any seeded player
+## Tests
 
-All passwords are `ffscout-admin-demo` in the demo seed.
+Run tests with `DATABASE_URL` removed so they never touch a shared database:
 
-## Build & verify
-
-```bash
-npm run lint          # tsc --noEmit
-npm test              # self-contained: pushes schema to test.db, seeds, asserts
-npm run build          # production build (Turbopack)
+```powershell
+Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test
 ```
 
-## Deploy
+## Repository layout
 
-Vercel git-connected from `main` — git push here → live. The CD workflow tags releases (`v0.2.0` etc.).
+See [docs/codemap.md](docs/codemap.md) for the code map and `docs/adr/` for decisions.
 
 ## License
 

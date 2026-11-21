@@ -1,86 +1,86 @@
-# Final Circle — Client Handoff
+# Final Circle: Client Handoff
 
-This is what you (the owner) or your buyer does once the pilot is proven. Everything below is either already set up or 30 minutes of work using the components shipped here.
+This is what the owner does to run the current product. Final Circle is a free notice board for Free Fire matches in India. Hosts post, players join, and no money moves through the platform.
 
 ## Ownership summary
 
-| Thing | Account / location | Who holds keys |
+| Thing | Account or location | Who holds keys |
 |---|---|---|
-| Production site | https://ff-scout.vercel.app | you (Vercel account, already authed via `vercel` CLI as 0535manideep) |
-| Source code | https://github.com/0535MANIDEEP/ff-scout | you (GitHub) |
-| Database | Neon project `ff-scout-db`, Singapore region, free tier | you (Vercel Marketplace link) |
-| Proof images | Cloudinary account (cloud name `ddvbrmlzm`), root key | you (Cloudinary console, API Keys) |
-| Admin login | `manideepdaram@gmail.com` / `FFadmin-WGt44Qkt` | you |
-| Secrets on disk | `C:\Users\manid\Downloads\opencode-files\ff-scout-secrets.txt` | you, chmod/ACL-locked to your account only |
-| DNS / domain | not yet bought — using free `vercel.app` subdomain | n/a |
+| Production site | https://ff-scout.vercel.app | Owner, Vercel account |
+| Source code | https://github.com/0535MANIDEEP/ff-scout | Owner, GitHub |
+| Database | Neon project `ff-scout-db`, Singapore region, free tier | Owner, Vercel Marketplace link |
+| Environment secrets | Vercel dashboard, never in this file | Owner |
+| Grievance and sponsor email | manideepdaram@gmail.com | Owner |
+| DNS / domain | no custom domain recorded | Not applicable |
 
-**Do not ship this file with any real secret. Everything above points at the vault in your Downloads folder, and at the Vercel dashboard.**
+Do not put credentials in this file. Rotate any credential that was previously recorded here. Payment accounts, escrow accounts and verifier or organizer accounts are not part of this product.
 
-## Day-one controls (PowerShell, same dir as the repo)
+## Day-one controls, PowerShell, same dir as the repo
 
-All of these are already wired into the repo and deploy automatically on `git push origin main`.
+All of these are wired into the repo and deploy on a merge to `main`.
 
 | Control | Command |
 |---|---|
-| Deploy | merge PR to `main` on GitHub (auto Vercel deploy) OR `vercel --prod` |
-| Env vars | Vercel dashboard → Project `ff-scout` → Environment Variables. `DATABASE_URL` and `SESSION_SECRET` are Vercel-managed. `CLOUDINARY_*` was added by you via `vercel env add`. |
+| Deploy | merge PR to `main` on GitHub, or `vercel --prod` |
+| Env vars | Vercel dashboard → Project `ff-scout` → Environment Variables. `DATABASE_URL` and `SESSION_SECRET` live there. |
 | Logs | `vercel logs --environment production --no-branch --since 1h` |
 | Rollback | `vercel deploy --prod` after reverting the commit on `main` |
-| Database | `npx prisma migrate deploy` (runs migrations on prod against Neon) |
-| Tests | `npm test` |
+| Database | `npx prisma migrate deploy`, additive migrations only |
+| Tests | `Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test` |
 | Build | `npm run build` |
 
-## Content management — what to change, where
+## Content management, what to change where
 
-The site is deliberately small. Almost every string lives in one of seven files. **Do not edit anything else without checking**.
+The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 | What the client sees | Where it lives |
 |---|---|
-| Brand name, tagline, accent color, contact email, pricing, trademark string | `src/lib/brand.ts` (single source of truth — change once, every surface follows) |
-| Hero headline, subhead, CTA copy, live-roster empty state | `src/app/components/Hero.tsx` |
-| "How it works", "What replaces", comparison table, final CTA, city-unlock CTA | `src/app/page.tsx` |
-| FAQs | `src/app/faq/page.tsx` — edit the array of `{ q, a }` objects; no other wiring |
-| About page | `src/app/about/page.tsx` — plain text |
+| Brand name, tagline, description, email, founder, URL, trademark string | `src/lib/brand.ts` |
+| Free-entry constants and global disclosure | `src/lib/free-entry.ts` |
+| Hero headline, subhead, open-match preview and disclosure | `src/app/components/Hero.tsx` |
+| Loop steps, cards, replacement table, disclosure section, waitlist | `src/app/page.tsx` |
+| FAQs | `src/app/faq/page.tsx`, the array of `{ q, a }` objects |
+| About | `src/app/about/page.tsx` |
 | Terms | `src/app/terms/page.tsx` |
 | Privacy | `src/app/privacy/page.tsx` |
-| Learn / field manual chapters | `src/lib/learn.ts` — edit the `LEARN_CHAPTERS` array; every chapter is one object with `blocks` and `links` |
-| Organizer CSV shortlist | `src/app/organizer/shortlist/download/route.ts` — do not edit; download format is a contract, only change with care |
+| Safety and legal notice | `src/app/safety/page.tsx` |
+| Advertise notice | `src/app/advertise/page.tsx` |
+| Learn / field manual chapters | `src/lib/learn.ts` |
+| Affiliate link disclosure | `src/app/loadout/page.tsx` and `src/lib/aff.ts` |
+| Sponsor CSV export | `src/app/sponsors/export/route.ts`. Do not edit the field list without a privacy review. |
 
-## Handoff steps to an actual client (buyer side)
+## Handoff steps for an actual owner
 
-1. Create a Vercel account for the buyer (free Hobby tier is enough — it has commercial-use limits though; Vercel Hobby = non-commercial, Pro = $20/mo if they sell service).
-2. Transfer the GitHub repo: GitHub → `Settings → Danger Zone → Transfer ownership`. Move it to buyer's GitHub org.
-3. In Vercel: `Dashboard → Team settings → Installed marketplace integrations` → remove Neon from your account, add fresh Neon for buyer, OR keep shared by buyer inviting you as collaborator with limited perms (recommended for the first year — an ongoing handoff).
-4. Rotate all secrets for the buyer:
-   - `SESSION_SECRET`: generate new with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`
-   - Cloudinary root key: buyer creates a new Cloudinary account, gets new `CLOUDINARY_*`, update in Vercel production env
-   - Admin password: buyer sets a new password by signing up as a NEW user and promoting themselves to `userType='admin'` via a one-time Prisma Studio or `psql` query — **delete the seeded `admin@ffscout.dev`** as the first action
-5. Domain: buyer buys a domain (Namecheap/Cloudflare registrar), points it at Vercel (`A 76.76.21.21`), Vercel imports it automatically once DNS verifies.
-6. Give buyer the **Secrets Vault file** (the one in your Downloads). It contains everything else.
+1. Create or confirm a Vercel account for the owner. Hobby tier has commercial-use limits, so confirm the plan before any paid sponsorship.
+2. Transfer the GitHub repo through `Settings → Danger Zone → Transfer ownership`.
+3. In Vercel, move the Neon integration to the owner or add the owner as a collaborator with limited permissions for the first year.
+4. Rotate `SESSION_SECRET` with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`, then redeploy.
+5. Remove stale demo accounts from the database. Do not reuse credentials from the old verification and unlock setup.
+6. Confirm that `/safety` and `/advertise` still carry the full notice and that the grievance email is monitored.
+7. Domain is optional. Buy one, point it at Vercel with `A 76.76.21.21`, and set `NEXT_PUBLIC_SITE_URL` when it verifies.
+8. Keep the lawyer review of final copy and product on the launch checklist. A qualified lawyer must review it before launch.
 
-## What the client cannot do yet (known gaps)
+## Known gaps and deliberate omissions
 
-- **No payment flow.** Everything is free in pilot. Razorpay/PhonePe integration is not wired. If payments go live, stub in `VerificationProof`-adjacent `Unlock` model, charge before `shortlist_download` route, refund on admin reject.
-- **No email sending.** `WaitlistEntry` rows are stored; nothing emails them. Add Resend (`resend` npm package — free tier 3k emails/mo) or AWS SES. Until then the "we'll notify you" copy is honest aspiration, not a real mechanism.
-- **No automated image cleanup job.** Proofs deleted only when admin manually rejects AND future erasure cascade fires. Screenshots in Cloudinary persist after player erasure only because destroy is called in the cascade path — verify after buyer wires CRON.
-- **No analytics.** Vercel Web Analytics can be turned on with one toggle (free) — `vercel link`, then Dashboard → `Analytics` → `Enable`. Or Plausible (paid, €9/mo).
-- **No monitoring.** Vercel has built-in uptime checks on Pro only. Free alternative: choose `UptimeRobot` free 50 monitors, 5-minute checks.
+- **No email sending.** Waitlist rows are stored, nothing emails them.
+- **No analytics.** Vercel Web Analytics can be enabled in the dashboard.
+- **No monitoring.** UptimeRobot free tier or Vercel uptime checks on a paid plan.
+- **No money flow, by design.** No checkout, no payment gateway, no escrow, no payouts. There is nothing to stub in for unlocks.
+- **No verification, by design.** No screenshot queue, badges, shortlist or human approval step.
+- **No human review of reports, by design.** The automated consequence and audit log are the record.
 
-## Immediate next actions (literal checklist for the buyer)
+## Immediate checklist
 
-- [ ] Rotate `SESSION_SECRET` via Vercel env UI + redeploy
-- [ ] Replace admin password (see step 4 above)
-- [ ] Delete seeded demo account if `userType='player', email='deadpool@gmail.com'` was ever seeded in prod
-- [ ] Enable Vercel Web Analytics
-- [ ] (Optional) Add custom domain
-- [ ] (Optional) Set up email notifications for waitlist (Resend free tier)
-- [ ] (Optional) Keep watching `/admin/verify` daily until pilot cohort verified
-- [ ] (Optional) Promote homegrown IGN competition: share `/sign-up` in India FF Discord/WhatsApp
+- [ ] Rotate `SESSION_SECRET` via Vercel env UI and redeploy
+- [ ] Remove stale demo and verifier-era accounts
+- [ ] Run the test command with `DATABASE_URL` removed
+- [ ] Confirm the disclosure line matches `src/lib/free-entry.ts` on every public route
+- [ ] Confirm `/safety` and `/advertise` carry the free-entry, no-money, 18+, reporting, grievance and revenue notices
+- [ ] Book the qualified lawyer review before launch
+- [ ] (Optional) Add a custom domain
+- [ ] (Optional) Enable Vercel Web Analytics
+- [ ] (Optional) Add email notifications for the waitlist
 
 ## Honest status of this release
 
-- Prod is live at https://ff-scout.vercel.app
-- 1 admin account, 0 players
-- No payments, no analytics, no email notifications
-- All claims on the landing page are either real (DB counts, admin verified) or explicitly labelled "Pilot phase: free right now."
-- If the buyer finds anything on the site that's not true, **revert that commit immediately** and tell the committer. Don't keep copy that is not true.
+Counts on the site come from the database at request time. Do not replace them with fixed marketing numbers. If the owner finds a claim on the site that is not true, revert that commit and tell the committer.

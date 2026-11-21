@@ -18,6 +18,6 @@ DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions
 ## Hard rules
 - Gates never compare raw role names (`userType === 'admin'` is a code smell; use `hasPermission(role, 'x')`)
 - Erasure (`account:erase`) is admin-only, permanently
-- Verifiers are least-privilege, revocable in one click from `/admin/roles`
+- Only `player`, `sponsor` and `admin` exist in `UserType`. There is no verifier or moderator role, and no human approval queue. Sponsor visibility is opt-in per player and revocable from `/settings`.
 - Self-demotion and last-admin demotion are blocked in code
 - Every role change writes an audit row with actor, from, to, reason

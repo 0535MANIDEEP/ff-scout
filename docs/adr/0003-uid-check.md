@@ -1,5 +1,7 @@
 # ADR 0003 — UID check: verified pool + optional live profile (2026-11-19)
 
+> Status: Superseded in part by [ADR 0005](0005-legal-safe-free-entry-and-revenue.md) for all money, pricing, verification and moderation claims below.
+
 Context: organizers screening entries and players checking each other ask two questions — "has this UID been checked?" and "what does this account look like?". A competitor teardown (Free Fire Keeda) validated the tool-as-magnet pattern, but its upstream is an unofficial Garena endpoint hidden server-side, and the one open-source alternative is CAPTCHA-gated. Neither is a dependency we can build a "verified" promise on. The provider chosen is GamesKinbo's Free Fire Info API, whose free tier is ₹0/month (50 calls, 5 req/min, no card).
 
 ## Decisions

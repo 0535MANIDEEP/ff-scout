@@ -1,54 +1,46 @@
-# Moderation & Verifier Tiers — Final Circle
+# Safety and enforcement: Final Circle
 
-Decision (2026-11-19): verification work is delegatable to trusted humans under a least-privilege tier; authorization beyond that tier is never delegated. This doc is the contract for every present and future verifier.
+Decision, 2026-11-22: Final Circle has no verifier tier and no human approval queue. Trust is self-serve, and the consequence for a payment-request report is automatic. Source of truth: `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
-## Tiers
+Legal background is research, not legal advice. A qualified lawyer must review the final product and copy before launch.
 
-| Tier | `userType` | Can do | Cannot do |
+## Roles
+
+| Role | `userType` | Can do | Cannot do |
 |---|---|---|---|
-| Admin (owner) | `admin` | Approve/reject proofs, delete/erase accounts, refunds, promote/demote roles, DB access | — |
-| Verifier | `moderator` | View pending queue (IGN, rank, role, UID, affiliation, screenshot), approve/reject with a **required** rejection reason. Every action is audit-logged with `by: 'moderator'`. | Email addresses, account erasure, role changes, CSV export, refunds, `/settings` self-elevation, verifier promotion |
-| Organizer | `organizer` | Filter shortlist, download CSV of verified players | Approve proofs |
-| Player | `player` | Sign up, upload proof, manage own settings | — |
+| Player | `player` | Post matches, join matches, host weekly series, report a match, manage own settings and sponsor visibility | Approve players, review reports, change other roles |
+| Sponsor | `sponsor` | See opted-in player fields and use the CSV export | See email addresses, change matches or reports |
+| Admin | `admin` | Operational access to the database and deployment settings | Verify players, pre-approve posts, skip a report consequence |
 
-## Promotion (one command, by admin, never self-serve)
+There is no `moderator` or `verifier` tier and no `organizer` role. Roles are set server side. There is no UI for self-promotion.
 
-```bash
-node -e "const {PrismaClient}=require('@prisma/client'); const p=new PrismaClient();
-p.user.update({ where: { email: 'THEIR_EMAIL' }, data: { userType: 'moderator' } }).then(u=>console.log('promoted', u.email)).finally(()=>p.$disconnect())"
-```
-Run from repo root with `.env` containing `DATABASE_URL`. Verify with the same query using `isVerifier` logic in `/admin/verify`.
+## Self-serve trust ladder
 
-## Revocation (under one minute)
+Weekly series unlock automatically when a host has three hosted matches, each with at least two distinct non-host joiners. A host can keep at most two active series. Two zero-join occurrences pause the series automatically. No one reviews an application and no one grants the ladder by hand.
 
-```bash
-node -e "const {PrismaClient}=require('@prisma/client'); const p=new PrismaClient();
-p.user.update({ where: { email: 'THEIR_EMAIL' }, data: { userType: 'organizer' } }).then(()=>console.log('revoked')).finally(()=>p.$disconnect())"
-```
+## Report consequence
+
+Every match has a report form with a category. When two `payment_request` reports come from players who actually joined that match:
+
+1. The match closes.
+2. The host's posting is paused for exactly seven days from server time.
+3. An audit log entry is written.
+
+The consequence applies without human review. There is no review step to wait for and no appeal queue. The joined-report counts shown on the match page come from the database, never from a hardcoded number.
+
+## Grievance path
+
+Report the match in the app first. If that is not possible, write to manideepdaram@gmail.com. If it is still unresolved, the complainant may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same email is the Grievance Officer address. A qualified lawyer must review the final notice before launch.
 
 ## Operating rules
 
-1. **Admin spot-audits.** For the first two weeks with any verifier, admin reviews every Nth verifier decision (N = 4). Any disagreement > 10% of audited decisions revokes the tier.
-2. **Verifiers never see email.** The queue redacts PII other than IGN/UID/affiliation/rank/role. Any verifier asking for email is denied and logged.
-3. **No self-promotion path.** No UI exists for a verifier to grant roles to anyone, including themselves.
-4. **Reversal, not appeals court.** A bad approve is reversed by admin by flipping the proof to rejected and writing the reason; the player sees "Last decision" honestly.
-5. **Kill switch is the row.** If ANY verifier misuses access: set `userType` back to `organizer`, freeze nothing else, review the audit log for blast radius.
-6. **Verifiers are named humans.** "Anonymous community moderators" are out of scope until the platform has real events and a code of conduct; promotion before that is a liability, not a feature.
+- No screenshot review, rank verification, badges or verified list. A player's UID and ranks are self-declared.
+- No money disputes are adjudicated, because no money moves through Final Circle.
+- No manual reversal of a report consequence through a review queue. The audit log is the record.
+- No named community moderators, no verifier promotion commands and no verifier PII in tickets or screenshots.
+- No role can be changed from the UI.
+- Under-18 accounts can be reported to the grievance address for erasure.
 
-## Escalation
+## What we watch
 
-- Player disputes a rejection → verifier states what the screenshot showed → admin reviews → reverse if wrong.
-- Abusive/fake proofs (obvious propaganda, stolen screenshots) → verifier rejects + reason; player can re-upload. Three strikes → admin bans permanently and re-offers any roster slot.
-- Verifier conflict of interest (friend in queue) → must abstain; admin handles.
-
-## Metrics that decide whether to promote a third verifier
-
-- Median review time < 24h for 2 consecutive weeks
-- Reversal rate of verifier approvals < 10%
-- Queue never blocked by verifier availability
-
-## Non-negotiables
-
-- Money, bans, erasure, DB access: admin only, forever, no appeal.
-- Every moderator action is audit-logged with tier. `auditLog.detail.by ∈ {'admin','moderator'}` is the audit filter.
-- No verifier PII ends up in the repo, in tickets, or in screenshots.
+The board shows real database state: open matches, joined counts and joined-report counts. Do not add fixed numbers, trust badges or enforcement statistics to public copy.

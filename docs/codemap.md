@@ -1,81 +1,117 @@
 # Code map
 
-For any new engineer landing here — this is what to read, in order, to be productive.
+**Last updated:** 2026-11-22
+**Branch:** feature/esports-team-names
+
+Read order for a new engineer: this file, `DESIGN.md`, `SPEC.md`, then `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
 ## The mental model
 
-Final Circle connects **organizers** (who pay ₹499 per event) with **players** who uploaded a rank screenshot. A **human verifier** checks each screenshot manually. Once verified, an organiser can download a CSV of the shortlisted roster.
+Final Circle is a free notice board for Free Fire matches in India. Hosts post, players join. Players never pay to join and every listing is free entry. Final Circle does not advertise cash prizes, collect, hold or pay money, run escrow, verify players, issue verified badges, or adjudicate money disputes. 18+ only.
+
+Trust is earned by hosting, not by applying. The weekly-series ladder is self-serve: 3 hosted matches, each with at least 2 distinct non-host joiners, unlock up to 2 active series. Two zero-join occurrences pause a series automatically. There is no human approval queue and no verifier role.
+
+The three revenue surfaces are sponsor placements (footer `SPONSOR_LINE` and `/advertise`), disclosed affiliate links on `/loadout`, and sponsor-funded free events. No player pays the platform. There is no checkout and no paid digital guide.
+
+Optional `MatchEntry.teamName` and a `User.teamName` default carry a squad or guild name. There are no persistent team profiles yet.
 
 ## Folder structure
 
 ```
-docs/adr/              design decisions, chronological
-DESIGN.md              visual and copy source of truth (see ADR 0004)
-prisma/                schema.prisma, seed.js (dev-only seed/reset rules)
-public/                static assets — hero image, favicon
-src/app/               all routes (Next.js App Router)
-src/components/        reusable React components (Waitlist, Hero, InkButton)
-src/lib/               auth (JWT), prisma client, rate limiter, utilities
-src/styles/globals.css design tokens + utilities
+docs/adr/              decisions, chronological; 0005 is the current product decision
+docs/superpowers/      design specs and plans (read-only for this documentation pass)
+prisma/                schema.prisma, additive migrations
+public/                static assets
+src/app/               App Router routes, server actions, per-route metadata
+src/components/        AppearanceControl, Hero, Waitlist, UidCheck, Reveal, BackToTop
+src/lib/               auth, prisma, config, free-entry, permissions, series, schedule,
+                       appearance, team, brand, aff, ff-upstream, rate-limit, seo
+src/styles/globals.css design tokens and utilities
 test/                  node:test smoke suite
 ```
 
-## The paths and what they do
+## Routes
 
-| Path | Audience | What it does |
+### Public
+
+| Path | Purpose | Source |
 |---|---|---|
-| `/` | visitor | Landing page with hand-rolled CTA + live seeded roster panel |
-| `/sign-up` | player | Player registration; asks for rank screenshot verification |
-| `/organizer/sign-up` | organizer | Organizer onboarding, gates creation of a roster |
-| `/verify` | player | Upload your rank screenshot for verification |
-| `/player` | player | After login: dashboard with your IGN/rank/status |
-| `/organizer/shortlist` | organizer | After login: roster + filters + CSV download |
-| `/organizer/shortlist/download` | admin + organizer | Generates the CSV |
-| `/admin/verify` | admin | Review queue: approve/reject screenshots |
-| `/uid-check` | visitor | Free UID check: verified-pool status + live game profile (see ADR 0003) |
-| `/learn` | visitor | Field manual — how ranks, roles and verification work |
-| `/api/waitlist` | visitor | Email capture for landing-page waitlist |
-| `/api/uid-check` | visitor | JSON: pool half (own DB) + live half (env-gated provider) |
-| `/sign-out` | anyone logged in | POST endpoint; clears cookie |
-| `/about` | visitor | About page |
-| `/faq` | visitor | 12 honest answers — expandable via accordion is overkill |
-| `/privacy` `/terms` | visitor | Legal |
-| `/robots.txt` `/sitemap.xml` | search engines | Generated; see `src/app/robots.ts` and `src/app/sitemap.ts` |
+| `/` | Landing, product line, board CTA | `src/app/page.tsx`, `src/app/components/Hero.tsx` |
+| `/matches` | Live board, mode/type/city filters, free-entry notice, `/safety` link | `src/app/matches/page.tsx` |
+| `/matches/[id]` | Match detail, roster, join/leave, report | `src/app/matches/[id]/page.tsx`, `actions.ts` |
+| `/learn` | How ranks, roles and the board work | `src/app/learn/page.tsx`, `src/lib/learn.ts` |
+| `/uid-check` | Own-pool plus env-gated upstream UID check | `src/app/uid-check/page.tsx`, `src/app/api/uid-check/route.ts` |
+| `/loadout` | Gear picks with disclosed affiliate links | `src/app/loadout/page.tsx`, `src/lib/aff.ts` |
+| `/about`, `/faq`, `/privacy`, `/terms` | About, answers, legal and grievance copy | matching folders in `src/app` |
+| `/robots.txt`, `/sitemap.xml` | Generated crawler files | `src/app/robots.ts`, `src/app/sitemap.ts` |
+| `/safety` | Free-entry rule, no-money rule, 18+, reporting, grievance, how we earn, legal background, independent-site notice | `src/app/safety/page.tsx` |
+| `/advertise` | Sponsor placements, sponsor-funded free events, no rate card, no real-money gaming link | `src/app/advertise/page.tsx` |
 
-## Data flow — a player joins
+`/safety` and `/advertise` each render `GLOBAL_DISCLOSURE` and export their own metadata and canonical. The legal narrative behind them is in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md`.
 
-1. Player clicks CTA on `/`, lands on `/sign-up`.
-2. Fills in email/password/IGN/rank/affiliator. User record created in `User` table with `verified=false`.
-3. Player clicks "Upload rank screenshot" from their dashboard, lands on `/verify`.
-4. Form action hits `src/app/verify/actions.ts` → row in `VerificationProof` with `status=pending`.
-5. Admin hits `/admin/verify`, sees pending proofs, opens each, clicks approve/reject → `VerificationProof.status` toggles, `User.verified=true` for approve.
-6. Player's dashboard now shows "Verified ✓".
+### Accounts, hosts and sponsors
 
-## Data flow — an organizer hires
+| Path | Purpose | Source |
+|---|---|---|
+| `/sign-up` | Player account, 18+ and free-entry consent | `src/app/sign-up/page.tsx`, `actions.ts` |
+| `/login`, `/sign-out` | Session in and out | `src/app/login/*`, `src/app/sign-out/route.ts` |
+| `/post` | Post one free match | `src/app/post/page.tsx`, `actions.ts` |
+| `/post/series` | Weekly series template, gated by the trust ladder | `src/app/post/series/page.tsx`, `actions.ts` |
+| `/player` | My profile, joined matches, team-name default | `src/app/player/page.tsx`, `actions.ts` |
+| `/player/posted` | Hosted matches and series, edit/pause/resume | `src/app/player/posted/page.tsx`, `actions.ts` |
+| `/settings` | Account settings and erasure | `src/app/settings/page.tsx`, `actions.ts` |
+| `/sponsor/sign-up`, `/sponsors`, `/sponsors/export` | Sponsor account, opted-in directory, audited CSV | `src/app/sponsor/sign-up/*`, `src/app/sponsors/*` |
+| `/admin`, `/admin/matches`, `/admin/roles` | Dashboard, close any match, roles | `src/app/admin/*` |
 
-1. Organiser signs up via `/organizer/sign-up` (same as player flow, `userType=organizer`).
-2. Visits `/organizer/shortlist`, filters by role/rank/region.
-3. Clicks "Download CSV", hits `src/app/organizer/shortlist/download/route.ts` → CSV leaves their browser.
+Private routes (`admin`, `player`, `settings`, `login`, `sign-up`, `sponsor/sign-up`) export `noindex, nofollow`. API routes: `/api/waitlist`, `/api/uid-check`.
 
-## Where NOT to look first (save time)
+## Data flow: post to join to roster to report to automatic pause
 
-- `src/styles/globals.css` — design tokens. Change with intent only.
-- `prisma/schema.prisma` — change deliberately. See `docs/adr/0001-recruiter-first.md`.
-- Motion is hand-rolled in `src/components/Reveal.tsx` + CSS keyframes — no animation library. Keep it opacity/transform only.
+1. **Post.** `createMatch` in `src/app/post/actions.ts` checks the session and `match:create`, refuses a host whose `postingPausedUntil` is in the future, rate-limits to 5 posts per 15 minutes, validates with zod, then writes `...FREE_ENTRY_TERMS` and `endsAt = date + duration`. It logs `match_create` to `AuditLog` and redirects to `/player/posted`.
+2. **Board.** `/matches` runs `runSeriesSweep()` (`src/lib/series-sweep.ts`) as a fault-isolated tick, then renders open matches with a "Free entry / No advertised prize" line and the `/safety` link. No entry fee or prize amount is selected from the database for display.
+3. **Join.** `joinMatch` in `src/app/matches/[id]/actions.ts` checks `match:join`, normalizes the optional team name through `src/lib/team.ts` for `esports`/`competitive`, and runs a serializable transaction: match must be open, slots must remain, an atomic conditional decrement prevents oversell, and the unique `[matchId, playerId]` constraint prevents a double join.
+4. **Roster.** Match detail renders the real entry count and team names as typed by joiners. `/player/posted` is the host's view of their own matches and series. Capabilities live in `src/lib/permissions.ts`; roles are `player`, `sponsor`, `admin`. There is no verifier role.
+5. **Report.** `reportMatch` in `src/app/matches/[id]/actions.ts` stores a report with category `payment_request`, `fake_match` or `other` plus a reason. It counts only `payment_request` reports whose reporter actually joined that match. At 2 or more, in the same transaction it closes the match, sets the host's `postingPausedUntil` to 7 days from server time, and writes audit action `report:auto_pause`. No human reviews before the consequence. Both `createMatch` and `createSeries` refuse posts while the pause is active. The pause expires by time; there is no appeal queue and no admin action.
 
-## Common tasks
+Thresholds are constants in `src/lib/free-entry.ts`; the additive migration that added `Report.category` and `User.postingPausedUntil` is `prisma/migrations/20261122000000_free_entry_report_safety/`.
 
-### Add a field to the player dashboard
-1. Update Prisma schema → `prisma db push --accept-data-loss` → `prisma generate`.
-2. Update the JSX in `src/app/player/page.tsx`.
+## Weekly series
 
-### Change copy on the landing page
-- Everything is in `src/app/page.tsx` and `src/app/components/Hero.tsx`.
+`/post/series` creates a `MatchSeries` template only after `seriesEligibility()` (`src/lib/series.ts`) confirms 3 qualifying hosted matches and fewer than 2 active series. Qualification is `endsAt < now` and at least 2 distinct joiners excluding the host, status independent. `materializeSeries()` stamps free-entry terms, generates the lookahead window with fixed +05:30 IST date math (`src/lib/schedule.ts`), and uses `skipDuplicates` on `[seriesId, date]`. `autoPauseCheck()` pauses a series after 2 finished zero-join occurrences and logs `series:auto_pause`. Edits, pause and resume live in `src/lib/series-ops.ts`; joined future occurrences keep their terms, and only zero-join futures are propagated or purged.
 
-### Add a screenshot verification rule (e.g. "screenshot must include UID")
-`src/app/admin/verify/page.tsx`, `src/app/admin/verify/actions.ts` — these run the admin queue. Do not put rules in the client component.
+## Where copy and rules live
+
+| Change | File |
+|---|---|
+| Free-entry strings, disclosure line, report thresholds | `src/lib/free-entry.ts` |
+| Product line, site description, trademark, canonical base | `src/lib/brand.ts` |
+| Header, footer, `SPONSOR_LINE` slot, root metadata, JSON-LD | `src/app/layout.tsx` |
+| Per-route title, description, canonical, `noindex` | `src/lib/seo.ts` helpers, used by each route's `page.tsx` or `generateMetadata` |
+| Modes, game types, ladder thresholds, duration options | `src/config/match.json` via `src/lib/config.ts` |
+| Visual and copy rules | `DESIGN.md` |
+| Product intent, roles, revenue, dismissals | `SPEC.md` |
+| Legal and sponsor copy | `src/app/safety/page.tsx`, `src/app/advertise/page.tsx`; background in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md` (read-only) |
+
+## Appearance
+
+`src/lib/appearance.ts` and `src/components/AppearanceControl.tsx` own Paper, Night, Slate and Sand presets, a custom accent with a 4.5:1 guard, density and motion controls, and a contextual reset that keeps the active preset. State is one `fc-appearance` localStorage key with a one-time `ff-theme` migration. No Prisma field and no account sync.
+
+## Database and local workflow
+
+Models: `User`, `Match`, `MatchSeries`, `MatchEntry`, `Report`, `WaitlistEntry`, `RateLimitEntry`, `AuditLog` in `prisma/schema.prisma`. Legacy `entry`, `entryFee`, `prize` and `prizePool` columns remain for the additive-only migration rule. Historical rows keep their values; writes use `FREE_ENTRY_TERMS` and public views never render them.
+
+Migrations on the shared Neon database are additive only. Never run tests with `DATABASE_URL` aimed at that database:
+
+```powershell
+Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test
+```
+
+## SEO
+
+Per-route metadata, unique canonicals, `noindex` on private routes, generated `robots.ts` and `sitemap.ts`. Run the regex audit from https://surajkumarseo.medium.com/what-is-regex-for-seo-and-how-to-use-it-for-seo-90a61dce029d before sign-off: internal links including `route.ts`, canonical uniqueness, title and description lengths, title and H1 agreement, broken links.
 
 ## Decisions to read first
 
-`docs/adr/0001-recruiter-first.md` — if you're tempted to add a feature, read this first. It says what we won't build in v1 and why.
-`DESIGN.md:1` — visual and copy rules for every route, including the palette and theme contract.
+- `docs/adr/0005-legal-safe-free-entry-and-revenue.md` supersedes the money and verification claims in the earlier paid-shortlist records.
+- `docs/adr/0004-full-redesign-and-user-palettes.md` for the design and appearance contract.
+- `docs/adr/0001-recruiter-first.md` is a historical decision record from the paid model. Read it to understand where old copy came from, never as current product truth.

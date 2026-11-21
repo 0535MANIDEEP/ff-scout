@@ -2,9 +2,9 @@
 
 The ten golden rules, applied authentically to Final Circle.
 
-1. **People first, code second.** Nothing ships unless a real organizer has said, aloud, the product matters today. Code adapts to their who and why, not the other way around. Every feature exists only if at least one pilot organizer pays for it.
-2. **Intent must be readable in the repo.** The product line, roles, pricing, monetization layers, and dismissals live in SPEC.md. If you cannot explain those in 60 seconds from reading the repo, the repo is incomplete.
-3. **One pain point, one happy path.** If a feature doesn't advance that path — player onboarding to verified shortlist to unlock — cut it, or move it to v2. Hundreds of organizer words remain typed and respected.
+1. **People first, code second.** Nothing ships unless a real host or player has said the product matters today. Final Circle is free entry for players, so value is measured in matches posted and joined, not in what someone pays. Code adapts to their who and why, not the other way around.
+2. **Intent must be readable in the repo.** The product line, roles, revenue surfaces, and dismissals live in SPEC.md. If you cannot explain those in 60 seconds from reading the repo, the repo is incomplete.
+3. **One pain point, one happy path.** If a feature doesn't advance host posts a free match, player joins, roster, report with automatic consequence, cut it, or move it to v2. Hundreds of host and player words remain typed and respected.
 4. **Rules are undead.** The `AGENTS.md` contract is the single source of truth for every AI working here. No implicit trust the rule wasn't written.
 5. **Decompose into atomic tasks.** No giant rewrites; every task has one success criterion. Every commit says intent in its subject.
 6. **Ship small, deploy often.** Every static build deploys to Vercel from CI unless explicitly blocked. No direct push without CI on main.

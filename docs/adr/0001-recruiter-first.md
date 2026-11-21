@@ -1,5 +1,7 @@
 # Design decisions
 
+> Status: Superseded in part by [ADR 0005](0005-legal-safe-free-entry-and-revenue.md) for all money, pricing, verification and moderation claims below.
+
 ADRs are numbered chronological. When you change an earlier decision, write a new ADR that supersedes it — never edit history.
 
 ## ADR-001 — Recruiters first, not players

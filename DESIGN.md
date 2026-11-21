@@ -4,7 +4,7 @@
 
 This is the source of truth for visual and copy decisions in Final Circle. It applies to every route in `src/app`. Product facts come from `SPEC.md`, `AGENTS.md`, and the live database. When this document and a stale page disagree, change the page.
 
-Final Circle is a Free Fire match board for India. Players post and join matches. Sponsors discover players who opted in. The product is free to use during the pilot. Entry fees and prizes are notes between host and players, never money handled by this site. No counters, badges, or timestamps may be fabricated.
+Final Circle is a free notice board for Free Fire matches in India. Hosts post, players join. Every listing is free entry with no advertised prize. Final Circle does not collect, hold or pay money, run escrow, verify players, issue verified badges, or adjudicate money disputes. 18+ only. No counters, badges, or timestamps may be fabricated.
 
 ## Design principles
 
@@ -125,12 +125,18 @@ Empty board: "Nothing posted yet. You're looking at an honest board." Empty dire
 
 ## Copy rules
 
-- No fabricated numbers, testimonials, names, dates, or claims.
+Hard rules for every public surface, including metadata, form errors, empty states and buttons.
+
+- No false claims. If it is not true in the code and database today, do not say it.
+- No fabricated counters, timestamps, "live" numbers, testimonials, names, or verification badges. Show database state or an honest empty state.
+- No em dashes in user-facing copy. Use a comma, colon, period, or parentheses. This applies to headings, buttons, metadata and errors.
+- No admin or internal wording in public copy: no "approval queue", "verified shortlist", "unlock", "organizer pays", "rate card", or ₹ amounts. Say "host" and "free entry".
+- One primary button per screen. Everything else is a ghost action or a text link.
+- The global disclosure line is "Free entry only. No money handled by Final Circle. 18+." Keep it exact and visible on public pages.
+- Every public page links to `/safety` for the free-entry rule, the no-money rule, 18+, reporting, grievance, how we earn, the legal background and the independent-site notice.
 - No "trusted by", "industry leading", "game changer", "unlock the power of", "seamless", "elevate", or "in today's fast-paced world".
-- No em dashes in agent-authored copy. Use a comma, colon, period, or parentheses.
 - Sentence case in headings and list items. Proper nouns and Free Fire terms keep their spelling.
 - Trademark notice stays on the landing page. Independent-site notice stays visible.
-- "Free while we're in pilot" is allowed only while posting is actually free.
 
 ## SEO rules
 
