@@ -1,60 +1,66 @@
-// Seed demo data. Do NOT run against any real database — it creates fake
-// players with a shared demo password. Dev scratch only.
+// Dev-only sample board. Never run against a real database.
+// Hosts are regular players: posting is open to every account, and there is no
+// seeded admin, verifier or paid tier. Accounts here exist so local UI work has
+// a roster and a match to look at.
 const { PrismaClient } = require('@prisma/client');
 const { hash } = require('bcryptjs');
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = await hash('ffscout-admin-demo', 10);
-  // Demo credentials — every seeded account uses 'ffscout-admin-demo'.
-  // Never point this at a real DB. Prod admin lives in production only.
-
-  // The admin who is allowed to verify rank screenshots is intentionally
-  // seeded, unsurprisingly, as admin@ffscout.dev — it's the account Manideep
-  // checks into before showing this to a pilot organizer.
-  await prisma.user.create({
-    data: { email: 'admin@ffscout.dev', passwordHash: password, displayName: 'Admin', userType: 'admin', city: 'Hyderabad' },
-  });
+  const password = await hash('dev-only-password', 10);
 
   const players = [
-    ['RushKing_21', 'Rajawadi LAN', 'Heroic', 'rusher', true],
-    ['iG_Lx0', 'In association with Vertex gaming co.', 'Elite Master', 'sniper', true],
-    ['Koje_Falcon', 'Hyderabad Squad', 'Diamond', 'sniper', true],
-    ['Honor_Chur', 'VJIT', 'Diamond', 'support', true],
-    ['DeadlyViper', 'Pro Guild', 'Heroic', 'anchor', false],
-    ['ghost_shivam', 'Invictus Mumbai', 'Silver', 'lurker', false],
+    ['RushKing_21', 'Heroic', 'rusher', 'RushKing', 'Hyderabad'],
+    ['iG_Lx0', 'Elite Master', 'sniper', 'Vertex Gaming', 'Mumbai'],
+    ['Koje_Falcon', 'Diamond', 'sniper', 'Falcon Squad', 'Hyderabad'],
+    ['Honor_Chur', 'Diamond', 'support', 'VJIT', 'Hyderabad'],
+    ['DeadlyViper', 'Heroic', 'anchor', 'Pro Guild', 'Bengaluru'],
+    ['ghost_shivam', 'Silver', 'lurker', 'Invictus', 'Mumbai'],
   ];
-  for (const [name, college, rank, role, verified] of players) {
-    await prisma.user.create({
+
+  const created = [];
+  for (const [name, brRank, role, teamName, city] of players) {
+    created.push(await prisma.user.create({
       data: {
-        email: `${name.toLowerCase()}@example.com`,
+        email: `${name.toLowerCase()}@example.test`,
         passwordHash: password,
         displayName: name,
         userType: 'player',
         role,
-        rank,
-        college,
-        verified,
-        status: 'looking',
-        iglCapable: ['iG_Lx0', 'DeadlyViper'].includes(name),
+        brRank,
+        csRank: brRank,
+        teamName,
+        city,
+        gameUid: null,
+        ageConfirmed: true,
       },
-    });
+    }));
   }
 
-  await prisma.user.create({
+  await prisma.match.create({
     data: {
-      email: 'rajawadi@example.com',
-      passwordHash: password,
-      displayName: 'Rajawadi LAN',
-      userType: 'organizer',
-      orgName: 'Rajawadi Cyber Game Nite',
-      orgType: 'LAN / gaming café',
+      organizerId: created[0].id,
+      title: 'Sample free entry lobby',
+      mode: 'casual',
+      gameType: 'BR',
+      entry: 'free',
+      prize: 'none',
+      status: 'open',
+      date: new Date(Date.now() + 24 * 60 * 60 * 1000),
+      endsAt: new Date(Date.now() + 25.5 * 60 * 60 * 1000),
       city: 'Hyderabad',
+      online: true,
+      slots: 12,
+      contact: 'Discuss the match in the lobby, not in DMs.',
     },
   });
 
-  console.log('seeded');
+  console.log('seeded dev board; no admin or paid tier');
   await prisma.$disconnect();
 }
-main();
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
