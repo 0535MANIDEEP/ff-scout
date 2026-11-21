@@ -53,7 +53,7 @@ src/
     matches/              create, board query, join, roster, close
     reports/              categories, joined-report counting, auto-pause
     trust/                pure ladder/pause rules shared by matches
-    sponsors/             opt-in placement directory, email-only deals
+    sponsors/             placement copy and email contact, no directory or export
     disclosure/           exact legal copy used everywhere
     <slice>/ actions.ts · service.ts · repository.ts · schema.ts · components/ · *.test.ts
   shared/
@@ -78,7 +78,7 @@ Boundaries:
 User          id, email, passwordHash, displayName, role, ageConfirmedAt,
               postingPausedUntil, createdAt, deletedAt
 Session       tokenHash, userId, expiresAt, revokedAt
-ConsentRecord userId, kind, version, grantedAt, withdrawnAt   append-only
+ConsentRecord userId, kind (privacy), version, grantedAt, withdrawnAt   append-only
 Match         id, hostId, title, mode, city/online, startsAt, endsAt,
               capacity, status, createdAt
 MatchEntry    matchId, playerId, note?, joinedAt              unique(matchId, playerId)
@@ -99,8 +99,6 @@ There is no money, prize, escrow, payment, verification, or badge column. There 
 6. Role, consent, pause, and consequence flags are never accepted from client input.
 7. Erasure deletes PII, revokes sessions, and replaces host attribution on authored matches with a neutral tombstone.
 8. Public counts come from the database at request time. No invented values are rendered.
-9. Sponsor visibility requires active `sponsor_visibility` consent.
-10. CSV export, if added later, must include only opted-in fields and write an audit row.
 
 ## 7. UX and accessibility
 
@@ -116,10 +114,13 @@ There is no money, prize, escrow, payment, verification, or badge column. There 
 
 ## 8. Revenue surfaces
 
-- Sponsor placements: a quiet footer slot and `/advertise` contact path. Grievance and sponsor contact: `manideepdaram@gmail.com`. No rate card, checkout, or billing in the app.
-- Disclosed affiliate links: a dedicated disclosure on `/loadout`.
-- Sponsor-funded free events: email-only coordination outside the app; Final Circle never holds money.
-- No paid guide, paid tier, player burden, or sponsor with a real-money gaming link.
+Only these three legal, user-burden-free methods are in scope:
+
+1. Sponsor placements: a quiet footer slot and `/advertise` contact path. Grievance and sponsor contact: `manideepdaram@gmail.com`. No rate card, checkout, or billing in the app.
+2. Disclosed affiliate links: a dedicated disclosure on `/loadout`.
+3. Sponsor-funded free events: email-only coordination outside the app; Final Circle never holds money.
+
+No other monetisation method is in scope. Contextual ads, sponsor directories or exports, data monetisation, paid guides, paid tiers, checkout, entry fees, prize pools, escrow, payouts, KYC, and any player charge are excluded. Adding another revenue surface requires a new ADR, a copy audit, and lawyer review before implementation.
 
 ## 9. Verification
 
@@ -165,6 +166,7 @@ There is no money, prize, escrow, payment, verification, or badge column. There 
 - Four appearance presets, custom accent logic, account-level appearance sync.
 - Tracking cookies, analytics, ad pixels, or third-party trackers.
 - Sponsor-funded event workflow inside the app; that remains email-only.
+- Contextual ads, sponsor directories or exports, and any other revenue surface not listed in section 8.
 
 ## 12. Known risks
 
