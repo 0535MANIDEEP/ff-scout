@@ -4,9 +4,11 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
+import { FREE_ENTRY_NOTICE } from '@/lib/free-entry';
+import { privateMetadata } from '@/lib/seo';
 import { createSeries } from './actions';
 
-export const metadata = { title: 'Create a weekly series, Final Circle' };
+export const metadata = privateMetadata('Create a weekly series, Final Circle');
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -22,7 +24,8 @@ export default async function PostSeries({ searchParams }: { searchParams: Promi
   const sp = await searchParams;
   const eligibility = await seriesEligibility(s.userId);
 
-  const title = sp.e ? `You cannot create a series yet. ${LOCKED_COPY(eligibility)}` : `You can create a weekly series. ${LOCKED_COPY(eligibility)}`;
+  const PAUSED = 'Posting is paused on this account after a payment report. It reopens automatically after seven days.';
+  const title = sp.e === 'paused' ? PAUSED : sp.e ? `You cannot create a series yet. ${LOCKED_COPY(eligibility)}` : `You can create a weekly series. ${LOCKED_COPY(eligibility)}`;
 
   if (!eligibility.unlocked) {
     return (
@@ -60,20 +63,9 @@ export default async function PostSeries({ searchParams }: { searchParams: Promi
               {MATCH.gameTypes.map(g => <option key={g} value={g}>{g}</option>)}
             </select>
           </label>
-          <label className="label">Entry
-            <select className="input" name="entry" required>
-              {MATCH.entry.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </label>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <label className="label">Prize
-            <select className="input" name="prize" required>
-              {MATCH.prize.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </label>
           <label className="label">City<input className="input" name="city" placeholder="Hyderabad" required minLength={2} maxLength={80} /></label>
         </div>
+        <p className="small" style={{ color: 'var(--muted)' }}>{FREE_ENTRY_NOTICE}</p>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
           <label className="label">Day
             <select className="input" name="dayOfWeek" required>

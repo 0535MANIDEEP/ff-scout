@@ -41,6 +41,7 @@ model User {
   consentedAt   DateTime?
   ageConfirmed  Boolean   @default(false)
   paidUntil     DateTime?
+  postingPausedUntil DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   matches       Match[]        // matches this user posted
@@ -56,10 +57,10 @@ model Match {
   title       String
   mode        String   // casual | competitive | ranked | esports
   gameType    String   // BR | CS | BR/CS
-  entry       String   // free | paid
-  entryFee    String?  // note only — players pay the organizer directly
-  prize       String   // none | pool
-  prizePool   String?  // note only — the organizer pays it directly
+  entry       String   // legacy taxonomy; new writes always 'free'
+  entryFee    String?  // legacy column; always null on new writes
+  prize       String   // legacy taxonomy; new writes always 'none'
+  prizePool   String?  // legacy column; always null on new writes
   status      String   @default("open") // open | closed
   date        DateTime
   city        String
@@ -86,10 +87,10 @@ model MatchSeries {
   title           String
   mode            String   // casual | competitive | ranked | esports
   gameType        String   // BR | CS | BR/CS
-  entry           String   // free | paid
-  entryFee        String?  // note only
-  prize           String   // none | pool
-  prizePool       String?  // note only
+  entry           String   // legacy taxonomy; new writes always 'free'
+  entryFee        String?  // legacy column; always null on new writes
+  prize           String   // legacy taxonomy; new writes always 'none'
+  prizePool       String?  // legacy column; always null on new writes
   city            String
   online          Boolean  @default(false)
   slots           Int?
@@ -128,6 +129,7 @@ model Report {
   match      Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
   reporterId String
   reporter   User     @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  category   String?
   reason     String
   createdAt  DateTime @default(now())
 

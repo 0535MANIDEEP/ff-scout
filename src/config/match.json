@@ -1,8 +1,8 @@
 {
   "modes": ["casual", "competitive", "ranked", "esports"],
   "gameTypes": ["BR", "CS", "BR/CS"],
-  "entry": ["free", "paid"],
-  "prize": ["none", "pool"],
+  "entry": ["free"],
+  "prize": ["none"],
   "status": ["open", "closed"],
   "trustLadderMinMatches": 3,
   "trustLadderMinJoins": 2,

@@ -20,10 +20,6 @@ const seriesEditSchema = z.object({
   title: z.string().trim().min(4).max(90),
   mode: z.enum(MATCH.modes as [string, ...string[]]),
   gameType: z.enum(MATCH.gameTypes as [string, ...string[]]),
-  entry: z.enum(MATCH.entry as [string, ...string[]]),
-  entryFee: z.string().trim().max(40).optional(),
-  prize: z.enum(MATCH.prize as [string, ...string[]]),
-  prizePool: z.string().trim().max(40).optional(),
   city: z.string().trim().min(2).max(80),
   online: z.enum(['yes', 'no']).default('no'),
   slots: z.coerce.number().int().positive().max(100000).optional(),
@@ -41,7 +37,7 @@ async function seriesSession(id: string, keyPrefix: string) {
   if (!rl.ok) redirect('/player/posted?e=rate');
   const stored = await prisma.matchSeries.findUnique({
     where: { id },
-    select: { organizerId: true, title: true, mode: true, gameType: true, entry: true, prize: true, city: true, online: true, slots: true, durationMinutes: true, dayOfWeek: true, startTimeLocal: true, status: true },
+    select: { organizerId: true, title: true, mode: true, gameType: true, city: true, online: true, slots: true, durationMinutes: true, dayOfWeek: true, startTimeLocal: true, status: true },
   });
   if (!stored) redirect('/player/posted?e=forbidden');
   return { s, stored };
@@ -55,8 +51,7 @@ export async function editSeries(formData: FormData) {
   const parsed = seriesEditSchema.safeParse({
     seriesId: id,
     title: formData.get('title'), mode: formData.get('mode'), gameType: formData.get('gameType'),
-    entry: formData.get('entry'), entryFee: formData.get('entryFee') || undefined,
-    prize: formData.get('prize'), prizePool: formData.get('prizePool') || undefined, city: formData.get('city'),
+    city: formData.get('city'),
     online: formData.get('online') ?? 'no', slots: formData.get('slots') || undefined,
     durationMinutes: formData.get('durationMinutes'), dayOfWeek: formData.get('dayOfWeek'), startTimeLocal: formData.get('startTimeLocal'),
   });
@@ -64,8 +59,8 @@ export async function editSeries(formData: FormData) {
   const d = parsed.data;
 
   const templateData = {
-    title: d.title, mode: d.mode, gameType: d.gameType, entry: d.entry, entryFee: d.entryFee ?? null,
-    prize: d.prize, prizePool: d.prizePool ?? null, city: d.city, online: d.online === 'yes', slots: d.slots,
+    title: d.title, mode: d.mode, gameType: d.gameType, city: d.city,
+    online: d.online === 'yes', slots: d.slots,
     durationMinutes: d.durationMinutes, dayOfWeek: d.dayOfWeek, startTimeLocal: d.startTimeLocal,
   };
   await prisma.matchSeries.update({

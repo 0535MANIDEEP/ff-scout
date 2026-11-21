@@ -5,15 +5,16 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
+import { FREE_ENTRY_NOTICE } from '@/lib/free-entry';
+import { privateMetadata } from '@/lib/seo';
 import { createMatch } from './actions';
 
-export const metadata = { title: 'Post a match, Final Circle' };
+export const metadata = privateMetadata('Post a match, Final Circle');
 
 const ERRORS: Record<string, string> = {
   rate: 'Too many posts in a short while. Give it a few minutes.',
   invalid: 'Check the details, something is missing or too long.',
-  fee: 'A paid match needs the entry fee noted. Players pay you directly, never through us.',
-  prize: 'A prize match needs the pool noted. You pay it directly, never through us.',
+  paused: 'Posting is paused on this account after a payment report. It reopens automatically after seven days.',
   date: 'That date is already gone. Pick an upcoming one.',
 };
 
@@ -33,9 +34,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
         <h1>Post a match</h1>
         <Link href="/player/posted" className="btn-ghost" style={{ textDecoration: 'none' }}>Your matches</Link>
       </div>
-      <p className="subtext" style={{ marginTop: 8 }}>
-        Free while we are in pilot. Entry fees and prize pools are notes on the listing. Money settles between you and the players, never through Final Circle.
-      </p>
+      <p className="subtext" style={{ marginTop: 8 }}>{FREE_ENTRY_NOTICE}</p>
       {eligibility.qualified > 0 && (
         <p className="subtext" style={{ marginTop: 10 }}>
           {eligibility.qualified} of {MATCH.trustLadderMinMatches} completed matches hosted so far.
@@ -65,29 +64,11 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <label className="label">Entry
-            <select className="input" name="entry" required>
-              {MATCH.entry.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </label>
-          <label className="label">Entry fee (if paid)<input className="input" name="entryFee" placeholder="₹50" maxLength={40} /></label>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <label className="label">Duration
             <select className="input" name="durationMinutes" required>
               {MATCH.durationOptionsMinutes.map(v => <option key={v} value={v} selected={v === MATCH.defaultDurationMinutes}>{v} min</option>)}
             </select>
           </label>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <label className="label">Prize
-            <select className="input" name="prize" required>
-              {MATCH.prize.map(v => <option key={v} value={v}>{v}</option>)}
-            </select>
-          </label>
-          <label className="label">Prize pool (if pool)<input className="input" name="prizePool" placeholder="₹2,000" maxLength={40} /></label>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>

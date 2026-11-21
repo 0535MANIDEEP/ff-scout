@@ -3,19 +3,23 @@ import { prisma } from '@/lib/db';
 import { MATCH } from '@/lib/config';
 import { runSeriesSweep } from '@/lib/series-sweep';
 import { seriesCueLabel } from '@/lib/schedule';
+import { FREE_ENTRY_NOTICE } from '@/lib/free-entry';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Matches, Final Circle' };
+export const metadata = publicMetadata(
+  'Find free matches, Final Circle',
+  'Browse free-entry Free Fire matches in India. Players never pay to join and Final Circle handles no money.',
+  '/matches',
+);
 export const dynamic = 'force-dynamic';
 
-export default async function MatchesBoard({ searchParams }: { searchParams: Promise<{ mode?: string; type?: string; city?: string; entry?: string; prize?: string }> }) {
+export default async function MatchesBoard({ searchParams }: { searchParams: Promise<{ mode?: string; type?: string; city?: string }> }) {
   const sp = await searchParams;
   // Flag 4: board render = sweep tick; fault-isolated, board always renders.
   try { await runSeriesSweep(); } catch { /* never break the board */ }
   const now = new Date();
   const mode = MATCH.modes.includes(sp.mode ?? '') ? sp.mode : undefined;
   const type = MATCH.gameTypes.includes(sp.type ?? '') ? sp.type : undefined;
-  const entry = MATCH.entry.includes(sp.entry ?? '') ? sp.entry : undefined;
-  const prize = MATCH.prize.includes(sp.prize ?? '') ? sp.prize : undefined;
   const city = sp.city?.trim().slice(0, 80);
 
   const matches = await prisma.match.findMany({
@@ -23,16 +27,14 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
       status: 'open',
       ...(mode ? { mode } : {}),
       ...(type ? { gameType: type } : {}),
-      ...(entry ? { entry } : {}),
-      ...(prize ? { prize } : {}),
       ...(city ? { city: { contains: city, mode: 'insensitive' } } : {}),
     },
     orderBy: { date: 'asc' },
     take: 60,
     select: {
-      id: true, title: true, mode: true, gameType: true, entry: true, entryFee: true,
-      prize: true, prizePool: true, date: true, city: true, online: true, slots: true,
-      status: true, endsAt: true, series: { select: { dayOfWeek: true, startTimeLocal: true } },
+      id: true, title: true, mode: true, gameType: true, date: true, city: true,
+      online: true, slots: true, status: true, endsAt: true,
+      series: { select: { dayOfWeek: true, startTimeLocal: true } },
       organizer: { select: { displayName: true } },
     },
   });
@@ -50,8 +52,8 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
         <div className="small" style={{ color: 'var(--muted)' }}>posted by {m.organizer.displayName}</div>
       </div>
       <div style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-        <div className="chip">{m.entry === 'paid' ? `Paid${m.entryFee ? ` · ${m.entryFee}` : ''}` : 'Free entry'}</div>
-        <div className="small" style={{ marginTop: 6 }}>{m.prize === 'pool' ? `Prize ${m.prizePool ?? ''}` : 'No prize'}</div>
+        <div className="chip">Free entry</div>
+        <div className="small" style={{ marginTop: 6 }}>No advertised prize</div>
         {m.slots ? <div className="small" style={{ marginTop: 4 }}>{m.slots} slots</div> : null}
         {m.series ? <div className="chip" style={{ marginTop: 4, fontWeight: 400, opacity: 0.85 }}>{seriesCueLabel(m.series.dayOfWeek, m.series.startTimeLocal)}</div> : null}
       </div>
@@ -67,6 +69,7 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
         </div>
         <Link href="/post" className="btn-ghost" style={{ textDecoration: 'none' }}>Post a match</Link>
       </div>
+      <p className="small" style={{ color: 'var(--muted)', marginTop: 10 }}>{FREE_ENTRY_NOTICE} <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.</p>
 
       <form method="get" action="/matches" style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginTop: 18, alignItems: 'flex-end' }}>
         <label className="label" style={{ margin: 0 }}>Mode
@@ -81,21 +84,9 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
             {MATCH.gameTypes.map(g => <option key={g} value={g}>{g}</option>)}
           </select>
         </label>
-        <label className="label" style={{ margin: 0 }}>Entry
-          <select className="input" name="entry" defaultValue={entry ?? ''} style={{ minWidth: 110 }}>
-            <option value="">Any entry</option>
-            {MATCH.entry.map(v => <option key={v} value={v}>{v}</option>)}
-          </select>
-        </label>
-        <label className="label" style={{ margin: 0 }}>Prize
-          <select className="input" name="prize" defaultValue={prize ?? ''} style={{ minWidth: 110 }}>
-            <option value="">Any prize</option>
-            {MATCH.prize.map(v => <option key={v} value={v}>{v}</option>)}
-          </select>
-        </label>
         <label className="label" style={{ margin: 0 }}>City<input className="input" name="city" defaultValue={city ?? ''} placeholder="City contains…" style={{ minWidth: 150 }} /></label>
         <button className="btn" type="submit">Filter</button>
-        {(mode || type || entry || prize || city) && <Link href="/matches" className="btn-ghost" style={{ textDecoration: 'none' }}>Clear</Link>}
+        {(mode || type || city) && <Link href="/matches" className="btn-ghost" style={{ textDecoration: 'none' }}>Clear</Link>}
       </form>
 
       {happening.length === 0 && upcoming.length === 0 ? (

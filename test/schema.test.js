@@ -66,3 +66,20 @@ test('a player can report a match once', () => {
   const report = schema.slice(schema.indexOf('model Report {'));
   assert.match(report, /@@unique\(\[matchId, reporterId\]\)/);
 });
+
+test('reports carry a category and hosts carry an automatic posting pause', () => {
+  const report = schema.slice(schema.indexOf('model Report {'));
+  assert.match(report, /category\s+String\?/);
+  const user = schema.slice(schema.indexOf('model User {'), schema.indexOf('model Match {'));
+  assert.match(user, /postingPausedUntil\s+DateTime\?/);
+});
+
+test('free-entry terms never carry a fee or prize', () => {
+  const source = fs.readFileSync(path.join(__dirname, '..', 'src', 'lib', 'free-entry.ts'), 'utf8');
+  assert.match(source, /entry:\s*'free'/);
+  assert.match(source, /entryFee:\s*null/);
+  assert.match(source, /prize:\s*'none'/);
+  assert.match(source, /prizePool:\s*null/);
+  assert.match(source, /PAYMENT_REPORT_THRESHOLD = 2/);
+  assert.match(source, /PAYMENT_REPORT_PAUSE_DAYS = 7/);
+});

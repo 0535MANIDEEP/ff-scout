@@ -9,13 +9,12 @@ import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility, materializeSeries } from '@/lib/series';
+import { FREE_ENTRY_TERMS } from '@/lib/free-entry';
 
 const schema = z.object({
   title: z.string().trim().min(4).max(90),
   mode: z.enum(MATCH.modes as [string, ...string[]]),
   gameType: z.enum(MATCH.gameTypes as [string, ...string[]]),
-  entry: z.enum(MATCH.entry as [string, ...string[]]),
-  prize: z.enum(MATCH.prize as [string, ...string[]]),
   city: z.string().trim().min(2).max(80),
   online: z.enum(['yes', 'no']).default('no'),
   dayOfWeek: z.coerce.number().int().min(0).max(6),
@@ -28,13 +27,15 @@ export async function createSeries(formData: FormData) {
   const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:create')) redirect('/post/series?e=role');
+  const host = await prisma.user.findUnique({ where: { id: s.userId }, select: { postingPausedUntil: true } });
+  if (host?.postingPausedUntil && host.postingPausedUntil.getTime() > Date.now()) redirect('/post/series?e=paused');
 
   const rl = await checkRateLimit(`createseries:${s.userId}`, 5, 15 * 60 * 1000);
   if (!rl.ok) redirect('/post/series?e=rate');
 
   const parsed = schema.safeParse({
     title: formData.get('title'), mode: formData.get('mode'), gameType: formData.get('gameType'),
-    entry: formData.get('entry'), prize: formData.get('prize'), city: formData.get('city'),
+    city: formData.get('city'),
     online: formData.get('online') ?? 'no', dayOfWeek: formData.get('dayOfWeek'),
     startTimeLocal: formData.get('startTimeLocal'), durationMinutes: formData.get('durationMinutes') ?? String(MATCH.defaultDurationMinutes),
   });
@@ -47,8 +48,8 @@ export async function createSeries(formData: FormData) {
 
   const series = await prisma.matchSeries.create({
     data: {
-      organizerId: s.userId, title: d.title, mode: d.mode, gameType: d.gameType, entry: d.entry,
-      prize: d.prize, city: d.city, online: d.online === 'yes', slots: null,
+      organizerId: s.userId, title: d.title, mode: d.mode, gameType: d.gameType,
+      ...FREE_ENTRY_TERMS, city: d.city, online: d.online === 'yes', slots: null,
       durationMinutes: d.durationMinutes, dayOfWeek: d.dayOfWeek, startTimeLocal: d.startTimeLocal, status: 'active',
     },
   });
