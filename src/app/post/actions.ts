@@ -8,6 +8,7 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { MATCH } from '@/lib/config';
+import { endsAtFor } from '@/lib/schedule';
 
 const schema = z.object({
   title: z.string().trim().min(4).max(90),
@@ -23,6 +24,7 @@ const schema = z.object({
   slots: z.coerce.number().int().positive().max(100000).optional(),
   contact: z.string().trim().max(120).optional(),
   notes: z.string().trim().max(500).optional(),
+  durationMinutes: z.coerce.number().int().refine(v => MATCH.durationOptionsMinutes.includes(v), 'Pick a supported duration'),
 });
 
 export async function createMatch(formData: FormData) {
@@ -68,6 +70,7 @@ export async function createMatch(formData: FormData) {
       prizePool: d.prizePool ?? null,
       status: 'open',
       date: d.date,
+      endsAt: endsAtFor(d.date, d.durationMinutes), // Q1: stored at write time
       city: d.city,
       online: d.online === 'yes',
       slots: d.slots ?? null,

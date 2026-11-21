@@ -61,6 +61,14 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+          <label className="label">Duration
+            <select className="input" name="durationMinutes" required>
+              {MATCH.durationOptionsMinutes.map(v => <option key={v} value={v}>{v} min</option>)}
+            </select>
+          </label>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <label className="label">Prize
             <select className="input" name="prize" required>
               {MATCH.prize.map(v => <option key={v} value={v}>{v}</option>)}
