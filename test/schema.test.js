@@ -22,6 +22,21 @@ test('MatchEntry is unique per match+player', () => {
   assert.match(entry, /@@unique\(\[matchId, playerId\]\)/);
 });
 
+test('MatchSeries model carries template + recurrence + lifecycle fields', () => {
+  const s = schema.slice(schema.indexOf('model MatchSeries {'), schema.indexOf('model Match {', schema.indexOf('model MatchSeries {')));
+  for (const f of ['organizerId', 'title', 'mode', 'gameType', 'entry', 'entryFee', 'prize', 'prizePool', 'city', 'slots', 'durationMinutes', 'dayOfWeek', 'startTimeLocal', 'timezone', 'status', 'lookaheadWeeks', 'lastGeneratedAt', 'resumedAt']) {
+    assert.ok(s.includes(f), `MatchSeries is missing ${f}`);
+  }
+});
+
+test('Match gains non-null endsAt + nullable seriesId + unique([seriesId, date])', () => {
+  const match = schema.slice(schema.indexOf('model Match {'), schema.indexOf('model MatchEntry'));
+  assert.match(match, /endsAt\s+DateTime(\s*;|\s*\/\/)/);
+  assert.match(match, /seriesId\s+String\?/);
+  assert.match(match, /series\s+MatchSeries\?/);
+  assert.match(match, /@@unique\(\[seriesId, date\]\)/);
+});
+
 test('User carries separate BR/CS ranks, UID and sponsor opt-in', () => {
   const user = schema.slice(schema.indexOf('model User {'), schema.indexOf('model Match {'));
   for (const field of ['brRank', 'csRank', 'visibleToSponsors', 'gameUid', 'brandName']) {

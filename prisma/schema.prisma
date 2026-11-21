@@ -45,6 +45,7 @@ model User {
   matches       Match[]        // matches this user posted
   entries       MatchEntry[]   // matches this user joined
   reports       Report[]       // matches this user reported
+  series        MatchSeries[]  // series this user hosts
 }
 
 model Match {
@@ -65,11 +66,47 @@ model Match {
   slots       Int?
   contact     String?
   notes       String?
+  endsAt      DateTime    // backfilled to `date + 90 min` by the MatchSeries migration (TP1); always present
+  seriesId    String?
+  series      MatchSeries? @relation(fields: [seriesId], references: [id], onDelete: SetNull)
   createdAt   DateTime @default(now())
   entries     MatchEntry[]
   reports     Report[]
 
   @@index([status, date])
+  @@unique([seriesId, date]) // Postgres allows multiple NULL seriesId — one-offs unaffected
+}
+
+model MatchSeries {
+  id              String   @id @default(cuid())
+  organizerId     String
+  organizer       User     @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  // template — mirrors /post's Match fields (plain Strings, same as Match)
+  title           String
+  mode            String   // casual | competitive | ranked | esports
+  gameType        String   // BR | CS | BR/CS
+  entry           String   // free | paid
+  entryFee        String?  // note only
+  prize           String   // none | pool
+  prizePool       String?  // note only
+  city            String
+  online          Boolean  @default(false)
+  slots           Int?
+  durationMinutes Int      // 60 | 90 | 120 — from config.durationOptionsMinutes
+  // recurrence (all date math uses the fixed +05:30 offset — never Intl)
+  dayOfWeek       Int      // 0–6, IST calendar day
+  startTimeLocal  String   // "HH:mm", e.g. "20:00"
+  timezone        String   @default("Asia/Kolkata") // display only
+  // lifecycle
+  status          String   @default("active") // active | paused | archived
+  lookaheadWeeks  Int      @default(2)
+  lastGeneratedAt DateTime?
+  resumedAt       DateTime?
+  matches         Match[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([status])
 }
 
 model MatchEntry {
