@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { MATCH } from '@/lib/config';
+import { seriesEligibility } from '@/lib/series';
 import { createMatch } from './actions';
 
 export const metadata = { title: 'Post a match, Final Circle' };
@@ -24,6 +25,8 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
 
   const { e } = await searchParams;
 
+  const eligibility = await seriesEligibility(s.userId);
+
   return (
     <div className="page-narrow">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, marginTop: 32 }}>
@@ -33,6 +36,16 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
       <p className="subtext" style={{ marginTop: 8 }}>
         Free while we are in pilot. Entry fees and prize pools are notes on the listing — money settles between you and the players, never through Final Circle.
       </p>
+      {eligibility.qualified > 0 && (
+        <p className="subtext" style={{ marginTop: 10 }}>
+          {eligibility.qualified} of {MATCH.trustLadderMinMatches} completed matches hosted so far.
+        </p>
+      )}
+      {eligibility.unlocked && (
+        <p className="subtext" style={{ marginTop: 4 }}>
+          <a href="/post/series" className="btn-ghost" style={{ textDecoration: 'none', fontSize: 13 }}>Set up a weekly series</a>
+        </p>
+      )}
       {e && ERRORS[e] && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>{ERRORS[e]}</p>}
 
       <form action={createMatch} style={{ marginTop: 20, display: 'grid', gap: 14 }}>
