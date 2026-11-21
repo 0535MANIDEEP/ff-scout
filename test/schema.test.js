@@ -22,6 +22,13 @@ test('MatchEntry is unique per match+player', () => {
   assert.match(entry, /@@unique\(\[matchId, playerId\]\)/);
 });
 
+test('MatchEntry + User carry the esports team name (team-name feature)', () => {
+  const entry = schema.slice(schema.indexOf('model MatchEntry {'));
+  assert.match(entry, /teamName\s+String\?/);
+  const user = schema.slice(schema.indexOf('model User {'), schema.indexOf('model Match '));
+  assert.match(user, /teamName\s+String\?/);
+});
+
 test('MatchSeries model carries template + recurrence + lifecycle fields', () => {
   const s = schema.slice(schema.indexOf('model MatchSeries {'), schema.indexOf('model Match {', schema.indexOf('model MatchSeries {')));
   for (const f of ['organizerId', 'title', 'mode', 'gameType', 'entry', 'entryFee', 'prize', 'prizePool', 'city', 'slots', 'durationMinutes', 'dayOfWeek', 'startTimeLocal', 'timezone', 'status', 'lookaheadWeeks', 'lastGeneratedAt', 'resumedAt']) {
