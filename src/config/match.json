@@ -1,0 +1,7 @@
+{
+  "modes": ["casual", "competitive", "ranked", "esports"],
+  "gameTypes": ["BR", "CS", "BR/CS"],
+  "entry": ["free", "paid"],
+  "prize": ["none", "pool"],
+  "status": ["open", "closed"]
+}

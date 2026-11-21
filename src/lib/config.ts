@@ -5,6 +5,7 @@ import rolesJson from '@/config/roles.json';
 import ranksJson from '@/config/ranks.json';
 import loadoutJson from '@/config/loadout.json';
 import copyJson from '@/config/copy.json';
+import matchJson from '@/config/match.json';
 
 const roleSchema = z.object({
   id: z.string().min(1),
@@ -32,6 +33,15 @@ export const GAME_ROLE_DESC = Object.fromEntries(ROLES.map(r => [r.id, r.desc]))
 export const RANKS = ranksRoot.parse(ranksJson).ranks.slice().sort((a, b) => a.order - b.order).map(r => r.id);
 
 export const LOADOUT = loadoutRoot.parse(loadoutJson).loadout;
+
+const matchRoot = z.object({
+  modes: z.array(z.string().min(1)).min(1),
+  gameTypes: z.array(z.string().min(1)).min(1),
+  entry: z.array(z.string().min(1)).min(1),
+  prize: z.array(z.string().min(1)).min(1),
+  status: z.array(z.string().min(1)).min(1),
+});
+export const MATCH = matchRoot.parse(matchJson);
 
 export const COPY = copyRoot.parse(copyJson);
 

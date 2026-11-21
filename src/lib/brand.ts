@@ -3,10 +3,10 @@
 export const BRAND = {
   name: 'Final Circle',
   mark: 'FC',
-  tagline: 'A ranked circle of screened Free Fire talent — for organizers across India',
-  descriptor: 'Free Fire roster finder for Indian organizers',
-  descriptorTagline: 'Free Fire roster finder · India',
-  description: 'Ranked screened Free Fire rosters for Indian organizers — café owners, fest leads, sponsors and guild trials. Screened by hand, not by bot. One shortlist per event. Pilot-free for players.',
+  tagline: 'Post a Free Fire match. Players join. India-wide.',
+  descriptor: 'Free Fire match board for India',
+  descriptorTagline: 'Free Fire match board · India',
+  description: 'Post Free Fire matches and join players across India: BR or CS, casual to esports, free or paid entry. Players host, players join, sponsors scout the opted-in.',
   // Domain: finalcircle.gg is the target. Not purchased yet — until then the
   // canonical URL stays the Vercel deployment. Set NEXT_PUBLIC_SITE_URL in
   // Vercel when the domain is live.

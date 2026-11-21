@@ -60,11 +60,12 @@ function Header() {
         <nav className="nav" aria-label="Main navigation">
           <Link href="/learn">Learn</Link>
           <Link href="/uid-check">UID check</Link>
+          <Link href="/matches">Matches</Link>
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
           <ThemeToggle />
           <Link href="/login" style={{ fontSize: 14 }}>Log in</Link>
-          <Link href="/sign-up" className="nav-cta">Join the pool</Link>
+          <Link href="/sign-up" className="nav-cta">Join free</Link>
         </nav>
       </div>
     </header>
@@ -87,7 +88,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web',
             creator: { '@type': 'Person', name: BRAND.founder, email: BRAND.email },
-            description: `Searchable verified Free Fire rosters for Indian tournaments and cafés.`
+            description: `Post Free Fire matches and join players in India: BR or CS, casual to esports, free or paid entry.`
           }) }}
         />
         <Header />

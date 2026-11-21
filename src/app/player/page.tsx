@@ -84,7 +84,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
               <input type="checkbox" name="visible" defaultChecked={user.visibleToSponsors} />
               <span>Let sponsors see my profile</span>
             </label>
-            <button className="btn" type="submit" style={{ marginTop: 10 }}>Save</button>
+            <button className="btn-ghost" type="submit" style={{ marginTop: 10 }}>Save</button>
           </form>
         </section>
       </div>
@@ -109,7 +109,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
             ))}
           </div>
         )}
-        <div style={{ marginTop: 14 }}><Link href="/matches" className="btn">Find a match</Link></div>
+        <div style={{ marginTop: 14 }}><Link href="/matches" className="btn-ghost" style={{ textDecoration: 'none' }}>Find a match</Link></div>
       </section>
     </div>
   );
