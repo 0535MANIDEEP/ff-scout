@@ -18,7 +18,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
   const sp = await searchParams;
   const user = await prisma.user.findUnique({
     where: { id: s.userId },
-    select: { id: true, displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, visibleToSponsors: true },
+    select: { id: true, displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, teamName: true, visibleToSponsors: true },
   });
   if (!user) redirect('/login');
 
@@ -45,6 +45,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
 
       {sp.done && <p className="approved" style={{ marginTop: 12 }}>Saved.</p>}
       {sp.e === 'invalid' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Check your details — something is missing or invalid.</p>}
+      {sp.e === 'team' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Team name must be 2–30 characters.</p>}
 
       <div className="dashboard" style={{ marginTop: 24 }}>
         <section className="card">
@@ -71,6 +72,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
                 {ROLE_IDS.map(r => <option key={r} value={r}>{r}</option>)}
               </select>
             </label>
+            <label className="label">Team / Guild name (used as default on esports joins)<input className="input" name="teamName" defaultValue={user.teamName ?? ''} maxLength={30} placeholder="Optional — 2–30 characters" /></label>
             <label className="label">City<input className="input" name="city" defaultValue={user.city} required /></label>
             <button className="btn" type="submit">Save profile</button>
           </form>

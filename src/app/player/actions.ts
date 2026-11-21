@@ -7,6 +7,7 @@ import { prisma } from '@/lib/db';
 import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 import { RANKS, ROLE_IDS } from '@/lib/config';
+import { normalizeTeamName, isValidTeamName } from '@/lib/team';
 
 const schema = z.object({
   displayName: z.string().trim().min(2).max(40),
@@ -15,6 +16,7 @@ const schema = z.object({
   csRank: z.enum(RANKS as [string, ...string[]]),
   role: z.enum(ROLE_IDS),
   city: z.string().trim().min(2).max(80),
+  teamName: z.string().trim().max(30).optional(),
 });
 
 export async function saveProfile(formData: FormData) {
@@ -28,12 +30,18 @@ export async function saveProfile(formData: FormData) {
     csRank: formData.get('csRank'),
     role: formData.get('role'),
     city: formData.get('city'),
+    teamName: formData.get('teamName'),
   });
   if (!parsed.success) redirect('/player?e=invalid');
   const d = parsed.data;
+
+  // partial-team rule (team-name feature): empty clears; 2–30 chars; longer rejected.
+  const team = normalizeTeamName(d.teamName);
+  if (team && !isValidTeamName(team)) redirect('/player?e=team');
+
   await prisma.user.update({
     where: { id: s.userId },
-    data: { displayName: d.displayName, gameUid: d.gameUid, brRank: d.brRank, csRank: d.csRank, role: d.role as any, city: d.city },
+    data: { displayName: d.displayName, gameUid: d.gameUid, brRank: d.brRank, csRank: d.csRank, role: d.role as any, city: d.city, teamName: team || null },
   });
   revalidatePath('/player');
   redirect('/player?done=1');
