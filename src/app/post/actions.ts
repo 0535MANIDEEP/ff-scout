@@ -45,6 +45,7 @@ export async function createMatch(formData: FormData) {
     prize: formData.get('prize'),
     prizePool: formData.get('prizePool') || undefined,
     date: formData.get('date'),
+    durationMinutes: formData.get('durationMinutes'),
     city: formData.get('city'),
     online: formData.get('online') ?? 'no',
     slots: formData.get('slots') || undefined,
