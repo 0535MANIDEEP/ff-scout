@@ -15,7 +15,7 @@ export const metadata = { title: 'Your matches, Final Circle' };
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const SERIES_LOCKED_COPY = (eligibility: Awaited<ReturnType<typeof seriesEligibility>>) =>
-  `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far — you need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to open a weekly series.`;
+  `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far. You need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to open a weekly series.`;
 
 export default async function PostedMatches({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
   const jar = await cookies();
@@ -133,7 +133,7 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
                       <div>
                         <strong>{e.player.displayName}</strong>
                         <div className="small">UID {e.player.gameUid ?? '—'} · BR {e.player.brRank ?? '—'} · CS {e.player.csRank ?? '—'} · {e.player.role ?? '—'} · {e.player.city}</div>
-                        {e.teamName && <div className="small" style={{ color: 'var(--muted)' }}>Team — {e.teamName}</div>}
+                        {e.teamName && <div className="small" style={{ color: 'var(--muted)' }}>Team: {e.teamName}</div>}
                       </div>
                       <a className="chip chip-sapphire" href={`mailto:${e.player.email}`}>Email</a>
                     </div>

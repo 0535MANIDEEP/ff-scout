@@ -76,9 +76,9 @@ export default async function HomePage() {
           <Reveal delay={80}><div className="table-wrap"><table className="roles-table">
             <thead><tr><th>Format</th><th>Before Final Circle</th><th>With Final Circle</th></tr></thead>
             <tbody>
-              <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td>A posted match, players RSVP, a roster with UIDs before you unlock the lobby</td></tr>
+              <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td>A posted match, players RSVP, a roster with UIDs before match day</td></tr>
               <tr><td>College fest FF event</td><td>Random entrants, hours lost screening ranks</td><td>A listing players join themselves, BR or CS, free or paid entry stated up front</td></tr>
-              <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Players who opted in, with real UIDs and ranks sponsors can check in-game</td></tr>
+              <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Players who opted in, with UID and rank on their profile</td></tr>
               <tr><td>Guild trial</td><td>Hundreds of applicants in a group chat</td><td>A match post with slots, joiners listed for the poster only</td></tr>
             </tbody>
           </table></div></Reveal>
@@ -89,9 +89,9 @@ export default async function HomePage() {
         <div className="shell">
           <Reveal>
             <h2>Free to post while we are in pilot.</h2>
-            <p className="lead" style={{ marginTop: 12 }}>No payment flow exists yet, so nothing is charged today. At launch, posting a match is ₹499, once per match, not per player. Players never pay to join.</p>
-            <Link href="/matches" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, fontSize: 16, padding: '14px 24px' }}>
-              Browse the board
+            <p className="lead" style={{ marginTop: 12 }}>No payment flow exists yet, so nothing is charged today. Players never pay to join. Entry fees and prize pools are notes between host and players, never money handled by Final Circle.</p>
+            <Link href="/learn" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, fontSize: 16, padding: '14px 24px' }}>
+              Read the field guide
             </Link>
           </Reveal>
         </div>
@@ -102,7 +102,7 @@ export default async function HomePage() {
           <Reveal>
             <p className="subtext" style={{ maxWidth: '52ch' }}><strong>Independent site, not official.</strong> Final Circle is a community match board for Indian Free Fire players. Not affiliated with, endorsed by, or connected to Garena, Free Fire, any government body, or any esports organization. Free Fire and Garena are trademarks of Garena International II Private Limited.</p>
             <h2 style={{ marginTop: 28 }}>Not in your city yet?</h2>
-            <p className="lead" style={{ marginTop: 12 }}>Tell us where you play. We onboard grassroots cities one at a time, starting with India.</p>
+            <p className="lead" style={{ marginTop: 12 }}>Tell us where you play. The waitlist tells us which cities want matches.</p>
             <Waitlist />
           </Reveal>
         </div>

@@ -25,8 +25,8 @@ export default function ZoneShrink({ label = 'Loading' }: Props) {
         <h2 className="zone-head">HOLD POSITION.</h2>
         <div className="zone-words" aria-hidden="true">
           <span>Landing in the lobby…</span>
-          <span>Syncing the roster…</span>
-          <span>Checking the shortlist…</span>
+          <span>Loading your profile…</span>
+          <span>Loading your settings…</span>
         </div>
         <p className="zone-mono">SAFE ZONE SHRINKING · {label.toUpperCase()}</p>
       </div>

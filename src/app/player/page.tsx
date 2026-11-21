@@ -44,7 +44,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
       </div>
 
       {sp.done && <p className="approved" style={{ marginTop: 12 }}>Saved.</p>}
-      {sp.e === 'invalid' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Check your details — something is missing or invalid.</p>}
+      {sp.e === 'invalid' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Check your details, something is missing or invalid.</p>}
       {sp.e === 'team' && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>Team name must be 2–30 characters.</p>}
 
       <div className="dashboard" style={{ marginTop: 24 }}>
@@ -72,7 +72,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
                 {ROLE_IDS.map(r => <option key={r} value={r}>{r}</option>)}
               </select>
             </label>
-            <label className="label">Team / Guild name (used as default on esports joins)<input className="input" name="teamName" defaultValue={user.teamName ?? ''} maxLength={30} placeholder="Optional — 2–30 characters" /></label>
+            <label className="label">Team / Guild name (used as default on esports joins)<input className="input" name="teamName" defaultValue={user.teamName ?? ''} maxLength={30} placeholder="Optional, 2–30 characters" /></label>
             <label className="label">City<input className="input" name="city" defaultValue={user.city} required /></label>
             <button className="btn" type="submit">Save profile</button>
           </form>

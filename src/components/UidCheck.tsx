@@ -18,8 +18,8 @@ const REGIONS: [string, string][] = [
 ];
 
 const LIVE_COPY: Record<Exclude<LiveOutcome, { state: 'ok' }>['state'], string> = {
-  disabled: 'Live game lookup is not switched on for this deployment yet. The pool check below always works.',
-  quota: 'The free monthly lookup allowance is used up for now. The pool check below still works.',
+  disabled: 'Live game lookup is not switched on for this deployment yet. The profile check below always works.',
+  quota: 'The free monthly lookup allowance is used up for now. The profile check below still works.',
   error: 'The game lookup service did not answer. Try once more in a moment.',
 };
 
@@ -101,8 +101,8 @@ export default function UidCheck() {
 
       {result && (
         <div style={{ marginTop: 28, display: 'grid', gap: 20 }}>
-          <section aria-label="Final Circle pool status" style={{ border: '1px solid var(--line)', padding: 20 }}>
-            <div className="eyebrow-inline" style={{ marginBottom: 12 }}>FINAL CIRCLE POOL</div>
+          <section aria-label="Final Circle profile status" style={{ border: '1px solid var(--line)', padding: 20 }}>
+            <div className="eyebrow-inline" style={{ marginBottom: 12 }}>FINAL CIRCLE PROFILE</div>
             {result.pool.found ? (
               <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
                 <RoleAvatar role={result.pool.role as 'rusher' | 'sniper' | 'support' | 'anchor' | 'lurker' | null} iglCapable={false} size={48} />

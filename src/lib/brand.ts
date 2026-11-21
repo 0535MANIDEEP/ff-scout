@@ -17,16 +17,10 @@ export const BRAND = {
   city: 'India',
   country: 'India',
   locale: 'en_IN',
-  pricing: {
-    // Launch price per event. guildAnnual/sponsorActivation are deliberately NOT
-    // listed — no such tiers exist and none are promised anywhere.
-    eventUnlock: 499,
-    currency: 'INR',
-  },
   trademark: 'Free Fire and Garena are trademarks of Garena International II Private Limited.',
   garenaName: 'Garena International II Private Limited',
 } as const;
 
 export const brandAsset = (p: string) => `${BRAND.url}${p.startsWith('/') ? p : `/${p}`}`;
-export const brandTitle = (section: string) => `${section} — ${BRAND.name}`;
+export const brandTitle = (section: string) => `${section}, ${BRAND.name}`;
 export const brandDescription = () => BRAND.description;

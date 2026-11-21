@@ -5,7 +5,7 @@ import { LOADOUT } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Loadout, Final Circle',
-  description: 'What a grassroots Indian Free Fire player actually buys, and why. Disclosed affiliate links — commissions fund the pilot, nothing here is paid placement.',
+  description: 'What a grassroots Indian Free Fire player actually buys, and why. Disclosed affiliate links, nothing here is paid placement.',
 };
 
 const GEAR = LOADOUT;
@@ -14,10 +14,10 @@ export default function Loadout() {
   return (
     <div className="shell" style={{ paddingBottom: 56, maxWidth: 880 }}>
       <h1 style={{ marginTop: 32 }}>Loadout</h1>
-      <p className="lead" style={{ marginTop: 10 }}>Honest gear the grassroots FF player actually uses — no sponsored placements, no hype. Prices are indicative; check the live listing before you buy.</p>
+      <p className="lead" style={{ marginTop: 10 }}>Honest gear the grassroots FF player actually uses, no sponsored placements and no hype. Prices are indicative; check the live listing before you buy.</p>
 
       <div className="card" style={{ marginTop: 16, borderColor: 'var(--accent)' }}>
-        <p style={{ fontSize: 14 }}><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They pay for hosting and the verification pipeline while the pilot finds its feet. Nothing on this page is paid placement, and the ranking never gets bought — commissions don’t touch who gets verified or shown first.</p>
+        <p style={{ fontSize: 14 }}><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They help pay for hosting while the pilot finds its feet. Nothing on this page is paid placement, and commissions do not change the ranking.</p>
       </div>
 
       <div className="list" style={{ marginTop: 18 }}>
@@ -36,7 +36,7 @@ export default function Loadout() {
         ))}
       </div>
 
-      <p className="subtext" style={{ marginTop: 18 }}>Buying anything helps keep roster verification free for players. If you already trust a gear pick of your own, tell us: <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>.</p>
+      <p className="subtext" style={{ marginTop: 18 }}>Buying anything helps keep the board free while we're in pilot. If you already trust a gear pick of your own, tell us: <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>.</p>
     </div>
   );
 }

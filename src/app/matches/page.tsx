@@ -99,7 +99,7 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
       </form>
 
       {happening.length === 0 && upcoming.length === 0 ? (
-        <p className="subtext" style={{ marginTop: 28 }}>Nothing posted yet. You are looking at an honest board — the first match appears when someone posts it.</p>
+        <p className="subtext" style={{ marginTop: 28 }}>Nothing posted yet. You are looking at an honest board. The first match appears when someone posts it.</p>
       ) : (
         <>
           {happening.length > 0 && (

@@ -16,7 +16,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hero-line-accent">Find your lobby.</span>
           </h1>
           <p className="hero-sub">
-            Cafés, fests, sponsor activations, guild trials — anyone hosting a Free Fire match posts it here and players join. BR or CS, casual or tournament, free or paid entry. We're the board, not a gatekeeper. Free while we're in pilot.
+            Cafés, fests, sponsor activations, guild trials. Anyone hosting a Free Fire match posts it here and players join. BR or CS, casual or tournament, free or paid entry. We're the board, not a gatekeeper. Free while we're in pilot.
           </p>
           <div className="cta-row">
             <Link href="/post" className="btn btn-xl">Post a match</Link>
@@ -37,7 +37,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hud-board-count">{matches.length} UPCOMING</span>
           </div>
           {matches.length === 0 ? (
-            <p className="hud-empty">Nothing posted yet. You're looking at an honest board — the first match appears when someone posts it.</p>
+            <p className="hud-empty">Nothing posted yet. You're looking at an honest board. The first match appears when someone posts it.</p>
           ) : (
             matches.slice(0, 5).map((m) => (
               <Link key={m.id} href={`/matches/${m.id}`} className="hud-row" style={{ textDecoration: 'none' }}>
@@ -56,7 +56,6 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
           <div className="ticker-item"><strong>{ctx.openMatchCount}</strong><span>open matches</span></div>
           <div className="ticker-item"><strong>{ctx.totalPlayers}</strong><span>players on the board</span></div>
           <div className="ticker-item"><strong>Pilot</strong><span>free to post right now</span></div>
-          <div className="ticker-item"><strong>0</strong><span>players who ever paid us</span></div>
         </div>
       </div>
     </section>

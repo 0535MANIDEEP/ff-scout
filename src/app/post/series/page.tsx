@@ -6,12 +6,12 @@ import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
 import { createSeries } from './actions';
 
-export const metadata = { title: 'Create a weekly series — Final Circle' };
+export const metadata = { title: 'Create a weekly series, Final Circle' };
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const LOCKED_COPY = (eligibility: Awaited<ReturnType<typeof seriesEligibility>>) =>
-  `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far — you need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to unlock weekly series.`;
+  `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far. You need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to unlock weekly series.`;
 
 export default async function PostSeries({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const jar = await cookies();
@@ -39,7 +39,7 @@ export default async function PostSeries({ searchParams }: { searchParams: Promi
         <div>
           <h1>Create a weekly series</h1>
           <p className="subtext" style={{ marginTop: 8 }}>
-            {eligibility.qualified} of {MATCH.trustLadderMinMatches} hosted matches — a weekly match appears on the board. Match terms travel with the series; joins are final.
+            {eligibility.qualified} of {MATCH.trustLadderMinMatches} hosted matches. A weekly match appears on the board. Match terms travel with the series; joins are final.
           </p>
         </div>
         <a href="/player/posted" className="btn-ghost" style={{ textDecoration: 'none' }}>Your matches</a>

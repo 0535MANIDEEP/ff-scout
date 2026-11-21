@@ -61,7 +61,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
 
       {sp.joined && <p className="approved" style={{ marginTop: 12 }}>You are on this roster.</p>}
       {sp.e && ERRORS[sp.e] && <p style={{ color: 'var(--risk)', marginTop: 12, fontSize: 13 }}>{ERRORS[sp.e]}</p>}
-      {sp.reported && <p className="approved" style={{ marginTop: 12 }}>Thanks — reported.</p>}
+      {sp.reported && <p className="approved" style={{ marginTop: 12 }}>Thanks, reported.</p>}
 
       <section className="card" style={{ marginTop: 20 }}>
         <div className="kv"><span>Entry</span><span>{match.entry === 'paid' ? `Paid · ${match.entryFee ?? 'see contact'}` : 'Free'}</span></div>
@@ -89,7 +89,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
           <form action={joinMatch} style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
             {isEsportsish && (
               <label className="label" style={{ margin: 0 }}>Team / Guild name
-                <input className="input" name="teamName" defaultValue={prefillTeam} placeholder="Optional — helps organizers group squads" maxLength={30} />
+                <input className="input" name="teamName" defaultValue={prefillTeam} placeholder="Optional, helps hosts group squads" maxLength={30} />
               </label>
             )}
             <input type="hidden" name="matchId" value={match.id} />

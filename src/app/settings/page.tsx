@@ -41,7 +41,7 @@ export default async function Settings({ searchParams }: { searchParams: Promise
       <section className="card" style={{ marginTop: 16, borderColor: 'var(--danger)' }}>
         <h3 style={{ color: 'var(--danger)' }}>Delete account</h3>
         <p className="subtext" style={{ marginBottom: 10 }}>
-          Erases your account, your verification screenshots (Cloudinary included) and your session. Audit log entries are anonymized, not erased. This cannot be undone.
+          Erases your account, your profile and your session. Audit log entries are anonymized, not erased. This cannot be undone.
         </p>
         {isAdmin ? (
           <p className="small">Admin accounts cannot self-delete from here.</p>

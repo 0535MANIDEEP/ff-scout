@@ -11,7 +11,7 @@ export const metadata = { title: 'Post a match, Final Circle' };
 
 const ERRORS: Record<string, string> = {
   rate: 'Too many posts in a short while. Give it a few minutes.',
-  invalid: 'Check the details — something is missing or too long.',
+  invalid: 'Check the details, something is missing or too long.',
   fee: 'A paid match needs the entry fee noted. Players pay you directly, never through us.',
   prize: 'A prize match needs the pool noted. You pay it directly, never through us.',
   date: 'That date is already gone. Pick an upcoming one.',
@@ -34,7 +34,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
         <Link href="/player/posted" className="btn-ghost" style={{ textDecoration: 'none' }}>Your matches</Link>
       </div>
       <p className="subtext" style={{ marginTop: 8 }}>
-        Free while we are in pilot. Entry fees and prize pools are notes on the listing — money settles between you and the players, never through Final Circle.
+        Free while we are in pilot. Entry fees and prize pools are notes on the listing. Money settles between you and the players, never through Final Circle.
       </p>
       {eligibility.qualified > 0 && (
         <p className="subtext" style={{ marginTop: 10 }}>

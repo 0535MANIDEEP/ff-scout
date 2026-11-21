@@ -4,7 +4,7 @@ import { registerSponsor } from './actions';
 export const metadata = { title: 'Sponsor signup, Final Circle' };
 
 const ERRORS: Record<string, string> = {
-  agree: 'One tick away — the Privacy Notice is the only paperwork we will ever ask of you.',
+  agree: 'One tick away. The Privacy Notice is the only paperwork we will ever ask of you.',
   rate: 'Too many tries in a short time. Give it a few minutes.',
   invalid: 'Missing or invalid fields.',
   duplicate: 'That email is already registered.',

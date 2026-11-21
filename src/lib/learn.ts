@@ -21,39 +21,6 @@ export interface Chapter {
 
 export const LEARN_CHAPTERS: Chapter[] = [
   {
-    id: 'screenshot',
-    tag: 'DRILL',
-    title: 'A screenshot that passes',
-    brief: 'What a verification check actually needs to see, and how to capture it in 30 seconds.',
-    blocks: [
-      {
-        heading: 'What the check looks at',
-        lines: [
-          'Open the screen that shows your rank and your ADPR (kill/death) together, the one the game shows you after a ranked match.',
-          'Your UID must be visible somewhere on the screen (profile page works).',
-          'The capture should be one image, unedited, uncropped.',
-        ],
-      },
-      {
-        heading: 'How to take it',
-        lines: [
-          'Finish a ranked match. On the results screen, look for your rank chip and match statistics.',
-          'Screenshot in-game (volume + power on Android). Do not open it in an editor. Do not retake with different settings.',
-          'If you received an ADPR banner or clan invite before the shot, fine, but ADPR/KD and rank must both be readable.',
-        ],
-      },
-      {
-        heading: 'Why shots get rejected',
-        lines: [
-          'Cropped, UID or timestamp cut off.',
-          'Smoothed / re-saved through an editor, metadata stripped or image tampered with.',
-          'Wrong page, lobby screen instead of your stats.',
-          'A screenshot of someone else\u2019s screen, or a leaked pro\u2019s crop from social media.',
-        ],
-      },
-    ],
-  },
-  {
     id: 'roles',
     tag: 'INTEL',
     title: 'The five combat roles',
@@ -93,7 +60,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
         heading: 'And IGL?',
         lines: [
           'IGL is a designation, not a role, one player per squad (usually the most experienced) makes the rotation calls and the final call. An IGL still plays one of the five above.',
-          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is an unverified self-declaration, real verification comes from shortlist captain review, not a checkbox.',
+          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is a self-declared capability, not a verified skill.',
         ],
       },
     ],
@@ -190,7 +157,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
       {
         heading: 'Bermuda',
         lines: [
-          'The original, all-rounder BR and CS map. Balanced sightlines, something for every role. If you learn one map for verification screenshots, learn this one, it is also what most Indian scrims run.',
+          'The original, all-rounder BR and CS map. Balanced sightlines, something for every role. If you learn one map for ranked, learn this one, it is also what most Indian scrims run.',
         ],
       },
       {
@@ -272,30 +239,22 @@ export const LEARN_CHAPTERS: Chapter[] = [
   {
     id: 'playbook',
     tag: 'PLAYBOOK',
-    title: 'Running a verified scrim',
-    brief: 'A field checklist for organizers: before the slot opens, on match day, after the win.',
+    title: 'Running a weekly match',
+    brief: 'A field checklist for hosts: before the slot opens and on match day.',
     blocks: [
       {
         heading: 'Before you open slots',
         lines: [
           'Pick the exact roles you need, a roster is rarely 5 rushers. Write the roster slot by slot.',
           'Decide the rank floor. Below Heroic for fests and GBV qualifiers, below Diamond for casual; Heroic+ only if you need the ceiling.',
-          'Decide the refund line up front: refund until roster locks, never after.',
         ],
       },
       {
         heading: 'Match day',
         lines: [
-          'Check-in with UID visible, no screenshot, no slot, no debate.',
+          'Check in by UID. Hosts confirm details in-game.',
           'Warmups run 15 minutes before the first match. No-show in warmup = slot re-opened.',
           'Winners stay in voice; losers get a polite exit. No mid-match coaching.',
-        ],
-      },
-      {
-        heading: 'After the result',
-        lines: [
-          'Rate each shortlisted player 1–5. Tell Final Circle if anyone lied about role or rank, that player is removed from the pool permanently.',
-          'If the roster genuinely failed you, email for the refund before the next event cycle.',
         ],
       },
     ],
@@ -333,24 +292,24 @@ export const LEARN_CHAPTERS: Chapter[] = [
     id: 'discipline',
     tag: 'DISCIPLINE',
     title: 'Don\u2019t get played',
-    brief: 'The three fraud patterns that show up most in Indian FF grassroots, and how Final Circle blocks them.',
+    brief: 'The three fraud patterns that show up most in Indian FF grassroots, and what to watch for.',
     blocks: [
       {
         heading: 'Boosted accounts',
         lines: [
-          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. Final Circle cannot catch this, but organizers who see your match history can.',
+          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. Final Circle cannot catch this, but hosts can check your UID in-game.',
         ],
       },
       {
-        heading: 'Shared screenshots',
+        heading: 'Messages asking for screenshots',
         lines: [
-          'The same ADPR image circulating in five WhatsApp groups. Final Circle verifiers eye-check screenshots for obvious reuse, but if someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
+          'If someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
         ],
       },
       {
-        heading: 'Paying for verification',
+        heading: 'Messages asking for money',
         lines: [
-          'Final Circle charges organizers ₹499 per event. Players never pay. Anyone asking you for money to \u201cspeed up verification\u201d is scamming you. Report it, we remove them from the pool permanently.',
+          'Posting and joining are free while we are in pilot. Anyone asking you for money to get a place on a roster is not Final Circle. Report it to manideepdaram@gmail.com.',
         ],
       },
     ],

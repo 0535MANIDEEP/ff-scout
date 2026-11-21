@@ -3,7 +3,7 @@ import { BRAND } from '@/lib/brand';
 
 export const metadata = {
   title: 'Terms, Final Circle',
-  description: 'Organizer, player and sponsor obligations under Final Circle.',
+  description: 'Host, player and sponsor obligations under Final Circle.',
 };
 
 export default function Terms() {
@@ -11,26 +11,23 @@ export default function Terms() {
     <div className="page-narrow">
       <h1>Terms</h1>
 
-      <h2 style={{ marginTop: 24 }}>Organizers</h2>
+      <h2 style={{ marginTop: 24 }}>Hosts</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>One event unlock covers only that one tournament or scrim series</li>
-        <li>₹499 per event is fully refundable on request until you lock your roster for the tournament (before you download and approve it). After the lock, the unlock is non-refundable</li>
-        <li>Factual accuracy is required, Final Circle verifies ranks but organizers must still confirm finals</li>
+        <li>Posting a match is free while we are in pilot. Players never pay to join</li>
+        <li>Entry fees and prize pools are notes on the listing. Final Circle handles no money; hosts and players settle directly</li>
+        <li>Ranks are entered by players. Hosts confirm them in-game</li>
         <li>Disputes go to <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a> within 14 days of the event</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>Players</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>You verify once, then you keep the verified badge until you choose to delete your account</li>
-        <li>Verification is by human review, not automation; it takes time, plan accordingly</li>
-        <li>Players who upload fake screenshots are banned permanently and any verified roster place for them is re-offered</li>
         <li>Payment milestones (prize distribution) are handled inside the tournament, not by Final Circle</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>Sponsors</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>Sponsor activations list the number of verified players and the city; no player list is exposed</li>
-        <li>Sponsor cohorts are priced on request during the pilot; nothing is charged while the pilot runs</li>
+        <li>Sponsor discovery is opt-in. Sponsors see the profile details a player shares, never an email address</li>
+        <li>Sponsor accounts are free while we are in pilot</li>
         <li>Final payment arrangements happen between sponsor and prize-pool operator, not Final Circle</li>
       </ul>
 
