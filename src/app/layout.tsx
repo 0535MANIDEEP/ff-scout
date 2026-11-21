@@ -3,7 +3,8 @@ import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
 import { BRAND } from '@/lib/brand';
-import ThemeToggle from '@/components/ThemeToggle';
+import { appearanceInitScript } from '@/lib/appearance';
+import AppearanceControl from '@/components/AppearanceControl';
 import BackToTop from '@/components/BackToTop';
 
 // Self-hosted at build time via next/font, no render-blocking external CSS,
@@ -12,7 +13,6 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-grotesk', display: '
 const anton = Anton({ subsets: ['latin'], variable: '--font-anton', weight: '400', display: 'swap' });
 const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', display: 'swap' });
 
-const themeInit = `(function(){try{var t=localStorage.getItem('ff-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.dataset.theme=t;document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.dataset.theme='light';}})()`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
@@ -53,9 +53,9 @@ function Header() {
   return (
     <header className="topbar">
       <div className="shell topbar-inner">
-        <Link href="/" className="logo">
+        <Link href="/" className="logo" aria-label={BRAND.name}>
           <span className="logo-mark" aria-hidden="true">{BRAND.mark}</span>
-          <span>{BRAND.name}</span>
+          <span className="logo-name">{BRAND.name}</span>
         </Link>
         <nav className="nav" aria-label="Main navigation">
           <Link href="/learn">Learn</Link>
@@ -63,8 +63,8 @@ function Header() {
           <Link href="/matches">Matches</Link>
           <Link href="/about">About</Link>
           <Link href="/faq">FAQ</Link>
-          <ThemeToggle />
-          <Link href="/login" style={{ fontSize: 14 }}>Log in</Link>
+          <AppearanceControl />
+          <Link href="/login" className="nav-login">Log in</Link>
           <Link href="/sign-up" className="nav-cta">Join free</Link>
         </nav>
       </div>
@@ -74,9 +74,9 @@ function Header() {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="light" className={`${inter.variable} ${anton.variable} ${jbmono.variable}`}>
+    <html lang="en" suppressHydrationWarning data-theme="light" data-preset="paper" data-density="regular" data-motion="system" className={`${inter.variable} ${anton.variable} ${jbmono.variable}`}>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script dangerouslySetInnerHTML={{ __html: appearanceInitScript() }} />
         <a className="skip-link" href="#main-content">Skip to content</a>
         <script
           type="application/ld+json"
