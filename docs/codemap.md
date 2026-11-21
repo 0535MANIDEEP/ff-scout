@@ -10,6 +10,7 @@ Final Circle connects **organizers** (who pay ₹499 per event) with **players**
 
 ```
 docs/adr/              design decisions, chronological
+DESIGN.md              visual and copy source of truth (see ADR 0004)
 prisma/                schema.prisma, seed.js (dev-only seed/reset rules)
 public/                static assets — hero image, favicon
 src/app/               all routes (Next.js App Router)
@@ -77,3 +78,4 @@ test/                  node:test smoke suite
 ## Decisions to read first
 
 `docs/adr/0001-recruiter-first.md` — if you're tempted to add a feature, read this first. It says what we won't build in v1 and why.
+`DESIGN.md:1` — visual and copy rules for every route, including the palette and theme contract.
