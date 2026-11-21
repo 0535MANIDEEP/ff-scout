@@ -7,7 +7,6 @@ import { z } from 'zod';
 import { prisma } from '@/lib/db';
 import { signSession, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS } from '@/lib/auth';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { roleFromDb } from '@/lib/permissions';
 
 const schema = z.object({
   email: z.email(),
@@ -34,5 +33,5 @@ export async function login(_: ActionState, formData: FormData): Promise<ActionS
   try {
     await prisma.auditLog.create({ data: { userId: user.id, action: 'login', detail: JSON.stringify({ email, type: user.userType }) } });
   } catch { /* never let an audit-write failure block login */ }
-  redirect(roleFromDb(user.userType) === 'organizer' ? '/organizer/shortlist' : ['verifier', 'admin'].includes(roleFromDb(user.userType)) ? '/admin/verify' : '/player');
+  redirect(user.userType === 'admin' ? '/admin/matches' : user.userType === 'sponsor' ? '/sponsors' : '/player');
 }

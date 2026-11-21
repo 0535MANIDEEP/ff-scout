@@ -15,7 +15,7 @@ async function getHeroContextSafe() {
     return await buildHeroContext();
   } catch (err) {
     console.error('hero context unavailable:', err);
-    return { totalVerified: 0, pendingCount: 0, collegeCount: 0, roster: [] };
+    return { openMatchCount: 0, totalPlayers: 0, matches: [] };
   }
 }
 

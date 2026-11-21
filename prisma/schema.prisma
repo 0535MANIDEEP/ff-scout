@@ -17,9 +17,8 @@ enum Role {
 
 enum UserType {
   player
-  organizer
+  sponsor
   admin
-  moderator
 }
 
 model User {
@@ -29,47 +28,71 @@ model User {
   displayName   String
   userType      UserType
   role          Role?
-  college       String?
+  gameUid       String?   // Free Fire UID — the handle players share in-game
+  brRank        String?
+  csRank        String?
   city          String    @default("Hyderabad")
-  rank          String    @default("Heroic")
-  verified      Boolean   @default(false)
-  status        String    @default("looking")
+  visibleToSponsors Boolean @default(false)
   orgName       String?
   orgType       String?
+  brandName     String?
+  contact       String?
   consentedAt   DateTime?
   ageConfirmed  Boolean   @default(false)
-  iglCapable    Boolean   @default(false)
   paidUntil     DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  proofs        VerificationProof[]
-  matches       Match[]
-}
-
-model VerificationProof {
-  id         String   @id @default(cuid())
-  userId     String
-  user       User     @relation(fields: [userId], references: [id])
-  fileData   String?  // base64 PNG — fallback when Cloudinary envs are unset (dev mode)
-  fileUrl    String?  // Cloudinary secure_url — used in production
-  publicId   String?  // Cloudinary public_id — needed for purge/delete
-  fileName   String
-  mimeType   String
-  gameUid    String?  // Free Fire UID — the one cross-check organizers own
-  reviewerNote String? // optional admin note, shown to player on reject
-  status     String   @default("pending") // pending | approved | rejected
-  createdAt  DateTime @default(now())
-  reviewedAt DateTime?
-  reviewerId String?
+  matches       Match[]        // matches this user posted
+  entries       MatchEntry[]   // matches this user joined
+  reports       Report[]       // matches this user reported
 }
 
 model Match {
+  id          String   @id @default(cuid())
+  organizerId String
+  organizer   User     @relation(fields: [organizerId], references: [id], onDelete: Cascade)
+  title       String
+  mode        String   // casual | competitive | ranked | esports
+  gameType    String   // BR | CS | BR/CS
+  entry       String   // free | paid
+  entryFee    String?  // note only — players pay the organizer directly
+  prize       String   // none | pool
+  prizePool   String?  // note only — the organizer pays it directly
+  status      String   @default("open") // open | closed
+  date        DateTime
+  city        String
+  online      Boolean  @default(false)
+  slots       Int?
+  contact     String?
+  notes       String?
+  createdAt   DateTime @default(now())
+  entries     MatchEntry[]
+  reports     Report[]
+
+  @@index([status, date])
+}
+
+model MatchEntry {
+  id        String   @id @default(cuid())
+  matchId   String
+  match     Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  playerId  String
+  player    User     @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([matchId, playerId])
+}
+
+model Report {
   id         String   @id @default(cuid())
-  playerId   String
-  player     User     @relation(fields: [playerId], references: [id])
-  orgId      String
-  accepted   Boolean  @default(false)
-  paidAt     DateTime?
+  matchId    String
+  match      Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  reporterId String
+  reporter   User     @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+  reason     String
+  createdAt  DateTime @default(now())
+
+  @@unique([matchId, reporterId])
 }
 
 model WaitlistEntry {

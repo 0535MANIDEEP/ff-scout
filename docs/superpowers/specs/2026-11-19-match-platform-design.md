@@ -71,12 +71,11 @@ Separate `brRank` and `csRank` because players main one mode.
 
 | Role | Permissions |
 |---|---|
-| `player` | `match:join`, `match:leave`, `self:delete` |
-| `organizer` | `match:create`, `match:manage` (own), `match:roster` (own), `self:delete` |
+| `player` | `match:create`, `match:manage` (own), `match:roster` (own), `match:join`, `match:leave`, `self:delete` |
 | `sponsor` | `talent:browse`, `talent:export`, `self:delete` |
 | `admin` | `user:manage`, `audit:read`, `account:erase`, `match:manage:any` |
 
-`verifier` is retired; `proof:*` and `roster:*` permissions are removed.
+Any registered player can post a match — there is no separate organizer role. `verifier` and `organizer` are retired; `proof:*` and `roster:*` permissions are removed.
 
 ## Screen map
 
@@ -88,15 +87,15 @@ Separate `brRank` and `csRank` because players main one mode.
 | `/matches` | The board | Filters: mode · BR/CS · city · entry · prize · date. Cards: title, mode, type, date, city, entry/prize, slots, organizer |
 | `/matches/[id]` | Match detail | Full info, organizer card, joined count, **Join** / **Leave** |
 | `/uid-check` | Free UID utility | Pool half becomes "on Final Circle · joined N matches"; live half unchanged (env-gated) |
-| `/login`, `/sign-up`, `/organizer/sign-up`, `/sponsor/sign-up` | Auth | Role-specific signup |
+| `/login`, `/sign-up`, `/sponsor/sign-up` | Auth | Player and sponsor signup; any player can post |
 | `/learn`, `/about`, `/faq`, `/privacy`, `/terms` | Static | Copy updated to the platform model |
 
-### Organizer (authed)
+### Poster (authed player)
 
 | Route | Purpose | Key elements |
 |---|---|---|
-| `/organizer/post` | Create a match | Full taxonomy form; paywall gate later |
-| `/organizer/matches` | Your postings | List with status; per-match **roster** (joined players: name, UID, BR/CS rank, role, contact) |
+| `/post` | Create a match | Full taxonomy form; paywall gate later |
+| `/player/posted` | Your postings | List with status; per-match **roster** (joined players: name, UID, email, BR/CS rank, role, city) |
 | `/settings` | Account | |
 
 ### Player (authed)
@@ -136,10 +135,11 @@ Separate `brRank` and `csRank` because players main one mode.
 
 ## Data model changes
 
-- New: `Match`, `MatchEntry`.
-- `User`: add `brRank`, `csRank`, `visibleToSponsors`, `brandName`; drop `verified`, `status`, `rank` (split into br/cs), `iglCapable` (or keep — decide in plan).
+- New: `Match`, `MatchEntry`, `Report`.
+- `User`: add `brRank`, `csRank`, `visibleToSponsors`, `brandName`, `gameUid`, `contact`; drop `verified`, `status`, `rank`, `iglCapable`, `college`; `userType` becomes `player | sponsor | admin`.
 - Drop: `VerificationProof`.
 - Migration: prod Neon has ~0 real players, so this is cheap now. Use a versioned migration (ADR 0002's deferred item) rather than `db push`.
+- Joins and reports are unique-constrained and written in a Serializable transaction with an atomic slot decrement (see `docs/system-design/match-platform.md`).
 
 ## Payments — built later, around these entities
 

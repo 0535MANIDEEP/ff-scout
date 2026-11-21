@@ -15,17 +15,17 @@ function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json' } });
 }
 
-// Pool half: our own verified data, free and unlimited. Only approved proofs
-// for verified players count, so this row can never overstate a player.
+// Pool half: our own data, free and unlimited. Answers "is this UID on Final
+// Circle" and how many matches that player has joined. Never claims more.
 async function poolLookup(uid: string) {
   try {
-    const proof = await prisma.verificationProof.findFirst({
-      where: { gameUid: uid, status: 'approved', user: { verified: true, userType: 'player' } },
-      orderBy: { reviewedAt: 'desc' },
-      select: { user: { select: { displayName: true, rank: true, role: true, iglCapable: true } } },
+    const player = await prisma.user.findFirst({
+      where: { gameUid: uid, userType: 'player' },
+      select: { id: true, displayName: true, brRank: true, csRank: true, role: true, city: true },
     });
-    if (!proof) return { found: false };
-    return { found: true, displayName: proof.user.displayName, rank: proof.user.rank, role: proof.user.role, iglCapable: proof.user.iglCapable };
+    if (!player) return { found: false };
+    const joins = await prisma.matchEntry.count({ where: { playerId: player.id } });
+    return { found: true, displayName: player.displayName, brRank: player.brRank, csRank: player.csRank, role: player.role, city: player.city, joins };
   } catch {
     // Pool miss must not take the page down; the live half still answers.
     return { found: false };

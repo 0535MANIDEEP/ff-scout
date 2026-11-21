@@ -3,46 +3,40 @@
 // Adding a role = add to the enum in schema.prisma + migration + one line here.
 // Adding a permission = one line here, then enforce it at the gates it applies to.
 
-export type Role = 'player' | 'verifier' | 'organizer' | 'admin';
+export type Role = 'player' | 'sponsor' | 'admin';
 
 export type Permission =
-  | 'proof:read'      // view pending proofs in the review queue
-  | 'proof:review'    // approve or reject proofs
-  | 'roster:search'   // filter the verified-players shortlist
-  | 'roster:export'   // download the shortlist CSV
-  | 'user:manage'     // change any user's role, incl. verifiers
-  | 'audit:read'      // read the audit log
-  | 'account:erase'   // erase an account (DPDP) — admin only, never delegated
-  | 'self:delete';    // a non-admin can delete their own account
+  | 'match:join' | 'match:leave'
+  | 'match:create' | 'match:manage' | 'match:roster'
+  | 'talent:browse' | 'talent:export'
+  | 'user:manage' | 'audit:read'
+  | 'account:erase' | 'self:delete';
 
 const CAPS: Record<Role, Permission[]> = {
-  player:    ['self:delete'],
-  verifier:  ['proof:read', 'proof:review', 'self:delete'],
-  organizer: ['roster:search', 'roster:export', 'self:delete'],
-  admin:     ['proof:read', 'proof:review', 'roster:search', 'roster:export', 'user:manage', 'audit:read', 'account:erase'],
+  player:  ['match:create', 'match:manage', 'match:roster', 'match:join', 'match:leave', 'self:delete'],
+  sponsor: ['talent:browse', 'talent:export', 'self:delete'],
+  admin:   ['user:manage', 'audit:read', 'account:erase', 'match:manage'],
 };
 
 export function hasPermission(role: Role, perm: Permission): boolean {
   return CAPS[role]?.includes(perm) ?? false;
 }
 
-// DB enum stores 'moderator'; the product name is 'verifier'. Single mapping.
+// DB enum stores 'player' | 'sponsor' | 'admin'. Single mapping, fail-closed.
 export const roleFromDb = (db: string): Role =>
-  ({ player: 'player', moderator: 'verifier', organizer: 'organizer', admin: 'admin' }[db] ?? 'player') as Role;
+  ({ player: 'player', sponsor: 'sponsor', admin: 'admin' }[db] ?? 'player') as Role;
 
 export const dbRoleFor = (role: Role): string =>
-  ({ player: 'player', verifier: 'moderator', organizer: 'organizer', admin: 'admin' }[role]);
+  ({ player: 'player', sponsor: 'sponsor', admin: 'admin' }[role]);
 
 export const ROLE_LABEL: Record<Role, string> = {
   player: 'Player',
-  verifier: 'Verifier',
-  organizer: 'Organizer',
+  sponsor: 'Sponsor',
   admin: 'Admin',
 };
 
 export const ROLE_DESCRIPTION: Record<Role, string> = {
-  player: 'Own dashboard, rank proof upload, settings, own erasure.',
-  verifier: 'Read queue (no emails), approve/reject with a mandatory reason. Audited, revocable.',
-  organizer: 'Search the verified shortlist, export CSV, own account settings.',
-  admin: 'Everything: roles, erasure, audit log, queue, CSV.',
+  player: 'Post matches, join matches, own profile and sponsor opt-in.',
+  sponsor: 'Browse opted-in players and export candidate CSVs.',
+  admin: 'Roles, erasure, audit log, and closing any match.',
 };

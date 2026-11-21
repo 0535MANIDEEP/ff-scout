@@ -6,7 +6,7 @@ import type { LiveOutcome, LiveProfile } from '@/lib/ff-upstream';
 
 type Result = {
   uid: string;
-  pool: { found: boolean; displayName?: string; rank?: string; role?: string | null; iglCapable?: boolean };
+  pool: { found: boolean; displayName?: string; brRank?: string | null; csRank?: string | null; role?: string | null; city?: string; joins?: number };
   live: LiveOutcome;
 };
 
@@ -105,16 +105,16 @@ export default function UidCheck() {
             <div className="eyebrow-inline" style={{ marginBottom: 12 }}>FINAL CIRCLE POOL</div>
             {result.pool.found ? (
               <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-                <RoleAvatar role={result.pool.role as 'rusher' | 'sniper' | 'support' | 'anchor' | 'lurker' | null} iglCapable={result.pool.iglCapable} size={48} />
+                <RoleAvatar role={result.pool.role as 'rusher' | 'sniper' | 'support' | 'anchor' | 'lurker' | null} iglCapable={false} size={48} />
                 <div>
                   <p style={{ margin: 0, fontWeight: 700, fontSize: 18 }}>{result.pool.displayName}</p>
                   <p className="subtext" style={{ margin: '4px 0 0' }}>
-                    {result.pool.rank} · {result.pool.role || 'role not set'}{result.pool.iglCapable ? ' · can IGL' : ''} · verified in our pool
+                    UID {result.uid} · BR {result.pool.brRank ?? '—'} · CS {result.pool.csRank ?? '—'} · {result.pool.city ?? '—'} · joined {result.pool.joins ?? 0} match{(result.pool.joins ?? 0) === 1 ? '' : 'es'}
                   </p>
                 </div>
               </div>
             ) : (
-              <p className="subtext" style={{ margin: 0 }}>UID {result.uid} is not in the verified pool. It may not have been checked yet, or the review is still open.</p>
+              <p className="subtext" style={{ margin: 0 }}>UID {result.uid} is not on Final Circle yet. Players appear here once they sign up and set their profile.</p>
             )}
           </section>
 
