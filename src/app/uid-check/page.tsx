@@ -1,11 +1,12 @@
-import type { Metadata } from 'next';
+import Link from 'next/link';
 import UidCheck from '@/components/UidCheck';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Free Fire UID check',
-  description: 'Look up any Free Fire UID: live profile data from the game, plus the Final Circle profile attached to that UID. Free, no login.',
-  alternates: { canonical: '/uid-check' },
-};
+export const metadata = publicMetadata(
+  'Free Fire UID check, Final Circle',
+  'Look up any Free Fire UID: live profile data from the game, plus the Final Circle profile attached to that UID. Free, no login.',
+  '/uid-check',
+);
 
 export default function UidCheckPage() {
   return (
@@ -14,7 +15,7 @@ export default function UidCheckPage() {
       <h1 style={{ marginTop: 12 }}>Free Fire UID check</h1>
       <p className="subtext" style={{ marginTop: 12 }}>
         Enter a UID once. You get two answers: the public profile the game shows for that account,
-        and the Final Circle profile attached to that UID, if there is one. We do not verify either one. Players never pay for this.
+        and the Final Circle profile attached to that UID, if there is one. We do not verify either one. Players enter their own rank. This tool is free.
       </p>
 
       <UidCheck />
@@ -25,6 +26,9 @@ export default function UidCheckPage() {
           fills in their profile. Nothing is verified by us. Live profile data comes from a
           third-party provider of the game’s public account fields, with rank codes shown exactly as
           the provider reports them. Final Circle is independent, not affiliated with Garena or Free Fire.
+        </p>
+        <p className="subtext" style={{ marginTop: 12 }}>
+          For the free-entry rule and what to do if someone asks you to pay, read <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.
         </p>
       </section>
     </div>

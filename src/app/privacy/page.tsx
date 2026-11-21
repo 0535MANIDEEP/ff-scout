@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { BRAND } from '@/lib/brand';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Privacy, Final Circle',
-  description: 'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
-};
+export const metadata = publicMetadata(
+  'Privacy Notice, Final Circle',
+  'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
+  '/privacy',
+);
 
 export default function Privacy() {
   return (
@@ -21,9 +23,10 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>What we collect, from whom, why</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li><strong>Account (players &amp; organizers):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match organizers to players.</li>
-        <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Sponsors see a player&apos;s profile only if the player opted in, never an email address. We never share passwords with anyone.</li>
-        <li><strong>Waitlist (visitors):</strong> email, segment (organizer/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
+        <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match hosts to players.</li>
+        <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. Sponsors see a player&apos;s profile only if the player opted in, never an email address. We never share passwords with anyone.</li>
+        <li><strong>Waitlist (visitors):</strong> email, segment (host/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
+        <li><strong>Match reports:</strong> category, reason, reporter and timestamp. Used to apply automatic match closures and posting pauses. No human reviews a report before the automatic consequence applies.</li>
         <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
       </ul>
 
@@ -35,7 +38,7 @@ export default function Privacy() {
 
       <h2 style={{ marginTop: 24 }}>What we do NOT collect</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>Phone numbers, UPI or bank details (payments, when they begin, use a compliant gateway, we receive only the payment status)</li>
+        <li>Phone numbers, UPI details, bank details or payment credentials</li>
         <li>Precise location, contacts, chat messages, voice data, web history</li>
         <li>Analytics beyond what our hosting provider records to serve pages</li>
         <li>Marketing profiles, advertising identifiers, automated profiling of any kind</li>
@@ -60,6 +63,7 @@ export default function Privacy() {
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li>Account data, until you erase it (and always on request).</li>
         <li>Audit logs, 90 days.</li>
+        <li>Report records (category, reason, reporter and timestamp), 90 days, with operational logs.</li>
         <li>Waitlist, until launch + 90 days, then deleted.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>
       </ul>

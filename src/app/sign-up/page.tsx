@@ -19,7 +19,7 @@ export default function SignUpPage() {
           <label className="label" style={{ marginTop: 10 }}>Password<input className="input" name="password" type="password" minLength={8} required autoComplete="new-password" /></label>
           <label className="label" style={{ marginTop: 10 }}>Where you are (college, café, LAN, guild, city)<input className="input" name="college" placeholder="VJIT Hyderabad · Ganjikhana Café · Kolkata" required /></label>
           <div className="hp"><input name="bot" /></div>
-          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I confirm I'm 18+ and accept the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a>.</span></label>
+          <label className="checkbox-row"><input type="checkbox" name="agree" required /><span>I confirm I'm 18+, accept the <a href="/privacy" style={{ color: 'var(--accent)' }}>Privacy Notice</a>, and understand that every listing is free entry and Final Circle handles no money.</span></label>
           <button className="btn btn-block" type="submit">Create account</button>
         </form>
       </div>

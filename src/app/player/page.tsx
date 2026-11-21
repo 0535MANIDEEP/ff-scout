@@ -7,6 +7,9 @@ import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
 import SignOut from '@/components/SignOut';
 import RoleAvatar from '@/components/RoleAvatar';
 import { saveProfile, setSponsorVisibility, leaveMatch } from './actions';
+import { privateMetadata } from '@/lib/seo';
+
+export const metadata = privateMetadata('Your dashboard, Final Circle');
 
 export default async function PlayerDashboard({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
   const jar = await cookies();

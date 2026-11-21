@@ -1,6 +1,7 @@
 import { prisma } from './db';
 import { materializeSeries } from './series';
 import { endsAtFor } from './schedule';
+import { FREE_ENTRY_TERMS } from './free-entry';
 
 // Future occurrences with zero joins: the freeze set for template edits (spec §7).
 async function zeroJoinFuture(seriesId: string, now: Date) {
@@ -10,24 +11,24 @@ async function zeroJoinFuture(seriesId: string, now: Date) {
   });
 }
 
-// Template edits (title/mode/gameType/entry/entryFee/prize/prizePool/city/online/slots/durationMinutes):
-// propagate to future 0-join occurrences; joined ones keep their terms (bait-and-switch guard, spec §7).
+// Template edits propagate to future 0-join occurrences; joined ones keep their terms
+// (bait-and-switch guard, spec §7). Entry and prize are fixed by the free-entry rule.
 export async function applyTemplateEdit(seriesId: string, data: {
-  title: string; mode: string; gameType: string; entry: string; entryFee: string | null;
-  prize: string; prizePool: string | null; city: string; online: boolean; slots: number | undefined;
-  durationMinutes: number;
+  title: string; mode: string; gameType: string; city: string; online: boolean;
+  slots: number | undefined; durationMinutes: number;
 }, now = new Date()) {
   const affected = await zeroJoinFuture(seriesId, now);
   for (const m of affected) {
     await prisma.match.update({ where: { id: m.id }, data: {
-      title: data.title, mode: data.mode, gameType: data.gameType, entry: data.entry, entryFee: data.entryFee,
-      prize: data.prize, prizePool: data.prizePool, city: data.city, online: data.online, slots: data.slots ?? null,
+      title: data.title, mode: data.mode, gameType: data.gameType,
+      ...FREE_ENTRY_TERMS, city: data.city, online: data.online, slots: data.slots ?? null,
       endsAt: endsAtFor(m.date, data.durationMinutes),
     } });
   }
   await prisma.matchSeries.update({ where: { id: seriesId }, data: {
-    title: data.title, mode: data.mode, gameType: data.gameType, entry: data.entry, prize: data.prize,
-    city: data.city, online: data.online, slots: data.slots ?? null, durationMinutes: data.durationMinutes,
+    title: data.title, mode: data.mode, gameType: data.gameType,
+    ...FREE_ENTRY_TERMS, city: data.city, online: data.online, slots: data.slots ?? null,
+    durationMinutes: data.durationMinutes,
   } });
 }
 

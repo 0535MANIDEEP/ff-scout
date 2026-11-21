@@ -4,6 +4,7 @@
 import { prisma } from './db';
 import { MATCH } from './config';
 import { qualifiesMatch, shouldAutoPause, endsAtFor, nextOccurrenceDates } from './schedule';
+import { FREE_ENTRY_TERMS } from './free-entry';
 
 export type Eligibility = { // unlock rule (spec §3, §5): N completed hosted matches + K distinct non-host joiners
   unlocked: boolean;
@@ -46,10 +47,10 @@ export async function materializeSeries(seriesId: string, now = new Date()): Pro
         title: series.title,
         mode: series.mode,
         gameType: series.gameType,
-        entry: series.entry,
-        entryFee: series.entryFee,
-        prize: series.prize,
-        prizePool: series.prizePool,
+        entry: FREE_ENTRY_TERMS.entry,
+        entryFee: FREE_ENTRY_TERMS.entryFee,
+        prize: FREE_ENTRY_TERMS.prize,
+        prizePool: FREE_ENTRY_TERMS.prizePool,
         city: series.city,
         online: series.online,
         slots: series.slots,

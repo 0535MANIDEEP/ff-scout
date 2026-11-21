@@ -16,3 +16,6 @@ test.db
 .env*
 tsconfig.tsbuildinfo
 .superpowers/
+.agents/
+.codex/
+.opencode/

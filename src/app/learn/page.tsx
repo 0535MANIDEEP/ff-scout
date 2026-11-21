@@ -1,11 +1,12 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 import { LEARN_CHAPTERS } from '@/lib/learn';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Field Manual, Final Circle',
-  description: 'Field guides for Indian Free Fire players and hosts: combat roles, characters, maps, skill combos and honest sources.',
-};
+export const metadata = publicMetadata(
+  'Learn, the Final Circle field manual for Free Fire',
+  'Field guides for Indian Free Fire players and hosts: combat roles, characters, maps, skill combos and honest sources.',
+  '/learn',
+);
 
 const WHERE_LABEL: Record<string, string> = {
   official: 'OFFICIAL',

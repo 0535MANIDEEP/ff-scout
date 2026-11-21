@@ -8,8 +8,9 @@ import { setRole } from './actions';
 import SignOut from '@/components/SignOut';
 import RoleAvatar from '@/components/RoleAvatar';
 import { COPY } from '@/lib/config';
+import { privateMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Roles and access, Final Circle' };
+export const metadata = privateMetadata('Roles and access, Final Circle');
 
 const FILTERS: Record<string, Role | 'all'> = { all: 'all', players: 'player', sponsors: 'sponsor', admins: 'admin' };
 const ERRORS: Record<string, string> = COPY.roles as Record<string, string>;

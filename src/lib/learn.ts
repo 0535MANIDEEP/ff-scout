@@ -1,8 +1,8 @@
-// Single source for /learn, the field manual for Indian Free Fire organizers
+// Single source for /learn, the field manual for Indian Free Fire hosts
 // and players. Game facts below reflect the live game as of late 2026
 // (OB55), cross-checked against multiple community guides and official patch
 // notes. Numbers are omitted where sources conflict, roles and mechanics
-// matter more than exact ratios for a verification service.
+// matter more than exact ratios for a match board.
 
 export interface LearnLink {
   label: string;
@@ -24,43 +24,43 @@ export const LEARN_CHAPTERS: Chapter[] = [
     id: 'roles',
     tag: 'INTEL',
     title: 'The five combat roles',
-    brief: 'What each role means, what organizers check, and why IGL is not on this list.',
+    brief: 'What each role means, what hosts look at, and why IGL is not on this list.',
     blocks: [
       {
         heading: 'Rusher, entry',
         lines: [
-          'First in every fight. M1887 / M1014 with a nade. Organisers check: entry timing, knock-per-round, how often you survive a traded engage.',
+          'First in every fight. M1887 / M1014 with a nade. Hosts look at: entry timing, knock-per-round, how often you survive a traded engage.',
         ],
       },
       {
         heading: 'AWM Sniper, long range',
         lines: [
-          'Holds the longest sightline. AWM + 6x scope. Organisers check: headshot rate, ADPR specifically in long-range skirmishes.',
+          'Holds the longest sightline. AWM + 6x scope. Hosts look at: headshot rate, ADPR specifically in long-range skirmishes.',
         ],
       },
       {
         heading: 'Support, sustain',
         lines: [
-          'M1014 + gloo walls + medkit. Keeps the squad standing through the mid-game. Organisers check: revives per match, not kills.',
+          'M1014 + gloo walls + medkit. Keeps the squad standing through the mid-game. Hosts look at: revives per match, not kills.',
         ],
       },
       {
         heading: 'Anchor, positional',
         lines: [
-          'Holds lanes and late-game angles. XM8 / AK-47. Never the first in. Organisers check: endgame survivability, how late in the circle you died.',
+          'Holds lanes and late-game angles. XM8 / AK-47. Never the first in. Hosts look at: endgame survivability, how late in the circle you died.',
         ],
       },
       {
         heading: 'Lurker, off-angle',
         lines: [
-          'Works split from the squad. Mini14 / Dragunov. Organisers check: flank kills in late circle, whether your quiet games were wins.',
+          'Works split from the squad. Mini14 / Dragunov. Hosts look at: flank kills in late circle, whether your quiet games were wins.',
         ],
       },
       {
         heading: 'And IGL?',
         lines: [
           'IGL is a designation, not a role, one player per squad (usually the most experienced) makes the rotation calls and the final call. An IGL still plays one of the five above.',
-          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is a self-declared capability, not a verified skill.',
+          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is self-declared. Final Circle does not verify skills or ranks.',
         ],
       },
     ],
@@ -138,13 +138,6 @@ export const LEARN_CHAPTERS: Chapter[] = [
       {
         heading: 'Clu, Tracing Steps (Active)',
         lines: ['Reveals nearby enemies\u2019 locations periodically. The safest information skill in the game for anchors and snipers.'],
-      },
-      {
-        heading: 'How to unlock',
-        lines: [
-          'Most paid characters cost Diamonds; a few arrive as free anniversary/top-up event rewards; the two starters (Primis, Nulla) are free.',
-          'Check the Character menu in-game, prices and event rotations change with every OB update.',
-        ],
       },
     ],
   },
@@ -252,7 +245,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
       {
         heading: 'Match day',
         lines: [
-          'Check in by UID. Hosts confirm details in-game.',
+          'Check in by UID. Players enter their own rank. Final Circle does not verify it.',
           'Warmups run 15 minutes before the first match. No-show in warmup = slot re-opened.',
           'Winners stay in voice; losers get a polite exit. No mid-match coaching.',
         ],
@@ -292,24 +285,26 @@ export const LEARN_CHAPTERS: Chapter[] = [
     id: 'discipline',
     tag: 'DISCIPLINE',
     title: 'Don\u2019t get played',
-    brief: 'The three fraud patterns that show up most in Indian FF grassroots, and what to watch for.',
+    brief: 'Scams that show up in Indian FF grassroots, what ranks mean here, and how reporting works.',
     blocks: [
       {
         heading: 'Boosted accounts',
         lines: [
-          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. Final Circle cannot catch this, but hosts can check your UID in-game.',
+          'A friend\u2019s Heroic pushed on your account last month; your Gold this month is your real skill. Final Circle cannot catch this, but hosts can compare your UID in-game.',
         ],
       },
       {
-        heading: 'Messages asking for screenshots',
+        heading: 'Ranks are self-declared',
         lines: [
-          'If someone asks you to \u201cshare your rank SS to get verified,\u201d that is not Final Circle. We never contact you first. Email manideepdaram@gmail.com if you see such a message.',
+          'Players enter their own rank on Final Circle. We do not verify players or issue verified badges. Anyone asking you for payment or promising verification is not Final Circle.',
         ],
       },
       {
-        heading: 'Messages asking for money',
+        heading: 'How reporting works',
         lines: [
-          'Posting and joining are free while we are in pilot. Anyone asking you for money to get a place on a roster is not Final Circle. Report it to manideepdaram@gmail.com.',
+          'Open the match and choose Report this match. Pick a category, add a short note, and the report goes through the app first. Categories include asking players to pay, fake or finished match, and something else.',
+          'If two players who actually joined the same match report a payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report before this applies. Reports are kept with operational logs.',
+          'If you cannot use the app, email manideepdaram@gmail.com. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. The full rules are on the Safety and legal page.',
         ],
       },
     ],

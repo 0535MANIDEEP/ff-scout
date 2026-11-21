@@ -4,6 +4,7 @@ import { Wire } from '@/components/Wire';
 import { Waitlist } from '@/components/Waitlist';
 import { Reveal } from '@/components/Reveal';
 import { buildHeroContext } from '@/lib/hero-data';
+import { GLOBAL_DISCLOSURE } from '@/lib/free-entry';
 
 export const revalidate = 300;
 
@@ -31,9 +32,9 @@ export default async function HomePage() {
             <div className="fig2-cap"><span id="fig2">FIG. 2</span> THE WHOLE LOOP, NOTHING HIDDEN</div>
             <div className="fig2-steps">
               {[
-                ['01', 'POST', 'Anyone posts a match: mode, BR or CS, free or paid entry, prize pool. Sixty seconds, no approval.'],
+                ['01', 'POST', 'A host posts a match: mode, BR or CS, free entry only, no advertised prize. No approval queue.'],
                 ['02', 'JOIN', 'Players browse the board and tap Join. Instant RSVP, no reviewer, no queue.'],
-                ['03', 'ROSTER', 'The poster sees who joined, with UID and BR/CS ranks. Players see the board, not each other.'],
+                ['03', 'ROSTER', 'The host sees who joined, with UID and self-declared BR/CS ranks. Players see the board, not each other.'],
               ].map(([n, t, d]) => (
                 <div key={n} className="fig2-step">
                   <div className="fig2-num">{n}</div>
@@ -55,11 +56,11 @@ export default async function HomePage() {
           <div className="grid-3" style={{ marginTop: 36 }}>
             <Reveal delay={0}><article className="card">
               <h3>1. Players host and join</h3>
-              <p>One account does both. Post a casual BR night or a ranked CS scrim, then join other people's matches. No separate organizer account, no approval step.</p>
+              <p>One account does both. Post a casual BR night or a ranked CS scrim, then join other people's matches. No separate host account, no approval step.</p>
             </article></Reveal>
             <Reveal delay={120}><article className="card">
               <h3>2. Every mode, every type</h3>
-              <p>Casual, competitive, ranked or esports. BR, CS or a mixed BR/CS night. Free entry or paid, prize pool or for fun, the listing says so plainly.</p>
+              <p>Casual, competitive, ranked or scrim. BR, CS or a mixed BR/CS night. Every listing is free entry. No cash prize is advertised here.</p>
             </article></Reveal>
             <Reveal delay={240}><article className="card">
               <h3>3. Sponsors scout the opted-in</h3>
@@ -77,8 +78,8 @@ export default async function HomePage() {
             <thead><tr><th>Format</th><th>Before Final Circle</th><th>With Final Circle</th></tr></thead>
             <tbody>
               <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td>A posted match, players RSVP, a roster with UIDs before match day</td></tr>
-              <tr><td>College fest FF event</td><td>Random entrants, hours lost screening ranks</td><td>A listing players join themselves, BR or CS, free or paid entry stated up front</td></tr>
-              <tr><td>Sponsor activation</td><td>Unverified "pros" sponsored to look credible</td><td>Players who opted in, with UID and rank on their profile</td></tr>
+              <tr><td>College fest FF event</td><td>Random entrants, hours lost screening ranks</td><td>A listing players join themselves, BR or CS, free entry stated up front</td></tr>
+              <tr><td>Sponsor activation</td><td>Rank claims taken on faith</td><td>Players who opted in, with UID and self-declared rank on their profile</td></tr>
               <tr><td>Guild trial</td><td>Hundreds of applicants in a group chat</td><td>A match post with slots, joiners listed for the poster only</td></tr>
             </tbody>
           </table></div></Reveal>
@@ -88,9 +89,12 @@ export default async function HomePage() {
       <section className="section" style={{ borderTop: '1px solid var(--line)' }}>
         <div className="shell">
           <Reveal>
-            <h2>Free to post while we are in pilot.</h2>
-            <p className="lead" style={{ marginTop: 12 }}>No payment flow exists yet, so nothing is charged today. Players never pay to join. Entry fees and prize pools are notes between host and players, never money handled by Final Circle.</p>
-            <Link href="/learn" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, fontSize: 16, padding: '14px 24px' }}>
+            <h2>{GLOBAL_DISCLOSURE}</h2>
+            <p className="lead" style={{ marginTop: 12 }}>Every listing on the board is free entry. We do not advertise cash prizes, collect money or verify players. India&apos;s PROGA 2025 and the 2026 Rules are background, not a legal compliance promise. A lawyer review is still required before launch.</p>
+            <Link href="/safety" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, fontSize: 16, padding: '14px 24px' }}>
+              Read the disclosure
+            </Link>
+            <Link href="/learn" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 24, marginLeft: 10, fontSize: 16, padding: '14px 24px' }}>
               Read the field guide
             </Link>
           </Reveal>

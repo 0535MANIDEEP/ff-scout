@@ -6,8 +6,9 @@ import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import { adminSetMatchStatus, adminPauseSeries } from './actions';
+import { privateMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Matches console, Final Circle' };
+export const metadata = privateMetadata('Matches console, Final Circle');
 export const dynamic = 'force-dynamic';
 
 export default async function AdminMatches({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {

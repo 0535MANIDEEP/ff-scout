@@ -7,10 +7,12 @@ import { prisma } from '@/lib/db';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
 import { seriesCueLabel } from '@/lib/schedule';
+import { FREE_ENTRY_NOTICE } from '@/lib/free-entry';
+import { privateMetadata } from '@/lib/seo';
 import { setMatchStatus, editSeries, pauseSeriesAction, resumeSeriesAction } from './actions';
 import { sortByTeamKey } from '@/lib/team';
 
-export const metadata = { title: 'Your matches, Final Circle' };
+export const metadata = privateMetadata('Your matches, Final Circle');
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -82,15 +84,12 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                 <label className="label">Game type<select className="input" name="gameType" required defaultValue={s.gameType}>{MATCH.gameTypes.map(g => <option key={g} value={g}>{g}</option>)}</select></label>
-                <label className="label">Entry<select className="input" name="entry" required defaultValue={s.entry}>{MATCH.entry.map(v => <option key={v} value={v}>{v}</option>)}</select></label>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
-                <label className="label">Prize<select className="input" name="prize" required defaultValue={s.prize}>{MATCH.prize.map(v => <option key={v} value={v}>{v}</option>)}</select></label>
                 <label className="label">City<input className="input" name="city" defaultValue={s.city} required minLength={2} maxLength={80} /></label>
-                <label className="label">Online<select className="input" name="online" required defaultValue={s.online ? 'yes' : 'no'}><option value="no">In-person</option><option value="yes">Online</option></select></label>
-                <label className="label">Entry fee (if paid)<input className="input" name="entryFee" defaultValue={s.entryFee ?? ''} maxLength={40} /></label>
-                <label className="label">Prize pool (if pool)<input className="input" name="prizePool" defaultValue={s.prizePool ?? ''} maxLength={40} /></label>
               </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+                <label className="label">Online<select className="input" name="online" required defaultValue={s.online ? 'yes' : 'no'}><option value="no">In-person</option><option value="yes">Online</option></select></label>
+              </div>
+              <p className="small" style={{ color: 'var(--muted)' }}>{FREE_ENTRY_NOTICE}</p>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }}>
                 <label className="label">Day<select className="input" name="dayOfWeek" required defaultValue={String(s.dayOfWeek)}>{DAYS.map((d, i) => <option key={d} value={i}>{d}</option>)}</select></label>
                 <label className="label">Start time<input className="input" name="startTimeLocal" type="time" defaultValue={s.startTimeLocal} required /></label>

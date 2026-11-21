@@ -6,8 +6,9 @@ import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
 import SignOut from '@/components/SignOut';
+import { privateMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Candidate directory, Final Circle' };
+export const metadata = privateMetadata('Player directory, Final Circle');
 export const dynamic = 'force-dynamic';
 
 export default async function SponsorDirectory({ searchParams }: { searchParams: Promise<{ city?: string; rank?: string; role?: string }> }) {

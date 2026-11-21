@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import type { HeroContext } from "@/lib/hero-data";
+import { GLOBAL_DISCLOSURE } from "@/lib/free-entry";
 
 export function Hero({ ctx }: { ctx: HeroContext }) {
   const matches = ctx.matches;
@@ -16,13 +17,13 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="hero-line-accent">Find your lobby.</span>
           </h1>
           <p className="hero-sub">
-            Cafés, fests, sponsor activations, guild trials. Anyone hosting a Free Fire match posts it here and players join. BR or CS, casual or tournament, free or paid entry. We're the board, not a gatekeeper. Free while we're in pilot.
+            Cafés, fests, sponsor activations, guild trials. Anyone hosting a Free Fire match posts it here and players join. BR or CS, casual or competitive. We're the board, not a gatekeeper.
           </p>
           <div className="cta-row">
             <Link href="/post" className="btn btn-xl">Post a match</Link>
             <Link href="/matches" className="btn-ghost">Find a match</Link>
           </div>
-          <p className="hero-fine">Pilot: posting is free right now · players never pay to join · entry fees settle between you and the host</p>
+          <p className="hero-fine">{GLOBAL_DISCLOSURE}</p>
         </div>
 
         <motion.figure
@@ -55,7 +56,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
         <div className="shell ticker-inner">
           <div className="ticker-item"><strong>{ctx.openMatchCount}</strong><span>open matches</span></div>
           <div className="ticker-item"><strong>{ctx.totalPlayers}</strong><span>players on the board</span></div>
-          <div className="ticker-item"><strong>Pilot</strong><span>free to post right now</span></div>
+          <div className="ticker-item"><strong>18+</strong><span>free entry only</span></div>
         </div>
       </div>
     </section>

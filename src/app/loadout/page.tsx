@@ -1,12 +1,13 @@
-import type { Metadata } from 'next';
 import { BRAND } from '@/lib/brand';
 import { amazon, flipkart } from '@/lib/aff';
 import { LOADOUT } from '@/lib/config';
+import { publicMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Loadout, Final Circle',
-  description: 'What a grassroots Indian Free Fire player actually buys, and why. Disclosed affiliate links, nothing here is paid placement.',
-};
+export const metadata = publicMetadata(
+  'Free Fire loadout for Indian players, Final Circle',
+  'What a grassroots Indian Free Fire player actually buys, and why. Disclosed affiliate links, nothing here is paid placement.',
+  '/loadout',
+);
 
 const GEAR = LOADOUT;
 
@@ -17,7 +18,8 @@ export default function Loadout() {
       <p className="lead" style={{ marginTop: 10 }}>Honest gear the grassroots FF player actually uses, no sponsored placements and no hype. Prices are indicative; check the live listing before you buy.</p>
 
       <div className="card" style={{ marginTop: 16, borderColor: 'var(--accent)' }}>
-        <p style={{ fontSize: 14 }}><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They help pay for hosting while the pilot finds its feet. Nothing on this page is paid placement, and commissions do not change the ranking.</p>
+        <p style={{ fontSize: 14 }}><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They help pay for hosting. Nothing on this page is paid placement, and commissions do not change the ranking.</p>
+        <p style={{ fontSize: 14, marginTop: 8 }}>Final Circle never earns from entry fees or prizes.</p>
       </div>
 
       <div className="list" style={{ marginTop: 18 }}>
@@ -36,7 +38,7 @@ export default function Loadout() {
         ))}
       </div>
 
-      <p className="subtext" style={{ marginTop: 18 }}>Buying anything helps keep the board free while we're in pilot. If you already trust a gear pick of your own, tell us: <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>.</p>
+      <p className="subtext" style={{ marginTop: 18 }}>Buying through these links helps pay for hosting. If you already trust a gear pick of your own, tell us: <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>.</p>
     </div>
   );
 }

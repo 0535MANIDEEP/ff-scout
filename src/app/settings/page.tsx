@@ -6,8 +6,9 @@ import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import { deleteAccount } from './actions';
 import { COPY } from '@/lib/config';
+import { privateMetadata } from '@/lib/seo';
 
-export const metadata = { title: 'Settings, Final Circle' };
+export const metadata = privateMetadata('Settings, Final Circle');
 
 export default async function Settings({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
   const jar = await cookies();
