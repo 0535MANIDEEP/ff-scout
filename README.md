@@ -12,7 +12,7 @@ Final Circle is a free notice board for Free Fire matches in India. Hosts post, 
 - A player joins from `/matches/[id]`. In competitive and esports modes the join can include an optional team or guild name.
 - Weekly series are templates that create future match occurrences. The trust ladder is self-serve: three hosted matches with at least two distinct non-host joiners unlock weekly series, up to two active at a time. Two zero-join occurrences pause a series automatically.
 - Every match has a report form with a category. Two payment-request reports from players who joined close the match and pause the host's posting for exactly seven days from server time, and an audit log entry is written. There is no human review before the consequence.
-- Sponsors discover players who opted in through `/sponsors` and the CSV export. Placements and funded free events are arranged by email through `/advertise`.
+- Sponsors arrange placements and funded free events by email through `/advertise`. There is no sponsor directory or player data product.
 
 Final Circle does not collect, hold or pay money, run escrow, verify players, issue badges, or settle money disputes. There is no payment gateway and no checkout. Revenue comes from disclosed sponsor placements, disclosed affiliate links on `/loadout`, and sponsor-funded free events. Players never pay the platform.
 

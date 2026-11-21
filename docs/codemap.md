@@ -1,9 +1,9 @@
 # Code map
 
 **Last updated:** 2026-11-22
-**Branch:** feature/esports-team-names
+**Branch:** ui-ux-audit-fixes
 
-Read order for a new engineer: this file, `DESIGN.md`, `SPEC.md`, then `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
+Read order for a new engineer: this file, `DESIGN.md`, `SPEC.md`, then `docs/adr/0006-reframe-in-place.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
 ## The mental model
 
@@ -17,17 +17,27 @@ Optional `MatchEntry.teamName` and a `User.teamName` default carry a squad or gu
 
 ## Folder structure
 
-```
-docs/adr/              decisions, chronological; 0005 is the current product decision
-docs/superpowers/      design specs and plans (read-only for this documentation pass)
-prisma/                schema.prisma, additive migrations
-public/                static assets
-src/app/               App Router routes, server actions, per-route metadata
-src/components/        AppearanceControl, Hero, Waitlist, Reveal, BackToTop
-src/lib/               auth, prisma, config, free-entry, permissions, series, schedule,
-                       appearance, team, brand, aff, rate-limit, seo
-src/styles/globals.css design tokens and utilities
-test/                  node:test smoke suite
+```txt
+src/
+  app/                    thin routes + metadata only
+    (public)/             /, /matches/[id], /safety, /advertise, /privacy, /terms
+    (account)/            /sign-up, /login, /settings, /player, /post
+    api/                  route handlers only when a Server Action cannot serve
+  features/
+    identity/             signup, login, logout, sessions, consent, erasure
+    matches/              create, board query, join, roster, close
+    series/               weekly series template and occurrence materialisation
+    reports/              categories, joined-report counting, auto-pause
+    trust/                pure pause/ladder rules shared by matches and series
+    sponsors/             placement copy and email contact, no directory or export
+    disclosure/           exact legal copy imported everywhere
+    <slice>/ actions.ts · service.ts · repository.ts · schema.ts · components/ · *.test.ts
+  shared/
+    db/                   Prisma client + migrations
+    config/               brand, grievance contact, match config
+    auth/                 session cookie helper used by routes and services
+    ui/                   Button, Field, DisclosureBanner, Toast
+    test/                 factories + scratch DB harness
 ```
 
 ## Routes
@@ -48,7 +58,7 @@ test/                  node:test smoke suite
 
 `/safety` and `/advertise` each render `GLOBAL_DISCLOSURE` and export their own metadata and canonical. The legal narrative behind them is in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md`.
 
-### Accounts, hosts and sponsors
+### Accounts and hosts
 
 | Path | Purpose | Source |
 |---|---|---|
@@ -59,10 +69,9 @@ test/                  node:test smoke suite
 | `/player` | My profile, joined matches, team-name default | `src/app/player/page.tsx`, `actions.ts` |
 | `/player/posted` | Hosted matches and series, edit/pause/resume | `src/app/player/posted/page.tsx`, `actions.ts` |
 | `/settings` | Account settings and erasure | `src/app/settings/page.tsx`, `actions.ts` |
-| `/sponsor/sign-up`, `/sponsors`, `/sponsors/export` | Sponsor account, opted-in directory, audited CSV | `src/app/sponsor/sign-up/*`, `src/app/sponsors/*` |
-| `/admin`, `/admin/matches`, `/admin/roles` | Dashboard, close any match, roles | `src/app/admin/*` |
+| `/admin`, `/admin/matches` | Dashboard, close any match | `src/app/admin/*` |
 
-Private routes (`admin`, `player`, `settings`, `login`, `sign-up`, `sponsor/sign-up`) export `noindex, nofollow`. The only API route is `/api/waitlist`. `GAMESKINBO_API_KEY`, Cloudinary and the UID-check route were removed on 2026-11-22: they needed external accounts and were not part of the post/join/report happy path.
+Private routes (`admin`, `player`, `settings`, `login`, `sign-up`) export `noindex, nofollow`. API route handlers are used only when a Server Action cannot serve. `GAMESKINBO_API_KEY`, Cloudinary and the UID-check route were removed on 2026-11-22: they needed external accounts and were not part of the post/join/report happy path.
 
 ## Data flow: post to join to roster to report to automatic pause
 
@@ -91,13 +100,9 @@ Thresholds are constants in `src/lib/free-entry.ts`; the additive migration that
 | Product intent, roles, revenue, dismissals | `SPEC.md` |
 | Legal and sponsor copy | `src/app/safety/page.tsx`, `src/app/advertise/page.tsx`; background in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md` (read-only) |
 
-## Appearance
-
-`src/lib/appearance.ts` and `src/components/AppearanceControl.tsx` own Paper, Night, Slate and Sand presets, a custom accent with a 4.5:1 guard, density and motion controls, and a contextual reset that keeps the active preset. State is one `fc-appearance` localStorage key with a one-time `ff-theme` migration. No Prisma field and no account sync.
-
 ## Database and local workflow
 
-Models: `User`, `Match`, `MatchSeries`, `MatchEntry`, `Report`, `WaitlistEntry`, `RateLimitEntry`, `AuditLog` in `prisma/schema.prisma`. Legacy `entry`, `entryFee`, `prize` and `prizePool` columns remain for the additive-only migration rule. Historical rows keep their values; writes use `FREE_ENTRY_TERMS` and public views never render them.
+Models: `User`, `Match`, `MatchSeries`, `MatchEntry`, `Report`, `WaitlistEntry` (dormant), `RateLimitEntry`, `AuditLog` in `prisma/schema.prisma`. Legacy `entry`, `entryFee`, `prize` and `prizePool` columns remain for the additive-only migration rule. Historical rows keep their values; writes use `FREE_ENTRY_TERMS` and public views never render them.
 
 Migrations on the shared Neon database are additive only. Never run tests with `DATABASE_URL` aimed at that database:
 
@@ -111,6 +116,7 @@ Per-route metadata, unique canonicals, `noindex` on private routes, generated `r
 
 ## Decisions to read first
 
+- `docs/adr/0006-reframe-in-place.md` records the in-place reframe and governs this codemap.
 - `docs/adr/0005-legal-safe-free-entry-and-revenue.md` supersedes the money and verification claims in the earlier paid-shortlist records.
-- `docs/adr/0004-full-redesign-and-user-palettes.md` for the design and appearance contract.
+- `docs/adr/0004-full-redesign-and-user-palettes.md` is a historical design record; the in-place reframe replaces its appearance contract with one styling system.
 - `docs/adr/0001-recruiter-first.md` is a historical decision record from the paid model. Read it to understand where old copy came from, never as current product truth.

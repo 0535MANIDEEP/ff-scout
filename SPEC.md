@@ -4,6 +4,8 @@
 
 Final Circle is a free notice board for Free Fire matches in India. Hosts post, players join, and players never pay.
 
+The app is reframed in place; the database and deploy are unchanged.
+
 ## The problem in one line
 
 Hosts need a plain place to post a match and see who joined. Players need to find a real free match without being asked for money. Both need a board that says plainly what it does and does not do.
@@ -14,7 +16,7 @@ Hosts need a plain place to post a match and see who joined. Players need to fin
 |---|---|---|
 | Community hosts, café and LAN operators, college fest leads | Post free matches and weekly series, see the roster | No |
 | Players in India, 18+ | Find and join free matches, add an optional team name | No |
-| Sponsors and brands with no real-money gaming link | Sponsor placements and sponsor-funded free events, reach opted-in players | Placements and events are negotiated by email, outside the app |
+| Sponsors and brands with no real-money gaming link | Sponsor placements and sponsor-funded free events | Placements and events are negotiated by email, outside the app; Final Circle never holds money |
 
 No organizer tier, no unlock fee, no per-event charge, and no player payment. Roles in code are `player`, `sponsor`, `admin`. There is no verifier role.
 
@@ -25,7 +27,7 @@ No organizer tier, no unlock fee, no per-event charge, and no player payment. Ro
 3. The roster shows real join counts and team names as typed. Hosts manage their own matches and series at `/player/posted`.
 4. Weekly series are a `MatchSeries` template that materializes future `Match` occurrences. The join, roster and report flows are unchanged for series occurrences.
 5. A report with a category can close a match and pause a host automatically. No human reviews it first.
-6. Sponsors discover opted-in players through the sponsor directory and CSV export, and buy placements or funded free events by email.
+6. Sponsors arrange placements and funded free events by email through `/advertise`. No sponsor directory or export exists.
 
 ## Free entry and trust
 
@@ -39,11 +41,11 @@ No organizer tier, no unlock fee, no per-event charge, and no player payment. Ro
 
 ## Monetization
 
-- **Sponsor placements.** The existing `SPONSOR_LINE` footer slot and `/advertise` describe placements. Deals are negotiated by email. No rate card until a real buyer agrees.
-- **Disclosed affiliate links.** `/loadout` carries an explicit disclosure. We never earn from entry fees or prizes.
-- **Sponsor-funded free events.** A sponsor pays a flat fee outside the app and funds any reward directly. Players pay nothing and Final Circle never holds the money.
+1. Sponsor placements: a quiet footer slot and `/advertise` contact path. Grievance and sponsor contact: `manideepdaram@gmail.com`. No rate card, checkout, or billing in the app.
+2. Disclosed affiliate links: a dedicated disclosure on `/loadout`.
+3. Sponsor-funded free events: email-only coordination outside the app; Final Circle never holds money.
 
-No checkout, no paid digital guide yet, no player ever pays the platform, and no sponsor with a real-money gaming link.
+No checkout, no paid digital guide, no player ever pays the platform, and no sponsor with a real-money gaming link.
 
 ## Legal background
 
@@ -57,8 +59,6 @@ The research behind this decision is background, not legal advice. A qualified l
 - Weekly series with the self-serve ladder and automatic pause.
 - Report categories with automated consequence and audit log.
 - `/safety`, `/advertise`, per-route metadata, generated robots and sitemap.
-- Four appearance presets and a custom accent with a WCAG guard, stored per browser in `fc-appearance`.
-- Sponsor directory and export for opted-in players only.
 
 ## Explicitly out of scope
 
@@ -82,4 +82,4 @@ A host posts a free match, players join from the board, and the roster is visibl
 - Tests run with `DATABASE_URL` removed: `Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test`.
 - SEO regex audit from https://surajkumarseo.medium.com/what-is-regex-for-seo-and-how-to-use-it-for-seo-90a61dce029d: internal links, canonical uniqueness, title and description lengths, title and H1 agreement, broken links.
 - Copy audit on public routes: no ₹ amounts, unlock, shortlist, verification promise, screenshot, fabricated statistic or em dash.
-- Browser check of the disclosure, free-entry form, report warning, all four presets, and no horizontal scroll at 375px, 768px and 1440px.
+- Browser check of the disclosure, free-entry form, report warning, and no horizontal scroll at 375px, 768px and 1440px.
