@@ -75,16 +75,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
         </p>
       </section>
 
-      {isEsportsish && !joined && (
-        <div style={{ marginTop: 14 }}>
-          <label className="label">Team / Guild name
-            <input className="input" name="teamName" defaultValue={prefillTeam} placeholder="Optional — helps organizers group squads" maxLength={30} />
-          </label>
-          <p className="small" style={{ marginTop: 2, color: 'var(--muted)' }}>2–30 characters. Optional.</p>
-        </div>
-      )}
-
-      <div style={{ marginTop: 18, display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+      <div style={{ marginTop: 18, display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
         {closed ? (
           <span className="chip">Closed</span>
         ) : full ? (
@@ -95,7 +86,12 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
             <button className="btn-ghost" type="submit">Leave this match</button>
           </form>
         ) : s ? (
-          <form action={joinMatch}>
+          <form action={joinMatch} style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
+            {isEsportsish && (
+              <label className="label" style={{ margin: 0 }}>Team / Guild name
+                <input className="input" name="teamName" defaultValue={prefillTeam} placeholder="Optional — helps organizers group squads" maxLength={30} />
+              </label>
+            )}
             <input type="hidden" name="matchId" value={match.id} />
             <button className="btn" type="submit">Join this match</button>
           </form>
