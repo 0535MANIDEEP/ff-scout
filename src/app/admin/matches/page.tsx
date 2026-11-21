@@ -5,7 +5,7 @@ import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
-import { adminSetMatchStatus } from './actions';
+import { adminSetMatchStatus, adminPauseSeries } from './actions';
 
 export const metadata = { title: 'Matches console, Final Circle' };
 export const dynamic = 'force-dynamic';
@@ -17,13 +17,14 @@ export default async function AdminMatches({ searchParams }: { searchParams: Pro
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
 
   const sp = await searchParams;
-  const [matches, reports] = await Promise.all([
+  const [matches, reports, series] = await Promise.all([
     prisma.match.findMany({
       orderBy: { createdAt: 'desc' },
       take: 100,
       select: { id: true, title: true, mode: true, gameType: true, status: true, date: true, city: true, organizer: { select: { displayName: true } } },
     }),
     prisma.report.findMany({ orderBy: { createdAt: 'desc' }, take: 15, select: { reason: true, createdAt: true, match: { select: { title: true } }, reporter: { select: { displayName: true } } } }),
+    prisma.matchSeries.findMany({ orderBy: { createdAt: 'desc' }, take: 50, select: { id: true, title: true, status: true, organizer: { select: { displayName: true } } } }),
   ]);
 
   return (
@@ -58,6 +59,31 @@ export default async function AdminMatches({ searchParams }: { searchParams: Pro
         ))}
         {matches.length === 0 && <div className="card" style={{ padding: 24 }}>No matches yet.</div>}
       </div>
+
+      {series.length > 0 && (
+        <section className="card" style={{ marginTop: 24 }}>
+          <h3>Series console</h3>
+          <div className="list" style={{ marginTop: 8 }}>
+            {series.map(s => (
+              <div key={s.id} className="rowitem">
+                <div>
+                  <strong>{s.title}</strong>
+                  <div className="small">Hosted by {s.organizer.displayName}</div>
+                </div>
+                <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                  <span className="chip">{s.status}</span>
+                  {s.status === 'active' && (
+                    <form action={adminPauseSeries}>
+                      <input type="hidden" name="seriesId" value={s.id} />
+                      <button className="btn-ghost" type="submit">Pause</button>
+                    </form>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="card" style={{ marginTop: 24 }}>
         <h3>Recent reports</h3>

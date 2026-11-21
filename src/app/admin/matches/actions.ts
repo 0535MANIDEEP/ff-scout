@@ -24,3 +24,22 @@ export async function adminSetMatchStatus(formData: FormData) {
   revalidatePath('/admin/matches');
   redirect('/admin/matches?done=1');
 }
+
+export async function adminPauseSeries(formData: FormData) {
+  const jar = await cookies();
+  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  if (!s) redirect('/login');
+  if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
+
+  const seriesId = String(formData.get('seriesId') ?? '');
+  if (!seriesId) redirect('/admin/matches?e=invalid');
+  const series = await prisma.matchSeries.findUnique({ where: { id: seriesId }, select: { id: true, status: true } });
+  if (!series) redirect('/admin/matches?e=invalid');
+
+  await prisma.matchSeries.update({ where: { id: seriesId }, data: { status: 'paused' } });
+  try {
+    await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_pause_admin', detail: JSON.stringify({ seriesId }) } });
+  } catch { /* audit must not block */ }
+  revalidatePath('/admin/matches');
+  redirect('/admin/matches?done=1');
+}
