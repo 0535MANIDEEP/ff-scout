@@ -8,6 +8,7 @@ import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
 import { seriesCueLabel } from '@/lib/schedule';
 import { setMatchStatus, editSeries, pauseSeriesAction, resumeSeriesAction } from './actions';
+import { sortByTeamKey } from '@/lib/team';
 
 export const metadata = { title: 'Your matches, Final Circle' };
 
@@ -34,6 +35,7 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
         entries: {
           select: {
             player: { select: { displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, email: true } },
+            teamName: true,
           },
         },
       },
@@ -126,11 +128,12 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
                 <p className="subtext" style={{ marginTop: 6 }}>No one has joined yet.</p>
               ) : (
                 <div className="list" style={{ marginTop: 8 }}>
-                  {m.entries.map(e => (
+                  {sortByTeamKey(m.entries, (e) => e.teamName).map(e => (
                     <div key={e.player.email + e.player.displayName} className="rowitem">
                       <div>
                         <strong>{e.player.displayName}</strong>
                         <div className="small">UID {e.player.gameUid ?? '—'} · BR {e.player.brRank ?? '—'} · CS {e.player.csRank ?? '—'} · {e.player.role ?? '—'} · {e.player.city}</div>
+                        {e.teamName && <div className="small" style={{ color: 'var(--muted)' }}>Team — {e.teamName}</div>}
                       </div>
                       <a className="chip chip-sapphire" href={`mailto:${e.player.email}`}>Email</a>
                     </div>
