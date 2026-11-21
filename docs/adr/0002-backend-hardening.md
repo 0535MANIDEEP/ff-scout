@@ -1,5 +1,7 @@
 # ADR 0002 — Backend hardening pass (2026-11-19)
 
+> Status: Superseded in part by [ADR 0005](0005-legal-safe-free-entry-and-revenue.md) for all money, pricing, verification and moderation claims below.
+
 Context: Final Circle's backend is Next.js server actions + Prisma + JWT session cookies, SQLite in dev, Postgres targeted for prod (Neon). A pre-launch audit surfaced flaws that matter more than any new feature.
 
 ## Decisions

@@ -1,0 +1,15 @@
+{
+  "modes": ["casual", "competitive", "ranked", "esports"],
+  "gameTypes": ["BR", "CS", "BR/CS"],
+  "entry": ["free"],
+  "prize": ["none"],
+  "status": ["open", "closed"],
+  "trustLadderMinMatches": 3,
+  "trustLadderMinJoins": 2,
+  "activeSeriesCap": 2,
+  "lookaheadWeeks": 2,
+  "autoPauseAfterDeadOccurrences": 2,
+  "durationOptionsMinutes": [60, 90, 120],
+  "defaultDurationMinutes": 90,
+  "lazyGenThrottleMinutes": 15
+}

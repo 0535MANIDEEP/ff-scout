@@ -8,7 +8,7 @@ Every Indian FF competitive squad fights with a five-role structure. Sources con
 - Eneba, "Free Fire Esports: Complete Guide" (Nov 2025) — roles map to character kits: rushers (entry), anchors (positional), support (healing/utility)
 - Clash Squad role breakdowns (Free Fire Hub, ManaBuy) — CS teams run Entry / Trade / Anchor / Support as the stable quartet; pure "sniper-only" is rare in square BR but standard in Indian open-lobbies
 
-We use **five combat roles** because they are what players actually declare and what organizers scan for:
+We use **five combat roles** because they are what players actually declare and what hosts scan for:
 
 | Role | What it means | Typical loadout |
 |---|---|---|
@@ -20,12 +20,9 @@ We use **five combat roles** because they are what players actually declare and 
 
 ## Why IGL is NOT a role
 
-IGL (in-game leader) is a **designation**, not a combat style: one player per squad, usually the most experienced, calls rotations and the final call — while playing one of the five above (Gurugamer explicitly notes IGLs commonly play Support or Sniper). Treating IGL as a selectable peer role produced two failure modes: (1) every sign-up ticks it for ego; (2) organizers can't tell a genuine caller from a name.
+IGL (in-game leader) is a **designation**, not a combat style: one player per squad, usually the most experienced, calls rotations and the final call — while playing one of the five above (Gurugamer explicitly notes IGLs commonly play Support or Sniper). Treating IGL as a selectable peer role produced two failure modes: (1) every sign-up ticks it for ego; (2) hosts can't tell a genuine caller from a name.
 
-Final Circle therefore does **not** offer IGL as a role. Instead:
-- Sign-up exposes `iglCapable` — an opt-in, unverified self-declaration.
-- Organizers see it as a flag next to the role ("IGL"), never as a substitute for a role.
-- Verification of calling skill comes from shortlist captain review (stewarding a full match), not from a form checkbox.
+Final Circle therefore does **not** offer IGL as a role. Players pick one of the five combat roles above and enter their own rank. There is no `iglCapable` field, no captain review and no verification of calling skill anywhere on the board. Anything a host learns about a caller comes from the match itself, not from a badge issued by Final Circle.
 
 ## Dropdown policy
 

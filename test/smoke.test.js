@@ -24,15 +24,15 @@ if (!dbUrl) {
     });
   });
 
-  test('seeded database has players and at least one admin', async () => {
+  test('seeded database has players and a free entry match, with no seeded admin', async () => {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
     const players = await prisma.user.findMany({ where: { userType: 'player' } });
     assert.ok(players.length >= 5, 'expected at least 5 seeded players');
-    assert.ok(players.every(p => p.rank && p.role), 'every seeded player must have rank and role');
-    const admin = await prisma.user.findUnique({ where: { email: 'admin@ffscout.dev' } });
-    assert.ok(admin, 'admin seeded');
-    assert.equal(admin.userType, 'admin');
+    assert.ok(players.every(p => p.brRank && p.role), 'every seeded player must have a rank and role');
+    assert.equal(await prisma.user.count({ where: { userType: 'admin' } }), 0, 'no seeded admin');
+    const match = await prisma.match.findFirst({ where: { entry: 'free', prize: 'none' } });
+    assert.ok(match, 'a free entry match is seeded');
     await prisma.$disconnect();
   });
 }
