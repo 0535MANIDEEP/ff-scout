@@ -14,7 +14,6 @@ const PUBLIC_PATHS = [
   '/privacy',
   '/safety',
   '/terms',
-  '/uid-check',
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

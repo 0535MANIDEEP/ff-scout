@@ -23,9 +23,9 @@ docs/superpowers/      design specs and plans (read-only for this documentation 
 prisma/                schema.prisma, additive migrations
 public/                static assets
 src/app/               App Router routes, server actions, per-route metadata
-src/components/        AppearanceControl, Hero, Waitlist, UidCheck, Reveal, BackToTop
+src/components/        AppearanceControl, Hero, Waitlist, Reveal, BackToTop
 src/lib/               auth, prisma, config, free-entry, permissions, series, schedule,
-                       appearance, team, brand, aff, ff-upstream, rate-limit, seo
+                       appearance, team, brand, aff, rate-limit, seo
 src/styles/globals.css design tokens and utilities
 test/                  node:test smoke suite
 ```
@@ -40,7 +40,6 @@ test/                  node:test smoke suite
 | `/matches` | Live board, mode/type/city filters, free-entry notice, `/safety` link | `src/app/matches/page.tsx` |
 | `/matches/[id]` | Match detail, roster, join/leave, report | `src/app/matches/[id]/page.tsx`, `actions.ts` |
 | `/learn` | How ranks, roles and the board work | `src/app/learn/page.tsx`, `src/lib/learn.ts` |
-| `/uid-check` | Own-pool plus env-gated upstream UID check | `src/app/uid-check/page.tsx`, `src/app/api/uid-check/route.ts` |
 | `/loadout` | Gear picks with disclosed affiliate links | `src/app/loadout/page.tsx`, `src/lib/aff.ts` |
 | `/about`, `/faq`, `/privacy`, `/terms` | About, answers, legal and grievance copy | matching folders in `src/app` |
 | `/robots.txt`, `/sitemap.xml` | Generated crawler files | `src/app/robots.ts`, `src/app/sitemap.ts` |
@@ -63,7 +62,7 @@ test/                  node:test smoke suite
 | `/sponsor/sign-up`, `/sponsors`, `/sponsors/export` | Sponsor account, opted-in directory, audited CSV | `src/app/sponsor/sign-up/*`, `src/app/sponsors/*` |
 | `/admin`, `/admin/matches`, `/admin/roles` | Dashboard, close any match, roles | `src/app/admin/*` |
 
-Private routes (`admin`, `player`, `settings`, `login`, `sign-up`, `sponsor/sign-up`) export `noindex, nofollow`. API routes: `/api/waitlist`, `/api/uid-check`.
+Private routes (`admin`, `player`, `settings`, `login`, `sign-up`, `sponsor/sign-up`) export `noindex, nofollow`. The only API route is `/api/waitlist`. `GAMESKINBO_API_KEY`, Cloudinary and the UID-check route were removed on 2026-11-22: they needed external accounts and were not part of the post/join/report happy path.
 
 ## Data flow: post to join to roster to report to automatic pause
 

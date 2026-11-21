@@ -4,7 +4,7 @@ const path = require('node:path');
 const fs = require('node:fs');
 const { execSync } = require('node:child_process');
 
-// Pure schedule logic, compiled standalone via tsc (no imports). Pattern: test/ff-upstream.test.js.
+// Pure schedule logic, compiled standalone via tsc because it has no imports.
 const outDir = path.join(__dirname, '.schedule-build');
 test.before(() => {
   fs.rmSync(outDir, { recursive: true, force: true });
