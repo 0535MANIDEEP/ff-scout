@@ -48,7 +48,7 @@ if (!dbUrl) {
     });
   });
 
-  test('eraseAccount removes the user, proofs and rate-limit rows; admin survives', async () => {
+  test('eraseAccount removes the user, their joins and matches, and rate-limit rows; admin survives', async () => {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
     const { eraseAccount } = loadTs(path.join(__dirname, '..', 'src/lib/account.ts'));
@@ -63,21 +63,61 @@ if (!dbUrl) {
         displayName: 'EraseMe',
         userType: 'player',
         role: 'rusher',
-        rank: 'Gold',
+        brRank: 'Gold',
       },
     });
-    await prisma.verificationProof.create({
-      data: { userId: victim.id, fileData: 'data:image/png;base64,AAAA', fileName: 'x.png', mimeType: 'image/png' },
+    const joiner = await prisma.user.create({
+      data: { email: 'joiner@example.test', passwordHash: 'x', displayName: 'Joiner', userType: 'player' },
     });
+
+    const now = new Date();
+    const later = new Date(now.getTime() + 90 * 60 * 1000);
+    // A match the victim joined: the join must go, the match must stay.
+    const adminMatch = await prisma.match.create({
+      data: {
+        organizerId: admin.id,
+        title: 'Admin lobby',
+        mode: 'casual',
+        gameType: 'BR',
+        entry: 'free',
+        prize: 'none',
+        date: later,
+        endsAt: later,
+        city: 'Hyderabad',
+      },
+    });
+    await prisma.matchEntry.create({ data: { matchId: adminMatch.id, playerId: victim.id } });
+    await prisma.matchEntry.create({ data: { matchId: adminMatch.id, playerId: joiner.id } });
+    // A match the victim hosted: it and its roster must go.
+    const victimMatch = await prisma.match.create({
+      data: {
+        organizerId: victim.id,
+        title: 'Victim lobby',
+        mode: 'casual',
+        gameType: 'BR',
+        entry: 'free',
+        prize: 'none',
+        date: later,
+        endsAt: later,
+        city: 'Hyderabad',
+      },
+    });
+    await prisma.matchEntry.create({ data: { matchId: victimMatch.id, playerId: joiner.id } });
+
     await prisma.rateLimitEntry.create({ data: { key: 'login:victim@example.test' } });
-    await prisma.auditLog.create({ data: { userId: victim.id, action: 'login', detail: '{"email":"victim@example.test"}' } });
+    const audit = await prisma.auditLog.create({ data: { userId: victim.id, action: 'login', detail: '{"email":"victim@example.test"}' } });
 
     await eraseAccount(victim.id);
 
     assert.equal(await prisma.user.count({ where: { email: 'victim@example.test' } }), 0, 'user gone');
-    assert.equal(await prisma.verificationProof.count({ where: { userId: victim.id } }), 0, 'proofs gone');
+    assert.equal(await prisma.matchEntry.count({ where: { playerId: victim.id } }), 0, 'their joins gone');
+    assert.equal(await prisma.match.count({ where: { id: victimMatch.id } }), 0, 'matches they hosted gone');
+    assert.equal(await prisma.matchEntry.count({ where: { matchId: victimMatch.id } }), 0, 'their roster cascaded');
+    assert.equal(await prisma.match.count({ where: { id: adminMatch.id } }), 1, 'other hosts keep their matches');
+    assert.equal(await prisma.matchEntry.count({ where: { matchId: adminMatch.id, playerId: joiner.id } }), 1, 'other players keep their joins');
     assert.equal(await prisma.rateLimitEntry.count({ where: { key: { contains: 'victim@example.test' } } }), 0, 'rate-limit rows gone');
-    assert.equal(await prisma.auditLog.count({ where: { userId: victim.id } }), 0, 'audit user refs nulled');
+    const nulled = await prisma.auditLog.findUnique({ where: { id: audit.id } });
+    assert.equal(nulled.userId, null, 'audit user ref nulled, log kept');
     assert.equal(await prisma.user.findUnique({ where: { id: admin.id } }).then((u) => !!u), true, 'admin untouched');
     await prisma.$disconnect();
   });

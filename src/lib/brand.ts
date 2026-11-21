@@ -3,10 +3,10 @@
 export const BRAND = {
   name: 'Final Circle',
   mark: 'FC',
-  tagline: 'A ranked circle of screened Free Fire talent — for organizers across India',
-  descriptor: 'Free Fire roster finder for Indian organizers',
-  descriptorTagline: 'Free Fire roster finder · India',
-  description: 'Ranked screened Free Fire rosters for Indian organizers — café owners, fest leads, sponsors and guild trials. Verified by one human admin. One shortlist per event. Pilot-free for players.',
+  tagline: 'Post a Free Fire match. Players join. India-wide.',
+  descriptor: 'Free Fire match board for India',
+  descriptorTagline: 'Free Fire match board · India',
+  description: 'A free notice board for Free Fire matches in India. Hosts post, players join. Free entry only, no money handled by Final Circle. 18+.',
   // Domain: finalcircle.gg is the target. Not purchased yet — until then the
   // canonical URL stays the Vercel deployment. Set NEXT_PUBLIC_SITE_URL in
   // Vercel when the domain is live.
@@ -17,16 +17,10 @@ export const BRAND = {
   city: 'India',
   country: 'India',
   locale: 'en_IN',
-  pricing: {
-    eventUnlock: 499,
-    guildAnnual: 1999,
-    sponsorActivation: 15000,
-    currency: 'INR',
-  },
   trademark: 'Free Fire and Garena are trademarks of Garena International II Private Limited.',
   garenaName: 'Garena International II Private Limited',
 } as const;
 
 export const brandAsset = (p: string) => `${BRAND.url}${p.startsWith('/') ? p : `/${p}`}`;
-export const brandTitle = (section: string) => `${section} — ${BRAND.name}`;
+export const brandTitle = (section: string) => `${section}, ${BRAND.name}`;
 export const brandDescription = () => BRAND.description;

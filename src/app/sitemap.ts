@@ -1,15 +1,22 @@
 import type { MetadataRoute } from 'next';
 import { BRAND } from '@/lib/brand';
 
+// Only public, indexable routes. Private routes are noindex and disallowed in
+// robots.ts. No lastModified: build time is not a content change.
+const PUBLIC_PATHS = [
+  '/',
+  '/about',
+  '/advertise',
+  '/faq',
+  '/learn',
+  '/loadout',
+  '/matches',
+  '/privacy',
+  '/safety',
+  '/terms',
+  '/uid-check',
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = BRAND.url;
-  const now = new Date();
-  return [
-    { url: base + '/', lastModified: now, changeFrequency: 'weekly', priority: 1 },
-    { url: base + '/about', lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: base + '/faq', lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: base + '/learn', lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: base + '/sign-up', lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: base + '/organizer/sign-up', lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-  ];
+  return PUBLIC_PATHS.map(path => ({ url: `${BRAND.url}${path}` }));
 }
