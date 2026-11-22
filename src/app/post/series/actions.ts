@@ -7,8 +7,8 @@ import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { MATCH } from '@/lib/config';
-import { seriesEligibility, materializeSeries } from '@/lib/series';
-import { FREE_ENTRY_TERMS } from '@/lib/free-entry';
+import { seriesEligibility, materializeSeries } from '@/features/series/service';
+import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
 
 const schema = z.object({
   title: z.string().trim().min(4).max(90),

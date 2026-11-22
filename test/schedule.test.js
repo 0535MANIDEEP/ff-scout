@@ -8,13 +8,13 @@ const { execSync } = require('node:child_process');
 const outDir = path.join(__dirname, '.schedule-build');
 test.before(() => {
   fs.rmSync(outDir, { recursive: true, force: true });
-  execSync(`npx tsc src/lib/schedule.ts --module commonjs --target es2022 --skipLibCheck --outDir "${outDir}"`, {
+  execSync(`npx tsc src/features/trust/rules.ts --module commonjs --target es2022 --skipLibCheck --outDir "${outDir}"`, {
     cwd: path.join(__dirname, '..'),
     stdio: 'ignore',
   });
 });
 test.after(() => fs.rmSync(outDir, { recursive: true, force: true }));
-const load = () => require(path.join(outDir, 'schedule.js'));
+const load = () => require(path.join(outDir, 'rules.js'));
 
 const t = (iso) => new Date(iso);
 

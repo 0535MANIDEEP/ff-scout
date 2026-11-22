@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { MATCH } from '@/lib/config';
-import { seriesEligibility } from '@/lib/series';
+import { seriesEligibility } from '@/features/series/service';
 import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
 import { privateMetadata } from '@/lib/seo';
 import { createMatch } from './actions';

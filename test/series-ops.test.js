@@ -24,6 +24,7 @@ if (!dbUrl) {
     cache.set(file, mod);
     mod.exports = {};
     const localRequire = (id) => {
+      if (id === 'server-only') return {};
       if (id.startsWith('./') || id.startsWith('../')) {
         const base = path.resolve(path.dirname(file), id);
         for (const ext of ['.ts', '.js']) {
@@ -39,7 +40,7 @@ if (!dbUrl) {
   }
 
   const { prisma } = loadTs(path.join(root, 'src/lib/db.ts'));
-  const { applyTemplateEdit, applyScheduleEdit } = loadTs(path.join(root, 'src/lib/series-ops.ts'));
+  const { applyTemplateEdit, applyScheduleEdit } = loadTs(path.join(root, 'src/features/series/service.ts'));
 
   let qaCounter = 0;
   const qaEmail = () => `qa+series-ops-${Date.now()}-${qaCounter++}@example.com`;

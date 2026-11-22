@@ -4,7 +4,7 @@ import { getCurrentUser, type SessionUser } from '@/shared/auth/session';
 import { matchSchemas } from './schema';
 import { findHost, listOpen } from './repository';
 import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
-import { endsAtFor } from '@/lib/schedule';
+import { endsAtFor } from '@/features/trust/rules';
 import { checkRateLimit } from '@/lib/rate-limit';
 import type { Match } from '@prisma/client';
 

@@ -8,7 +8,7 @@ import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { revalidatePath } from 'next/cache';
 import { MATCH } from '@/lib/config';
 import { checkRateLimit } from '@/lib/rate-limit';
-import { applyScheduleEdit, applyTemplateEdit, pauseSeries, resumeSeries } from '@/lib/series-ops';
+import { applyScheduleEdit, applyTemplateEdit, pauseSeries, resumeSeries } from '@/features/series/service';
 
 const durationSchema = z.coerce.number().int().refine(v => MATCH.durationOptionsMinutes.includes(v), 'Pick a supported duration');
 const daySchema = z.coerce.number().int().min(0).max(6);

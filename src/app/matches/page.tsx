@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { prisma } from '@/shared/db/client';
 import { MATCH } from '@/lib/config';
-import { runSeriesSweep } from '@/lib/series-sweep';
-import { seriesCueLabel } from '@/lib/schedule';
+import { runSeriesSweep } from '@/features/series/service';
+import { seriesCueLabel } from '@/features/trust/rules';
 import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/lib/seo';
 
