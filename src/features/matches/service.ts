@@ -5,7 +5,7 @@ import { matchSchemas } from './schema';
 import { findHost, listOpen } from './repository';
 import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
 import { endsAtFor } from '@/features/trust/rules';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/shared/rate-limit';
 import type { Match } from '@prisma/client';
 
 export type MatchCardDTO = {

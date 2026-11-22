@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { GAME_ROLE_LABEL } from '@/lib/config';
+import { GAME_ROLE_LABEL } from '@/shared/config/match';
 
 // Fixed, recognizable role avatars: flat glyph on an ink tile.
 // No uploads, no GIFs — nothing to moderate, nothing to store, nothing to fake.

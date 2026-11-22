@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { BRAND } from '@/shared/config/brand';
-import { publicMetadata } from '@/lib/seo';
+import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'FAQ: free entry, no money handled, Final Circle',

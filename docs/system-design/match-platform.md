@@ -91,7 +91,7 @@ await prisma.$transaction(async (tx) => {
 
 ## 10. Security and privacy
 
-- **Authentication:** session cookie (existing JWT), httpOnly, sameSite lax, secure in prod.
+- **Authentication:** opaque database-backed session cookie (random token, SHA-256 hash in `Session`, row deletion revokes), httpOnly, sameSite lax, secure in prod.
 - **Authorization:** catalogue-first RBAC; every action re-checks, never trusts the client. There is no verifier, moderator or organizer role.
 - **IDOR:** roster and posting management are scoped by the session user; sponsors can only read opted-in players.
 - **PII:** no email address appears on a listing or in the sponsor export. Sponsor data is display name, UID, self-declared BR and CS ranks, role and city. No payment data exists anywhere in the system.

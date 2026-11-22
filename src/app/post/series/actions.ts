@@ -4,9 +4,9 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
-import { checkRateLimit } from '@/lib/rate-limit';
-import { MATCH } from '@/lib/config';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
+import { checkRateLimit } from '@/shared/rate-limit';
+import { MATCH } from '@/shared/config/match';
 import { seriesEligibility, materializeSeries } from '@/features/series/service';
 import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
 

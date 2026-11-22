@@ -1,15 +1,15 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
 import { prisma } from '@/shared/db/client';
-import { MATCH } from '@/lib/config';
+import { MATCH } from '@/shared/config/match';
 import { seriesEligibility } from '@/features/series/service';
 import { seriesCueLabel } from '@/features/trust/rules';
 import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
-import { privateMetadata } from '@/lib/seo';
+import { privateMetadata } from '@/shared/seo';
 import { setMatchStatus, editSeries, pauseSeriesAction, resumeSeriesAction } from './actions';
-import { sortByTeamKey } from '@/lib/team';
+import { sortByTeamKey } from '@/features/matches/team';
 
 export const metadata = privateMetadata('Your matches, Final Circle');
 

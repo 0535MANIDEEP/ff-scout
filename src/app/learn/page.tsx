@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { LEARN_CHAPTERS } from '@/lib/learn';
-import { publicMetadata } from '@/lib/seo';
+import { LEARN_CHAPTERS } from '@/features/disclosure/learn';
+import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'Learn, the Final Circle field manual for Free Fire',

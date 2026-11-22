@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { signUp, type ActionState } from '@/features/identity/actions';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { checkRateLimit } from '@/shared/rate-limit';
 
 export type { ActionState } from '@/features/identity/actions';
 

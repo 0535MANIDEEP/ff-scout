@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BRAND } from '@/shared/config/brand';
-import { publicMetadata } from '@/lib/seo';
+import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'Terms of use, Final Circle',

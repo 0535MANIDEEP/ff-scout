@@ -3,7 +3,7 @@
 DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions.ts` first; assignment is server-side only.** No one writes raw SQL for access control, ever.
 
 ## Adding a role
-1. `schema.prisma`: extend `enum UserType` (and `src/lib/auth.ts` SessionPayload union)
+1. `schema.prisma`: extend `enum UserType` (the role source of truth; sessions live in `src/shared/auth/session.ts`)
 2. Migration: additive only (`ALTER TYPE "UserType" ADD VALUE`)
 3. `roleFromDb`/`dbRoleFor` in `permissions.ts` get one mapping each
 4. `CAPS` in `permissions.ts` defines its power set

@@ -84,7 +84,7 @@ Edit `next/font/google` imports in `src/app/layout.tsx`. Must be self-hosted via
 ## What NOT to touch without engineering help
 
 - `src/app/**/actions.ts`: server-side actions; auth is action-bound
-- `src/lib/auth.ts`, `src/lib/db.ts`, `src/lib/account.ts`, `src/lib/free-entry.ts`, `src/lib/permissions.ts`
+- `src/shared/auth/session.ts`, `src/shared/db/client.ts`, `src/features/identity/account.ts`, `src/features/disclosure/copy.ts`, `src/shared/auth/permissions.ts`
 - `prisma/schema.prisma`: schema changes must go through a migration; never edit the file without committing a migration
 - `test/*`: the CI gate depends on these
 

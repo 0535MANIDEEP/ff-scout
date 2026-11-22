@@ -6,8 +6,8 @@ import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
 import { joinMatch as joinMatchInService } from '@/features/matches/service';
 import { reportMatch as reportMatchService } from '@/features/reports/service';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
-import { normalizeTeamName, isValidTeamName } from '@/lib/team';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
+import { normalizeTeamName, isValidTeamName } from '@/features/matches/team';
 import { revalidatePath } from 'next/cache';
 
 async function session() {

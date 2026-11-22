@@ -1,4 +1,4 @@
-import { buildHeroContext } from '@/lib/hero-data';
+import { buildHeroContext } from '@/features/matches/hero-data';
 
 // The Wire: the FF kill-feed for open matches, broadsheet style.
 // Shows the real board, warts and all; an empty board says so, loudly.

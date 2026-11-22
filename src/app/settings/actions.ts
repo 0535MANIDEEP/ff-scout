@@ -4,7 +4,7 @@ import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getCurrentUser, SESSION_COOKIE_NAME } from '@/shared/auth/session';
 import { prisma } from '@/shared/db/client';
-import { eraseAccount } from '@/lib/account';
+import { eraseAccount } from '@/features/identity/account';
 
 // DPDP: withdraw consent / erase on request. Admins cannot self-delete here —
 // a lockout of the only admin is a worse risk than forcing one email.

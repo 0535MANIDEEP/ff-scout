@@ -2,11 +2,11 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
 import { prisma } from '@/shared/db/client';
-import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
+import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/shared/config/match';
 import SignOut from '@/components/SignOut';
 import RoleAvatar from '@/components/RoleAvatar';
 import { saveProfile, leaveMatch } from './actions';
-import { privateMetadata } from '@/lib/seo';
+import { privateMetadata } from '@/shared/seo';
 
 export const metadata = privateMetadata('Your dashboard, Final Circle');
 

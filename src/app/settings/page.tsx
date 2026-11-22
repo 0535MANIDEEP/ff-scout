@@ -4,8 +4,8 @@ import { getCurrentUser } from '@/shared/auth/session';
 import { prisma } from '@/shared/db/client';
 import SignOut from '@/components/SignOut';
 import { deleteAccount } from './actions';
-import { COPY } from '@/lib/config';
-import { privateMetadata } from '@/lib/seo';
+import { COPY } from '@/shared/config/match';
+import { privateMetadata } from '@/shared/seo';
 
 export const metadata = privateMetadata('Settings, Final Circle');
 

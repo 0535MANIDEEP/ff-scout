@@ -1,5 +1,5 @@
 import 'server-only';
-import { MATCH } from '@/lib/config';
+import { MATCH } from '@/shared/config/match';
 import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
 import { qualifiesMatch, shouldAutoPause, endsAtFor, nextOccurrenceDates } from '@/features/trust/rules';
 import {

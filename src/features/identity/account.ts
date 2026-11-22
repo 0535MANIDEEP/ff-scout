@@ -1,4 +1,4 @@
-import { prisma } from './db';
+import { prisma } from '@/shared/db/client';
 
 // DPDP erasure: remove a user's row and everything linked to it.
 // Order matters: joins first, then matches this user organized (cascade removes

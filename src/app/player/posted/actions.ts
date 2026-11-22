@@ -4,10 +4,10 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
 import { revalidatePath } from 'next/cache';
-import { MATCH } from '@/lib/config';
-import { checkRateLimit } from '@/lib/rate-limit';
+import { MATCH } from '@/shared/config/match';
+import { checkRateLimit } from '@/shared/rate-limit';
 import { applyScheduleEdit, applyTemplateEdit, pauseSeries, resumeSeries } from '@/features/series/service';
 
 const durationSchema = z.coerce.number().int().refine(v => MATCH.durationOptionsMinutes.includes(v), 'Pick a supported duration');

@@ -8,7 +8,7 @@ const { execSync } = require('node:child_process');
 const outDir = path.join(__dirname, '.team-build');
 test.before(() => {
   fs.rmSync(outDir, { recursive: true, force: true });
-  execSync(`npx tsc src/lib/team.ts --module commonjs --target es2022 --skipLibCheck --outDir "${outDir}"`, {
+  execSync(`npx tsc src/features/matches/team.ts --module commonjs --target es2022 --skipLibCheck --outDir "${outDir}"`, {
     cwd: path.join(__dirname, '..'),
     stdio: 'ignore',
   });

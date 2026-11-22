@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
 import { prisma } from '@/shared/db/client';
 import SignOut from '@/components/SignOut';
 import { adminSetMatchStatus, adminPauseSeries } from './actions';
-import { privateMetadata } from '@/lib/seo';
+import { privateMetadata } from '@/shared/seo';
 
 export const metadata = privateMetadata('Matches console, Final Circle');
 export const dynamic = 'force-dynamic';

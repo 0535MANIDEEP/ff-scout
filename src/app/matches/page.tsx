@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { prisma } from '@/shared/db/client';
-import { MATCH } from '@/lib/config';
+import { MATCH } from '@/shared/config/match';
 import { runSeriesSweep } from '@/features/series/service';
 import { seriesCueLabel } from '@/features/trust/rules';
 import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
-import { publicMetadata } from '@/lib/seo';
+import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'Find free matches, Final Circle',

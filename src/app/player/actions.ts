@@ -5,8 +5,8 @@ import { z } from 'zod';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
 import { revalidatePath } from 'next/cache';
-import { RANKS, ROLE_IDS } from '@/lib/config';
-import { normalizeTeamName, isValidTeamName } from '@/lib/team';
+import { RANKS, ROLE_IDS } from '@/shared/config/match';
+import { normalizeTeamName, isValidTeamName } from '@/features/matches/team';
 
 const schema = z.object({
   displayName: z.string().trim().min(2).max(40),

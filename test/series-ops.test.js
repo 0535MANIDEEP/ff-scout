@@ -46,7 +46,7 @@ if (!dbUrl) {
     return mod.exports;
   }
 
-  const { prisma } = loadTs(path.join(root, 'src/lib/db.ts'));
+  const { prisma } = loadTs(path.join(root, 'src/shared/db/client.ts'));
   const { applyTemplateEdit, applyScheduleEdit } = loadTs(path.join(root, 'src/features/series/service.ts'));
 
   let qaCounter = 0;

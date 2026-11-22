@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { Hero } from './components/Hero';
 import { Wire } from '@/components/Wire';
 import { Reveal } from '@/components/Reveal';
-import { buildHeroContext } from '@/lib/hero-data';
+import { buildHeroContext } from '@/features/matches/hero-data';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 
 export const revalidate = 300;

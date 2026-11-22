@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { MATCH } from '@/lib/config';
+import { MATCH } from '@/shared/config/match';
 
 export const matchSchemas = {
   create: z.object({

@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import type { HeroContext } from "@/lib/hero-data";
+import type { HeroContext } from "@/features/matches/hero-data";
 import { GLOBAL_DISCLOSURE } from "@/features/disclosure/copy";
 
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
@@ -28,11 +25,8 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
           <p className="mt-6 font-mono text-xs leading-[1.65] text-muted">{GLOBAL_DISCLOSURE}</p>
         </div>
 
-        <motion.figure
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)] max-[600px]:p-4"
+        <figure
+          className="animate-hero-in rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)] max-[600px]:p-4"
           aria-label="Open matches preview"
         >
           <div className="flex items-baseline justify-between gap-3 border-b border-[#CFC8B9] pb-4">
@@ -51,7 +45,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             ))
           )}
           <figcaption className="mt-3 border-t border-[#CFC8B9] pt-3 text-sm text-muted">Open matches, updated live, from the board.</figcaption>
-        </motion.figure>
+        </figure>
       </div>
 
       <div className="hidden" aria-hidden="true">

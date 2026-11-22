@@ -1,7 +1,7 @@
 import { BRAND } from '@/shared/config/brand';
-import { amazon, flipkart } from '@/lib/aff';
-import { LOADOUT } from '@/lib/config';
-import { publicMetadata } from '@/lib/seo';
+import { amazon, flipkart } from '@/features/sponsors/affiliate';
+import { LOADOUT } from '@/shared/config/match';
+import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'Free Fire loadout for Indian players, Final Circle',

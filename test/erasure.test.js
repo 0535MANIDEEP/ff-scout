@@ -33,6 +33,12 @@ if (!dbUrl) {
         }
         throw new Error('cannot resolve ' + id + ' from ' + file);
       }
+      if (id.startsWith('@/')) {
+        const base = path.join(__dirname, '..', 'src', id.slice(2));
+        for (const ext of ['.ts', '.js']) {
+          if (fs.existsSync(base + ext)) return loadTs(base + ext);
+        }
+      }
       return Module.createRequire(path.join(__dirname, '..', 'package.json'))(id);
     };
     const wrapper = new Function('exports', 'require', 'module', '__filename', '__dirname', js);
@@ -51,7 +57,7 @@ if (!dbUrl) {
   test('eraseAccount removes the user, their joins and matches, and rate-limit rows; admin survives', async () => {
     const { PrismaClient } = require('@prisma/client');
     const prisma = new PrismaClient({ datasources: { db: { url: dbUrl } } });
-    const { eraseAccount } = loadTs(path.join(__dirname, '..', 'src/lib/account.ts'));
+    const { eraseAccount } = loadTs(path.join(__dirname, '..', 'src/features/identity/account.ts'));
 
     const admin = await prisma.user.create({
       data: { email: 'admin@example.test', passwordHash: 'x', displayName: 'AdminForEraseTest', userType: 'admin' },

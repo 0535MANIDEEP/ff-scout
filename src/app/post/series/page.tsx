@@ -1,10 +1,10 @@
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
-import { MATCH } from '@/lib/config';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
+import { MATCH } from '@/shared/config/match';
 import { seriesEligibility } from '@/features/series/service';
 import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
-import { privateMetadata } from '@/lib/seo';
+import { privateMetadata } from '@/shared/seo';
 import { createSeries } from './actions';
 import { Field } from '@/shared/ui/Field';
 import { Button } from '@/shared/ui/Button';

@@ -3,7 +3,7 @@
 import { redirect } from 'next/navigation';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
-import { hasPermission, roleFromDb } from '@/lib/permissions';
+import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
 import { createMatch as createMatchInService } from '@/features/matches/service';
 
 export async function createMatch(formData: FormData) {

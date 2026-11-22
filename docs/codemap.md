@@ -20,24 +20,28 @@ Optional `MatchEntry.teamName` and a `User.teamName` default carry a squad or gu
 ```txt
 src/
   app/                    thin routes + metadata only
-    (public)/             /, /matches/[id], /safety, /advertise, /privacy, /terms
-    (account)/            /sign-up, /login, /settings, /player, /post
-    api/                  route handlers only when a Server Action cannot serve
+    about/ advertise/ faq/ learn/ loadout/ matches/ privacy/ safety/ terms/
+    admin/ login/ player/ post/ settings/ sign-out/ sign-up/
+    components/Hero.tsx   server-rendered hero; CSS keyframe entry, no client JS
+    layout.tsx · page.tsx · error.tsx · not-found.tsx · robots.ts · sitemap.ts · icon.svg
+  components/             BackToTop, Reveal, RoleAvatar, SignOut, SiteHeader, Wire, ZoneShrink
+  config/                 roles.json, ranks.json, match.json, copy.json, loadout.json
   features/
-    identity/             signup, login, logout, sessions, consent, erasure
-    matches/              create, board query, join, roster, close
-    series/               weekly series template and occurrence materialisation
-    reports/              categories, joined-report counting, auto-pause
+    identity/             actions, service, repository, schema, account (erasure)
+    matches/              service, repository, schema, team helpers, hero data
+    series/               service, repository
+    reports/              service, schema
     trust/                pure pause/ladder rules shared by matches and series
     sponsors/             placement copy and email contact, no directory or export
-    disclosure/           exact legal copy imported everywhere
-    <slice>/ actions.ts · service.ts · repository.ts · schema.ts · components/ · *.test.ts
+    disclosure/           exact legal copy and /learn chapters
+    <slice>/ actions.ts · service.ts · repository.ts · schema.ts · components/
   shared/
-    db/                   Prisma client + migrations
-    config/               brand, grievance contact, match config
-    auth/                 session cookie helper used by routes and services
-    ui/                   Button, Field, DisclosureBanner, Toast
-    test/                 factories + scratch DB harness
+    db/client.ts          Prisma client
+    config/               brand.ts, match.ts
+    auth/                 session.ts (opaque DB sessions), permissions.ts
+    rate-limit.ts · seo.ts
+    ui/                   Button, Field, DisclosureBanner
+  styles/globals.css      Tailwind v4 theme, hero-in keyframe, focus and reduced-motion rules
 ```
 
 ## Routes
