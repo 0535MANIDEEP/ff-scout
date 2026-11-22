@@ -13,6 +13,13 @@ Final Circle is now a free notice board. Hosts post a match, players join, and n
 
 The legal background is research, not legal advice. A qualified lawyer must review the final copy and product before launch.
 
+## 2026-11-22, in-place reframe
+
+- JWT cookies were replaced with database-backed sessions. All users are signed out once; log in again to continue.
+- Removed the sponsor directory, waitlist capture, appearance presets and admin role console. Revenue remains sponsor placements, disclosed affiliate links and sponsor-funded free events.
+- One Tailwind v4 styling system replaces the custom CSS system; `motion` and `jose` were removed.
+- Match notes are now labelled Requirements. No schema field, column or new verification was added.
+
 ## v0.1.0, initial preview, 2026-11-18 (historical, removed)
 
 The bullets below describe the old preview model. They are kept as history only. Every paid, verification and shortlist item was removed in the 2026-11-22 reset.
