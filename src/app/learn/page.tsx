@@ -3,8 +3,8 @@ import { LEARN_CHAPTERS } from '@/features/disclosure/learn';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Learn, the Final Circle field manual for Free Fire',
-  'Field guides for Indian Free Fire players and hosts: combat roles, characters, maps, skill combos and honest sources.',
+  'Learn Free Fire: guides for Indian players, Final Circle',
+  'Field notes on Free Fire roles, characters, maps and skill combos for Indian players, with labelled sources.',
   '/learn',
 );
 

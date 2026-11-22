@@ -27,6 +27,7 @@ The legal background is research, not legal advice. External legal review was no
 - Deleted obsolete Cloudinary proof-upload configuration and stale demo-account guidance.
 - Documentation now points only at files that exist in this tree; no live doc carries a lawyer-review gate or a deleted route.
 - Removed the unstored sign-up "where you are" field and corrected the privacy notice; removed dead exports, dead components and other unreachable code.
+- Rewrote public titles, descriptions and headings for search clarity, added per-page Open Graph and Twitter card metadata, and removed third-party chat-app names and unsourced counts from landing copy.
 - No schema, session or money behaviour changed. The exact disclosure string is unchanged.
 
 ## v0.1.0, initial preview, 2026-11-18 (historical, removed)

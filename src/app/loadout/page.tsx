@@ -4,8 +4,8 @@ import { LOADOUT } from '@/shared/config/match';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Free Fire loadout for Indian players, Final Circle',
-  'What a grassroots Indian Free Fire player actually buys, and why. Disclosed affiliate links, nothing here is paid placement.',
+  'Free Fire gear guide for India: Final Circle loadout',
+  'Gear Indian Free Fire players actually use, with disclosed affiliate links. Indicative prices, no paid placements.',
   '/loadout',
 );
 
@@ -22,7 +22,7 @@ const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace
 export default function Loadout() {
   return (
     <div className={SHELL}>
-      <h1 className={`mt-8 ${H1}`}>Loadout</h1>
+      <h1 className={`mt-8 ${H1}`}>Free Fire loadout</h1>
       <p className={LEAD}>Honest gear the grassroots FF player actually uses, no sponsored placements and no hype. Prices are indicative; check the live listing before you buy.</p>
 
       <div className={`mt-4 border-vermilion p-6 ${CARD}`}>

@@ -19,7 +19,7 @@ export default function SignUpPage() {
     <div className={SHELL}>
       <div className={CARD}>
         <h1 className={H1}>Get on the roster</h1>
-        <p className={`mb-4 ${SUBTEXT}`}>Post a match or join one in under a minute.</p>
+        <p className={`mb-4 ${SUBTEXT}`}>Create an account to post matches and join them.</p>
         {state?.error && <p className="mb-[10px] text-[13px] text-danger">{state.error}</p>}
         <form action={action} className="flex flex-col gap-3">
           <Field label="Email" id="email" name="email" type="email" required autoComplete="email" className={FIELD} />

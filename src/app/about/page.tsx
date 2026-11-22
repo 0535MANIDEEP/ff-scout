@@ -3,8 +3,8 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'About Final Circle, free-entry match board for India',
-  'Who built Final Circle, why the board is free entry only, and who it helps.',
+  'About Final Circle: Free Fire match board in India',
+  'Why every Final Circle match is free entry, who the board is for, and what it does not do.',
   '/about',
 );
 

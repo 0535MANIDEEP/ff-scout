@@ -3,8 +3,8 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Terms of use, Final Circle',
-  'Free entry only, no money handled by Final Circle, and the rules for hosts, players and sponsors.',
+  'Terms of use: Final Circle',
+  'Rules for hosts, players and sponsors on the free-entry Final Circle match board. 18+ only.',
   '/terms',
 );
 
@@ -18,7 +18,7 @@ const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace
 export default function Terms() {
   return (
     <div className={NARROW}>
-      <h1 className={H1}>Terms</h1>
+      <h1 className={H1}>Terms of use</h1>
       <p className={`mt-3 ${SUBTEXT}`}>
         Final Circle is a free notice board for Free Fire matches in India. 18+ only. Every listing is free entry. Final Circle does not collect, hold, transfer or pay money.
       </p>

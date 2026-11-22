@@ -88,7 +88,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
 
         <div className="grid grid-cols-2 gap-3">
           <Field label="Slots (optional)" id="slots" name="slots" type="number" min={1} placeholder="Unlimited" className={FIELD} />
-          <Field label="Contact (Discord / WhatsApp)" id="contact" name="contact" placeholder="How players reach you" maxLength={120} className={FIELD} />
+          <Field label="Contact" id="contact" name="contact" placeholder="How players reach you" maxLength={120} className={FIELD} />
         </div>
 
         <label className="flex items-center gap-2">

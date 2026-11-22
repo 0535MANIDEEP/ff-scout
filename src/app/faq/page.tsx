@@ -4,8 +4,8 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'FAQ: free entry, no money handled, Final Circle',
-  'Free entry, no money handled by Final Circle, reporting, and how the board works. Honest answers for Indian Free Fire players and hosts.',
+  'Frequently asked questions: Free Fire FAQ, Final Circle',
+  'Answers for Indian Free Fire players and hosts on free entry, reporting, sponsors, and how the Final Circle match board works.',
   '/faq',
 );
 
@@ -53,7 +53,7 @@ const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace
 export default function FAQ() {
   return (
     <div className={NARROW}>
-      <h1 className={H1}>Frequently asked</h1>
+      <h1 className={H1}>Frequently asked questions</h1>
       <p className={`mt-3 ${SUBTEXT}`}>
         The questions players and hosts ask most, answered plainly.
       </p>

@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import type { Metadata } from 'next';
 import { BRAND } from '@/shared/config/brand';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
+import { publicMetadata } from '@/shared/seo';
 
-export const metadata: Metadata = {
-  title: 'Advertise and sponsor free events, Final Circle',
-  description: 'Sponsor placements and sponsor-funded free events on a free-entry Free Fire match board. No player pays, and Final Circle handles no money.',
-  alternates: { canonical: `${BRAND.url}/advertise` },
-};
+export const metadata = publicMetadata(
+  'Advertise on Final Circle: sponsor free events',
+  'Sponsor placements and sponsor-funded free events on a free-entry Free Fire match board. No player pays, and Final Circle handles no money.',
+  '/advertise',
+);
 
 const NARROW = 'mx-auto max-w-[760px] px-6 py-16 max-[860px]:py-12';
 const EYEBROW = 'block font-mono text-xs font-semibold tracking-[0.08em] text-muted';

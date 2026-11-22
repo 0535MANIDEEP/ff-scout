@@ -3,8 +3,8 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Privacy Notice, Final Circle',
-  'What Final Circle collects, why, how it is stored, and how to reach the grievance officer.',
+  'Privacy notice: Final Circle',
+  'What Final Circle collects, how long it is kept, and how to reach the Grievance Officer under the DPDP Act.',
   '/privacy',
 );
 
@@ -18,7 +18,7 @@ const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace
 export default function Privacy() {
   return (
     <div className={NARROW}>
-      <h1 className={H1}>Privacy</h1>
+      <h1 className={H1}>Privacy notice</h1>
       <p className={`mt-3 ${SUBTEXT}`}>Last updated: 19 November 2026. India-focused. We are a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP).</p>
 
       <h2 className={`mt-6 ${H2}`}>Who we are, and who to complain to</h2>

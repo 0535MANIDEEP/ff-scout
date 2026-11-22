@@ -7,8 +7,8 @@ import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Find free matches, Final Circle',
-  'Browse free-entry Free Fire matches in India. Players never pay to join and Final Circle handles no money.',
+  'Find a match: Free Fire matches in India, Final Circle',
+  'Browse open free-entry Free Fire matches in India. Join without paying, and see who else is on the roster.',
   '/matches',
 );
 export const dynamic = 'force-dynamic';

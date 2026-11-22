@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import type { Metadata } from 'next';
 import { BRAND } from '@/shared/config/brand';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
+import { publicMetadata } from '@/shared/seo';
 
-export const metadata: Metadata = {
-  title: 'Safety and legal, Final Circle',
-  description: 'The free-entry rule, no-money rule, reporting and grievance paths, and how Final Circle earns money. Read before posting or joining.',
-  alternates: { canonical: `${BRAND.url}/safety` },
-};
+export const metadata = publicMetadata(
+  'Safety and legal: Final Circle free-entry rules',
+  'The free-entry rule, no-money rule, reporting and grievance paths, and how Final Circle earns money. Read before posting or joining.',
+  '/safety',
+);
 
 const RESEARCH = [
   { label: 'GaganLegal, Online Gaming Rules 2026', href: 'https://gaganlegal.com/articles/online-gaming-proga-rules-2026' },

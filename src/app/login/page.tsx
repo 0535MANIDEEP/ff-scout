@@ -21,14 +21,14 @@ export default function LoginPage() {
     <div className={SHELL}>
       <div className={CARD}>
         <h1 className={H1}>Welcome back</h1>
-        <p className={`mb-4 ${SUBTEXT}`}>Players and sponsors, sign in to continue.</p>
+        <p className={`mb-4 ${SUBTEXT}`}>Hosts and players, sign in to continue.</p>
         {state?.error && <p className="mb-[10px] text-[13px] text-danger">{state.error}</p>}
         <form action={action} className="flex flex-col gap-3">
           <Field label="Email" id="email" name="email" type="email" required autoComplete="email" className={FIELD} />
           <Field label="Password" id="password" name="password" type="password" required autoComplete="current-password" className={FIELD} />
           <Button type="submit" className="w-full">Sign in</Button>
         </form>
-        <p className="mt-[10px] text-xs">Forgot password? Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. Resets are manual during the pilot.</p>
+        <p className="mt-[10px] text-xs">Forgot password? Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. We handle resets there.</p>
         <p className="mt-[6px] text-xs">New here? <Link href="/sign-up" className="text-vermilion">Join as player</Link></p>
       </div>
     </div>
