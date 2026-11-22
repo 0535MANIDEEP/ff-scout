@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useActionState } from 'react';
 import { login } from './actions';
 import type { ActionState } from './actions';
-import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { Field } from '@/shared/ui/Field';
 import { Button } from '@/shared/ui/Button';
 
@@ -28,7 +28,7 @@ export default function LoginPage() {
           <Field label="Password" id="password" name="password" type="password" required autoComplete="current-password" className={FIELD} />
           <Button type="submit" className="w-full">Sign in</Button>
         </form>
-        <p className="mt-[10px] text-xs">Forgot password? Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. We handle resets there.</p>
+        <p className="mt-[10px] text-xs">Forgot password? <ContactNow />. We handle resets there.</p>
         <p className="mt-[6px] text-xs">New here? <Link href="/sign-up" className="text-vermilion">Join as player</Link></p>
       </div>
     </div>

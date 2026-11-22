@@ -4,8 +4,6 @@
 // notes. Numbers are omitted where sources conflict, roles and mechanics
 // matter more than exact ratios for a match board.
 
-import { BRAND } from '@/shared/config/brand';
-
 export interface LearnLink {
   label: string;
   href: string;
@@ -306,7 +304,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
         lines: [
           'Open the match and choose Report this match. Pick a category, add a short note, and the report goes through the app first. Categories include asking players to pay, fake or finished match, and something else.',
           'If two players who actually joined the same match report a payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report before this applies. Reports are kept with operational logs.',
-          `If you cannot use the app, email ${BRAND.email}. The full rules are on the Safety and legal page.`,
+          'If you cannot use the app, use the Contact now link in the footer. The full rules are on the Safety and legal page.',
         ],
       },
     ],

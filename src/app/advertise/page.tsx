@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
@@ -17,7 +17,6 @@ const LEAD = 'mt-3 max-w-[62ch] text-lg leading-[1.6] text-ink';
 const SUBTEXT = 'text-lg leading-[1.55] text-muted max-[600px]:text-base';
 const LIST = 'list-disc pl-[18px] text-lg leading-[1.55] text-muted max-[600px]:text-base [&>li]:leading-[1.65]';
 const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
-const BTN = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-vermilion bg-vermilion px-6 text-center text-sm font-bold leading-[1.2] text-panel no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-danger hover:bg-danger active:translate-y-px';
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
 
 export default function Advertise() {
@@ -58,12 +57,12 @@ export default function Advertise() {
       <section className="mt-7">
         <h2 className={H2}>Talk to us</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a> with what you want to fund and when. We will reply with what we can honestly deliver. The team handles this directly.
+          Use the <ContactNow /> link to tell us what you want to fund and when. We will reply with what we can honestly deliver. The team handles this directly.
         </p>
       </section>
 
       <div className="mt-7 flex flex-wrap items-center gap-[10px]">
-        <a href={`mailto:${BRAND.email}?subject=Sponsor%20enquiry`} className={BTN}>Email the team</a>
+        <ContactNow variant="button" subject="Sponsor enquiry" />
         <Link href="/matches" className={GHOST}>See the board</Link>
       </div>
     </div>

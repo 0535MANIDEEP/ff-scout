@@ -4,11 +4,14 @@
 // a roster and a match to look at.
 const { PrismaClient } = require('@prisma/client');
 const { hash } = require('bcryptjs');
+const { randomBytes } = require('node:crypto');
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const password = await hash('dev-only-password', 10);
+  const plain = process.env.SEED_PASSWORD || randomBytes(12).toString('base64url');
+  const password = await hash(plain, 12);
+  console.log(`Seed password: ${plain}`);
 
   const players = [
     ['RushKing_21', 'Heroic', 'rusher', 'RushKing', 'Hyderabad'],

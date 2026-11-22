@@ -55,7 +55,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
           <a href="/post/series" className={GHOST_SM}>Set up a weekly series</a>
         </p>
       )}
-      {e && ERRORS[e] && <p className="mt-3 text-[13px] text-risk">{ERRORS[e]}</p>}
+      {e && Object.prototype.hasOwnProperty.call(ERRORS, e) && <p className="mt-3 text-[13px] text-risk">{ERRORS[e]}</p>}
 
       <form action={createMatch} className="mt-5 grid gap-[14px]">
         <Field label="Title" id="title" name="title" placeholder="Friday BR Squad Night" required maxLength={90} className={FIELD} />

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
@@ -49,7 +49,7 @@ export default function Terms() {
         Report a match in the app first. Open the match, choose Report this match, pick a category and add a short note. If two players who joined the same match report a payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report before this happens.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. This is our report path, not a promise about how quickly a match dispute is settled. The full rules are on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
+        If you cannot use the app, use the <ContactNow /> link. This is our report path, not a promise about how quickly a match dispute is settled. The full rules are on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>Non-affiliation</h2>
