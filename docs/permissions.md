@@ -1,6 +1,6 @@
 # Roles & Permissions — Final Circle
 
-DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions.ts` first; assignment happens from `/admin/roles`.** No one writes raw SQL for access control, ever.
+DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions.ts` first; assignment is server-side only.** No one writes raw SQL for access control, ever.
 
 ## Adding a role
 1. `schema.prisma`: extend `enum UserType` (and `src/lib/auth.ts` SessionPayload union)
@@ -18,6 +18,4 @@ DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions
 ## Hard rules
 - Gates never compare raw role names (`userType === 'admin'` is a code smell; use `hasPermission(role, 'x')`)
 - Erasure (`account:erase`) is admin-only, permanently
-- Only `player`, `sponsor` and `admin` exist in `UserType`. There is no verifier or moderator role, and no human approval queue. Sponsor visibility is opt-in per player and revocable from `/settings`.
-- Self-demotion and last-admin demotion are blocked in code
-- Every role change writes an audit row with actor, from, to, reason
+- Only `player`, `sponsor` (email contact only) and `admin` (match close) exist in `UserType`. There is no verifier or moderator role, and no human approval queue.

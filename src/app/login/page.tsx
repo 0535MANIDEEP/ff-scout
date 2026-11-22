@@ -21,7 +21,7 @@ export default function LoginPage() {
           <button className="btn btn-block" type="submit">Sign in</button>
         </form>
         <p style={{ marginTop: 10, fontSize: 12 }}>Forgot password? Email <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--accent)' }}>{BRAND.email}</a>. Resets are manual during the pilot.</p>
-        <p style={{ marginTop: 6, fontSize: 12 }}>New here? <Link href="/sign-up" style={{ color: 'var(--accent)' }}>Join as player</Link> · <Link href="/sponsor/sign-up" style={{ color: 'var(--accent)' }}>Sponsor signup</Link></p>
+        <p style={{ marginTop: 6, fontSize: 12 }}>New here? <Link href="/sign-up" style={{ color: 'var(--accent)' }}>Join as player</Link></p>
       </div>
     </div>
   );

@@ -30,8 +30,7 @@ export default function About() {
         <li><strong>Hosts:</strong> post a match and see who joined, with UID and rank</li>
         <li><strong>College fest leads:</strong> post the event once and let players join themselves</li>
         <li><strong>Gaming café owners:</strong> fill weekly scrims</li>
-        <li><strong>Sponsor activation leads:</strong> reach players who opted in</li>
-        <li><strong>Players:</strong> find matches and get noticed by sponsors you allow</li>
+        <li><strong>Players:</strong> find matches and join free</li>
       </ul>
 
       <h2 style={{ marginTop: 32 }}>What Final Circle is not</h2>

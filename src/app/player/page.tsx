@@ -5,7 +5,7 @@ import { prisma } from '@/lib/db';
 import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
 import SignOut from '@/components/SignOut';
 import RoleAvatar from '@/components/RoleAvatar';
-import { saveProfile, setSponsorVisibility, leaveMatch } from './actions';
+import { saveProfile, leaveMatch } from './actions';
 import { privateMetadata } from '@/lib/seo';
 
 export const metadata = privateMetadata('Your dashboard, Final Circle');
@@ -17,7 +17,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
   const sp = await searchParams;
   const user = await prisma.user.findUnique({
     where: { id: s.id },
-    select: { id: true, displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, teamName: true, visibleToSponsors: true },
+    select: { id: true, displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, teamName: true },
   });
   if (!user) redirect('/login');
 
@@ -49,7 +49,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
       <div className="dashboard" style={{ marginTop: 24 }}>
         <section className="card">
           <h3>Your profile</h3>
-          <p className="subtext" style={{ marginTop: 6 }}>This is what organizers and (if you opt in) sponsors see. Players reach you in-game by UID.</p>
+          <p className="subtext" style={{ marginTop: 6 }}>This is what organizers see. Players reach you in-game by UID.</p>
           <form action={saveProfile} style={{ marginTop: 14, display: 'grid', gap: 10 }}>
             <label className="label">Display name<input className="input" name="displayName" defaultValue={user.displayName} required /></label>
             <label className="label">Free Fire UID<input className="input" name="gameUid" defaultValue={user.gameUid ?? ''} inputMode="numeric" pattern="[0-9]{5,15}" required /></label>
@@ -74,18 +74,6 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
             <label className="label">Team / Guild name (used as default on esports joins)<input className="input" name="teamName" defaultValue={user.teamName ?? ''} maxLength={30} placeholder="Optional, 2–30 characters" /></label>
             <label className="label">City<input className="input" name="city" defaultValue={user.city} required /></label>
             <button className="btn" type="submit">Save profile</button>
-          </form>
-        </section>
-
-        <section className="card">
-          <h3>Sponsor visibility</h3>
-          <p className="subtext" style={{ marginTop: 6 }}>Opt in and sponsors can see your profile (displayName, UID, BR/CS ranks, role, city) and export you in a candidate CSV. Never your email.</p>
-          <form action={setSponsorVisibility} style={{ marginTop: 14 }}>
-            <label style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-              <input type="checkbox" name="visible" defaultChecked={user.visibleToSponsors} />
-              <span>Let sponsors see my profile</span>
-            </label>
-            <button className="btn-ghost" type="submit" style={{ marginTop: 10 }}>Save</button>
           </form>
         </section>
       </div>

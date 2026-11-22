@@ -8,9 +8,9 @@ Legal background is research, not legal advice. A qualified lawyer must review t
 
 | Role | `userType` | Can do | Cannot do |
 |---|---|---|---|
-| Player | `player` | Post matches, join matches, host weekly series, report a match, manage own settings and sponsor visibility | Approve players, review reports, change other roles |
-| Sponsor | `sponsor` | See opted-in player fields and use the CSV export | See email addresses, change matches or reports |
-| Admin | `admin` | Operational access to the database and deployment settings | Verify players, pre-approve posts, skip a report consequence |
+| Player | `player` | Post matches, join matches, host weekly series, report a match, manage own settings | Approve players, review reports, change other roles |
+| Sponsor | `sponsor` | Email contact for placements and sponsor-funded free events | See player profiles, change matches or reports |
+| Admin | `admin` | Close a match from the matches console | Verify players, pre-approve posts, skip a report consequence |
 
 There is no `moderator` or `verifier` tier and no `organizer` role. Roles are set server side. There is no UI for self-promotion.
 

@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
 import { BRAND } from '@/lib/brand';
 import { GLOBAL_DISCLOSURE } from '@/lib/free-entry';
-import { appearanceInitScript } from '@/lib/appearance';
-import AppearanceControl from '@/components/AppearanceControl';
+import SiteHeader from '@/components/SiteHeader';
 import BackToTop from '@/components/BackToTop';
 
 // Self-hosted at build time via next/font, no render-blocking external CSS,
@@ -13,7 +12,6 @@ import BackToTop from '@/components/BackToTop';
 const inter = Inter({ subsets: ['latin'], variable: '--font-grotesk', display: 'swap' });
 const anton = Anton({ subsets: ['latin'], variable: '--font-anton', weight: '400', display: 'swap' });
 const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', display: 'swap' });
-
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
@@ -46,34 +44,10 @@ export const viewport: Viewport = {
   colorScheme: 'dark light',
 };
 
-function Header() {
-  return (
-    <header className="topbar">
-      <div className="shell topbar-inner">
-        <Link href="/" className="logo" aria-label={BRAND.name}>
-          <span className="logo-mark" aria-hidden="true">{BRAND.mark}</span>
-          <span className="logo-name">{BRAND.name}</span>
-        </Link>
-        <nav className="nav" aria-label="Main navigation">
-          <Link href="/learn">Learn</Link>
-          <Link href="/matches">Matches</Link>
-          <Link href="/about">About</Link>
-          <Link href="/faq">FAQ</Link>
-          <AppearanceControl />
-          <Link href="/login" className="nav-login">Log in</Link>
-          <Link href="/sign-up" className="nav-cta">Join free</Link>
-        </nav>
-      </div>
-    </header>
-  );
-}
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning data-theme="light" data-preset="paper" data-density="regular" data-motion="system" className={`${inter.variable} ${anton.variable} ${jbmono.variable}`}>
+    <html lang="en" suppressHydrationWarning data-theme="light" className={`${inter.variable} ${anton.variable} ${jbmono.variable}`}>
       <body>
-        <script dangerouslySetInnerHTML={{ __html: appearanceInitScript() }} />
-        <a className="skip-link" href="#main-content">Skip to content</a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
@@ -87,28 +61,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             description: BRAND.description
           }) }}
         />
-        <Header />
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <SiteHeader />
         <main id="main-content" tabIndex={-1}>{children}</main>
-        <footer className="shell" role="contentinfo">
-          <div className="footnote">
-            <p style={{ margin: 0 }}>{GLOBAL_DISCLOSURE} <Link href="/safety" style={{ color: 'var(--accent)' }}>Read the safety and legal notice</Link>.</p>
-            <p style={{ margin: '10px 0 0' }}>{BRAND.name}. {BRAND.tagline}. Built by {BRAND.founder}. Independent, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
-            <nav aria-label="Legal" style={{ display: 'flex', gap: 16, justifyContent: 'center', marginTop: 12, fontSize: 12, flexWrap: 'wrap' }}>
-              <Link href="/learn">Learn</Link>
-              <Link href="/about">About</Link>
-              <Link href="/faq">FAQ</Link>
-              <Link href="/safety">Safety and legal</Link>
-              <Link href="/advertise">Advertise</Link>
-              <Link href="/terms">Terms</Link>
-              <Link href="/privacy">Privacy</Link>
-            </nav>
-            {process.env.SPONSOR_LINE && (
-              <p style={{ marginTop: 10, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', color: 'var(--muted)' }}>Presented by {process.env.SPONSOR_LINE}</p>
-            )}
-            <p style={{ marginTop: 10, fontSize: 12 }}>
-              <a href={`mailto:${BRAND.email}`} style={{ color: 'var(--muted)' }}>{BRAND.email}</a>
-            </p>
-          </div>
+        <footer className="shell footnote" role="contentinfo">
+          <p className="footnote-disclosure">{GLOBAL_DISCLOSURE} <Link href="/safety">Read the safety and legal notice</Link>.</p>
+          <nav className="footnote-nav" aria-label="Legal">
+            <Link href="/learn">Learn</Link>
+            <Link href="/about">About</Link>
+            <Link href="/faq">FAQ</Link>
+            <Link href="/safety">Safety and legal</Link>
+            <Link href="/advertise">Advertise</Link>
+            <Link href="/terms">Terms</Link>
+            <Link href="/privacy">Privacy</Link>
+          </nav>
+          <p className="footnote-meta">{BRAND.name}. {BRAND.tagline}. Built by {BRAND.founder}. Independent, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
+          {process.env.SPONSOR_LINE && <p className="footnote-sponsor">Presented by {process.env.SPONSOR_LINE}</p>}
+          <p className="footnote-contact"><a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p>
         </footer>
         <BackToTop />
       </body>

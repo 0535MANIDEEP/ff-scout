@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
@@ -31,7 +30,6 @@ export default async function AdminMatches({ searchParams }: { searchParams: Pro
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 16, marginTop: 32 }}>
         <h1>Matches console</h1>
         <div style={{ display: 'flex', gap: 8 }}>
-          <Link href="/admin/roles" className="btn-ghost" style={{ textDecoration: 'none' }}>Roles</Link>
           <SignOut />
         </div>
       </div>

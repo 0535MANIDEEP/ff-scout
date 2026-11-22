@@ -45,15 +45,6 @@ export async function saveProfile(formData: FormData) {
   redirect('/player?done=1');
 }
 
-export async function setSponsorVisibility(formData: FormData) {
-  const s = await getCurrentUser();
-  if (!s) redirect('/login');
-  const visible = formData.get('visible') === 'on';
-  await prisma.user.update({ where: { id: s.id }, data: { visibleToSponsors: visible } });
-  revalidatePath('/player');
-  redirect('/player?done=1');
-}
-
 export async function leaveMatch(formData: FormData) {
   const s = await getCurrentUser();
   if (!s) redirect('/login');

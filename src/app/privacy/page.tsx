@@ -24,8 +24,7 @@ export default function Privacy() {
       <h2 style={{ marginTop: 24 }}>What we collect, from whom, why</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
         <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match hosts to players.</li>
-        <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. Sponsors see a player&apos;s profile only if the player opted in, never an email address. We never share passwords with anyone.</li>
-        <li><strong>Waitlist (visitors):</strong> email, segment (host/player/sponsor), city. Used to notify you at launch. Deleted at launch + 90 days.</li>
+        <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. We never share passwords with anyone.</li>
         <li><strong>Match reports:</strong> category, reason, reporter and timestamp. Used to apply automatic match closures and posting pauses. No human reviews a report before the automatic consequence applies.</li>
         <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
       </ul>
@@ -64,13 +63,12 @@ export default function Privacy() {
         <li>Account data, until you erase it (and always on request).</li>
         <li>Audit logs, 90 days.</li>
         <li>Report records (category, reason, reporter and timestamp), 90 days, with operational logs.</li>
-        <li>Waitlist, until launch + 90 days, then deleted.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>
       </ul>
 
       <h2 style={{ marginTop: 24 }}>What we never do</h2>
       <p className="subtext" style={{ marginTop: 10 }}>
-        We do not sell your email, phone, or data to anyone, ever. Sponsors see only players who opted in, never email addresses.
+        We do not sell your email, phone, or data to anyone, ever.
       </p>
 
       <p style={{ marginTop: 32 }}><Link href="/" className="btn-ghost" style={{ textDecoration: 'none' }}>← Back home</Link></p>

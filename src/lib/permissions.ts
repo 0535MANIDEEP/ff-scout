@@ -8,13 +8,12 @@ export type Role = 'player' | 'sponsor' | 'admin';
 export type Permission =
   | 'match:join' | 'match:leave'
   | 'match:create' | 'match:manage' | 'match:roster'
-  | 'talent:browse' | 'talent:export'
   | 'user:manage' | 'audit:read'
   | 'account:erase' | 'self:delete';
 
 const CAPS: Record<Role, Permission[]> = {
   player:  ['match:create', 'match:manage', 'match:roster', 'match:join', 'match:leave', 'self:delete'],
-  sponsor: ['talent:browse', 'talent:export', 'self:delete'],
+  sponsor: ['self:delete'],
   admin:   ['user:manage', 'audit:read', 'account:erase', 'match:manage'],
 };
 
@@ -36,7 +35,7 @@ export const ROLE_LABEL: Record<Role, string> = {
 };
 
 export const ROLE_DESCRIPTION: Record<Role, string> = {
-  player: 'Post matches, join matches, own profile and sponsor opt-in.',
-  sponsor: 'Browse opted-in players and export candidate CSVs.',
-  admin: 'Roles, erasure, audit log, and closing any match.',
+  player: 'Post matches, join matches, own profile.',
+  sponsor: 'Email contact for placements and sponsor-funded free events.',
+  admin: 'Erasure, audit log, and closing any match.',
 };

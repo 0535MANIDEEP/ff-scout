@@ -24,7 +24,6 @@ export default function Advertise() {
         <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
           <li><strong>Sponsor placement.</strong> A named line in the site footer, shown as sponsor, never disguised as a match result or a player endorsement.</li>
           <li><strong>Sponsor-funded free events.</strong> You fund an event and deliver any reward directly. Players join free and Final Circle never holds the money.</li>
-          <li><strong>Opt-in discovery.</strong> Sponsors see only players who chose to be visible: display name, UID, BR and CS ranks, role and city. No email addresses, no contact lists.</li>
         </ul>
       </section>
 
@@ -41,7 +40,7 @@ export default function Advertise() {
       <section style={{ marginTop: 28 }}>
         <h2>Data and disclosure</h2>
         <p className="subtext" style={{ marginTop: 10 }}>
-          Sponsor placement is disclosed on the page where it appears. Affiliate links on the loadout page are also disclosed. Player data is opt-in and never includes email addresses. Reporting and removal rules are the same for everyone, including sponsors. Read the full notice on <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.
+          Sponsor placement is disclosed on the page where it appears. Affiliate links on the loadout page are also disclosed. We never sell player data or email addresses. Reporting and removal rules are the same for everyone, including sponsors. Read the full notice on <Link href="/safety" style={{ color: 'var(--accent)' }}>Safety and legal</Link>.
         </p>
       </section>
 

@@ -33,7 +33,6 @@ export default function Terms() {
 
       <h2 style={{ marginTop: 24 }}>Sponsors</h2>
       <ul className="subtext" style={{ marginTop: 10, listStyle: 'disc', paddingLeft: 18 }}>
-        <li>Sponsor discovery is opt-in. Sponsors see display name, UID, BR and CS ranks, role and city only, never email addresses.</li>
         <li>Sponsors may place a message on the board or fund a free event. Players still pay nothing to join.</li>
         <li>Final Circle handles no sponsor money and advertises no cash prize on any listing. Read <Link href="/advertise" style={{ color: 'var(--accent)' }}>Advertise</Link> for placements.</li>
       </ul>

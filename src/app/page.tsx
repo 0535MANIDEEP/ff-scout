@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { Hero } from './components/Hero';
 import { Wire } from '@/components/Wire';
-import { Waitlist } from '@/components/Waitlist';
 import { Reveal } from '@/components/Reveal';
 import { buildHeroContext } from '@/lib/hero-data';
 import { GLOBAL_DISCLOSURE } from '@/lib/free-entry';
@@ -51,7 +50,7 @@ export default async function HomePage() {
         <div className="shell">
           <Reveal>
             <h2 style={{ maxWidth: '42ch' }}>One board, both sides of the lobby</h2>
-            <p className="lead" style={{ marginTop: 12 }}>Players post the games they are hosting and join the ones they want. Sponsors can discover the players who chose to be found. We run the board, not the gate.</p>
+            <p className="lead" style={{ marginTop: 12 }}>Players post the games they are hosting and join the ones they want. We run the board, not the gate.</p>
           </Reveal>
           <div className="grid-3" style={{ marginTop: 36 }}>
             <Reveal delay={0}><article className="card">
@@ -63,8 +62,8 @@ export default async function HomePage() {
               <p>Casual, competitive, ranked or scrim. BR, CS or a mixed BR/CS night. Every listing is free entry. No cash prize is advertised here.</p>
             </article></Reveal>
             <Reveal delay={240}><article className="card">
-              <h3>3. Sponsors scout the opted-in</h3>
-              <p>Players turn on sponsor visibility themselves. Sponsors see displayName, UID, BR/CS ranks, role and city, never an email address.</p>
+              <h3>3. Sponsors fund the board</h3>
+              <p>Brands can fund a placement or a free event by email. Players never pay and Final Circle never handles money.</p>
             </article></Reveal>
           </div>
         </div>
@@ -79,7 +78,6 @@ export default async function HomePage() {
             <tbody>
               <tr><td>Café weekly scrim</td><td>WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td>A posted match, players RSVP, a roster with UIDs before match day</td></tr>
               <tr><td>College fest FF event</td><td>Random entrants, hours lost screening ranks</td><td>A listing players join themselves, BR or CS, free entry stated up front</td></tr>
-              <tr><td>Sponsor activation</td><td>Rank claims taken on faith</td><td>Players who opted in, with UID and self-declared rank on their profile</td></tr>
               <tr><td>Guild trial</td><td>Hundreds of applicants in a group chat</td><td>A match post with slots, joiners listed for the poster only</td></tr>
             </tbody>
           </table></div></Reveal>
@@ -105,9 +103,6 @@ export default async function HomePage() {
         <div className="shell">
           <Reveal>
             <p className="subtext" style={{ maxWidth: '52ch' }}><strong>Independent site, not official.</strong> Final Circle is a community match board for Indian Free Fire players. Not affiliated with, endorsed by, or connected to Garena, Free Fire, any government body, or any esports organization. Free Fire and Garena are trademarks of Garena International II Private Limited.</p>
-            <h2 style={{ marginTop: 28 }}>Not in your city yet?</h2>
-            <p className="lead" style={{ marginTop: 12 }}>Tell us where you play. The waitlist tells us which cities want matches.</p>
-            <Waitlist />
           </Reveal>
         </div>
       </section>
