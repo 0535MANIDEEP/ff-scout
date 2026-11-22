@@ -83,3 +83,14 @@ test('free-entry terms never carry a fee or prize', () => {
   assert.match(source, /PAYMENT_REPORT_THRESHOLD = 2/);
   assert.match(source, /PAYMENT_REPORT_PAUSE_DAYS = 7/);
 });
+
+test('Session model stores only a token hash and supports revocation', () => {
+  const session = schema.slice(schema.indexOf('model Session {'), schema.indexOf('}', schema.indexOf('model Session {')) + 1);
+  for (const f of ['tokenHash', 'userId', 'expiresAt', 'revokedAt', 'createdAt']) {
+    assert.ok(session.includes(f), `Session is missing ${f}`);
+  }
+  assert.match(session, /tokenHash\s+String\s+@unique/);
+  for (const gone of ['token String', 'rawToken', 'secret']) {
+    assert.ok(!session.includes(gone), `Session must not store ${gone}`);
+  }
+});
