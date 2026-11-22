@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 
 const SHELL = 'mx-auto w-full max-w-[1120px] px-6 max-[600px]:px-4';
 const H1 = 'text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.03em] text-ink';
-const H3 = 'mb-2 text-[clamp(1.25rem,1.6vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.01em] text-ink';
+const H3 = 'mb-2 text-lg font-bold leading-[1.2] tracking-[-0.01em] text-ink';
 const SUBTEXT = 'text-lg leading-[1.55] text-muted max-[600px]:text-base';
 const CARD_COPY = 'text-sm leading-[1.6] text-muted';
 const SMALL = 'text-sm text-muted';

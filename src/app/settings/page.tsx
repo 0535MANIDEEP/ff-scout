@@ -11,8 +11,8 @@ export const metadata = privateMetadata('Settings, Final Circle');
 
 const NARROW = 'mx-auto w-full max-w-[760px] px-6 py-16 max-[860px]:py-12';
 const H1 = 'text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.03em] text-ink';
-const H3 = 'mb-2 text-[clamp(1.25rem,1.6vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.01em] text-ink';
-const H3_DANGER = 'mb-2 text-[clamp(1.25rem,1.6vw,1.5rem)] font-bold leading-[1.2] tracking-[-0.01em] text-danger';
+const H3 = 'mb-2 text-lg font-bold leading-[1.2] tracking-[-0.01em] text-ink';
+const H3_DANGER = 'mb-2 text-lg font-bold leading-[1.2] tracking-[-0.01em] text-danger';
 const CARD_COPY = 'text-sm leading-[1.6] text-muted';
 const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
 const DANGER_CARD = 'rounded-card border border-danger bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
