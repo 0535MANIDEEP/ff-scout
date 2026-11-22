@@ -22,7 +22,7 @@ export function matchDTO(m: Match): MatchCardDTO {
   };
 }
 
-export async function createMatch(input: unknown): Promise<{ id: string }> {
+export async function createMatch(input: unknown): Promise<{ id: string; title: string }> {
   const user = await requireUser();
   const host = await findHost(user.id);
   if (host?.postingPausedUntil && host.postingPausedUntil.getTime() > Date.now()) {
@@ -30,7 +30,9 @@ export async function createMatch(input: unknown): Promise<{ id: string }> {
   }
   const rl = await checkRateLimit(`postmatch:${user.id}`, 5, 15 * 60 * 1000);
   if (!rl.ok) throw new Error('RATE_LIMIT');
-  const d = matchSchemas.create.parse(input);
+  const parsed = matchSchemas.create.safeParse(input);
+  if (!parsed.success) throw new Error('INVALID');
+  const d = parsed.data;
   if (d.date.getTime() < Date.now() - 60 * 60 * 1000) throw new Error('BAD_DATE');
   const match = await prisma.match.create({
     data: {
@@ -45,10 +47,10 @@ export async function createMatch(input: unknown): Promise<{ id: string }> {
       notes: d.notes ?? null,
     },
   });
-  return { id: match.id };
+  return { id: match.id, title: d.title };
 }
 
-export async function joinMatch(matchId: string): Promise<{ ok: true } | { ok: false; reason: string }> {
+export async function joinMatch(matchId: string, teamName: string | null): Promise<{ ok: true } | { ok: false; reason: string }> {
   const user = await requireUser();
   return prisma.$transaction(async tx => {
     const match = await tx.match.findUnique({ where: { id: matchId } });
@@ -64,8 +66,12 @@ export async function joinMatch(matchId: string): Promise<{ ok: true } | { ok: f
         data: { slots: { decrement: 1 } },
       });
       if (updated.count === 0) return { ok: false, reason: 'FULL' };
+    } else {
+      const stillOpen = await tx.match.count({ where: { id: matchId, status: 'open' } });
+      if (stillOpen === 0) return { ok: false, reason: 'CLOSED' };
     }
-    await tx.matchEntry.create({ data: { matchId, playerId: user.id } });
+    const teamStored = match.mode === 'esports' || match.mode === 'competitive' ? teamName || null : null;
+    await tx.matchEntry.create({ data: { matchId, playerId: user.id, teamName: teamStored } });
     return { ok: true };
   }, { isolationLevel: 'Serializable' });
 }

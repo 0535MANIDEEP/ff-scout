@@ -27,7 +27,7 @@ export async function joinMatch(formData: FormData) {
 
   let result;
   try {
-    result = await joinMatchInService(matchId);
+    result = await joinMatchInService(matchId, teamName);
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') redirect(`/matches/${matchId}?e=already`);
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2034') redirect(`/matches/${matchId}?e=retry`);
