@@ -66,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="fixed left-3 top-[-100px] z-[200] inline-flex min-h-11 items-center rounded-lg bg-ink px-4 font-bold text-paper focus-visible:top-3 focus-visible:text-paper" href="#main-content">Skip to content</a>
         <SiteHeader />
         <main id="main-content" tabIndex={-1} className="focus:outline-none">{children}</main>
-        <footer className="mx-auto w-full max-w-[1120px] border-t border-[#CFC8B9] px-6 pb-16 pt-12 text-left text-sm text-muted max-[600px]:px-4" role="contentinfo">
+        <footer className="mx-auto mt-16 w-full max-w-[1120px] border-t border-[#CFC8B9] px-6 pb-16 pt-12 text-left text-sm text-muted max-[600px]:px-4" role="contentinfo">
           <p className="max-w-[70ch] font-bold text-ink">{GLOBAL_DISCLOSURE} <Link href="/safety" className={FOOTER_LINK}>Read the safety and legal notice</Link>.</p>
           <nav className="mt-4 flex flex-wrap gap-x-6 gap-y-2" aria-label="Legal">
             <Link href="/learn" className={FOOTER_LINK}>Learn</Link>

@@ -43,7 +43,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <p className="py-8 leading-[1.6] text-muted">Nothing posted yet. You're looking at an honest board. The first match appears when someone posts it.</p>
           ) : (
             matches.slice(0, 5).map((m) => (
-              <Link key={m.id} href={`/matches/${m.id}`} className="group grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 border-b border-[#CFC8B9] py-3 no-underline last:border-b-0">
+              <Link key={m.id} href={`/matches/${m.id}`} className="group grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 border-b border-[#CFC8B9] py-3 no-underline last-of-type:border-b-0">
                 <span className="min-w-0 font-bold [overflow-wrap:anywhere] group-hover:text-danger group-hover:underline group-hover:underline-offset-[3px]">{m.title}</span>
                 <span className="col-start-1 text-sm text-muted [overflow-wrap:anywhere]">{m.gameType} · {m.mode} · {m.city}</span>
                 <span className="col-start-2 row-span-2 row-start-1 whitespace-nowrap font-mono text-xs font-bold text-danger">{new Date(m.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</span>

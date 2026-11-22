@@ -15,7 +15,7 @@ const SHELL = 'mx-auto w-full max-w-[880px] px-6 pb-14 max-[600px]:px-4';
 const H1 = 'text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.03em] text-ink';
 const H2 = 'text-[22px] font-bold leading-[1.2] tracking-[-0.02em] text-ink';
 const LEAD = 'mt-[10px] max-w-[62ch] text-lg leading-[1.6] text-ink';
-const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
+const CARD = 'rounded-card border border-[#CFC8B9] bg-panel shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
 const SUBTEXT = 'text-lg leading-[1.55] text-muted max-[600px]:text-base';
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
 
@@ -25,7 +25,7 @@ export default function Loadout() {
       <h1 className={`mt-8 ${H1}`}>Loadout</h1>
       <p className={LEAD}>Honest gear the grassroots FF player actually uses, no sponsored placements and no hype. Prices are indicative; check the live listing before you buy.</p>
 
-      <div className={`mt-4 border-vermilion ${CARD}`}>
+      <div className={`mt-4 border-vermilion p-6 ${CARD}`}>
         <p className="text-sm leading-[1.65]"><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They help pay for hosting. Nothing on this page is paid placement, and commissions do not change the ranking.</p>
         <p className="mt-2 text-sm leading-[1.65]">Final Circle never earns from entry fees or prizes.</p>
       </div>

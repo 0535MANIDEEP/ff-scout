@@ -81,12 +81,12 @@ export default async function HomePage() {
         <div className={SHELL}>
           <Reveal><h2 className={H2}>What this replaces</h2>
             <p className={LEAD}>No more 200-member WhatsApp groups, no DMs from people who never show, no chasing UIDs the day of the event.</p></Reveal>
-          <Reveal delay={80}><div className="overflow-x-auto rounded-card border border-[#CFC8B9] [-webkit-overflow-scrolling:touch]"><table className="mt-6 w-full border-collapse text-sm">
+          <Reveal delay={80}><div className="overflow-x-auto rounded-card border border-[#CFC8B9] [-webkit-overflow-scrolling:touch]"><table className="mt-6 w-full border-collapse text-sm [&>tbody>tr:last-child>td]:border-b-0">
             <thead><tr><th className="border-b border-[#CFC8B9] bg-[#E4DFD1] px-4 py-3 text-left align-top font-mono text-xs tracking-[0.06em] text-ink">Format</th><th className="border-b border-[#CFC8B9] bg-[#E4DFD1] px-4 py-3 text-left align-top font-mono text-xs tracking-[0.06em] text-ink">Before Final Circle</th><th className="border-b border-[#CFC8B9] bg-[#E4DFD1] px-4 py-3 text-left align-top font-mono text-xs tracking-[0.06em] text-ink">With Final Circle</th></tr></thead>
             <tbody>
-              <tr><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Café weekly scrim</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A posted match, players RSVP, a roster with UIDs before match day</td></tr>
-              <tr><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">College fest FF event</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Random entrants, hours lost screening ranks</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A listing players join themselves, BR or CS, free entry stated up front</td></tr>
-              <tr><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Guild trial</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Hundreds of applicants in a group chat</td><td className="last:border-b-0 border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A match post with slots, joiners listed for the poster only</td></tr>
+              <tr><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Café weekly scrim</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">WhatsApp flyers, 30+ no-shows, wrong roles on the day</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A posted match, players RSVP, a roster with UIDs before match day</td></tr>
+              <tr><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">College fest FF event</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Random entrants, hours lost screening ranks</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A listing players join themselves, BR or CS, free entry stated up front</td></tr>
+              <tr><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Guild trial</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">Hundreds of applicants in a group chat</td><td className="border-b border-[#CFC8B9] px-4 py-3 text-left align-top">A match post with slots, joiners listed for the poster only</td></tr>
             </tbody>
           </table></div></Reveal>
         </div>
@@ -110,7 +110,7 @@ export default async function HomePage() {
       <section className={SECTION}>
         <div className={SHELL}>
           <Reveal>
-            <p className="mt-3 max-w-[52ch] text-lg leading-[1.55] text-muted max-[600px]:text-base"><strong>Independent site, not official.</strong> Final Circle is a community match board for Indian Free Fire players. Not affiliated with, endorsed by, or connected to Garena, Free Fire, any government body, or any esports organization. Free Fire and Garena are trademarks of Garena International II Private Limited.</p>
+            <p className="max-w-[52ch] text-lg leading-[1.55] text-muted max-[600px]:text-base"><strong>Independent site, not official.</strong> Final Circle is a community match board for Indian Free Fire players. Not affiliated with, endorsed by, or connected to Garena, Free Fire, any government body, or any esports organization. Free Fire and Garena are trademarks of Garena International II Private Limited.</p>
           </Reveal>
         </div>
       </section>
