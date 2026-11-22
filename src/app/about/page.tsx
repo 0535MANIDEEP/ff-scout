@@ -19,30 +19,30 @@ export default function About() {
   return (
     <div className={NARROW}>
       <h1 className={H1}>About Final Circle</h1>
-      <p className={`mt-3 ${SUBTEXT}`}>Independent builder · {BRAND.city}, {BRAND.country} · Free Fire grassroots, 2026</p>
+      <p className={`mt-3 ${SUBTEXT}`}>Independent site · {BRAND.city}, {BRAND.country} · 2026</p>
 
       <h2 className={`mt-8 ${H2}`}>Why Final Circle exists</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle started from one observation: Indian Free Fire hosts recruit from group chats where almost everything is spam, outdated rank, or fantasy. Real players get buried in that same pile, and hosts waste time reading through it. One independent builder put up a board to sort that out.
+        Hosts in India recruit players in group chats. Useful messages get buried under spam and old rank claims. Final Circle puts one match in one post, so a host can see who joined and a player can see what is on.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Every listing here is free entry. That is a rule, not a pilot setting. Removing entry fees takes away the ditch-and-run scam where a host collects money and never shows up. It also keeps the board away from the money-game line in India&apos;s PROGA 2025 and the 2026 Rules. This is background, not legal advice or a compliance promise.
+        Every listing is free entry. That rule removes the case where a host collects money and never turns up. It also keeps the board away from the money-game line in India&apos;s PROGA 2025 and the 2026 Rules. That is background, not legal advice.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is one board where hosts post matches and players join. There is no approval queue and no checkout. Final Circle does not collect, hold or pay money, and does not advertise cash prizes.
+        There is no approval queue and no checkout. Final Circle does not collect, hold or pay money, and does not advertise cash prizes.
       </p>
 
       <h2 className={`mt-8 ${H2}`}>Who this is for</h2>
       <ul className={`mt-[10px] ${LIST}`}>
         <li><strong>Hosts:</strong> post a match and see who joined, with UID and rank</li>
-        <li><strong>College fest leads:</strong> post the event once and let players join themselves</li>
+        <li><strong>College fest leads:</strong> post the event once and let players join</li>
         <li><strong>Gaming café owners:</strong> fill weekly scrims</li>
-        <li><strong>Players:</strong> find matches and join free</li>
+        <li><strong>Players:</strong> find a free match and join</li>
       </ul>
 
       <h2 className={`mt-8 ${H2}`}>What Final Circle is not</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is not a bracket builder, a stats site, a streaming platform, a verification service or a money-game platform. It is one match board: hosts post, players join, ranks are self-declared. Everything else stops.
+        Final Circle is a match board. It does not build brackets, track stats, stream matches or verify players. Ranks are self-declared. Everything else is out of scope.
       </p>
 
       <p className="mt-8">

@@ -20,7 +20,7 @@ export default function Terms() {
     <div className={NARROW}>
       <h1 className={H1}>Terms of use</h1>
       <p className={`mt-3 ${SUBTEXT}`}>
-        Final Circle is a free notice board for Free Fire matches in India. 18+ only. Every listing is free entry. Final Circle does not collect, hold, transfer or pay money.
+        Final Circle is a free notice board for Free Fire matches in India. 18+. Every listing is free entry. Final Circle collects, holds and pays no money.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>Hosts</h2>
@@ -46,10 +46,10 @@ export default function Terms() {
 
       <h2 className={`mt-6 ${H2}`}>Enforcement</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Report a match in the app first. Open the match, choose Report this match, pick a category and add a short note. If two players who joined the same match report a payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report before this happens.
+        Report a match in the app first. Open the match, choose Report this match, pick a category and add a short note. Two players who joined the same match reporting a payment request close the match automatically and pause the host for seven days. No one reviews the report first.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        If you cannot use the app, use the <ContactNow /> link. This is our report path, not a promise about how quickly a match dispute is settled. The full rules are on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
+        If you cannot use the app, use the <ContactNow /> link. This is our report path. We make no promise about how quickly a match dispute is settled. The full rules are on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>Non-affiliation</h2>

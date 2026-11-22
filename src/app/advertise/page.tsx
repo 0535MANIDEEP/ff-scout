@@ -16,7 +16,6 @@ const H2 = 'text-[clamp(1.25rem,1.6vw,1.5rem)] font-bold leading-[1.2] tracking-
 const LEAD = 'mt-3 max-w-[62ch] text-lg leading-[1.6] text-ink';
 const SUBTEXT = 'text-lg leading-[1.55] text-muted max-[600px]:text-base';
 const LIST = 'list-disc pl-[18px] text-lg leading-[1.55] text-muted max-[600px]:text-base [&>li]:leading-[1.65]';
-const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
 
 export default function Advertise() {
@@ -29,11 +28,11 @@ export default function Advertise() {
         We work with brands that want to reach grassroots Free Fire players in India. We do not work with real-money gaming, betting or anything that asks a player to pay to take part.
       </p>
 
-      <section className={`mt-6 ${CARD}`}>
-        <h2 className={H2}>What we can offer</h2>
+      <section className="mt-6">
+        <h2 className={H2}>What we offer</h2>
         <ul className={`mt-[10px] ${LIST}`}>
-          <li><strong>Sponsor placement.</strong> A named line in the site footer, shown as sponsor, never disguised as a match result or a player endorsement.</li>
-          <li><strong>Sponsor-funded free events.</strong> You fund an event and deliver any reward directly. Players join free and Final Circle never holds the money.</li>
+          <li><strong>Sponsor placement:</strong> a named line in the site footer, labelled as a sponsor. It is not shown as a match result or a player endorsement.</li>
+          <li><strong>Sponsor-funded free events:</strong> you fund an event and deliver any reward directly. Players join free and Final Circle holds no money.</li>
         </ul>
       </section>
 
@@ -50,14 +49,14 @@ export default function Advertise() {
       <section className="mt-7">
         <h2 className={H2}>Data and disclosure</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Sponsor placement is disclosed on the page where it appears. Affiliate links on the loadout page are also disclosed. We never sell player data or email addresses. Reporting and removal rules are the same for everyone, including sponsors. Read the full notice on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
+          Sponsor placement is labelled where it appears. Affiliate links on the loadout page are also labelled. We do not sell player data or email addresses. Reporting and removal rules apply to sponsors too. Read the notice on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.
         </p>
       </section>
 
       <section className="mt-7">
         <h2 className={H2}>Talk to us</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Use the <ContactNow /> link to tell us what you want to fund and when. We will reply with what we can honestly deliver. The team handles this directly.
+          Use the <ContactNow /> link to tell us what you want to fund and when. We reply with what we can deliver.
         </p>
       </section>
 

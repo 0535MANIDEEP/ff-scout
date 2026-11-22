@@ -22,7 +22,6 @@ const H2 = 'text-[clamp(1.25rem,1.6vw,1.5rem)] font-bold leading-[1.2] tracking-
 const LEAD = 'mt-3 max-w-[62ch] text-lg leading-[1.6] text-ink';
 const SUBTEXT = 'text-lg leading-[1.55] text-muted max-[600px]:text-base';
 const LIST = 'list-disc pl-[18px] text-lg leading-[1.55] text-muted max-[600px]:text-base [&>li]:leading-[1.65]';
-const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05),0_10px_28px_rgba(0,0,0,0.06)]';
 const BTN = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-vermilion bg-vermilion px-6 text-center text-sm font-bold leading-[1.2] text-panel no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-danger hover:bg-danger active:translate-y-px';
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
 
@@ -33,13 +32,13 @@ export default function Safety() {
       <h1 className={`mt-[10px] ${H1}`}>Safety and legal</h1>
       <p className={LEAD}>{GLOBAL_DISCLOSURE}</p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        This page is the short version of the rules that govern every listing on Final Circle. If a post or a message contradicts anything here, trust this page.
+        This page states the rules for every listing. If a post or a message contradicts it, follow this page.
       </p>
 
-      <section className={`mt-6 ${CARD}`}>
-        <h2 className={H2}>What Final Circle is</h2>
+      <section className="mt-6">
+        <h2 className={H2}>What this is</h2>
         <p className={`mt-2 ${SUBTEXT}`}>
-          A notice board for Free Fire matches in India. Hosts post a match. Players join it. The host sees the roster with the display name, UID and self-declared ranks each player entered. Final Circle is the board, not the tournament organiser.
+          A notice board for Free Fire matches in India. A host posts a match and players join it. The host sees the roster with each player&apos;s display name, UID and self-declared ranks. Tournaments are run by the hosts.
         </p>
       </section>
 
@@ -61,7 +60,7 @@ export default function Safety() {
           India&apos;s Promotion and Regulation of Online Gaming Act 2025 and the 2026 Rules are the reason this board stays away from money games. In broad terms, an online money game is one where a player puts money in and expects money or something monetisable out. We do not offer, advertise or facilitate that kind of game.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Any esports exemption depends on recognition and registration that we do not hold. Final Circle is an independent community site. Free entry with no advertised cash prize is the line we stay on — a product rule, not a legal status.
+          Any esports exemption depends on recognition and registration that we do not hold. Final Circle is an independent community site. Free entry with no advertised cash prize is the line we stay on. That is a product rule, not a legal status.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
           This is background research, not legal advice or a compliance promise. Background reading:
@@ -90,17 +89,17 @@ export default function Safety() {
       <section className="mt-7">
         <h2 className={H2}>How reporting works</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Open any match and use &quot;Report this match&quot;. Pick a category and add a short note. Categories are asking players to pay, fake or finished match, and something else.
+          Open any match and choose Report this match. Pick a category and add a short note. Categories are asking players to pay, fake or finished match, and something else.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          When two players who actually joined the same match report it for asking players to pay, the match closes automatically and the host cannot post for exactly seven days. The clock is set by our server, not by a reviewer. The consequence cannot be skipped by waiting for a human to read the report. The match then shows the real number of joined reports. Reports are kept with our operational logs.
+          When two players who joined the same match report it for asking players to pay, the match closes automatically and the host cannot post for seven days. The server sets the timer, so no reviewer has to read the report first. The match then shows the number of joined reports. Reports are kept with our operational logs.
         </p>
       </section>
 
       <section className="mt-7">
         <h2 className={H2}>Grievance path</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Report the match in the app first. If you cannot use the app, use the <ContactNow /> link. Privacy questions and complaints use the same link; see the <Link href="/privacy" className="text-vermilion">privacy notice</Link>. This is our own escalation path, not a promise about legal forums or time limits.
+          Report the match in the app first. If you cannot use the app, use the <ContactNow /> link. Privacy questions and complaints use the same link; see the <Link href="/privacy" className="text-vermilion">privacy notice</Link>. This is our own escalation path. We make no promise about legal forums or time limits.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
           Point of contact: the Final Circle team, {BRAND.city}, {BRAND.country}.

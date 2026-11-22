@@ -24,7 +24,7 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>Who we are, and how to reach us</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. For privacy questions or complaints, use the <ContactNow /> link. We read every message and reply as soon as we can.
+        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. For privacy questions or complaints, use the <ContactNow /> link. We read every message.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we collect, from whom, why</h2>
@@ -37,11 +37,11 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>18+ only</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is for users 18 years or older. By signing up you confirm you are 18+, recorded with your consent.
-        We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, use the link above and we will erase the account.
+        Final Circle is for users 18 or older. By signing up you confirm you are 18+, recorded with your consent.
+        We do not knowingly process data of people under 18. If you are under 18, or a parent or guardian believes a child signed up, use the link above and we will erase the account.
       </p>
 
-      <h2 className={`mt-6 ${H2}`}>What we do NOT collect</h2>
+      <h2 className={`mt-6 ${H2}`}>What we do not collect</h2>
       <ul className={`mt-[10px] ${LIST}`}>
         <li>Phone numbers, UPI details, bank details or payment credentials</li>
         <li>Precise location, contacts, chat messages, voice data, web history</li>
@@ -64,16 +64,16 @@ export default function Privacy() {
         <li><strong>Withdraw consent:</strong> use the link above and we erase your data.</li>
       </ul>
 
-      <h2 className={`mt-6 ${H2}`}>Retention, plainly</h2>
+      <h2 className={`mt-6 ${H2}`}>How long we keep it</h2>
       <ul className={`mt-[10px] ${LIST}`}>
         <li>Account data, until you erase it (and always on request).</li>
         <li>Audit and report records: kept for abuse prevention. Audit details do not hold email addresses.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>
       </ul>
 
-      <h2 className={`mt-6 ${H2}`}>What we never do</h2>
+      <h2 className={`mt-6 ${H2}`}>What we do not do with your data</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        We do not sell your email, phone, or data to anyone, ever.
+        We do not sell your email address, phone number or data.
       </p>
 
       <p className="mt-8"><Link href="/" className={GHOST}>← Back home</Link></p>
