@@ -96,7 +96,8 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
           <span>This match is played online, not at a venue.</span>
         </label>
 
-        <label className={LABEL_FLUSH}>Notes<textarea className={`${INPUT} py-0`} name="notes" rows={3} maxLength={500} placeholder="Format, rules, lobby details, anything players must know." /></label>
+        <label className={LABEL_FLUSH}>Requirements<textarea className={`${INPUT} py-0`} name="notes" rows={3} maxLength={500} placeholder="Format, rules, lobby details, anything players must know." /></label>
+        <p className="mt-1 text-sm text-muted">Role, mic, experience or skill in your own words.</p>
 
         <div className="flex gap-[10px]">
           <Button type="submit">Post match</Button>

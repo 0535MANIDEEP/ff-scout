@@ -112,7 +112,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
         <div className={KV}><span>Slots</span><span>{match.slots != null ? `${match.slots} left` : 'Unlimited'}</span></div>
         <div className={KV}><span>Joined</span><span>{match._count.entries}</span></div>
         {match.contact && <div className={KV}><span>Contact</span><span>{match.contact}</span></div>}
-        {match.notes && <p className={`mt-3 ${SUBTEXT}`}>{match.notes}</p>}
+        {match.notes && <p className={`mt-3 ${SUBTEXT}`}><span className="font-bold">Requirements: </span>{match.notes}</p>}
         <p className={`mt-3 ${SMALL}`}>
           {FREE_ENTRY_NOTICE} See <Link href="/safety" className="text-vermilion">Safety and legal</Link> for the reporting rule.
         </p>
