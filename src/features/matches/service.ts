@@ -2,7 +2,7 @@ import 'server-only';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser, type SessionUser } from '@/shared/auth/session';
 import { matchSchemas } from './schema';
-import { findHost, listOpen } from './repository';
+import { findHost } from './repository';
 import { FREE_ENTRY_TERMS } from '@/features/disclosure/copy';
 import { endsAtFor } from '@/features/trust/rules';
 import { checkRateLimit } from '@/shared/rate-limit';
@@ -74,15 +74,6 @@ export async function joinMatch(matchId: string, teamName: string | null): Promi
     await tx.matchEntry.create({ data: { matchId, playerId: user.id, teamName: teamStored } });
     return { ok: true };
   }, { isolationLevel: 'Serializable' });
-}
-
-export async function listMatches(): Promise<MatchCardDTO[]> {
-  const rows = await listOpen();
-  return rows.map(r => ({
-    id: r.id, title: r.title, mode: r.mode, gameType: r.gameType,
-    date: r.date.toISOString(), city: r.city, online: r.online,
-    slots: r.slots, joined: r._count.entries,
-  }));
 }
 
 async function requireUser(): Promise<SessionUser> {

@@ -23,14 +23,14 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>Who we are, and who to complain to</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is built and operated by {BRAND.founder}, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules):
+        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules, contact in writing):
         <a href={`mailto:${BRAND.email}`} className="text-vermilion"> {BRAND.email}</a>.
         We acknowledge grievances within 72 hours and resolve them within 30 days. If unsatisfied, you may approach the Data Protection Board of India.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we collect, from whom, why</h2>
       <ul className={`mt-[10px] ${LIST}`}>
-        <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank, affiliation (college/org), city. Used to run accounts and to match hosts to players.</li>
+        <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank and city. Used to run accounts and to match hosts to players. We do not ask for a college, guild or employer name at sign-up.</li>
         <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. We never share passwords with anyone.</li>
         <li><strong>Match reports:</strong> category, reason, reporter and timestamp. Used to apply automatic match closures and posting pauses. No human reviews a report before the automatic consequence applies.</li>
         <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>

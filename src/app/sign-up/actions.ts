@@ -17,7 +17,6 @@ export async function registerPlayer(_: ActionState, formData: FormData): Promis
       email: emailRaw,
       password: formData.get('password'),
       displayName: formData.get('displayName'),
-      college: formData.get('college'),
       ageConfirmed: agree,
     });
   } catch (err) {

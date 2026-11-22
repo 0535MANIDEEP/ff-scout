@@ -24,18 +24,3 @@ export function hasPermission(role: Role, perm: Permission): boolean {
 // DB enum stores 'player' | 'sponsor' | 'admin'. Single mapping, fail-closed.
 export const roleFromDb = (db: string): Role =>
   ({ player: 'player', sponsor: 'sponsor', admin: 'admin' }[db] ?? 'player') as Role;
-
-export const dbRoleFor = (role: Role): string =>
-  ({ player: 'player', sponsor: 'sponsor', admin: 'admin' }[role]);
-
-export const ROLE_LABEL: Record<Role, string> = {
-  player: 'Player',
-  sponsor: 'Sponsor',
-  admin: 'Admin',
-};
-
-export const ROLE_DESCRIPTION: Record<Role, string> = {
-  player: 'Post matches, join matches, own profile.',
-  sponsor: 'Email contact for placements and sponsor-funded free events.',
-  admin: 'Erasure, audit log, and closing any match.',
-};

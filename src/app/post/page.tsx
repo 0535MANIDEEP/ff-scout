@@ -83,7 +83,7 @@ export default async function PostMatch({ searchParams }: { searchParams: Promis
 
         <div className="grid grid-cols-2 gap-3">
           <Field label="Date and time" id="date" name="date" type="datetime-local" required className={FIELD} />
-          <Field label="City" id="city" name="city" placeholder="Hyderabad" required maxLength={80} className={FIELD} />
+          <Field label="City" id="city" name="city" placeholder="Your city" required maxLength={80} className={FIELD} />
         </div>
 
         <div className="grid grid-cols-2 gap-3">

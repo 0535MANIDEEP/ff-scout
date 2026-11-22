@@ -6,9 +6,9 @@ Product truth lives in `SPEC.md` and the free-entry notice lives in `src/feature
 
 ## Site-wide
 
-- `src/shared/config/brand.ts`: Name, mark, tagline, description, email, founder, URL and trademark line. Every page imports `BRAND` from here.
+- `src/shared/config/brand.ts`: Name, mark, tagline, description, contact email, canonical URL and trademark line. Every page imports `BRAND` from here.
 - `src/features/disclosure/copy.ts`: The global disclosure line, the free-entry constants and the payment-report threshold. Change here, not in individual pages.
-- `src/app/layout.tsx`: Footer copy, metadata and appearance control.
+- `src/app/layout.tsx`: Footer copy, root metadata and the sponsor line slot.
 
 ## Landing page (`/`)
 
@@ -29,7 +29,7 @@ Product truth lives in `SPEC.md` and the free-entry notice lives in `src/feature
 - Board (`/matches`) and detail (`/matches/[id]`): `src/app/matches/page.tsx` and `src/app/matches/[id]/page.tsx`. The detail page carries the report form.
 - Post (`/post`) and weekly series (`/post/series`): `src/app/post/page.tsx` and `src/app/post/series/page.tsx`. Both write free-entry terms from `src/features/disclosure/copy.ts`.
 - Hosted matches and series (`/player/posted`): `src/app/player/posted/page.tsx`.
-- Sponsor directory (`/sponsors`) and CSV export (`/sponsors/export`): `src/app/sponsors/page.tsx` and `src/app/sponsors/export/route.ts`. Only opted-in players appear.
+- Sponsor enquiries (`/advertise`): `src/app/advertise/page.tsx`. Sponsor placements are arranged by email; there is no sponsor directory or player export.
 
 ## Public info pages
 

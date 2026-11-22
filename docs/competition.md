@@ -2,7 +2,7 @@
 
 Positioning question: what existing thing is Final Circle, and what is it not?
 
-This scan is background from before the 2026-11-22 free-entry reset. Competitor descriptions are as recorded then and were not rechecked. Product direction now comes from `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. Legal background is research, not legal advice. A qualified lawyer must review final copy before launch.
+This scan is background from before the 2026-11-22 free-entry reset. Competitor descriptions are as recorded then and were not rechecked. Product direction now comes from `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. Legal background is research, not legal advice. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## Who already does FF recruitment in India
 

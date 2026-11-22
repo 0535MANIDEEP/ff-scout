@@ -6,7 +6,6 @@ export const identitySchemas = {
     email: z.email(),
     password: z.string().min(8),
     displayName: z.string().trim().min(2).max(40),
-    college: z.string().min(2).max(120),
     ageConfirmed: z.literal(true),
   }),
 };

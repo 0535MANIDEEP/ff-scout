@@ -4,6 +4,8 @@
 // notes. Numbers are omitted where sources conflict, roles and mechanics
 // matter more than exact ratios for a match board.
 
+import { BRAND } from '@/shared/config/brand';
+
 export interface LearnLink {
   label: string;
   href: string;
@@ -60,7 +62,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
         heading: 'And IGL?',
         lines: [
           'IGL is a designation, not a role, one player per squad (usually the most experienced) makes the rotation calls and the final call. An IGL still plays one of the five above.',
-          'On Final Circle, players can tag "I can IGL" as a capability at sign-up. It is self-declared. Final Circle does not verify skills or ranks.',
+          'On Final Circle there is no IGL tag or verification. A squad decides its own caller; Final Circle does not verify skills or ranks.',
         ],
       },
     ],
@@ -304,7 +306,7 @@ export const LEARN_CHAPTERS: Chapter[] = [
         lines: [
           'Open the match and choose Report this match. Pick a category, add a short note, and the report goes through the app first. Categories include asking players to pay, fake or finished match, and something else.',
           'If two players who actually joined the same match report a payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report before this applies. Reports are kept with operational logs.',
-          'If you cannot use the app, email manideepdaram@gmail.com. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. The full rules are on the Safety and legal page.',
+          `If you cannot use the app, email ${BRAND.email}. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. The full rules are on the Safety and legal page.`,
         ],
       },
     ],

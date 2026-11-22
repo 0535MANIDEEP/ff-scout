@@ -23,9 +23,8 @@ export default function SignUpPage() {
         {state?.error && <p className="mb-[10px] text-[13px] text-danger">{state.error}</p>}
         <form action={action} className="flex flex-col gap-3">
           <Field label="Email" id="email" name="email" type="email" required autoComplete="email" className={FIELD} />
-          <Field label="IGN (your in-game name)" id="displayName" name="displayName" type="text" placeholder="e.g. _aMNis_, Aura_Hype_, Frostshikari_" required autoComplete="nickname" className={FIELD} />
+          <Field label="IGN (your in-game name)" id="displayName" name="displayName" type="text" placeholder="e.g. ShadowFox, Nova_07" required autoComplete="nickname" className={FIELD} />
           <Field label="Password" id="password" name="password" type="password" minLength={8} required autoComplete="new-password" className={FIELD} />
-          <Field label="Where you are (college, café, LAN, guild, city)" id="college" name="college" placeholder="VJIT Hyderabad · Ganjikhana Café · Kolkata" required className={FIELD} />
           <div className="absolute left-[-9999px] h-0 w-px overflow-hidden"><input name="bot" /></div>
           <label className="mt-4 flex items-start gap-3 text-sm leading-[1.5] text-muted">
             <input type="checkbox" name="agree" required className="mt-px h-5 w-5 shrink-0 accent-vermilion" />

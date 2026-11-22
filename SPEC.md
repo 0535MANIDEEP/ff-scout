@@ -41,7 +41,7 @@ No organizer tier, no unlock fee, no per-event charge, and no player payment. Ro
 
 ## Monetization
 
-1. Sponsor placements: a quiet footer slot and `/advertise` contact path. Grievance and sponsor contact: `manideepdaram@gmail.com`. No rate card, checkout, or billing in the app.
+1. Sponsor placements: a quiet footer slot and `/advertise` contact path. Grievance and sponsor contact use the deployment setting `NEXT_PUBLIC_CONTACT_EMAIL` (see `.env.example`). No rate card, checkout, or billing in the app.
 2. Disclosed affiliate links: a dedicated disclosure on `/loadout`.
 3. Sponsor-funded free events: email-only coordination outside the app; Final Circle never holds money.
 
@@ -51,7 +51,7 @@ No checkout, no paid digital guide, no player ever pays the platform, and no spo
 
 The Promotion and Regulation of Online Gaming Act 2025 and the Promotion and Regulation of Online Gaming Rules 2026 came into force on 1 May 2026. They define an online money game as money in plus an expectation of money out, whether the game is based on skill, chance or both. Sections 5, 6 and 7 prohibit offering, advertising and facilitating such games, with penalties up to 2 years imprisonment or 50 lakh rupees. The e-sports carve-out requires recognition under the National Sports Governance Act and registration with the Online Gaming Authority of India, which is not viable for this product now.
 
-The research behind this decision is background, not legal advice. A qualified lawyer must review the final product and copy before launch. See `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
+The research behind this decision is background, not legal advice or a compliance promise. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
 ## Current scope
 
@@ -76,9 +76,9 @@ A host posts a free match, players join from the board, and the roster is visibl
 
 ## Verification plan
 
-- A qualified lawyer reviews the final copy before launch.
+- Record the release decision in `docs/handoff-launch.md` → Legal review decision.
 - Additive-only migration on the shared Neon database. No destructive schema change.
 - Tests run with `DATABASE_URL` removed: `Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test`.
-- SEO regex audit from https://surajkumarseo.medium.com/what-is-regex-for-seo-and-how-to-use-it-for-seo-90a61dce029d: internal links, canonical uniqueness, title and description lengths, title and H1 agreement, broken links.
+- SEO regex audit: internal links, canonical uniqueness, title and description lengths, title and H1 agreement, broken links.
 - Copy audit on public routes: no ₹ amounts, unlock, shortlist, verification promise, screenshot, fabricated statistic or em dash.
 - Browser check of the disclosure, free-entry form, report warning, and no horizontal scroll at 375px, 768px and 1440px.

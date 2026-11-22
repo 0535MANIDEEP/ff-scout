@@ -12,7 +12,7 @@ Context: organizers screening entries and players checking each other ask two qu
 4. **Regions are limited to the provider's documented set** (BD, IND, BR, US, SAC, NA, TH, ID, SG, PK) and sent uppercase exactly as documented. Undocumented regions would be guesses that fail at runtime.
 5. **Whitelist shaping.** `shapeProfile` in `src/lib/ff-upstream.ts` picks fields explicitly; everything else the provider returns (tokens, internal IDs) never leaves the server. An unreadable body is reported as `error`, not as "player not found" — we cannot tell the difference, so we don't claim to.
 6. **Rate limiting stays ours**: 10 checks per 15 min per IP via the existing `checkRateLimit`, stricter than the provider's 5/min, so a burst can never burn the monthly allowance.
-7. **Why this is v1, not scope creep** (AGENTS.md rule 3): it is the organizer's pre-roster cross-check — the exact moment before locking a roster — and the player's "verified once, paste anywhere" hook. It feeds the onboarding → verified shortlist → unlock path rather than sitting beside it.
+7. **Why this is v1, not scope creep** (the one-happy-path rule): it is the organizer's pre-roster cross-check — the exact moment before locking a roster — and the player's "verified once, paste anywhere" hook. It feeds the onboarding → verified shortlist → unlock path rather than sitting beside it.
 
 ## Explicitly deferred
 

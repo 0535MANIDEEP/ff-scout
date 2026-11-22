@@ -2,7 +2,7 @@
 
 Context: the site had a coherent street-paper idea in CSS comments, but the implementation had drifted. The dark theme reused the light palette, public routes shared one canonical URL and one description, the first viewport carried seven font sizes, and the hero H1 extracted as "Post a match.Find your lobby." The user asked for a full redesign and for users to choose their own color palette options rather than only light and dark.
 
-The installed design tools informed the audit. `omd:slop-audit` supplied the finding format and the rule that a single pattern is not a defect without product context. `ui-ux-pro-max` supplied contrast and density checks. Its first recommendation, purple 3D gaming, and its second, a generic red sports block layout, were rejected. They would make a trust-based match board look templated and would add rendering cost for Indian Android devices. No catalog reference was adopted. `DESIGN.md` is authored from this repo's own identity.
+Design references informed the audit. A rule that a single pattern is not a defect without product context was applied, along with contrast and density checks. Two recommendations were rejected: purple 3D gaming, and a generic red sports block layout. They would make a trust-based match board look templated and would add rendering cost for Indian Android devices. No catalog reference was adopted. `DESIGN.md` is authored from this repo's own identity.
 
 ## Decisions
 

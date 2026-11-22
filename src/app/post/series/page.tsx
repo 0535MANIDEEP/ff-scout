@@ -71,7 +71,7 @@ export default async function PostSeries({ searchParams }: { searchParams: Promi
               {MATCH.gameTypes.map(g => <option key={g} value={g}>{g}</option>)}
             </select>
           </label>
-          <Field label="City" id="city" name="city" placeholder="Hyderabad" required minLength={2} maxLength={80} className={FIELD} />
+          <Field label="City" id="city" name="city" placeholder="Your city" required minLength={2} maxLength={80} className={FIELD} />
         </div>
         <p className="text-sm text-muted">{FREE_ENTRY_NOTICE}</p>
         <div className="grid grid-cols-3 gap-3">

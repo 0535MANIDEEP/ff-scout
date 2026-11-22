@@ -58,7 +58,7 @@ Additional DB-backed run (not one of the four prescribed gates): with `DATABASE_
 
 ## Copy audit — full output
 
-Command: `node .superpowers\sdd\2026-11-22-reframe-in-place\copy-audit.cjs http://127.0.0.1:3000`
+Audit method: a temporary local script (not shipped in this repo) run against `http://127.0.0.1:3000`.
 
 ```txt
 Copy audit: http://127.0.0.1:3000
@@ -89,11 +89,11 @@ Interpretation (no shipped copy was changed):
 - `/safety` — the flagged sentence is the shipped denial `We do not ask players to pay an entry fee, deposit or stake to join a listing.` (`src/app/safety/page.tsx:48`). The script's sentence splitter pulled the preceding heading `What we do not do` into the same "sentence", so it no longer matches the byte-identical allowlisted sentence.
 - `/terms` — both flags are shipped denials: `Joining is free. Never pay an entry fee, deposit or stake to join a listing.` and `Your rank is self-declared. Final Circle does not verify players or issue verified badges.` (`src/app/terms/page.tsx:36-37`). The splitter dropped the first clause of each, so neither matches the allowlist entry.
 
-All four flags are therefore false positives from the provided script's literal `₹` rule and sentence-boundary handling against pre-existing owner copy. No genuinely new positive claim was found. The exact disclosure is present on all 12 routes, no `Sponsors scout the opted-in` text and no sponsor directory link was found on any route. This is recorded as a concern rather than a PASS that was not observed.
+All four flags are therefore false positives from the provided script's literal `₹` rule and sentence-boundary handling against pre-existing shipped copy. No genuinely new positive claim was found. The exact disclosure is present on all 12 routes, no `Sponsors scout the opted-in` text and no sponsor directory link was found on any route. This is recorded as a concern rather than a PASS that was not observed.
 
 ## SEO audit — full output
 
-Command: `node .superpowers\sdd\2026-11-22-reframe-in-place\seo-audit.cjs`
+Audit method: a temporary local script (not shipped in this repo).
 
 ```txt
 Routes discovered: 21 (pages + route.ts handlers)
@@ -157,8 +157,12 @@ Console warnings observed were browser-level `Permissions-Policy` warnings for `
 - `src/components/ToastProvider.tsx` deleted from disk (it was untracked; it is not in the commit).
 - `next-env.d.ts` remains modified and uncommitted, as required.
 - Docs updated: `docs/codemap.md` folder structure, `docs/permissions.md`, `docs/content-map.md`, `docs/security-review.md`, `docs/system-design/match-platform.md`, and a supersession pointer in `docs/adr/0002-backend-hardening.md`.
-- Stale JWT/session and `src/lib/` pointers remain only in the historical ADRs 0002 (superseded by ADR 0006) and 0003, and in the read-only `docs/superpowers/**` archives; all current live docs use the feature/shared paths.
+- Stale JWT/session and `src/lib/` pointers remain only in the historical ADRs 0002 (superseded by ADR 0006) and 0003; all current live docs use the feature/shared paths. The AI-agent plan/spec archives were later removed from the repository.
 
 ## Outstanding
 
-- The copy audit script reports `RESULT: FAIL` for the four pre-existing-copy false positives documented above; the script itself was not modified and no owner copy was altered.
+- The copy audit script reports `RESULT: FAIL` for the four pre-existing-copy false positives documented above; the script itself was not modified and no shipped copy was altered by that release.
+
+## Post-release sanitisation
+
+A later commit removed the AI-agent working documents and plan/spec archives from the repository, made the public contact address and canonical URL deployment settings (`NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_SITE_URL`), removed personal names and local machine paths from docs, and deleted the obsolete Cloudinary configuration. No data, schema or auth behaviour changed. The exact disclosure string was not touched.

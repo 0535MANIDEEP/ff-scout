@@ -1,6 +1,6 @@
 # Match Platform — UML
 
-Class diagram for the pivoted model (spec: `docs/superpowers/specs/2026-11-19-match-platform-design.md`). Verified-pool entities (`VerificationProof`, `verified`, `rank`, `moderator`) are intentionally absent.
+Class diagram for the current free-entry model (product truth: `SPEC.md`). Verified-pool entities (`VerificationProof`, `verified`, `rank`, `moderator`) are intentionally absent.
 
 ```mermaid
 classDiagram
@@ -133,7 +133,7 @@ classDiagram
 | A closed match accepts no joins | join action checks `Match.status` |
 | A player reports a match at most once | `@@unique([matchId, reporterId])` on `Report` |
 | The poster sees the roster (name, UID, email, ranks) | roster query scoped to `Match.organizerId` |
-| Sponsors see only players with `visibleToSponsors = true` | sponsor directory + export query |
+| Sponsor-facing profile fields are legacy and unused | no sponsor directory or export query exists |
 
 ## Object diagram (one instance of the flow)
 
@@ -156,7 +156,7 @@ classDiagram
         prizePool = "₹2,000"
         status = open
         date = "2026-12-05T18:00"
-        city = "Hyderabad"
+        city = "India"
     }
     class player_User {
         id = "pl_07"

@@ -47,7 +47,7 @@ export default async function PlayerDashboard({ searchParams }: { searchParams: 
     <div className={`${SHELL} pb-12`}>
       <div className="mt-8 flex items-baseline justify-between max-[600px]:flex-wrap max-[600px]:gap-y-3">
         <div className="flex items-center gap-[14px]">
-          <RoleAvatar role={user.role} iglCapable={false} size={56} />
+          <RoleAvatar role={user.role} size={56} />
           <div>
             <h1 className={H1}>Welcome, {user.displayName}</h1>
             <p className={SUBTEXT}>

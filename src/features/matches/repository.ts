@@ -8,14 +8,3 @@ export async function findHost(id: string) {
   });
 }
 
-export async function listOpen() {
-  return prisma.match.findMany({
-    where: { status: 'open' },
-    orderBy: { date: 'asc' },
-    select: {
-      id: true, title: true, mode: true, gameType: true, date: true,
-      city: true, online: true, slots: true,
-      _count: { select: { entries: true } },
-    },
-  });
-}

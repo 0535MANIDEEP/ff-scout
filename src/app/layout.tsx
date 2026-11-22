@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     'free fire roster finder',
     'Indian free fire players',
   ],
-  authors: [{ name: BRAND.founder, url: BRAND.founderGithub }],
+  authors: [{ name: BRAND.name }],
   openGraph: {
     type: 'website',
     title: `${BRAND.name}, free-entry Free Fire match board for India`,
@@ -60,7 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             url: BRAND.url,
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web',
-            creator: { '@type': 'Person', name: BRAND.founder, email: BRAND.email },
+            creator: { '@type': 'Organization', name: BRAND.name, email: BRAND.email },
             description: BRAND.description
           }) }}
         />
@@ -78,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/terms" className={FOOTER_LINK}>Terms</Link>
             <Link href="/privacy" className={FOOTER_LINK}>Privacy</Link>
           </nav>
-          <p className="mt-4 max-w-[80ch] leading-[1.6]">{BRAND.name}. {BRAND.tagline}. Built by {BRAND.founder}. Independent, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
+          <p className="mt-4 max-w-[80ch] leading-[1.6]">{BRAND.name}. {BRAND.tagline}. Built independently, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
           {SPONSOR_LINE && <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Presented by {SPONSOR_LINE}</p>}
           <p className="mt-3"><a href={`mailto:${BRAND.email}`} className={FOOTER_LINK}>{BRAND.email}</a></p>
         </footer>

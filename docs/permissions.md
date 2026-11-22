@@ -5,7 +5,7 @@ DevOps-style RBAC for the platform. **Roles are designed in `src/shared/auth/per
 ## Adding a role
 1. `schema.prisma`: extend `enum UserType` (the role source of truth; sessions live in `src/shared/auth/session.ts`)
 2. Migration: additive only (`ALTER TYPE "UserType" ADD VALUE`)
-3. `roleFromDb`/`dbRoleFor` in `permissions.ts` get one mapping each
+3. `roleFromDb` in `permissions.ts` gets one mapping
 4. `CAPS` in `permissions.ts` defines its power set
 5. Every gate checks capabilities — nothing else changes
 

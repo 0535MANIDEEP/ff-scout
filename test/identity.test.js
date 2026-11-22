@@ -11,11 +11,11 @@ test('login schema validates a real email and a non-blank password', () => {
   assert.match(source, /password:\s*z\.string\(\)\.min\(1\)/);
 });
 
-test('signup schema requires explicit age confirmation and a location', () => {
+test('signup schema requires explicit age confirmation and no unstored fields', () => {
   assert.match(source, /signUp:\s*z\.object\(/);
   assert.match(source, /password:\s*z\.string\(\)\.min\(8\)/);
   assert.match(source, /displayName:\s*z\.string\(\)\.trim\(\)\.min\(2\)\.max\(40\)/);
-  assert.match(source, /college:\s*z\.string\(\)\.min\(2\)\.max\(120\)/);
+  assert.doesNotMatch(source, /college:/);
   assert.match(source, /ageConfirmed:\s*z\.literal\(true\)/);
   assert.doesNotMatch(source, /ageConfirmed:\s*z\.boolean\(\)/);
 });

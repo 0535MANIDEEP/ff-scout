@@ -4,8 +4,6 @@ Final Circle is a free notice board for Free Fire matches in India. Hosts post, 
 
 > Free entry only. No money handled by Final Circle. 18+.
 
-**Live:** [ffscout.vercel.app](https://ffscout.vercel.app)
-
 ## What it does
 
 - A host posts a free match at `/post` and manages it at `/player/posted`.
@@ -18,15 +16,15 @@ Final Circle does not collect, hold or pay money, run escrow, verify players, is
 
 ## Read the full notice
 
-- [Safety and legal](https://ff-scout.vercel.app/safety) gives the free-entry rule, the no-money rule, reporting, the grievance path and how we earn.
+- `src/app/safety/page.tsx` carries the free-entry rule, the no-money rule, reporting, the grievance path and how we earn.
 - [SPEC.md](SPEC.md) is the product source of truth. [ADR 0005](docs/adr/0005-legal-safe-free-entry-and-revenue.md) records the decision behind the reset.
-- Grievance contact: manideepdaram@gmail.com.
+- The public contact address is a deployment setting (`NEXT_PUBLIC_CONTACT_EMAIL`, see `.env.example`); no personal address is stored in this repo.
 
-The legal background in those documents is research, not legal advice. A qualified lawyer must review the final product and copy before launch.
+The legal background in those documents is research, not legal advice. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## Run it locally
 
-Requires Node 20+ and a Postgres database. Prisma reads `DATABASE_URL` from the environment or `.env.local`.
+Requires Node 20+ and a Postgres database. Prisma reads `DATABASE_URL` from the environment or `.env.local`. Before a public launch, set `NEXT_PUBLIC_CONTACT_EMAIL` to a monitored mailbox and `NEXT_PUBLIC_SITE_URL` to the real origin; the defaults are placeholders.
 
 ```bash
 npm install

@@ -40,7 +40,7 @@ src/
     config/               brand.ts, match.ts
     auth/                 session.ts (opaque DB sessions), permissions.ts
     rate-limit.ts · seo.ts
-    ui/                   Button, Field, DisclosureBanner
+    ui/                   Button, Field
   styles/globals.css      Tailwind v4 theme, hero-in keyframe, focus and reduced-motion rules
 ```
 
@@ -60,7 +60,7 @@ src/
 | `/safety` | Free-entry rule, no-money rule, 18+, reporting, grievance, how we earn, legal background, independent-site notice | `src/app/safety/page.tsx` |
 | `/advertise` | Sponsor placements, sponsor-funded free events, no rate card, no real-money gaming link | `src/app/advertise/page.tsx` |
 
-`/safety` and `/advertise` each render `GLOBAL_DISCLOSURE` and export their own metadata and canonical. The legal narrative behind them is in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md`.
+`/safety` and `/advertise` each render `GLOBAL_DISCLOSURE` and export their own metadata and canonical. The decision behind them is in `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
 ### Accounts and hosts
 
@@ -102,7 +102,7 @@ Thresholds are constants in `src/features/disclosure/copy.ts`; the additive migr
 | Modes, game types, ladder thresholds, duration options | `src/config/match.json` via `src/shared/config/match.ts` |
 | Visual and copy rules | `DESIGN.md` |
 | Product intent, roles, revenue, dismissals | `SPEC.md` |
-| Legal and sponsor copy | `src/app/safety/page.tsx`, `src/app/advertise/page.tsx`; background in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md` (read-only) |
+| Legal and sponsor copy | `src/app/safety/page.tsx`, `src/app/advertise/page.tsx`; background in `docs/adr/0005-legal-safe-free-entry-and-revenue.md` |
 
 ## Database and local workflow
 

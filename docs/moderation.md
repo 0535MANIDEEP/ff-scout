@@ -2,7 +2,7 @@
 
 Decision, 2026-11-22: Final Circle has no verifier tier and no human approval queue. Trust is self-serve, and the consequence for a payment-request report is automatic. Source of truth: `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
-Legal background is research, not legal advice. A qualified lawyer must review the final product and copy before launch.
+Legal background is research, not legal advice. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## Roles
 
@@ -30,7 +30,7 @@ The consequence applies without human review. There is no review step to wait fo
 
 ## Grievance path
 
-Report the match in the app first. If that is not possible, write to manideepdaram@gmail.com. If it is still unresolved, the complainant may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same email is the Grievance Officer address. A qualified lawyer must review the final notice before launch.
+Report the match in the app first. If that is not possible, write to the address configured in `NEXT_PUBLIC_CONTACT_EMAIL`. If it is still unresolved, the complainant may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same address is the Grievance Officer contact.
 
 ## Operating rules
 

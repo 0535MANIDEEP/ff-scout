@@ -6,7 +6,3 @@ export async function POST() {
   redirect('/');
 }
 
-export async function GET() {
-  await logout();
-  redirect('/');
-}

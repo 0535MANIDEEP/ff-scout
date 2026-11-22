@@ -58,12 +58,12 @@ export default function Advertise() {
       <section className="mt-7">
         <h2 className={H2}>Talk to us</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a> with what you want to fund and when. We will reply with what we can honestly deliver. {BRAND.founder} handles this directly.
+          Email <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a> with what you want to fund and when. We will reply with what we can honestly deliver. The team handles this directly.
         </p>
       </section>
 
       <div className="mt-7 flex flex-wrap items-center gap-[10px]">
-        <a href={`mailto:${BRAND.email}?subject=Sponsor%20enquiry`} className={BTN}>Email the founder</a>
+        <a href={`mailto:${BRAND.email}?subject=Sponsor%20enquiry`} className={BTN}>Email the team</a>
         <Link href="/matches" className={GHOST}>See the board</Link>
       </div>
     </div>

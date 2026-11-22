@@ -2,7 +2,7 @@
 
 Status: current as of 2026-11-22. Source of truth: `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. This version replaces the verification and paid-unlock descriptions that were here before the free-entry reset.
 
-**This is an engineering document, not legal advice.** The legal background is research only. A qualified lawyer must review the final product and copy before launch.
+**This is an engineering document, not legal advice.** The legal background is research only. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## 1. Product constraints
 
@@ -18,7 +18,7 @@ Status: current as of 2026-11-22. Source of truth: `SPEC.md` and `docs/adr/0005-
 |---|---|---|---|
 | Email, password hash | `User.email`, `User.passwordHash` | Login and account uniqueness. Hash is bcrypt and never selected into a view or export. | Owner only |
 | Display name, UID, BR/CS ranks, role, city, team name | `User` columns | The roster fields players type themselves. Team name is an optional default for joins. | Host of a joined match; opted-in fields for sponsors |
-| Sponsor opt-in and business fields | `User.visibleToSponsors`, `orgName`, `orgType`, `brandName`, `contact` | Sponsor directory and enquiry flow | only when the player opts in |
+| Sponsor opt-in and business fields | `User.visibleToSponsors`, `orgName`, `orgType`, `brandName`, `contact` | Legacy sponsor fields retained for historical rows; unused by the current product | only when the player opts in |
 | Account type and operational flags | `User.userType` (`player`, `sponsor`, `admin`), `postingPausedUntil` | Access control and the automatic posting pause | Server side |
 | Match posting | `Match` | Title, mode, game type, date and end time, city, online flag, slots, contact, notes, status | Public board |
 | Free-entry terms | `Match.entry`, `Match.entryFee`, `Match.prize`, `Match.prizePool` and the matching `MatchSeries` columns | Legacy taxonomy columns. New writes use the constants in `src/features/disclosure/copy.ts`. Historical values are never rendered. | Public views show the fixed free-entry wording |
@@ -57,14 +57,14 @@ Not collected: payment or bank details, UPI IDs, escrow records, prize payouts, 
 
 ## 6. Legal and privacy notes
 
-- Grievance contact: manideepdaram@gmail.com. Report in the app first, then email, then the Online Gaming Authority of India within 30 days if unresolved.
+- Grievance contact: the address configured in `NEXT_PUBLIC_CONTACT_EMAIL`. Report in the app first, then email, then the Online Gaming Authority of India within 30 days if unresolved.
 - `/safety` and `/advertise` carry the full notice. Revenue is sponsor placements, disclosed affiliate links and sponsor-funded free events. No player pays the platform.
 - India's Promotion and Regulation of Online Gaming Act 2025 and the 2026 Rules are background, not a compliance certificate. Final Circle does not claim e-sports recognition.
-- A qualified lawyer must review the final product and copy before launch.
+- External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## 7. Open checks
 
 - Keep schema changes additive and never rewrite historical rows.
 - Run `Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test` before any deploy.
 - Audit public copy for money language, verification promises and fabricated numbers.
-- Keep the lawyer review on the launch checklist.
+- Confirm `NEXT_PUBLIC_CONTACT_EMAIL` is set to a monitored mailbox before launch.

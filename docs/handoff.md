@@ -6,12 +6,12 @@ This is what the owner does to run the current product. Final Circle is a free n
 
 | Thing | Account or location | Who holds keys |
 |---|---|---|
-| Production site | https://ff-scout.vercel.app | Owner, Vercel account |
-| Source code | https://github.com/0535MANIDEEP/ff-scout | Owner, GitHub |
-| Database | Neon project `ff-scout-db`, Singapore region, free tier | Owner, Vercel Marketplace link |
-| Environment secrets | Vercel dashboard, never in this file | Owner |
-| Grievance and sponsor email | manideepdaram@gmail.com | Owner |
-| DNS / domain | no custom domain recorded | Not applicable |
+| Production site | Configured deployment (`NEXT_PUBLIC_SITE_URL`) | Operator |
+| Source code | This repository's git remote | Operator |
+| Database | Provisioned Postgres, configured through `DATABASE_URL` | Operator |
+| Environment secrets | Hosting provider dashboard, never in this file | Operator |
+| Public contact | `NEXT_PUBLIC_CONTACT_EMAIL`, a monitored mailbox | Operator |
+| DNS / domain | Custom domain optional | Operator |
 
 Do not put credentials in this file. Rotate any credential that was previously recorded here. Payment accounts, escrow accounts and verifier or organizer accounts are not part of this product.
 
@@ -35,7 +35,7 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 | What the client sees | Where it lives |
 |---|---|
-| Brand name, tagline, description, email, founder, URL, trademark string | `src/shared/config/brand.ts` |
+| Brand name, tagline, description, contact email, canonical URL, trademark string | `src/shared/config/brand.ts` |
 | Free-entry constants and global disclosure | `src/features/disclosure/copy.ts` |
 | Hero headline, subhead, open-match preview and disclosure | `src/app/components/Hero.tsx` |
 | Loop steps, cards, replacement table, disclosure section | `src/app/page.tsx` |
@@ -50,11 +50,11 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 ## Handoff steps for an actual owner
 
-1. Create or confirm a Vercel account for the owner. Hobby tier has commercial-use limits, so confirm the plan before any paid sponsorship.
-2. Transfer the GitHub repo through `Settings → Danger Zone → Transfer ownership`.
-3. In Vercel, move the Neon integration to the owner or add the owner as a collaborator with limited permissions for the first year.
+1. Create or confirm the hosting account for the operator. Confirm the plan permits commercial sponsorship before accepting paid placements.
+2. Transfer the repository to the operator through the hosting provider's ownership settings.
+3. Move the database integration to the operator or add the operator as a collaborator with limited permissions for the first year.
 4. Remove stale demo accounts from the database. Do not reuse credentials from the old verification and unlock setup.
-5. Confirm that `/safety` and `/advertise` still carry the full notice and that the grievance email is monitored.
+5. Confirm that `/safety` and `/advertise` still carry the full notice, that `NEXT_PUBLIC_CONTACT_EMAIL` is set, and that the mailbox is monitored.
 6. Domain is optional. Buy one, point it at Vercel with `A 76.76.21.21`, and set `NEXT_PUBLIC_SITE_URL` when it verifies.
 7. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
@@ -69,6 +69,7 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 ## Immediate checklist
 
 - [ ] Remove stale demo and verifier-era accounts
+- [ ] Set `NEXT_PUBLIC_CONTACT_EMAIL` to the monitored grievance/sponsor mailbox and `NEXT_PUBLIC_SITE_URL` to the real origin
 - [ ] Run the test command with `DATABASE_URL` removed
 - [ ] Confirm the disclosure line matches `src/features/disclosure/copy.ts` on every public route
 - [ ] Confirm `/safety` and `/advertise` carry the free-entry, no-money, 18+, reporting, grievance and revenue notices
@@ -78,4 +79,4 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 ## Honest status of this release
 
-Counts on the site come from the database at request time. Do not replace them with fixed marketing numbers. If the owner finds a claim on the site that is not true, revert that commit and tell the committer.
+Counts on the site come from the database at request time. Do not replace them with fixed marketing numbers. If an operator finds a claim on the site that is not true, revert that commit and tell the committer.

@@ -63,7 +63,7 @@ export default function Safety() {
           The esports carve-out needs recognition under the National Sports Governance Act 2025 and registration with the Online Gaming Authority of India. Final Circle is an independent community site and does not hold either. Free entry with no advertised cash prize is the line we stay on.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          This is background research, not legal advice. A qualified lawyer must review the final product and copy before launch. Background reading:
+          This is background research, not legal advice or a compliance promise. Background reading:
         </p>
         <ul className={`mt-2 ${LIST}`}>
           {RESEARCH.map(({ label, href }) => (
@@ -102,7 +102,7 @@ export default function Safety() {
           Report the match in the app first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same email is the Grievance Officer address, and you may then approach the Data Protection Board of India.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Point of contact: {BRAND.founder}, {BRAND.city}, {BRAND.country}.
+          Point of contact: the Final Circle Grievance Officer, {BRAND.city}, {BRAND.country}.
         </p>
       </section>
 

@@ -1,6 +1,6 @@
 # Match Platform: System Design
 
-Companion to `docs/superpowers/specs/2026-11-19-match-platform-design.md`. This document argues the design from established principles and resolves the hard parts (concurrency, idempotency, scaling, privacy) rather than leaving them to luck. Product truth is in `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. Legal background is research, not legal advice. A qualified lawyer must review final copy and product before launch.
+This document argues the design from established principles and resolves the hard parts (concurrency, idempotency, scaling, privacy) rather than leaving them to luck. Product truth is in `SPEC.md` and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`. Legal background is research, not legal advice. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## 1. Problem
 
@@ -8,7 +8,7 @@ A free notice board for Free Fire matches in India. **Hosts** post matches, **pl
 
 ## 2. Requirements
 
-**Functional:** post a free match; list and filter matches; join and leave; host roster (display name, UID, self-declared BR and CS ranks, optional team name); weekly series with a self-serve ladder; sponsor directory and CSV; report with a category and an automatic consequence.
+**Functional:** post a free match; list and filter matches; join and leave; host roster (display name, UID, self-declared BR and CS ranks, optional team name); weekly series with a self-serve ladder; sponsor enquiries by email; report with a category and an automatic consequence.
 
 **Non-functional:** correct under concurrent joins; no duplicate joins; no oversold slots; responsive board; no PII leakage; no human approval queue; survives a single DB (no distributed consistency tricks).
 

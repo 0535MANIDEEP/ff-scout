@@ -29,14 +29,14 @@ The product is a trust-first notice board. The design must feel composed and cre
 | One primary action per screen; secondary actions outlined or text | A single decision point reduces hesitation on a trust-first product. |
 | Toasts for transient feedback only, with an ARIA live region | Confirms an action without navigating away; errors that block a task stay inline. |
 | Real DB data only; no counts, badges, scarcity or timestamps invented | C-5 and the product's honest-board promise. |
-| Four appearance presets and custom accent retained | They are existing user state in `fc-appearance`; a redesign must not erase it. |
+| One Tailwind v4 token system | A single token set replaces appearance presets; there is no per-user theme state. |
 
 ## What was removed from the landing screen and why
 
 - The Wire marquee: moving text repeated the same message with no new information.
 - The KPI/ticker strip: numbers compete with the board and were decorative.
 - The "FIG. 2" pipeline and the comparison block: process explanation belongs on `/learn` and `/about`.
-- The waitlist form in the hero: two competing actions on the first screen.
+- A second call to action in the hero: two competing actions on the first screen.
 - Eyebrow labels above most sections: the section position already categorises it.
 
 ## Component rules

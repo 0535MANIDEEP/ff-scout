@@ -17,7 +17,7 @@ Background reading, used as research and not legal advice:
 - https://gaganlegal.com/articles/online-gaming-proga-rules-2026
 - https://solvlegal.com/blogs/online-gaming-rules-2026-india-money-games-ban-esports
 
-A qualified lawyer must review the final product and copy before launch. This decision does not remove that requirement.
+External legal review was not performed for this launch. No legal sign-off is claimed. See `docs/handoff-launch.md` → Legal review decision.
 
 ## Decision
 
@@ -29,7 +29,7 @@ A qualified lawyer must review the final product and copy before launch. This de
 
 ## Consequences
 
-- Legal exposure is reduced because no public surface asks for money or advertises a prize, and the site does not custody funds. It is not eliminated. A qualified lawyer still has to review the final copy and product before launch, and this decision does not claim e-sports recognition.
+- Legal exposure is reduced because no public surface asks for money or advertises a prize, and the site does not custody funds. It is not eliminated. This decision does not claim e-sports recognition or legal certification.
 - There is no prize-based growth lever. Acquisition has to come from the free board, sponsor-funded events and honest word of mouth. Any proposal that relies on advertised winnings is out of scope.
 - The abuse path is automated. Two joined-player reports are enough to close a match and pause a host. That is deliberate: fast protection for players matters more than a review queue. The tradeoff is that reports carry real consequences without human review, so the audit log is the only record and the counts shown on the match detail page must come from the database, never from invented numbers.
 - Schema changes are additive only on the shared Neon database. `Report.category` and `User.postingPausedUntil` were added by `20261122000000_free_entry_report_safety`. Legacy `entry`, `entryFee`, `prize` and `prizePool` columns remain untouched for history.

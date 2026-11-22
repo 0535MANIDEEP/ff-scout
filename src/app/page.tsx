@@ -96,7 +96,7 @@ export default async function HomePage() {
         <div className={SHELL}>
           <Reveal>
             <h2 className={H2}>{GLOBAL_DISCLOSURE}</h2>
-            <p className={LEAD}>Every listing on the board is free entry. We do not advertise cash prizes, collect money or verify players. India&apos;s PROGA 2025 and the 2026 Rules are background, not a legal compliance promise. A lawyer review is still required before launch.</p>
+            <p className={LEAD}>Every listing on the board is free entry. We do not advertise cash prizes, collect money or verify players. India&apos;s PROGA 2025 and the 2026 Rules are background, not legal advice or a compliance promise.</p>
             <Link href="/safety" className={GHOST}>
               Read the disclosure
             </Link>

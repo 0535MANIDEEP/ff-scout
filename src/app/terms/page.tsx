@@ -57,7 +57,7 @@ export default function Terms() {
         Final Circle is not affiliated with Garena International II Private Limited, or with any Free Fire tournament host. Free Fire and Garena are trademarks of Garena International II Private Limited. All references to them in this document are for identification and compatibility only.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        This is background, not legal advice. India&apos;s PROGA 2025 and the 2026 Rules are why the board stays free entry with no advertised cash prize. A qualified lawyer must review the final product and copy before launch.
+        This is background, not legal advice or a compliance promise. India&apos;s PROGA 2025 and the 2026 Rules are why the board stays free entry with no advertised cash prize.
       </p>
       <p className="mt-8"><Link href="/" className={GHOST}>← Back home</Link></p>
     </div>
