@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
@@ -23,8 +24,7 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>Who we are, and how to reach us</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. For privacy questions or complaints, write to
-        <a href={`mailto:${BRAND.email}`} className="text-vermilion"> {BRAND.email}</a>. We read every message and reply as soon as we can.
+        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. For privacy questions or complaints, use the <ContactNow /> link. We read every message and reply as soon as we can.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we collect, from whom, why</h2>
@@ -38,7 +38,7 @@ export default function Privacy() {
       <h2 className={`mt-6 ${H2}`}>18+ only</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
         Final Circle is for users 18 years or older. By signing up you confirm you are 18+, recorded with your consent.
-        We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, write to us and we will erase the account.
+        We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, use the link above and we will erase the account.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we do NOT collect</h2>
@@ -57,11 +57,11 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>Your choices</h2>
       <ul className={`mt-[10px] ${LIST}`}>
-        <li><strong>Access:</strong> write to the address above and ask what we hold about you.</li>
-        <li><strong>Correction:</strong> most profile fields can be edited in Settings; write to us for anything else.</li>
-        <li><strong>Erasure:</strong> use Settings → Delete account, or email the address above. The account and its linked records are removed.</li>
-        <li><strong>Complaints:</strong> use the address above if something goes wrong.</li>
-        <li><strong>Withdraw consent:</strong> email us and we erase your data.</li>
+        <li><strong>Access:</strong> use the link above and ask what we hold about you.</li>
+        <li><strong>Correction:</strong> most profile fields can be edited in Settings; use the link above for anything else.</li>
+        <li><strong>Erasure:</strong> use Settings → Delete account, or use the link above. The account and its linked records are removed.</li>
+        <li><strong>Complaints:</strong> use the link above if something goes wrong.</li>
+        <li><strong>Withdraw consent:</strong> use the link above and we erase your data.</li>
       </ul>
 
       <h2 className={`mt-6 ${H2}`}>Retention, plainly</h2>

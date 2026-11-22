@@ -99,7 +99,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
       </p>
 
       {sp.joined && <p className={`mt-3 ${APPROVED}`}>You are on this roster.</p>}
-      {sp.e && ERRORS[sp.e] && <p className={`mt-3 ${RISK}`}>{ERRORS[sp.e]}</p>}
+      {sp.e && Object.prototype.hasOwnProperty.call(ERRORS, sp.e) && <p className={`mt-3 ${RISK}`}>{ERRORS[sp.e]}</p>}
       {sp.reported && <p className={`mt-3 ${APPROVED}`}>Thanks, reported.{sp.enforced ? ' This match is closed and the host cannot post for seven days.' : ''}</p>}
       {joinedPaymentReports >= PAYMENT_REPORT_THRESHOLD && (
         <p className={`mt-3 ${RISK}`}>

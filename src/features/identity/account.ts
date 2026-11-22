@@ -13,6 +13,7 @@ export async function eraseAccount(userId: string): Promise<void> {
   await prisma.match.deleteMany({ where: { organizerId: userId } });
   await prisma.rateLimitEntry.deleteMany({ where: { key: { contains: `:${user.email}` } } });
   await prisma.auditLog.updateMany({ where: { detail: { contains: user.email } }, data: { detail: '{}' } });
+  await prisma.auditLog.updateMany({ where: { userId }, data: { detail: '{}' } });
   await prisma.auditLog.updateMany({ where: { userId }, data: { userId: null } });
   await prisma.user.delete({ where: { id: userId } });
 }

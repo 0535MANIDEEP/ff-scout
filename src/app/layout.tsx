@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
 import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { SPONSOR_LINE } from '@/features/sponsors/placement';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import SiteHeader from '@/components/SiteHeader';
@@ -85,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 isPartOf: { '@id': `${BRAND.url}/#website` },
               },
             ],
-          }) }}
+          }).replace(/</g, '\\u003c') }}
         />
         <a className="fixed left-3 top-[-100px] z-[200] inline-flex min-h-11 items-center rounded-lg bg-ink px-4 font-bold text-paper focus-visible:top-3 focus-visible:text-paper" href="#main-content">Skip to content</a>
         <SiteHeader />
@@ -103,7 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </nav>
           <p className="mt-4 max-w-[80ch] leading-[1.6]">{BRAND.name}. {BRAND.tagline}. Built independently, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
           {SPONSOR_LINE && <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Presented by {SPONSOR_LINE}</p>}
-          <p className="mt-3"><a href={`mailto:${BRAND.email}`} className={FOOTER_LINK}>{BRAND.email}</a></p>
+          <p className="mt-3"><ContactNow variant="footer" /></p>
         </footer>
         <BackToTop />
       </body>

@@ -10,12 +10,16 @@ import {
   type SessionUser,
 } from '@/shared/auth/session';
 
+// Unknown emails still pay the bcrypt cost so response time cannot reveal whether an account exists.
+const DUMMY_PASSWORD_HASH = '$2b$12$0SL39KbAzgJRvScgIyzFbeualFGezK7gLPWfXVePFY1sniPGDvW2C';
+
 export async function login(input: unknown): Promise<SessionUser | null> {
   const parsed = identitySchemas.login.safeParse(input);
   if (!parsed.success) return null;
   const email = parsed.data.email;
   const user = await findUserByEmail(email);
-  if (!user || !(await compare(parsed.data.password, user.passwordHash))) return null;
+  const valid = await compare(parsed.data.password, user?.passwordHash ?? DUMMY_PASSWORD_HASH);
+  if (!user || !valid) return null;
   const token = await createSessionToken(user.id);
   const jar = await cookies();
   jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);

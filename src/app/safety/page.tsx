@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
@@ -82,7 +83,7 @@ export default function Safety() {
       <section className="mt-7">
         <h2 className={H2}>18+ only</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Final Circle is for people aged 18 or older. Signing up records that confirmation. If you believe someone under 18 has an account, write to the grievance address below and we will erase it.
+          Final Circle is for people aged 18 or older. Signing up records that confirmation. If you believe someone under 18 has an account, use the grievance link below and we will erase it.
         </p>
       </section>
 
@@ -99,7 +100,7 @@ export default function Safety() {
       <section className="mt-7">
         <h2 className={H2}>Grievance path</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Report the match in the app first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. Privacy questions and complaints use the same address; see the <Link href="/privacy" className="text-vermilion">privacy notice</Link>. This is our own escalation path, not a promise about legal forums or time limits.
+          Report the match in the app first. If you cannot use the app, use the <ContactNow /> link. Privacy questions and complaints use the same link; see the <Link href="/privacy" className="text-vermilion">privacy notice</Link>. This is our own escalation path, not a promise about legal forums or time limits.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
           Point of contact: the Final Circle team, {BRAND.city}, {BRAND.country}.

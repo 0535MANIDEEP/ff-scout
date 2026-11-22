@@ -1,4 +1,4 @@
-import { BRAND } from '@/shared/config/brand';
+import { ContactNow } from '@/shared/ui/ContactNow';
 import { amazon, flipkart } from '@/features/sponsors/affiliate';
 import { LOADOUT } from '@/shared/config/match';
 import { publicMetadata } from '@/shared/seo';
@@ -46,7 +46,7 @@ export default function Loadout() {
         ))}
       </div>
 
-      <p className={`mt-[18px] ${SUBTEXT}`}>Buying through these links helps pay for hosting. If you already trust a gear pick of your own, tell us: <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>.</p>
+      <p className={`mt-[18px] ${SUBTEXT}`}>Buying through these links helps pay for hosting. If you already trust a gear pick of your own, use the <ContactNow /> link.</p>
     </div>
   );
 }
