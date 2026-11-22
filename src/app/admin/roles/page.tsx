@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb, ROLE_LABEL, ROLE_DESCRIPTION, type Role } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import { setRole } from './actions';
@@ -16,9 +15,7 @@ const FILTERS: Record<string, Role | 'all'> = { all: 'all', players: 'player', s
 const ERRORS: Record<string, string> = COPY.roles as Record<string, string>;
 
 export default async function RolesPage({ searchParams }: { searchParams: Promise<{ f?: string; e?: string; done?: string }> }) {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE_NAME)?.value;
-  const s = token ? await verifySession(token) : null;
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'user:manage')) redirect('/player');
 
@@ -55,7 +52,7 @@ export default async function RolesPage({ searchParams }: { searchParams: Promis
       <div className="roles-grid" style={{ marginTop: 18 }}>
         {users.map(u => {
           const role = roleFromDb(u.userType);
-          const isYou = u.id === s.userId;
+          const isYou = u.id === s.id;
           return (
             <article key={u.id} className="card" style={{ padding: 18 }}>
               <div className="tile-title" style={{ display: 'flex', gap: 12, alignItems: 'center' }}><RoleAvatar role={u.role} iglCapable={false} size={40} /><span>{u.displayName}{isYou && <span className="small"> · you</span>}</span></div>

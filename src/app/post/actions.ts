@@ -1,10 +1,9 @@
 'use server';
 
 import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { MATCH } from '@/lib/config';
@@ -25,14 +24,13 @@ const schema = z.object({
 });
 
 export async function createMatch(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:create')) redirect('/player');
-  const host = await prisma.user.findUnique({ where: { id: s.userId }, select: { postingPausedUntil: true } });
+  const host = await prisma.user.findUnique({ where: { id: s.id }, select: { postingPausedUntil: true } });
   if (host?.postingPausedUntil && host.postingPausedUntil.getTime() > Date.now()) redirect('/post?e=paused');
 
-  const rl = await checkRateLimit(`postmatch:${s.userId}`, 5, 15 * 60 * 1000);
+  const rl = await checkRateLimit(`postmatch:${s.id}`, 5, 15 * 60 * 1000);
   if (!rl.ok) redirect('/post?e=rate');
 
   const parsed = schema.safeParse({
@@ -54,7 +52,7 @@ export async function createMatch(formData: FormData) {
 
   await prisma.match.create({
     data: {
-      organizerId: s.userId,
+      organizerId: s.id,
       title: d.title,
       mode: d.mode,
       gameType: d.gameType,
@@ -70,7 +68,7 @@ export async function createMatch(formData: FormData) {
     },
   });
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'match_create', detail: JSON.stringify({ title: d.title }) } });
+    await prisma.auditLog.create({ data: { userId: s.id, action: 'match_create', detail: JSON.stringify({ title: d.title }) } });
   } catch { /* audit must not block the post */ }
   redirect('/player/posted?done=1');
 }

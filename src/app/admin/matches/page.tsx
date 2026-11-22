@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
@@ -12,8 +11,7 @@ export const metadata = privateMetadata('Matches console, Final Circle');
 export const dynamic = 'force-dynamic';
 
 export default async function AdminMatches({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
 

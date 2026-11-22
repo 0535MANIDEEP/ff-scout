@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { prisma } from '@/lib/db';
 import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
 import SignOut from '@/components/SignOut';
@@ -12,21 +11,18 @@ import { privateMetadata } from '@/lib/seo';
 export const metadata = privateMetadata('Your dashboard, Final Circle');
 
 export default async function PlayerDashboard({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE_NAME)?.value;
-  if (!token) redirect('/login');
-  const s = await verifySession(token);
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
 
   const sp = await searchParams;
   const user = await prisma.user.findUnique({
-    where: { id: s.userId },
+    where: { id: s.id },
     select: { id: true, displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, teamName: true, visibleToSponsors: true },
   });
   if (!user) redirect('/login');
 
   const joins = await prisma.matchEntry.findMany({
-    where: { playerId: s.userId },
+    where: { playerId: s.id },
     orderBy: { createdAt: 'desc' },
     include: { match: { select: { id: true, title: true, mode: true, gameType: true, date: true, city: true, status: true } } },
   });

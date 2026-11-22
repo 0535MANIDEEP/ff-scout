@@ -1,10 +1,9 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { revalidatePath } from 'next/cache';
 import { MATCH } from '@/lib/config';
@@ -29,8 +28,7 @@ const seriesEditSchema = z.object({
 });
 
 async function seriesSession(id: string, keyPrefix: string) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player/posted?e=role');
   const rl = await checkRateLimit(`${keyPrefix}:${id}`, 5, 15 * 60 * 1000);
@@ -46,7 +44,7 @@ async function seriesSession(id: string, keyPrefix: string) {
 export async function editSeries(formData: FormData) {
   const id = String(formData.get('seriesId') ?? '');
   const { s, stored } = await seriesSession(id, 'editseries');
-  if (stored.organizerId !== s.userId) redirect('/player/posted?e=forbidden');
+  if (stored.organizerId !== s.id) redirect('/player/posted?e=forbidden');
 
   const parsed = seriesEditSchema.safeParse({
     seriesId: id,
@@ -71,7 +69,7 @@ export async function editSeries(formData: FormData) {
   if (stored.dayOfWeek !== d.dayOfWeek || stored.startTimeLocal !== d.startTimeLocal) await applyScheduleEdit(id);
   else await applyTemplateEdit(id, templateData);
 
-  try { await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_edit', detail: JSON.stringify({ seriesId: id, title: d.title }) } }); } catch {}
+  try { await prisma.auditLog.create({ data: { userId: s.id, action: 'series_edit', detail: JSON.stringify({ seriesId: id, title: d.title }) } }); } catch {}
   revalidatePath('/matches');
   revalidatePath('/player/posted');
   redirect('/player/posted?e=edited');
@@ -80,11 +78,11 @@ export async function editSeries(formData: FormData) {
 export async function pauseSeriesAction(formData: FormData) {
   const id = String(formData.get('seriesId') ?? '');
   const { s, stored } = await seriesSession(id, 'pauseseries');
-  if (stored.organizerId !== s.userId) redirect('/player/posted?e=forbidden');
+  if (stored.organizerId !== s.id) redirect('/player/posted?e=forbidden');
   if (stored.status !== 'active') redirect('/player/posted?e=invalid');
 
   await pauseSeries(id);
-  try { await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_pause', detail: JSON.stringify({ seriesId: id }) } }); } catch {}
+  try { await prisma.auditLog.create({ data: { userId: s.id, action: 'series_pause', detail: JSON.stringify({ seriesId: id }) } }); } catch {}
   revalidatePath('/matches');
   revalidatePath('/player/posted');
   redirect('/player/posted?e=paused');
@@ -93,19 +91,18 @@ export async function pauseSeriesAction(formData: FormData) {
 export async function resumeSeriesAction(formData: FormData) {
   const id = String(formData.get('seriesId') ?? '');
   const { s, stored } = await seriesSession(id, 'resumeseries');
-  if (stored.organizerId !== s.userId) redirect('/player/posted?e=forbidden');
+  if (stored.organizerId !== s.id) redirect('/player/posted?e=forbidden');
   if (stored.status !== 'paused') redirect('/player/posted?e=invalid');
 
   await resumeSeries(id); // TP3: resumedAt resets the dead-occurrence window
-  try { await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_resume', detail: JSON.stringify({ seriesId: id }) } }); } catch {}
+  try { await prisma.auditLog.create({ data: { userId: s.id, action: 'series_resume', detail: JSON.stringify({ seriesId: id }) } }); } catch {}
   revalidatePath('/matches');
   revalidatePath('/player/posted');
   redirect('/player/posted?e=resumed');
 }
 
 export async function setMatchStatus(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
 
@@ -114,7 +111,7 @@ export async function setMatchStatus(formData: FormData) {
   if (!matchId || !['open', 'closed'].includes(status)) redirect('/player/posted?e=invalid');
 
   const match = await prisma.match.findUnique({ where: { id: matchId }, select: { organizerId: true } });
-  if (!match || match.organizerId !== s.userId) redirect('/player/posted?e=forbidden');
+  if (!match || match.organizerId !== s.id) redirect('/player/posted?e=forbidden');
 
   await prisma.match.update({ where: { id: matchId }, data: { status } });
   revalidatePath('/player/posted');

@@ -1,8 +1,7 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { prisma } from '@/lib/db';
 import { normalizeTeamName } from '@/lib/team';
 import { FREE_ENTRY_NOTICE, PAYMENT_REPORT_CATEGORY, PAYMENT_REPORT_THRESHOLD } from '@/lib/free-entry';
@@ -39,8 +38,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
   const { id } = await params;
   const sp = await searchParams;
 
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
 
   const match = await prisma.match.findUnique({
     where: { id },
@@ -55,7 +53,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
   if (!match) redirect('/matches');
 
   const joined = s
-    ? await prisma.matchEntry.findFirst({ where: { matchId: id, playerId: s.userId }, select: { id: true } })
+    ? await prisma.matchEntry.findFirst({ where: { matchId: id, playerId: s.id }, select: { id: true } })
     : null;
 
   const joinedPaymentReports = await prisma.report.count({
@@ -70,7 +68,7 @@ export default async function MatchDetail({ params, searchParams }: { params: Pr
   const full = match.slots != null && match.slots <= 0;
 
   const profile = s
-    ? await prisma.user.findUnique({ where: { id: s.userId }, select: { teamName: true } })
+    ? await prisma.user.findUnique({ where: { id: s.id }, select: { teamName: true } })
     : null;
   const prefillTeam = profile?.teamName ? normalizeTeamName(profile.teamName) : '';
   const isEsportsish = match.mode === 'esports' || match.mode === 'competitive';

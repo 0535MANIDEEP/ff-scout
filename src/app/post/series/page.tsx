@@ -1,6 +1,5 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
@@ -16,13 +15,12 @@ const LOCKED_COPY = (eligibility: Awaited<ReturnType<typeof seriesEligibility>>)
   `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far. You need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to unlock weekly series.`;
 
 export default async function PostSeries({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:create')) redirect('/player');
 
   const sp = await searchParams;
-  const eligibility = await seriesEligibility(s.userId);
+  const eligibility = await seriesEligibility(s.id);
 
   const PAUSED = 'Posting is paused on this account after a payment report. It reopens automatically after seven days.';
   const title = sp.e === 'paused' ? PAUSED : sp.e ? `You cannot create a series yet. ${LOCKED_COPY(eligibility)}` : `You can create a weekly series. ${LOCKED_COPY(eligibility)}`;

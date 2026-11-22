@@ -6,7 +6,7 @@ import { hash } from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
 import { Prisma } from '@prisma/client';
-import { signSession, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS } from '@/lib/auth';
+import { createSessionToken, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS } from '@/shared/auth/session';
 import { checkRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
@@ -46,7 +46,7 @@ export async function registerSponsor(formData: FormData) {
         consentedAt: new Date(),
       },
     });
-    const token = await signSession({ userId: user.id, userType: 'sponsor', displayName: user.displayName, email: user.email });
+    const token = await createSessionToken(user.id);
     const jar = await cookies();
     jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
     try { await prisma.auditLog.create({ data: { userId: user.id, action: 'signup', detail: JSON.stringify({ email: user.email, type: 'sponsor' }) } }); } catch { /* audit must not block */ }

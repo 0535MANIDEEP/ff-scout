@@ -1,18 +1,16 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { normalizeTeamName, isValidTeamName } from '@/lib/team';
 import { revalidatePath } from 'next/cache';
 import { PAYMENT_REPORT_CATEGORY, PAYMENT_REPORT_PAUSE_DAYS, PAYMENT_REPORT_THRESHOLD } from '@/lib/free-entry';
 
 async function session() {
-  const jar = await cookies();
-  return verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  return getCurrentUser();
 }
 
 class MatchClosed extends Error {}
@@ -49,7 +47,7 @@ export async function joinMatch(formData: FormData) {
 
       // esports: store the optional squad/guild name exactly as entered; none for other modes.
       const teamStored = m.mode === 'esports' || m.mode === 'competitive' ? teamName || null : null;
-      await tx.matchEntry.create({ data: { matchId, playerId: s.userId, teamName: teamStored } });
+      await tx.matchEntry.create({ data: { matchId, playerId: s.id, teamName: teamStored } });
     }, { isolationLevel: 'Serializable' });
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') redirect(`/matches/${matchId}?e=already`);
@@ -71,7 +69,7 @@ export async function leaveMatch(formData: FormData) {
   if (!matchId) redirect('/player?e=invalid');
 
   const m = await prisma.match.findUnique({ where: { id: matchId }, select: { slots: true } });
-  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.userId } });
+  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.id } });
   if (m?.slots != null) {
     await prisma.match.update({ where: { id: matchId }, data: { slots: { increment: 1 } } });
   }
@@ -93,7 +91,7 @@ export async function reportMatch(formData: FormData) {
   let enforced = false;
   try {
     await prisma.$transaction(async (tx) => {
-      await tx.report.create({ data: { matchId, reporterId: s.userId, category, reason } });
+      await tx.report.create({ data: { matchId, reporterId: s.id, category, reason } });
       // Only players who actually joined count. No reviewer sits between the
       // second report and the consequence.
       const joinedReports = await tx.report.count({
@@ -120,7 +118,7 @@ export async function reportMatch(formData: FormData) {
   if (enforced) {
     try {
       await prisma.auditLog.create({
-        data: { userId: s.userId, action: 'report:auto_pause', detail: JSON.stringify({ matchId, category }) },
+        data: { userId: s.id, action: 'report:auto_pause', detail: JSON.stringify({ matchId, category }) },
       });
     } catch { /* audit must not block enforcement */ }
     revalidatePath('/matches');

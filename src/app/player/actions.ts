@@ -1,10 +1,9 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { revalidatePath } from 'next/cache';
 import { RANKS, ROLE_IDS } from '@/lib/config';
 import { normalizeTeamName, isValidTeamName } from '@/lib/team';
@@ -20,8 +19,7 @@ const schema = z.object({
 });
 
 export async function saveProfile(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   const parsed = schema.safeParse({
     displayName: formData.get('displayName'),
@@ -40,7 +38,7 @@ export async function saveProfile(formData: FormData) {
   if (team && !isValidTeamName(team)) redirect('/player?e=team');
 
   await prisma.user.update({
-    where: { id: s.userId },
+    where: { id: s.id },
     data: { displayName: d.displayName, gameUid: d.gameUid, brRank: d.brRank, csRank: d.csRank, role: d.role as any, city: d.city, teamName: team || null },
   });
   revalidatePath('/player');
@@ -48,22 +46,20 @@ export async function saveProfile(formData: FormData) {
 }
 
 export async function setSponsorVisibility(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   const visible = formData.get('visible') === 'on';
-  await prisma.user.update({ where: { id: s.userId }, data: { visibleToSponsors: visible } });
+  await prisma.user.update({ where: { id: s.id }, data: { visibleToSponsors: visible } });
   revalidatePath('/player');
   redirect('/player?done=1');
 }
 
 export async function leaveMatch(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   const matchId = String(formData.get('matchId') ?? '');
   if (!matchId) redirect('/player?e=invalid');
-  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.userId } });
+  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.id } });
   revalidatePath('/player');
   revalidatePath(`/matches/${matchId}`);
   redirect('/player?done=1');

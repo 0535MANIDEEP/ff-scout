@@ -1,18 +1,15 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb, dbRoleFor, type Role } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 
 const VALID: Role[] = ['player', 'sponsor', 'admin'];
 
 export async function setRole(formData: FormData) {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE_NAME)?.value;
-  const s = token ? await verifySession(token) : null;
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'user:manage')) redirect('/player');
 
@@ -24,7 +21,7 @@ export async function setRole(formData: FormData) {
   if (!reason) redirect('/admin/roles?e=reason');
 
   // Lockout guards, forget one of these and you've got a dead admin panel.
-  if (userId === s.userId && target !== 'admin') redirect('/admin/roles?e=self');
+  if (userId === s.id && target !== 'admin') redirect('/admin/roles?e=self');
   if (target !== 'admin') {
     const targetUser = await prisma.user.findUnique({ where: { id: userId }, select: { userType: true } });
     if (targetUser?.userType === 'admin') {
@@ -37,7 +34,7 @@ export async function setRole(formData: FormData) {
     const before = await tx.user.findUnique({ where: { id: userId }, select: { userType: true, email: true } });
     await tx.user.update({ where: { id: userId }, data: { userType: dbRoleFor(target) as 'player' | 'sponsor' | 'admin' } });
     await tx.auditLog.create({
-      data: { userId: s.userId, action: 'role_change', detail: JSON.stringify({ target: userId, email: before?.email, from: before?.userType, to: target, reason, by: roleFromDb(s.userType) }) },
+      data: { userId: s.id, action: 'role_change', detail: JSON.stringify({ target: userId, email: before?.email, from: before?.userType, to: target, reason, by: roleFromDb(s.userType) }) },
     });
   });
   revalidatePath('/admin/roles');

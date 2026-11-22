@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import { MATCH } from '@/lib/config';
@@ -20,16 +19,15 @@ const SERIES_LOCKED_COPY = (eligibility: Awaited<ReturnType<typeof seriesEligibi
   `${eligibility.qualified} of ${MATCH.trustLadderMinMatches} completed matches hosted so far. You need ${MATCH.trustLadderMinMatches} hosted matches with at least ${MATCH.trustLadderMinJoins} joiners each to open a weekly series.`;
 
 export default async function PostedMatches({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:roster')) redirect('/player');
 
   const sp = await searchParams;
-  const eligibility = await seriesEligibility(s.userId);
+  const eligibility = await seriesEligibility(s.id);
   const [matches, series] = await Promise.all([
     prisma.match.findMany({
-      where: { organizerId: s.userId },
+      where: { organizerId: s.id },
       orderBy: { createdAt: 'desc' },
       take: 100,
       select: {
@@ -42,7 +40,7 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
         },
       },
     }),
-    prisma.matchSeries.findMany({ where: { organizerId: s.userId }, orderBy: { createdAt: 'desc' } }),
+    prisma.matchSeries.findMany({ where: { organizerId: s.id }, orderBy: { createdAt: 'desc' } }),
   ]);
 
   return (

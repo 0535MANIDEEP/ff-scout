@@ -1,6 +1,5 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import { RANKS } from '@/lib/config';
@@ -15,9 +14,7 @@ function csvCell(v: string): string {
 }
 
 export async function GET(request: Request) {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE_NAME)?.value;
-  const s = token ? await verifySession(token) : null;
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'talent:export')) redirect('/player');
 
@@ -46,7 +43,7 @@ export async function GET(request: Request) {
   const body = [header, ...rows].join('\n');
 
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'talent_export', detail: JSON.stringify({ count: players.length }) } });
+    await prisma.auditLog.create({ data: { userId: s.id, action: 'talent_export', detail: JSON.stringify({ count: players.length }) } });
   } catch { /* audit failure must not block the download */ }
 
   return new Response(body, {

@@ -1,10 +1,9 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { checkRateLimit } from '@/lib/rate-limit';
 import { MATCH } from '@/lib/config';
@@ -23,14 +22,13 @@ const schema = z.object({
 });
 
 export async function createSeries(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:create')) redirect('/post/series?e=role');
-  const host = await prisma.user.findUnique({ where: { id: s.userId }, select: { postingPausedUntil: true } });
+  const host = await prisma.user.findUnique({ where: { id: s.id }, select: { postingPausedUntil: true } });
   if (host?.postingPausedUntil && host.postingPausedUntil.getTime() > Date.now()) redirect('/post/series?e=paused');
 
-  const rl = await checkRateLimit(`createseries:${s.userId}`, 5, 15 * 60 * 1000);
+  const rl = await checkRateLimit(`createseries:${s.id}`, 5, 15 * 60 * 1000);
   if (!rl.ok) redirect('/post/series?e=rate');
 
   const parsed = schema.safeParse({
@@ -43,19 +41,19 @@ export async function createSeries(formData: FormData) {
   const d = parsed.data;
 
   // Trust ladder gate (spec §3): exact real progress, same rule the UI shows.
-  const eligibility = await seriesEligibility(s.userId);
+  const eligibility = await seriesEligibility(s.id);
   if (!eligibility.unlocked) redirect('/player/posted?e=seriesLocked');
 
   const series = await prisma.matchSeries.create({
     data: {
-      organizerId: s.userId, title: d.title, mode: d.mode, gameType: d.gameType,
+      organizerId: s.id, title: d.title, mode: d.mode, gameType: d.gameType,
       ...FREE_ENTRY_TERMS, city: d.city, online: d.online === 'yes', slots: null,
       durationMinutes: d.durationMinutes, dayOfWeek: d.dayOfWeek, startTimeLocal: d.startTimeLocal, status: 'active',
     },
   });
   await materializeSeries(series.id); // Flag 4: second prong — materialize on create
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_create', detail: JSON.stringify({ id: series.id, title: d.title }) } });
+    await prisma.auditLog.create({ data: { userId: s.id, action: 'series_create', detail: JSON.stringify({ id: series.id, title: d.title }) } });
   } catch { /* audit must not block */ }
   redirect('/player/posted?seriesDone=1');
 }

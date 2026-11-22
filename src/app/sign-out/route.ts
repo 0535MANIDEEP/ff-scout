@@ -1,14 +1,12 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { logout } from '@/features/identity/actions';
 
 export async function POST() {
-  const jar = await cookies();
-  jar.delete('ffscout_session');
+  await logout();
   redirect('/');
 }
 
 export async function GET() {
-  const jar = await cookies();
-  jar.delete('ffscout_session');
+  await logout();
   redirect('/');
 }

@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { prisma } from '@/lib/db';
 import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
@@ -12,8 +11,7 @@ export const metadata = privateMetadata('Player directory, Final Circle');
 export const dynamic = 'force-dynamic';
 
 export default async function SponsorDirectory({ searchParams }: { searchParams: Promise<{ city?: string; rank?: string; role?: string }> }) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'talent:browse')) redirect('/player');
 

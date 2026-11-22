@@ -1,7 +1,6 @@
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { prisma } from '@/lib/db';
 import SignOut from '@/components/SignOut';
 import { deleteAccount } from './actions';
@@ -11,13 +10,11 @@ import { privateMetadata } from '@/lib/seo';
 export const metadata = privateMetadata('Settings, Final Circle');
 
 export default async function Settings({ searchParams }: { searchParams: Promise<{ e?: string }> }) {
-  const jar = await cookies();
-  const token = jar.get(SESSION_COOKIE_NAME)?.value;
-  const s = token ? await verifySession(token) : null;
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   const { e } = await searchParams;
   const user = await prisma.user.findUnique({
-    where: { id: s.userId },
+    where: { id: s.id },
     select: { email: true, displayName: true, userType: true, createdAt: true },
   });
   if (!user) redirect('/login');

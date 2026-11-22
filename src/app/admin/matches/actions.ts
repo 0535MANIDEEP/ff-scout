@@ -1,15 +1,13 @@
 'use server';
 
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/db';
-import { verifySession, SESSION_COOKIE_NAME } from '@/lib/auth';
+import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { revalidatePath } from 'next/cache';
 
 export async function adminSetMatchStatus(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
 
@@ -19,15 +17,14 @@ export async function adminSetMatchStatus(formData: FormData) {
 
   await prisma.match.update({ where: { id: matchId }, data: { status } });
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'match_status', detail: JSON.stringify({ matchId, status }) } });
+    await prisma.auditLog.create({ data: { userId: s.id, action: 'match_status', detail: JSON.stringify({ matchId, status }) } });
   } catch { /* audit must not block */ }
   revalidatePath('/admin/matches');
   redirect('/admin/matches?done=1');
 }
 
 export async function adminPauseSeries(formData: FormData) {
-  const jar = await cookies();
-  const s = await verifySession(jar.get(SESSION_COOKIE_NAME)?.value ?? '');
+  const s = await getCurrentUser();
   if (!s) redirect('/login');
   if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
 
@@ -38,7 +35,7 @@ export async function adminPauseSeries(formData: FormData) {
 
   await prisma.matchSeries.update({ where: { id: seriesId }, data: { status: 'paused' } });
   try {
-    await prisma.auditLog.create({ data: { userId: s.userId, action: 'series_pause_admin', detail: JSON.stringify({ seriesId }) } });
+    await prisma.auditLog.create({ data: { userId: s.id, action: 'series_pause_admin', detail: JSON.stringify({ seriesId }) } });
   } catch { /* audit must not block */ }
   revalidatePath('/admin/matches');
   redirect('/admin/matches?done=1');
