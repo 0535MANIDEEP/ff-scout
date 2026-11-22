@@ -1,0 +1,9 @@
+{
+  "roles": [
+    { "id": "rusher", "label": "Rusher", "order": 1 },
+    { "id": "sniper", "label": "AWM Sniper", "order": 2 },
+    { "id": "support", "label": "Support", "order": 3 },
+    { "id": "anchor", "label": "Anchor", "order": 4 },
+    { "id": "lurker", "label": "Lurker", "order": 5 }
+  ]
+}

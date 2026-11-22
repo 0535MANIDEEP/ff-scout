@@ -1,0 +1,12 @@
+{
+  "ranks": [
+    { "id": "Bronze", "order": 1 },
+    { "id": "Silver", "order": 2 },
+    { "id": "Gold", "order": 3 },
+    { "id": "Platinum", "order": 4 },
+    { "id": "Diamond", "order": 5 },
+    { "id": "Heroic", "order": 6 },
+    { "id": "Elite Master", "order": 7 },
+    { "id": "Grandmaster", "order": 8 }
+  ]
+}

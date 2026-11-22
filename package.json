@@ -1,0 +1,40 @@
+{
+  "name": "final-circle",
+  "version": "0.1.0",
+  "private": true,
+  "overrides": {
+    "postcss": "^8.5.33"
+  },
+  "allowScripts": {
+    "prisma@6.19.3": true,
+    "@prisma/client@6.19.3": true,
+    "@prisma/engines@6.19.3": true
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "tsc --noEmit",
+    "test": "node --test --test-concurrency=1 test/*.test.js",
+    "postinstall": "prisma generate",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.8.0",
+    "@tailwindcss/postcss": "^4.3.5",
+    "bcryptjs": "^3.0.2",
+    "next": "^16.4.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.3.5",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "prisma": "^6.8.0",
+    "typescript": "^5.5.0"
+  }
+}

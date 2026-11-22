@@ -1,0 +1,6 @@
+{
+  "settings": {
+    "admin": "Admin accounts can't self-delete from here. Ask an operator to remove it, or do it deliberately from the database.",
+    "confirm": "Type DELETE in the box. That one word is the whole safety catch."
+  }
+}
