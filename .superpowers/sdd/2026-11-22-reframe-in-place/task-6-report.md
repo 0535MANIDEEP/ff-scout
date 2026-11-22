@@ -89,4 +89,4 @@ Gates re-run after the fixes, separately:
 - `npm run typecheck`: clean (`tsc --noEmit`).
 - `npm run build`: success, Next.js 16.4.6 Turbopack, 23 routes.
 
-Fix commit: `1a945ac` — `fix: restore shipped spacing and border rules in Tailwind port`.
+Fix commit: `0902316` — `fix: restore shipped spacing and border rules in Tailwind port` (final HEAD after amend; the pre-amend working SHA was `1a945ac`).
