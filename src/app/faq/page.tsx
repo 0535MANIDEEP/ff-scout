@@ -4,7 +4,7 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Frequently asked questions: Free Fire FAQ, Final Circle',
+  'Free Fire FAQ and frequently asked questions',
   'Answers for Indian Free Fire players and hosts on free entry, reporting, sponsors, and how the Final Circle match board works.',
   '/faq',
 );

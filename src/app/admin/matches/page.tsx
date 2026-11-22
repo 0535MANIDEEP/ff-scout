@@ -6,7 +6,7 @@ import SignOut from '@/components/SignOut';
 import { adminSetMatchStatus, adminPauseSeries } from './actions';
 import { privateMetadata } from '@/shared/seo';
 
-export const metadata = privateMetadata('Matches console, Final Circle');
+export const metadata = privateMetadata('Matches console');
 export const dynamic = 'force-dynamic';
 
 const SHELL = 'mx-auto w-full max-w-[1120px] px-6 max-[600px]:px-4';

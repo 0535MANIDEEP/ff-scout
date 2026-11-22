@@ -11,7 +11,7 @@ import { privateMetadata } from '@/shared/seo';
 import { setMatchStatus, editSeries, pauseSeriesAction, resumeSeriesAction } from './actions';
 import { sortByTeamKey } from '@/features/matches/team';
 
-export const metadata = privateMetadata('Your matches, Final Circle');
+export const metadata = privateMetadata('Your matches');
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

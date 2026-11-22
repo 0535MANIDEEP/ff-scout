@@ -28,6 +28,7 @@ The legal background is research, not legal advice. External legal review was no
 - Documentation now points only at files that exist in this tree; no live doc carries a lawyer-review gate or a deleted route.
 - Removed the unstored sign-up "where you are" field and corrected the privacy notice; removed dead exports, dead components and other unreachable code.
 - Rewrote public titles, descriptions and headings for search clarity, added per-page Open Graph and Twitter card metadata, and removed third-party chat-app names and unsourced counts from landing copy.
+- Renamed the package and local test database labels to `final-circle`. Page titles, the application name and the Organization, WebSite and WebApplication entities now all come from `BRAND.name`, with the retired cookie name held in one constant.
 - No schema, session or money behaviour changed. The exact disclosure string is unchanged.
 
 ## v0.1.0, initial preview, 2026-11-18 (historical, removed)
@@ -37,7 +38,7 @@ The bullets below describe the old preview model. They are kept as history only.
 - [Historical, removed] Dark FF-themed landing, verified roster candidate flow
 - [Historical, removed] Player sign-up with rank screenshot verification queue
 - [Historical, removed] Organizer sign-up, shortlist builder, CSV export
-- [Historical, removed] Admin verification queue (admin@ffscout.dev)
+- [Historical, removed] Admin verification queue (retired internal address)
 - [Historical, removed] Waitlist for organizers
 - About, FAQ, privacy, terms
 - Sakuga-vfx CTA (click bloom)

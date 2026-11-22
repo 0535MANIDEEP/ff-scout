@@ -6,6 +6,7 @@ import { identitySchemas } from './schema';
 import { createUser, findUserByEmail, writeAudit } from './repository';
 import {
   createSessionToken, SESSION_COOKIE_NAME, SESSION_COOKIE_OPTIONS,
+  LEGACY_SESSION_COOKIE_NAME,
   type SessionUser,
 } from '@/shared/auth/session';
 
@@ -58,5 +59,5 @@ export async function logout(): Promise<void> {
   const jar = await cookies();
   await revokeSessionToken(jar.get(SESSION_COOKIE_NAME)?.value);
   jar.delete(SESSION_COOKIE_NAME);
-  jar.delete('ffscout_session');
+  jar.delete(LEGACY_SESSION_COOKIE_NAME);
 }

@@ -13,7 +13,7 @@ External legal review was not performed for this launch. No legal sign-off was o
 ## Environment used for verification
 
 - Local production server: `npm run start` on `http://127.0.0.1:3000`, built from this tree.
-- Database: a dedicated local scratch Postgres database `ffscout_task13_scratch` on `127.0.0.1:5432`, created for this task and reset with `prisma db push --force-reset --skip-generate`.
+- Database: a dedicated local scratch Postgres database `finalcircle_task13_scratch` on `127.0.0.1:5432`, created for this task and reset with `prisma db push --force-reset --skip-generate`.
 - **The Neon URL in `.env.local` / `.env` was never used.** `DATABASE_URL` was explicitly overridden with the scratch URL for the server and every DB-backed run, and explicitly removed for the four prescribed gates.
 - No production credentials or real account data were submitted. The login round trip used a synthetic scratch user (`task13-check@example.test`) created only in the scratch database.
 

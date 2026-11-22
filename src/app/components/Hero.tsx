@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { HeroContext } from "@/features/matches/hero-data";
 import { GLOBAL_DISCLOSURE } from "@/features/disclosure/copy";
+import { BRAND } from "@/shared/config/brand";
 
 const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-[#CFC8B9] bg-panel px-6 text-center text-sm font-bold leading-[1.2] text-ink no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-line hover:bg-[#E4DFD1] active:translate-y-px';
 
@@ -16,7 +17,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="block text-vermilion">Find your lobby.</span>
           </h1>
           <p className="mt-4 max-w-[46ch] text-lg leading-[1.6] text-muted max-[1024px]:max-w-[60ch] max-[600px]:text-base">
-            Cafés, fests, sponsor activations, guild trials. Anyone hosting a Free Fire match posts it here and players join. BR or CS, casual or competitive. We're the board, not a gatekeeper.
+            {BRAND.name} is a free match board for Indian Free Fire players. Cafés, fests, sponsor activations, guild trials. Hosts post a match and players join. BR or CS, casual or competitive. We're the board, not a gatekeeper.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3 max-[600px]:flex-col max-[600px]:items-stretch max-[600px]:[&>a]:w-full">
             <Link href="/post" className="inline-flex min-h-[52px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-vermilion bg-vermilion px-8 text-center text-base font-bold leading-[1.2] text-panel no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-danger hover:bg-danger active:translate-y-px">Post a match</Link>

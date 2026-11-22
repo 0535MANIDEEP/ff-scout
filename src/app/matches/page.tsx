@@ -7,7 +7,7 @@ import { FREE_ENTRY_NOTICE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Find a match: Free Fire matches in India, Final Circle',
+  'Find a Free Fire match in India',
   'Browse open free-entry Free Fire matches in India. Join without paying, and see who else is on the roster.',
   '/matches',
 );

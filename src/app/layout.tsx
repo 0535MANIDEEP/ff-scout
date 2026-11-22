@@ -16,6 +16,7 @@ const jbmono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jbmono', d
 
 export const metadata: Metadata = {
   metadataBase: new URL(BRAND.url),
+  applicationName: BRAND.name,
   title: `${BRAND.name}, ${BRAND.descriptor}`,
   description: BRAND.description,
   keywords: [
@@ -55,13 +56,35 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify({
             '@context': 'https://schema.org',
-            '@type': 'WebApplication',
-            name: BRAND.name,
-            url: BRAND.url,
-            applicationCategory: 'GameApplication',
-            operatingSystem: 'Web',
-            creator: { '@type': 'Organization', name: BRAND.name, email: BRAND.email },
-            description: BRAND.description
+            '@graph': [
+              {
+                '@type': 'Organization',
+                '@id': `${BRAND.url}/#organization`,
+                name: BRAND.name,
+                url: BRAND.url,
+                email: BRAND.email,
+                description: BRAND.description,
+              },
+              {
+                '@type': 'WebSite',
+                '@id': `${BRAND.url}/#website`,
+                url: BRAND.url,
+                name: BRAND.name,
+                description: BRAND.description,
+                publisher: { '@id': `${BRAND.url}/#organization` },
+              },
+              {
+                '@type': 'WebApplication',
+                '@id': `${BRAND.url}/#webapp`,
+                name: BRAND.name,
+                url: BRAND.url,
+                applicationCategory: 'GameApplication',
+                operatingSystem: 'Web',
+                description: BRAND.description,
+                publisher: { '@id': `${BRAND.url}/#organization` },
+                isPartOf: { '@id': `${BRAND.url}/#website` },
+              },
+            ],
           }) }}
         />
         <a className="fixed left-3 top-[-100px] z-[200] inline-flex min-h-11 items-center rounded-lg bg-ink px-4 font-bold text-paper focus-visible:top-3 focus-visible:text-paper" href="#main-content">Skip to content</a>

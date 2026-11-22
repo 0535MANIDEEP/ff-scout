@@ -4,6 +4,8 @@ import { cookies } from 'next/headers';
 import { prisma } from '@/shared/db/client';
 
 export const SESSION_COOKIE_NAME = 'fc_session';
+// Cleared on logout only to expire cookies left by the retired build.
+export const LEGACY_SESSION_COOKIE_NAME = 'ffscout_session';
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;
 
 export const SESSION_COOKIE_OPTIONS = {

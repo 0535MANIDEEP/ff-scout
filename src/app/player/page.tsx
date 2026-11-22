@@ -8,7 +8,7 @@ import RoleAvatar from '@/components/RoleAvatar';
 import { saveProfile, leaveMatch } from './actions';
 import { privateMetadata } from '@/shared/seo';
 
-export const metadata = privateMetadata('Your dashboard, Final Circle');
+export const metadata = privateMetadata('Your dashboard');
 
 const SHELL = 'mx-auto w-full max-w-[1120px] px-6 max-[600px]:px-4';
 const H1 = 'text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.03em] text-ink';

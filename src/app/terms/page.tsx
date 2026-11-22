@@ -3,7 +3,7 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Terms of use: Final Circle',
+  'Terms of use',
   'Rules for hosts, players and sponsors on the free-entry Final Circle match board. 18+ only.',
   '/terms',
 );

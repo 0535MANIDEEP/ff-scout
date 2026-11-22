@@ -10,10 +10,10 @@ import { joinMatch, leaveMatch, reportMatch } from './actions';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  let title = 'Match, Final Circle';
+  let title = 'Match';
   try {
     const match = await prisma.match.findUnique({ where: { id }, select: { title: true } });
-    if (match) title = `${match.title}, Final Circle`;
+    if (match) title = match.title;
   } catch { /* metadata must never break the page */ }
   return publicMetadata(title, 'A free-entry Free Fire match listing on Final Circle. No money handled by the site.', `/matches/${id}`);
 }

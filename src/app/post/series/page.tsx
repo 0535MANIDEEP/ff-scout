@@ -9,7 +9,7 @@ import { createSeries } from './actions';
 import { Field } from '@/shared/ui/Field';
 import { Button } from '@/shared/ui/Button';
 
-export const metadata = privateMetadata('Create a weekly series, Final Circle');
+export const metadata = privateMetadata('Create a weekly series');
 
 const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

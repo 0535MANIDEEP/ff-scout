@@ -4,7 +4,7 @@ import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Safety and legal: Final Circle free-entry rules',
+  'Safety and legal: free-entry rules',
   'The free-entry rule, no-money rule, reporting and grievance paths, and how Final Circle earns money. Read before posting or joining.',
   '/safety',
 );

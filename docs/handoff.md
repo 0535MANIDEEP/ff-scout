@@ -22,7 +22,7 @@ All of these are wired into the repo and deploy on a merge to `main`.
 | Control | Command |
 |---|---|
 | Deploy | merge PR to `main` on GitHub, or `vercel --prod` |
-| Env vars | Vercel dashboard → Project `ff-scout` → Environment Variables. `DATABASE_URL` lives there; `NEXT_PUBLIC_SITE_URL` is optional. |
+| Env vars | Vercel dashboard → Project `final-circle` → Environment Variables. `DATABASE_URL` lives there; `NEXT_PUBLIC_SITE_URL` is optional. |
 | Logs | `vercel logs --environment production --no-branch --since 1h` |
 | Rollback | `vercel deploy --prod` after reverting the commit on `main` |
 | Database | `npx prisma migrate deploy`, additive migrations only |

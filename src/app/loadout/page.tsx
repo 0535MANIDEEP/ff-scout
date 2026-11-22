@@ -4,7 +4,7 @@ import { LOADOUT } from '@/shared/config/match';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Free Fire gear guide for India: Final Circle loadout',
+  'Free Fire loadout for India',
   'Gear Indian Free Fire players actually use, with disclosed affiliate links. Indicative prices, no paid placements.',
   '/loadout',
 );

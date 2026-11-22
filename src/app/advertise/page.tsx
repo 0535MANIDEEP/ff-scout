@@ -4,7 +4,7 @@ import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Advertise on Final Circle: sponsor free events',
+  'Advertise and sponsor free events',
   'Sponsor placements and sponsor-funded free events on a free-entry Free Fire match board. No player pays, and Final Circle handles no money.',
   '/advertise',
 );

@@ -3,7 +3,7 @@ import { BRAND } from '@/shared/config/brand';
 import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
-  'Privacy notice: Final Circle',
+  'Privacy notice',
   'What Final Circle collects, how long it is kept, and how to reach the Grievance Officer under the DPDP Act.',
   '/privacy',
 );

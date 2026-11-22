@@ -7,7 +7,7 @@ import { deleteAccount } from './actions';
 import { COPY } from '@/shared/config/match';
 import { privateMetadata } from '@/shared/seo';
 
-export const metadata = privateMetadata('Settings, Final Circle');
+export const metadata = privateMetadata('Settings');
 
 const NARROW = 'mx-auto w-full max-w-[760px] px-6 py-16 max-[860px]:py-12';
 const H1 = 'text-[clamp(1.5rem,2.4vw,2rem)] font-bold leading-[1.2] tracking-[-0.03em] text-ink';

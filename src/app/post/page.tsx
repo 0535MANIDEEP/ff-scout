@@ -10,7 +10,7 @@ import { createMatch } from './actions';
 import { Field } from '@/shared/ui/Field';
 import { Button } from '@/shared/ui/Button';
 
-export const metadata = privateMetadata('Post a match, Final Circle');
+export const metadata = privateMetadata('Post a match');
 
 const ERRORS: Record<string, string> = {
   rate: 'Too many posts in a short while. Give it a few minutes.',
