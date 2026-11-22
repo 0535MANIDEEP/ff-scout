@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { RANKS, ROLE_IDS, GAME_ROLE_LABEL } from '@/lib/config';
 import SignOut from '@/components/SignOut';
 import RoleAvatar from '@/components/RoleAvatar';

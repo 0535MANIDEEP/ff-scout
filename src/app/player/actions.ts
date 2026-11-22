@@ -2,7 +2,7 @@
 
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
 import { revalidatePath } from 'next/cache';
 import { RANKS, ROLE_IDS } from '@/lib/config';

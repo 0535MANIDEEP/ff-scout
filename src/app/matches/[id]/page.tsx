@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { getCurrentUser } from '@/shared/auth/session';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { normalizeTeamName } from '@/lib/team';
 import { FREE_ENTRY_NOTICE, PAYMENT_REPORT_CATEGORY, PAYMENT_REPORT_THRESHOLD } from '@/features/disclosure/copy';
 import { publicMetadata } from '@/lib/seo';

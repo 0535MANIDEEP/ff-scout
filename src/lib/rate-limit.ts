@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 
 export type RateLimitOutcome = { ok: true } | { ok: false; retryAfterSeconds: number };
 

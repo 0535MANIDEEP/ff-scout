@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import SignOut from '@/components/SignOut';
 import { adminSetMatchStatus, adminPauseSeries } from './actions';
 import { privateMetadata } from '@/lib/seo';

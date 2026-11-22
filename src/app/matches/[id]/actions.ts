@@ -2,8 +2,9 @@
 
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
+import { joinMatch as joinMatchInService } from '@/features/matches/service';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
 import { normalizeTeamName, isValidTeamName } from '@/lib/team';
 import { revalidatePath } from 'next/cache';
@@ -13,12 +14,6 @@ async function session() {
   return getCurrentUser();
 }
 
-class MatchClosed extends Error {}
-class MatchFull extends Error {}
-class AlreadyJoined extends Error {}
-
-// Joining is the concurrency-critical write: the unique constraint stops a
-// double join, and the atomic conditional decrement stops a slot oversell.
 export async function joinMatch(formData: FormData) {
   const s = await session();
   if (!s) redirect('/login');
@@ -30,32 +25,19 @@ export async function joinMatch(formData: FormData) {
   const teamName = normalizeTeamName(typeof teamRaw === 'string' ? teamRaw : null);
   if (teamName && !isValidTeamName(teamName)) redirect(`/matches/${matchId}?e=team`);
 
+  let result;
   try {
-    await prisma.$transaction(async (tx) => {
-      const m = await tx.match.findUnique({ where: { id: matchId }, select: { status: true, slots: true, mode: true } });
-      if (!m || m.status !== 'open') throw new MatchClosed();
-      if (m.slots != null && m.slots <= 0) throw new MatchFull();
-
-      if (m.slots != null) {
-        // Atomic conditional decrement: two players can never take the last slot.
-        const guard = await tx.match.updateMany({ where: { id: matchId, slots: { gt: 0 } }, data: { slots: { decrement: 1 } } });
-        if (guard.count === 0) throw new MatchFull();
-      } else {
-        const stillOpen = await tx.match.count({ where: { id: matchId, status: 'open' } });
-        if (stillOpen === 0) throw new MatchClosed();
-      }
-
-      // esports: store the optional squad/guild name exactly as entered; none for other modes.
-      const teamStored = m.mode === 'esports' || m.mode === 'competitive' ? teamName || null : null;
-      await tx.matchEntry.create({ data: { matchId, playerId: s.id, teamName: teamStored } });
-    }, { isolationLevel: 'Serializable' });
+    result = await joinMatchInService(matchId);
   } catch (err) {
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') redirect(`/matches/${matchId}?e=already`);
     if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2034') redirect(`/matches/${matchId}?e=retry`);
-    if (err instanceof AlreadyJoined) redirect(`/matches/${matchId}?e=already`);
-    if (err instanceof MatchFull) redirect(`/matches/${matchId}?e=full`);
-    if (err instanceof MatchClosed) redirect(`/matches/${matchId}?e=closed`);
     throw err;
+  }
+  if (!result.ok) {
+    if (result.reason === 'CLOSED') redirect(`/matches/${matchId}?e=closed`);
+    if (result.reason === 'HOST') redirect(`/matches/${matchId}?e=already`);
+    if (result.reason === 'DUPLICATE') redirect(`/matches/${matchId}?e=already`);
+    if (result.reason === 'FULL') redirect(`/matches/${matchId}?e=full`);
   }
   revalidatePath(`/matches/${matchId}`);
   revalidatePath('/player');

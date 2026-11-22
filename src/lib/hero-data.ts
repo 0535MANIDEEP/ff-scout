@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 
 export interface HeroMatchEntry {
   id: string;

@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { getCurrentUser } from '@/shared/auth/session';
 import { hasPermission, roleFromDb } from '@/lib/permissions';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { MATCH } from '@/lib/config';
 import { seriesEligibility } from '@/lib/series';
 import { seriesCueLabel } from '@/lib/schedule';

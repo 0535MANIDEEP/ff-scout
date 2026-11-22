@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { MATCH } from '@/lib/config';
 import { runSeriesSweep } from '@/lib/series-sweep';
 import { seriesCueLabel } from '@/lib/schedule';

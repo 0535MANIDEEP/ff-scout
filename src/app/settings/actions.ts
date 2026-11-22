@@ -3,7 +3,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { getCurrentUser, SESSION_COOKIE_NAME } from '@/shared/auth/session';
-import { prisma } from '@/lib/db';
+import { prisma } from '@/shared/db/client';
 import { eraseAccount } from '@/lib/account';
 
 // DPDP: withdraw consent / erase on request. Admins cannot self-delete here —
