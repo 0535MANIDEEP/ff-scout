@@ -1,6 +1,6 @@
 # Roles & Permissions — Final Circle
 
-DevOps-style RBAC for the platform. **Roles are designed in `src/lib/permissions.ts` first; assignment is server-side only.** No one writes raw SQL for access control, ever.
+DevOps-style RBAC for the platform. **Roles are designed in `src/shared/auth/permissions.ts` first; assignment is server-side only.** No one writes raw SQL for access control, ever.
 
 ## Adding a role
 1. `schema.prisma`: extend `enum UserType` (the role source of truth; sessions live in `src/shared/auth/session.ts`)

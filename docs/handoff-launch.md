@@ -1,6 +1,10 @@
 # Launch handoff — 2026-11-22
 
-Branch: `ui-ux-audit-fixes` (Task 13). This document records what was actually run and observed. Legal sign-off is **not** included here; Task 14 adds the lawyer review section.
+Branch: `ui-ux-audit-fixes` (Task 13). This document records what was actually run and observed. See `## Legal review decision` below for the owner's launch ruling.
+
+## Legal review decision
+
+The OWNER decided on 2026-11-22 to proceed to launch WITHOUT external legal review. No legal sign-off was obtained or is claimed, and this is not legal advice — it is a business decision by the owner, not a legal certification or compliance sign-off. The operating constraints are unchanged and remain visible: free entry only, no money handled by Final Circle, 18+, disclosed sponsor placements, affiliate links and sponsor-funded free events, and the shipped disclosures on `/safety` and `/terms`. No lawyer, reviewer, approval or review date is recorded.
 
 ## Release note (exact wording)
 
@@ -157,5 +161,4 @@ Console warnings observed were browser-level `Permissions-Policy` warnings for `
 
 ## Outstanding
 
-- Task 14 must add the lawyer review and sign-off before launch. No legal sign-off is asserted here.
 - The copy audit script reports `RESULT: FAIL` for the four pre-existing-copy false positives documented above; the script itself was not modified and no owner copy was altered.
