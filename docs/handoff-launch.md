@@ -4,7 +4,7 @@ Branch: `ui-ux-audit-fixes` (Task 13). This document records what was actually r
 
 ## Legal review decision
 
-The OWNER decided on 2026-11-22 to proceed to launch WITHOUT external legal review. No legal sign-off was obtained or is claimed, and this is not legal advice — it is a business decision by the owner, not a legal certification or compliance sign-off. The operating constraints are unchanged and remain visible: free entry only, no money handled by Final Circle, 18+, disclosed sponsor placements, affiliate links and sponsor-funded free events, and the shipped disclosures on `/safety` and `/terms`. No lawyer, reviewer, approval or review date is recorded.
+External legal review was not performed for this launch. No legal sign-off was obtained or is claimed. This record is not legal advice and makes no representation about legal compliance. The app's operating constraints are unchanged: free entry only, no money handled by Final Circle, 18+, disclosed sponsor placements, affiliate links and sponsor-funded free events, and the shipped disclosures on `/safety` and `/terms`.
 
 ## Release note (exact wording)
 
@@ -157,7 +157,7 @@ Console warnings observed were browser-level `Permissions-Policy` warnings for `
 - `src/components/ToastProvider.tsx` deleted from disk (it was untracked; it is not in the commit).
 - `next-env.d.ts` remains modified and uncommitted, as required.
 - Docs updated: `docs/codemap.md` folder structure, `docs/permissions.md`, `docs/content-map.md`, `docs/security-review.md`, `docs/system-design/match-platform.md`, and a supersession pointer in `docs/adr/0002-backend-hardening.md`.
-- Stale-reference scan: survivors exist only in `docs/adr/0002-backend-hardening.md` (the explicitly allowed historical decision body) and in the read-only historical plan archive `docs/superpowers/plans/2026-11-22-reframe-in-place.md`. No live architecture doc carries a stale session/lib path.
+- Stale JWT/session and `src/lib/` pointers remain only in the historical ADR 0002 (superseded by ADR 0006) and the read-only `docs/superpowers/**` archives; all live docs use the current feature/shared paths.
 
 ## Outstanding
 

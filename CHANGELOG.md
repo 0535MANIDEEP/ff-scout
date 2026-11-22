@@ -4,7 +4,7 @@
 
 Final Circle is now a free notice board. Hosts post a match, players join, and no money moves through the platform. This entry is the current product truth. See [SPEC.md](SPEC.md) and [ADR 0005](docs/adr/0005-legal-safe-free-entry-and-revenue.md).
 
-- Every match write and public view uses the free-entry constants in `src/lib/free-entry.ts`. The legacy `entryFee` and `prizePool` columns remain in the schema for history but are not written or displayed.
+- Every match write and public view uses the free-entry constants in `src/features/disclosure/copy.ts`. The legacy `entryFee` and `prizePool` columns remain in the schema for history but are not written or displayed.
 - Removed the old verification and unlock flows from the product and public copy. No human review path or gated tier remains.
 - Added the self-serve weekly-series trust ladder: three hosted matches with at least two distinct non-host joiners, at most two active series, and automatic pause after two zero-join occurrences.
 - Added report categories with an automated consequence. Two payment-request reports from players who joined close the match, pause the host's posting for exactly seven days from server time, and write an audit log entry. No human reviews first.

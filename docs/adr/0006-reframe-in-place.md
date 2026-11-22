@@ -12,4 +12,4 @@ The existing Final Circle is deployed, passes CI, SEO and real-Chrome audits, an
 Keep the repository, database and deploy. Rework internals slice by slice: feature services, opaque database sessions, Tailwind v4 as the single styling system. Remove sponsor directory/export, appearance presets, admin role console and waitlist capture.
 
 ## Consequences
-No destructive migration. All users are signed out once when JWT cookies are replaced. Tailwind conversion is the largest visual risk and is verified in real Chrome after each slice. Lawyer review remains required before launch.
+No destructive migration. All users are signed out once when JWT cookies are replaced. Tailwind conversion is the largest visual risk and is verified in real Chrome after each slice. External legal review was not performed for this launch; see `docs/handoff-launch.md` → Legal review decision.

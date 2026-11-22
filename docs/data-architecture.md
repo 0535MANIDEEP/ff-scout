@@ -21,11 +21,10 @@ Status: current as of 2026-11-22. Source of truth: `SPEC.md` and `docs/adr/0005-
 | Sponsor opt-in and business fields | `User.visibleToSponsors`, `orgName`, `orgType`, `brandName`, `contact` | Sponsor directory and enquiry flow | only when the player opts in |
 | Account type and operational flags | `User.userType` (`player`, `sponsor`, `admin`), `postingPausedUntil` | Access control and the automatic posting pause | Server side |
 | Match posting | `Match` | Title, mode, game type, date and end time, city, online flag, slots, contact, notes, status | Public board |
-| Free-entry terms | `Match.entry`, `Match.entryFee`, `Match.prize`, `Match.prizePool` and the matching `MatchSeries` columns | Legacy taxonomy columns. New writes use the constants in `src/lib/free-entry.ts`. Historical values are never rendered. | Public views show the fixed free-entry wording |
+| Free-entry terms | `Match.entry`, `Match.entryFee`, `Match.prize`, `Match.prizePool` and the matching `MatchSeries` columns | Legacy taxonomy columns. New writes use the constants in `src/features/disclosure/copy.ts`. Historical values are never rendered. | Public views show the fixed free-entry wording |
 | Weekly series template | `MatchSeries` | Recurrence, duration, lifecycle and materialized occurrences | Host manages their own series |
 | Join record | `MatchEntry`, including optional `teamName` | Roster and one join per player per match | Host of that match |
 | Report | `Report.category`, `Report.reason` | Automated consequence and audit trail | Server side |
-| Waitlist email | `WaitlistEntry` | City demand and launch notice. Stored, not sent. | Server side |
 | Rate-limit key | `RateLimitEntry` | Brute-force and abuse protection. Pruned on insert. | Nobody |
 | Audit event | `AuditLog` | Record of writes and safety consequences | Server side |
 
@@ -43,7 +42,7 @@ Not collected: payment or bank details, UPI IDs, escrow records, prize payouts, 
 ## 4. Write paths
 
 1. **Sign-up.** Form validation, bcrypt hash, `User` row with 18+ confirmation and consent timestamp, session cookie, audit entry.
-2. **Post a match.** Server action stamps `entry: 'free'`, `entryFee: null`, `prize: 'none'`, `prizePool: null` from `src/lib/free-entry.ts`. `src/config/match.json` accepts only those values. No approval step.
+2. **Post a match.** Server action stamps `entry: 'free'`, `entryFee: null`, `prize: 'none'`, `prizePool: null` from `src/features/disclosure/copy.ts`. `src/config/match.json` accepts only those values. No approval step.
 3. **Join.** `@@unique([matchId, playerId])` is the gate against duplicate joins. Competitive and esports joins may store an optional team or guild name on `MatchEntry`.
 4. **Weekly series.** A `MatchSeries` template materializes future `Match` occurrences with the same free-entry constants. The ladder values live in `src/config/match.json`: three hosted matches with at least two distinct non-host joiners, at most two active series, and auto-pause after two zero-join occurrences.
 5. **Report.** A player picks a category on a match. When two `payment_request` reports come from players who joined, the server closes the match, sets the host's `postingPausedUntil` to exactly seven days from server time, and writes an audit entry. There is no review before the consequence and no appeal queue.
@@ -51,7 +50,7 @@ Not collected: payment or bank details, UPI IDs, escrow records, prize payouts, 
 
 ## 5. Read and display rules
 
-- Public views render the free-entry wording from `src/lib/free-entry.ts`. They never read legacy money columns for display.
+- Public views render the free-entry wording from `src/features/disclosure/copy.ts`. They never read legacy money columns for display.
 - Counts shown on public pages come from the database at request time. No invented numbers.
 - A host sees rosters for their own matches. Sponsors see only opted-in profile fields. There is no verifier or moderator tier and no organizer role.
 - The audit log is the record for safety consequences. Reports are not held for a human reviewer.

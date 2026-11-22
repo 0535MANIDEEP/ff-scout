@@ -53,8 +53,8 @@ src/
 | `/` | Landing, product line, board CTA | `src/app/page.tsx`, `src/app/components/Hero.tsx` |
 | `/matches` | Live board, mode/type/city filters, free-entry notice, `/safety` link | `src/app/matches/page.tsx` |
 | `/matches/[id]` | Match detail, roster, join/leave, report | `src/app/matches/[id]/page.tsx`, `actions.ts` |
-| `/learn` | How ranks, roles and the board work | `src/app/learn/page.tsx`, `src/lib/learn.ts` |
-| `/loadout` | Gear picks with disclosed affiliate links | `src/app/loadout/page.tsx`, `src/lib/aff.ts` |
+| `/learn` | How ranks, roles and the board work | `src/app/learn/page.tsx`, `src/features/disclosure/learn.ts` |
+| `/loadout` | Gear picks with disclosed affiliate links | `src/app/loadout/page.tsx`, `src/features/sponsors/affiliate.ts` |
 | `/about`, `/faq`, `/privacy`, `/terms` | About, answers, legal and grievance copy | matching folders in `src/app` |
 | `/robots.txt`, `/sitemap.xml` | Generated crawler files | `src/app/robots.ts`, `src/app/sitemap.ts` |
 | `/safety` | Free-entry rule, no-money rule, 18+, reporting, grievance, how we earn, legal background, independent-site notice | `src/app/safety/page.tsx` |
@@ -80,26 +80,26 @@ Private routes (`admin`, `player`, `settings`, `login`, `sign-up`) export `noind
 ## Data flow: post to join to roster to report to automatic pause
 
 1. **Post.** `createMatch` in `src/app/post/actions.ts` checks the session and `match:create`, refuses a host whose `postingPausedUntil` is in the future, rate-limits to 5 posts per 15 minutes, validates with zod, then writes `...FREE_ENTRY_TERMS` and `endsAt = date + duration`. It logs `match_create` to `AuditLog` and redirects to `/player/posted`.
-2. **Board.** `/matches` runs `runSeriesSweep()` (`src/lib/series-sweep.ts`) as a fault-isolated tick, then renders open matches with a "Free entry / No advertised prize" line and the `/safety` link. No entry fee or prize amount is selected from the database for display.
-3. **Join.** `joinMatch` in `src/app/matches/[id]/actions.ts` checks `match:join`, normalizes the optional team name through `src/lib/team.ts` for `esports`/`competitive`, and runs a serializable transaction: match must be open, slots must remain, an atomic conditional decrement prevents oversell, and the unique `[matchId, playerId]` constraint prevents a double join.
-4. **Roster.** Match detail renders the real entry count and team names as typed by joiners. `/player/posted` is the host's view of their own matches and series. Capabilities live in `src/lib/permissions.ts`; roles are `player`, `sponsor`, `admin`. There is no verifier role.
+2. **Board.** `/matches` runs `runSeriesSweep()` (`src/features/series/service.ts`) as a fault-isolated tick, then renders open matches with a "Free entry / No advertised prize" line and the `/safety` link. No entry fee or prize amount is selected from the database for display.
+3. **Join.** `joinMatch` in `src/app/matches/[id]/actions.ts` checks `match:join`, normalizes the optional team name through `src/features/matches/team.ts` for `esports`/`competitive`, and runs a serializable transaction: match must be open, slots must remain, an atomic conditional decrement prevents oversell, and the unique `[matchId, playerId]` constraint prevents a double join.
+4. **Roster.** Match detail renders the real entry count and team names as typed by joiners. `/player/posted` is the host's view of their own matches and series. Capabilities live in `src/shared/auth/permissions.ts`; roles are `player`, `sponsor`, `admin`. There is no verifier role.
 5. **Report.** `reportMatch` in `src/app/matches/[id]/actions.ts` stores a report with category `payment_request`, `fake_match` or `other` plus a reason. It counts only `payment_request` reports whose reporter actually joined that match. At 2 or more, in the same transaction it closes the match, sets the host's `postingPausedUntil` to 7 days from server time, and writes audit action `report:auto_pause`. No human reviews before the consequence. Both `createMatch` and `createSeries` refuse posts while the pause is active. The pause expires by time; there is no appeal queue and no admin action.
 
-Thresholds are constants in `src/lib/free-entry.ts`; the additive migration that added `Report.category` and `User.postingPausedUntil` is `prisma/migrations/20261122000000_free_entry_report_safety/`.
+Thresholds are constants in `src/features/disclosure/copy.ts`; the additive migration that added `Report.category` and `User.postingPausedUntil` is `prisma/migrations/20261122000000_free_entry_report_safety/`.
 
 ## Weekly series
 
-`/post/series` creates a `MatchSeries` template only after `seriesEligibility()` (`src/lib/series.ts`) confirms 3 qualifying hosted matches and fewer than 2 active series. Qualification is `endsAt < now` and at least 2 distinct joiners excluding the host, status independent. `materializeSeries()` stamps free-entry terms, generates the lookahead window with fixed +05:30 IST date math (`src/lib/schedule.ts`), and uses `skipDuplicates` on `[seriesId, date]`. `autoPauseCheck()` pauses a series after 2 finished zero-join occurrences and logs `series:auto_pause`. Edits, pause and resume live in `src/lib/series-ops.ts`; joined future occurrences keep their terms, and only zero-join futures are propagated or purged.
+`/post/series` creates a `MatchSeries` template only after `seriesEligibility()` (`src/features/trust/rules.ts`) confirms 3 qualifying hosted matches and fewer than 2 active series. Qualification is `endsAt < now` and at least 2 distinct joiners excluding the host, status independent. `materializeSeries()` stamps free-entry terms, generates the lookahead window with fixed +05:30 IST date math (`src/features/trust/rules.ts`), and uses `skipDuplicates` on `[seriesId, date]`. `autoPauseCheck()` pauses a series after 2 finished zero-join occurrences and logs `series:auto_pause`. Edits, pause and resume live in `src/features/series/service.ts`; joined future occurrences keep their terms, and only zero-join futures are propagated or purged.
 
 ## Where copy and rules live
 
 | Change | File |
 |---|---|
-| Free-entry strings, disclosure line, report thresholds | `src/lib/free-entry.ts` |
-| Product line, site description, trademark, canonical base | `src/lib/brand.ts` |
+| Free-entry strings, disclosure line, report thresholds | `src/features/disclosure/copy.ts` |
+| Product line, site description, trademark, canonical base | `src/shared/config/brand.ts` |
 | Header, footer, `SPONSOR_LINE` slot, root metadata, JSON-LD | `src/app/layout.tsx` |
-| Per-route title, description, canonical, `noindex` | `src/lib/seo.ts` helpers, used by each route's `page.tsx` or `generateMetadata` |
-| Modes, game types, ladder thresholds, duration options | `src/config/match.json` via `src/lib/config.ts` |
+| Per-route title, description, canonical, `noindex` | `src/shared/seo.ts` helpers, used by each route's `page.tsx` or `generateMetadata` |
+| Modes, game types, ladder thresholds, duration options | `src/config/match.json` via `src/shared/config/match.ts` |
 | Visual and copy rules | `DESIGN.md` |
 | Product intent, roles, revenue, dismissals | `SPEC.md` |
 | Legal and sponsor copy | `src/app/safety/page.tsx`, `src/app/advertise/page.tsx`; background in `docs/superpowers/specs/2026-11-22-legal-safe-free-entry-and-revenue-design.md` (read-only) |

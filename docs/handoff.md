@@ -22,7 +22,7 @@ All of these are wired into the repo and deploy on a merge to `main`.
 | Control | Command |
 |---|---|
 | Deploy | merge PR to `main` on GitHub, or `vercel --prod` |
-| Env vars | Vercel dashboard → Project `ff-scout` → Environment Variables. `DATABASE_URL` and `SESSION_SECRET` live there. |
+| Env vars | Vercel dashboard → Project `ff-scout` → Environment Variables. `DATABASE_URL` lives there; `NEXT_PUBLIC_SITE_URL` is optional. |
 | Logs | `vercel logs --environment production --no-branch --since 1h` |
 | Rollback | `vercel deploy --prod` after reverting the commit on `main` |
 | Database | `npx prisma migrate deploy`, additive migrations only |
@@ -35,34 +35,31 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 | What the client sees | Where it lives |
 |---|---|
-| Brand name, tagline, description, email, founder, URL, trademark string | `src/lib/brand.ts` |
-| Free-entry constants and global disclosure | `src/lib/free-entry.ts` |
+| Brand name, tagline, description, email, founder, URL, trademark string | `src/shared/config/brand.ts` |
+| Free-entry constants and global disclosure | `src/features/disclosure/copy.ts` |
 | Hero headline, subhead, open-match preview and disclosure | `src/app/components/Hero.tsx` |
-| Loop steps, cards, replacement table, disclosure section, waitlist | `src/app/page.tsx` |
+| Loop steps, cards, replacement table, disclosure section | `src/app/page.tsx` |
 | FAQs | `src/app/faq/page.tsx`, the array of `{ q, a }` objects |
 | About | `src/app/about/page.tsx` |
 | Terms | `src/app/terms/page.tsx` |
 | Privacy | `src/app/privacy/page.tsx` |
 | Safety and legal notice | `src/app/safety/page.tsx` |
 | Advertise notice | `src/app/advertise/page.tsx` |
-| Learn / field manual chapters | `src/lib/learn.ts` |
-| Affiliate link disclosure | `src/app/loadout/page.tsx` and `src/lib/aff.ts` |
-| Sponsor CSV export | `src/app/sponsors/export/route.ts`. Do not edit the field list without a privacy review. |
+| Learn / field manual chapters | `src/features/disclosure/learn.ts` |
+| Affiliate link disclosure | `src/app/loadout/page.tsx` and `src/features/sponsors/affiliate.ts` |
 
 ## Handoff steps for an actual owner
 
 1. Create or confirm a Vercel account for the owner. Hobby tier has commercial-use limits, so confirm the plan before any paid sponsorship.
 2. Transfer the GitHub repo through `Settings → Danger Zone → Transfer ownership`.
 3. In Vercel, move the Neon integration to the owner or add the owner as a collaborator with limited permissions for the first year.
-4. Rotate `SESSION_SECRET` with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`, then redeploy.
-5. Remove stale demo accounts from the database. Do not reuse credentials from the old verification and unlock setup.
-6. Confirm that `/safety` and `/advertise` still carry the full notice and that the grievance email is monitored.
-7. Domain is optional. Buy one, point it at Vercel with `A 76.76.21.21`, and set `NEXT_PUBLIC_SITE_URL` when it verifies.
-8. Keep the lawyer review of final copy and product on the launch checklist. A qualified lawyer must review it before launch.
+4. Remove stale demo accounts from the database. Do not reuse credentials from the old verification and unlock setup.
+5. Confirm that `/safety` and `/advertise` still carry the full notice and that the grievance email is monitored.
+6. Domain is optional. Buy one, point it at Vercel with `A 76.76.21.21`, and set `NEXT_PUBLIC_SITE_URL` when it verifies.
+7. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## Known gaps and deliberate omissions
 
-- **No email sending.** Waitlist rows are stored, nothing emails them.
 - **No analytics.** Vercel Web Analytics can be enabled in the dashboard.
 - **No monitoring.** UptimeRobot free tier or Vercel uptime checks on a paid plan.
 - **No money flow, by design.** No checkout, no payment gateway, no escrow, no payouts. There is nothing to stub in for unlocks.
@@ -71,15 +68,13 @@ The site is deliberately small. Check `docs/content-map.md` for the full list.
 
 ## Immediate checklist
 
-- [ ] Rotate `SESSION_SECRET` via Vercel env UI and redeploy
 - [ ] Remove stale demo and verifier-era accounts
 - [ ] Run the test command with `DATABASE_URL` removed
-- [ ] Confirm the disclosure line matches `src/lib/free-entry.ts` on every public route
+- [ ] Confirm the disclosure line matches `src/features/disclosure/copy.ts` on every public route
 - [ ] Confirm `/safety` and `/advertise` carry the free-entry, no-money, 18+, reporting, grievance and revenue notices
-- [ ] Book the qualified lawyer review before launch
+- [ ] Record the launch decision in `docs/handoff-launch.md` → Legal review decision.
 - [ ] (Optional) Add a custom domain
 - [ ] (Optional) Enable Vercel Web Analytics
-- [ ] (Optional) Add email notifications for the waitlist
 
 ## Honest status of this release
 

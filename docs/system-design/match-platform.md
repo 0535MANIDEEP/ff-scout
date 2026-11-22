@@ -31,7 +31,7 @@ Early product: hundreds of matches, thousands of users. One Postgres primary (Ne
 
 ## 5. Data model
 
-- **`Match`**: the posting. Taxonomy as `String` enums-in-code (`mode`, `gameType`, `entry`, `prize`, `status`), parsed from `src/config/match.json` by zod. `src/lib/free-entry.ts` stamps `entry: 'free'`, `entryFee: null`, `prize: 'none'`, `prizePool: null` on every new write. The legacy money columns stay for history and are never used for display. Strings over lookup tables: the sets are small, stable, and validated in code.
+- **`Match`**: the posting. Taxonomy as `String` enums-in-code (`mode`, `gameType`, `entry`, `prize`, `status`), parsed from `src/config/match.json` by zod. `src/features/disclosure/copy.ts` stamps `entry: 'free'`, `entryFee: null`, `prize: 'none'`, `prizePool: null` on every new write. The legacy money columns stay for history and are never used for display. Strings over lookup tables: the sets are small, stable, and validated in code.
 - **`MatchEntry`**: junction table for the M:N between `Match` and `User`. Optional `teamName` is stored per join for competitive and esports modes.
 - **`Report`**: junction with a `category` and a `reason`; unique per (match, reporter) so one player cannot spam reports.
 - **`MatchSeries`**: weekly template with recurrence and lifecycle fields. Occurrences are materialized as `Match` rows with the same free-entry terms.
@@ -70,7 +70,7 @@ await prisma.$transaction(async (tx) => {
 
 - Actions are the write API (server actions); routes are the read API. Both validate with zod and authorize with `hasPermission`.
 - Every write is idempotent or explicitly non-idempotent-with-guard: joins and reports are unique-constrained; posting is rate-limited per user; closing is a state set (naturally idempotent).
-- Match and series actions cannot accept a fee, a prize or a payment field. Free-entry terms come from `src/lib/free-entry.ts`.
+- Match and series actions cannot accept a fee, a prize or a payment field. Free-entry terms come from `src/features/disclosure/copy.ts`.
 - **Pagination:** the board is cursor-paginated on `(date, id)`, stable under inserts, unlike `OFFSET` (which skips or duplicates when a new match is posted mid-scroll).
 - **Filtering** is by indexed columns only (status, date, city, mode, gameType).
 

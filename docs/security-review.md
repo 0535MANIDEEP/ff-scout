@@ -21,13 +21,13 @@ External black-box scan (benavlabs/vibe-check, MIT, read-only, 64 requests) agai
 
 ## Repo-side review (already in place)
 
-- AuthN/AuthZ server-side only (`verifySession` per action/route); admin role set from DB only.
-- bcrypt cost 10; sessions httpOnly/lax/Secure-in-prod; opaque database-backed session cookie with a 7-day expiry, SHA-256 token hash stored in `Session`, revoked by deleting the `Session` row.
+- AuthN/AuthZ server-side only (`getCurrentUser()` as the per-action/route guard); admin role set from DB only.
+- bcrypt cost 12; sessions httpOnly/lax/Secure-in-prod; opaque database-backed session cookie with a 7-day expiry, SHA-256 token hash stored in `Session`, revoked by setting `revokedAt` (the row is kept).
 - Session cookies are database-backed; the old `SESSION_SECRET` signing-key advice in ADR 0002 is superseded by ADR 0006.
 - Input validation zod everywhere. The old screenshot upload flow is gone, so there is no image upload surface to review.
 - Rate limits fail-closed; audit logs on account, sponsor export and safety events; CSV formula-injection neutralized.
 - Signup race closed (P2002). Transactions for multi-write flows.
-- Free-entry constants are applied on write and display (`src/lib/free-entry.ts`). Legacy money columns are not used by the app.
+- Free-entry constants are applied on write and display (`src/features/disclosure/copy.ts`). Legacy money columns are not used by the app.
 - Reports carry a category. Two `payment_request` reports from players who joined close the match, pause the host's posting for seven days from server time, and write an audit entry. No human reviews before the consequence and there is no appeal queue.
 - No checkout, payment gateway, escrow or payout path exists. No money or payment data is collected.
 

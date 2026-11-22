@@ -22,7 +22,7 @@ No organizer tier, no unlock fee, no per-event charge, and no player payment. Ro
 
 ## What it does
 
-1. A host posts a free match at `/post`. Entry is written as `free`, prize as `none`, and both money fields as `null` through `src/lib/free-entry.ts`.
+1. A host posts a free match at `/post`. Entry is written as `free`, prize as `none`, and both money fields as `null` through `src/features/disclosure/copy.ts`.
 2. A player joins from `/matches/[id]`. For `esports` and `competitive` modes an optional team or guild name is stored on the match entry. A `User.teamName` default is used as the form prefill. There are no persistent team profiles.
 3. The roster shows real join counts and team names as typed. Hosts manage their own matches and series at `/player/posted`.
 4. Weekly series are a `MatchSeries` template that materializes future `Match` occurrences. The join, roster and report flows are unchanged for series occurrences.
@@ -69,7 +69,6 @@ The research behind this decision is background, not legal advice. A qualified l
 - A paid digital guide or any other product with a checkout.
 - Persistent team or guild profiles.
 - Registration as an e-sport, or any sponsor tie to real-money gaming.
-- Account-level appearance sync or Prisma storage for appearance state.
 
 ## The one-line result
 

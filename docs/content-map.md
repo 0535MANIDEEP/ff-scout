@@ -2,12 +2,12 @@
 
 If you want to change copy without touching code structure, edit these files. Each entry: file path → what the user sees.
 
-Product truth lives in `SPEC.md` and the free-entry notice lives in `src/lib/free-entry.ts`. Legal background is research, not legal advice. A qualified lawyer must review final copy before launch.
+Product truth lives in `SPEC.md` and the free-entry notice lives in `src/features/disclosure/copy.ts`. Legal background is research, not legal advice. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
 
 ## Site-wide
 
-- `src/lib/brand.ts`: Name, mark, tagline, description, email, founder, URL and trademark line. Every page imports `BRAND` from here.
-- `src/lib/free-entry.ts`: The global disclosure line, the free-entry constants and the payment-report threshold. Change here, not in individual pages.
+- `src/shared/config/brand.ts`: Name, mark, tagline, description, email, founder, URL and trademark line. Every page imports `BRAND` from here.
+- `src/features/disclosure/copy.ts`: The global disclosure line, the free-entry constants and the payment-report threshold. Change here, not in individual pages.
 - `src/app/layout.tsx`: Footer copy, metadata and appearance control.
 
 ## Landing page (`/`)
@@ -17,7 +17,6 @@ Product truth lives in `SPEC.md` and the free-entry notice lives in `src/lib/fre
 - "One board, both sides of the lobby" three cards: same file, the `grid-3` block.
 - "What this replaces" table: same file, four rows.
 - Free-entry disclosure section and `/safety` link: same file, the section rendering `GLOBAL_DISCLOSURE`.
-- City waitlist: same file, the `<Waitlist />` section. Emails are stored, not sent.
 
 ## Auth screens
 
@@ -28,7 +27,7 @@ Product truth lives in `SPEC.md` and the free-entry notice lives in `src/lib/fre
 ## Match and sponsor routes
 
 - Board (`/matches`) and detail (`/matches/[id]`): `src/app/matches/page.tsx` and `src/app/matches/[id]/page.tsx`. The detail page carries the report form.
-- Post (`/post`) and weekly series (`/post/series`): `src/app/post/page.tsx` and `src/app/post/series/page.tsx`. Both write free-entry terms from `src/lib/free-entry.ts`.
+- Post (`/post`) and weekly series (`/post/series`): `src/app/post/page.tsx` and `src/app/post/series/page.tsx`. Both write free-entry terms from `src/features/disclosure/copy.ts`.
 - Hosted matches and series (`/player/posted`): `src/app/player/posted/page.tsx`.
 - Sponsor directory (`/sponsors`) and CSV export (`/sponsors/export`): `src/app/sponsors/page.tsx` and `src/app/sponsors/export/route.ts`. Only opted-in players appear.
 
@@ -40,8 +39,8 @@ Product truth lives in `SPEC.md` and the free-entry notice lives in `src/lib/fre
 - Privacy (`/privacy`): `src/app/privacy/page.tsx`
 - Safety and legal (`/safety`): `src/app/safety/page.tsx`. Full free-entry, reporting and grievance notice.
 - Advertise (`/advertise`): `src/app/advertise/page.tsx`. Sponsor placement and funded free event notice.
-- Loadout (`/loadout`): `src/app/loadout/page.tsx` and `src/lib/aff.ts`. Affiliate links are disclosed here.
-- Learn (`/learn`): `src/lib/learn.ts` array of chapters
+- Loadout (`/loadout`): `src/app/loadout/page.tsx` and `src/features/sponsors/affiliate.ts`. Affiliate links are disclosed here.
+- Learn (`/learn`): `src/features/disclosure/learn.ts` array of chapters
 
 ## Adding a new FAQ
 
@@ -67,7 +66,7 @@ const items = [
 
 ## Changing the accent color
 
-Defaults live in `:root` and `:root[data-theme="light"]` in `src/styles/globals.css`. `src/lib/appearance.ts` applies the per-browser preset or custom accent and stores it in `fc-appearance`. Change the defaults in CSS, not in the browser override.
+Defaults live in `:root` and `:root[data-theme="light"]` in `src/styles/globals.css`. Change the defaults in CSS, not in the browser override.
 
 ## Changing fonts
 
@@ -90,4 +89,4 @@ Edit `next/font/google` imports in `src/app/layout.tsx`. Must be self-hosted via
 
 ## Honesty contract for copy edits
 
-Every public claim must be either sourced from the database at request time or framed honestly as a plan. No invented counts, testimonials or trusted-by lines. No copy that asks a player for money or advertises a prize. The disclosure line must match `src/lib/free-entry.ts` on every route. Any legal claim stays background only until a qualified lawyer reviews the final product and copy.
+Every public claim must be either sourced from the database at request time or framed honestly as a plan. No invented counts, testimonials or trusted-by lines. No copy that asks a player for money or advertises a prize. The disclosure line must match `src/features/disclosure/copy.ts` on every route. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision.
