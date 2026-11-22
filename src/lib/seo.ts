@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { BRAND } from './brand';
+import { BRAND } from '@/shared/config/brand';
 
 export function publicMetadata(title: string, description: string, path: string): Metadata {
   return {

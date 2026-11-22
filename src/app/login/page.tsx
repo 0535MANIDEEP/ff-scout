@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useActionState } from 'react';
 import { login } from './actions';
 import type { ActionState } from './actions';
-import { BRAND } from '@/lib/brand';
+import { BRAND } from '@/shared/config/brand';
 import { Field } from '@/shared/ui/Field';
 import { Button } from '@/shared/ui/Button';
 

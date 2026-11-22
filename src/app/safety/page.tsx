@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
-import { BRAND } from '@/lib/brand';
+import { BRAND } from '@/shared/config/brand';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 
 export const metadata: Metadata = {

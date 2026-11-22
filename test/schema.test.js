@@ -75,7 +75,7 @@ test('reports carry a category and hosts carry an automatic posting pause', () =
 });
 
 test('free-entry terms never carry a fee or prize', () => {
-  const source = fs.readFileSync(path.join(__dirname, '..', 'src', 'lib', 'free-entry.ts'), 'utf8');
+  const source = fs.readFileSync(path.join(__dirname, '..', 'src', 'features', 'disclosure', 'copy.ts'), 'utf8');
   assert.match(source, /entry:\s*'free'/);
   assert.match(source, /entryFee:\s*null/);
   assert.match(source, /prize:\s*'none'/);

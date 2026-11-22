@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { BRAND } from '@/lib/brand';
+import { BRAND } from '@/shared/config/brand';
 
 const NAV = [
   { href: '/matches', label: 'Matches' },

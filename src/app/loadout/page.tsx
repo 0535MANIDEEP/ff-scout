@@ -1,4 +1,4 @@
-import { BRAND } from '@/lib/brand';
+import { BRAND } from '@/shared/config/brand';
 import { amazon, flipkart } from '@/lib/aff';
 import { LOADOUT } from '@/lib/config';
 import { publicMetadata } from '@/lib/seo';

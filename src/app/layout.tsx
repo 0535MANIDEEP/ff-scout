@@ -2,7 +2,8 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import { Inter, JetBrains_Mono, Anton } from 'next/font/google';
-import { BRAND } from '@/lib/brand';
+import { BRAND } from '@/shared/config/brand';
+import { SPONSOR_LINE } from '@/features/sponsors/placement';
 import { GLOBAL_DISCLOSURE } from '@/features/disclosure/copy';
 import SiteHeader from '@/components/SiteHeader';
 import BackToTop from '@/components/BackToTop';
@@ -78,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/privacy" className={FOOTER_LINK}>Privacy</Link>
           </nav>
           <p className="mt-4 max-w-[80ch] leading-[1.6]">{BRAND.name}. {BRAND.tagline}. Built by {BRAND.founder}. Independent, not affiliated with Garena or Free Fire. {BRAND.trademark}</p>
-          {process.env.SPONSOR_LINE && <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Presented by {process.env.SPONSOR_LINE}</p>}
+          {SPONSOR_LINE && <p className="mt-3 font-mono text-xs uppercase tracking-[0.08em] text-muted">Presented by {SPONSOR_LINE}</p>}
           <p className="mt-3"><a href={`mailto:${BRAND.email}`} className={FOOTER_LINK}>{BRAND.email}</a></p>
         </footer>
         <BackToTop />
