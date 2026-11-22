@@ -12,7 +12,7 @@ export const metadata = publicMetadata(
 const faqs: { q: string; a: ReactNode }[] = [
   {
     q: 'Does it cost anything?',
-    a: 'No. Posting and joining are free. Every listing is free entry and Final Circle handles no money. 18+ only.',
+    a: 'No. Posting and joining are free. Every listing is free entry, and Final Circle handles no money. 18+.',
   },
   {
     q: 'Can I advertise a cash prize or charge entry?',
@@ -20,11 +20,11 @@ const faqs: { q: string; a: ReactNode }[] = [
   },
   {
     q: 'Someone asked me to pay. What now?',
-    a: <>Do not pay. Open the match and choose Report this match, pick the payment request category and add a short note. If two players who joined report the same payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report first. If you cannot use the app, use the <ContactNow /> link. More detail is on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.</>,
+    a: <>Do not pay. Open the match, choose Report this match, pick the payment request category and add a short note. Two joined players reporting the same payment request close the match automatically and pause the host for seven days. No one reviews the report first. If you cannot use the app, use the <ContactNow /> link. More detail is on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.</>,
   },
   {
     q: 'How does Final Circle earn?',
-    a: 'Sponsor placements, disclosed affiliate links on the loadout page, and sponsor-funded free events. Players never pay the platform. There is no rate card and no checkout here.',
+    a: 'Sponsor placements, disclosed affiliate links on the loadout page and sponsor-funded free events. Players never pay the platform. There is no rate card and no checkout.',
   },
   {
     q: 'Is this an official or registered e-sport?',
@@ -36,11 +36,11 @@ const faqs: { q: string; a: ReactNode }[] = [
   },
   {
     q: 'I am hosting a small match, not a big tournament. Does it work for me?',
-    a: 'Yes. Cafés, fest leads, guild captains, creators and college societies can post a match. Players join themselves and the host sees who joined, with UID and self-declared rank. Final Circle does not bracket or broadcast your match.',
+    a: 'Yes. Cafés, fest leads, guild captains, creators and college societies can post a match. Players join themselves and the host sees who joined, with UID and self-declared rank. Final Circle does not bracket or broadcast it.',
   },
   {
     q: 'How do I get my match on Final Circle?',
-    a: 'Post it yourself with Post a match. It goes on the board immediately. Posting is free and every listing is free entry.',
+    a: 'Post it with Post a match. It goes on the board immediately. Posting is free and every listing is free entry.',
   },
 ];
 
@@ -55,7 +55,7 @@ export default function FAQ() {
     <div className={NARROW}>
       <h1 className={H1}>Frequently asked questions</h1>
       <p className={`mt-3 ${SUBTEXT}`}>
-        The questions players and hosts ask most, answered plainly.
+        Short answers to the questions players and hosts ask most.
       </p>
       <dl className="mt-6">
         {faqs.map(({ q, a }) => (

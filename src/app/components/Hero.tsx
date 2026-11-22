@@ -17,7 +17,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="block text-vermilion">Find your lobby.</span>
           </h1>
           <p className="mt-4 max-w-[46ch] text-lg leading-[1.6] text-muted max-[1024px]:max-w-[60ch] max-[600px]:text-base">
-            {BRAND.name} is a free match board for Indian Free Fire players. Cafés, fests, sponsor activations, guild trials. Hosts post a match and players join. BR or CS, casual or competitive. We're the board, not a gatekeeper.
+            {BRAND.name} is a free match board for Indian Free Fire players. Hosts post a match and players join it. BR or CS, casual or competitive. Posting is free and there is no approval queue.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-3 max-[600px]:flex-col max-[600px]:items-stretch max-[600px]:[&>a]:w-full">
             <Link href="/post" className="inline-flex min-h-[52px] items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-vermilion bg-vermilion px-8 text-center text-base font-bold leading-[1.2] text-panel no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-danger hover:bg-danger active:translate-y-px">Post a match</Link>
@@ -35,7 +35,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
             <span className="font-mono text-xs text-muted">{matches.length} UPCOMING</span>
           </div>
           {matches.length === 0 ? (
-            <p className="py-8 leading-[1.6] text-muted">Nothing posted yet. You're looking at an honest board. The first match appears when someone posts it.</p>
+            <p className="py-8 leading-[1.6] text-muted">No open matches yet. The board fills when a host posts one.</p>
           ) : (
             matches.slice(0, 5).map((m) => (
               <Link key={m.id} href={`/matches/${m.id}`} className="group grid min-h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 border-b border-[#CFC8B9] py-3 no-underline last-of-type:border-b-0">
@@ -45,7 +45,7 @@ export function Hero({ ctx }: { ctx: HeroContext }) {
               </Link>
             ))
           )}
-          <figcaption className="mt-3 border-t border-[#CFC8B9] pt-3 text-sm text-muted">Open matches, updated live, from the board.</figcaption>
+          <figcaption className="mt-3 border-t border-[#CFC8B9] pt-3 text-sm text-muted">Open matches from the board.</figcaption>
         </figure>
       </div>
 

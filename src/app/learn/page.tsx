@@ -30,8 +30,8 @@ export default function LearnPage() {
   return (
     <div className={`${SHELL} pb-20 pt-10`}>
       <p className={EYEBROW}>FIELD MANUAL · FREE FIRE INDIA</p>
-      <h1 className="mt-[10px] max-w-[22ch] text-[clamp(34px,4.5vw,56px)] font-bold leading-[1.2] tracking-[-0.03em] text-ink">Learn the game the way we read it.</h1>
-      <p className={`mt-3 max-w-[56ch] ${SUBTEXT}`}>Written for players who want to play better and hosts running matches. Everything external is labelled, official channels, community work, and honest search links instead of fabricated authority.</p>
+      <h1 className="mt-[10px] max-w-[22ch] text-[clamp(34px,4.5vw,56px)] font-bold leading-[1.2] tracking-[-0.03em] text-ink">Free Fire field notes</h1>
+      <p className={`mt-3 max-w-[56ch] ${SUBTEXT}`}>Short notes on roles, characters and maps for players and hosts. External sources are labelled official, community or a video search.</p>
 
       <div className="mt-10 grid grid-cols-[240px_minmax(0,1fr)] items-start gap-8 max-[1024px]:grid-cols-1">
         <nav className="sticky top-[84px] flex flex-col gap-1 rounded-card border border-[#CFC8B9] bg-panel p-4 max-[1024px]:static max-[1024px]:flex-row max-[1024px]:flex-wrap" aria-label="Chapters">

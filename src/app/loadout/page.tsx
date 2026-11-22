@@ -23,7 +23,7 @@ export default function Loadout() {
   return (
     <div className={SHELL}>
       <h1 className={`mt-8 ${H1}`}>Free Fire loadout</h1>
-      <p className={LEAD}>Honest gear the grassroots FF player actually uses, no sponsored placements and no hype. Prices are indicative; check the live listing before you buy.</p>
+      <p className={LEAD}>Gear that works for Free Fire players on a budget. Prices are indicative, so check the live listing before you buy.</p>
 
       <div className={`mt-4 border-vermilion p-6 ${CARD}`}>
         <p className="text-sm leading-[1.65]"><strong>Disclosure:</strong> links on this page earn a small affiliate commission from Amazon.in and Flipkart. They help pay for hosting. Nothing on this page is paid placement, and commissions do not change the ranking.</p>
@@ -32,7 +32,7 @@ export default function Loadout() {
 
       <div className="mt-[18px] flex flex-col gap-3">
         {GEAR.map(g => (
-          <div key={g.label} className={`border-[#CFC8B9] ${CARD} p-4`}>
+          <div key={g.label} className={`border-[#CFC8B9] ${CARD} p-6`}>
             <div className="flex flex-wrap items-baseline justify-between gap-4">
               <h2 className={`m-0 ${H2}`}>{g.label}</h2>
               <span className="font-mono text-sm text-vermilion">{g.price}</span>
@@ -46,7 +46,7 @@ export default function Loadout() {
         ))}
       </div>
 
-      <p className={`mt-[18px] ${SUBTEXT}`}>Buying through these links helps pay for hosting. If you already trust a gear pick of your own, use the <ContactNow /> link.</p>
+      <p className={`mt-[18px] ${SUBTEXT}`}>Buying through these links helps pay for hosting. To suggest a gear pick, use the <ContactNow /> link.</p>
     </div>
   );
 }

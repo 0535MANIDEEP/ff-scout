@@ -104,7 +104,7 @@ export default async function MatchesBoard({ searchParams }: { searchParams: Pro
       </form>
 
       {happening.length === 0 && upcoming.length === 0 ? (
-        <p className={`mt-7 ${SUBTEXT}`}>Nothing posted yet. You are looking at an honest board. The first match appears when someone posts it.</p>
+        <p className={`mt-7 ${SUBTEXT}`}>No open matches yet. The board fills when a host posts one.</p>
       ) : (
         <>
           {happening.length > 0 && (
