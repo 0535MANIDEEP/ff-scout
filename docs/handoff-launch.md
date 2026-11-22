@@ -1,6 +1,6 @@
 # Launch handoff — 2026-11-22
 
-Branch: `ui-ux-audit-fixes` (Task 13). This document records what was actually run and observed. See `## Legal review decision` below for the owner's launch ruling.
+Branch: `ui-ux-audit-fixes` (Task 13). This document records what was actually run and observed. See `## Legal review decision` below.
 
 ## Legal review decision
 
@@ -157,7 +157,7 @@ Console warnings observed were browser-level `Permissions-Policy` warnings for `
 - `src/components/ToastProvider.tsx` deleted from disk (it was untracked; it is not in the commit).
 - `next-env.d.ts` remains modified and uncommitted, as required.
 - Docs updated: `docs/codemap.md` folder structure, `docs/permissions.md`, `docs/content-map.md`, `docs/security-review.md`, `docs/system-design/match-platform.md`, and a supersession pointer in `docs/adr/0002-backend-hardening.md`.
-- Stale JWT/session and `src/lib/` pointers remain only in the historical ADR 0002 (superseded by ADR 0006) and the read-only `docs/superpowers/**` archives; all live docs use the current feature/shared paths.
+- Stale JWT/session and `src/lib/` pointers remain only in the historical ADRs 0002 (superseded by ADR 0006) and 0003, and in the read-only `docs/superpowers/**` archives; all current live docs use the feature/shared paths.
 
 ## Outstanding
 
