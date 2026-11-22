@@ -9,7 +9,7 @@ import { revalidatePath } from 'next/cache';
 export async function adminSetMatchStatus(formData: FormData) {
   const s = await getCurrentUser();
   if (!s) redirect('/login');
-  if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
+  if (!hasPermission(roleFromDb(s.userType), 'match:moderate')) redirect('/player');
 
   const matchId = String(formData.get('matchId') ?? '');
   const status = String(formData.get('status') ?? '');
@@ -26,7 +26,7 @@ export async function adminSetMatchStatus(formData: FormData) {
 export async function adminPauseSeries(formData: FormData) {
   const s = await getCurrentUser();
   if (!s) redirect('/login');
-  if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
+  if (!hasPermission(roleFromDb(s.userType), 'match:moderate')) redirect('/player');
 
   const seriesId = String(formData.get('seriesId') ?? '');
   if (!seriesId) redirect('/admin/matches?e=invalid');

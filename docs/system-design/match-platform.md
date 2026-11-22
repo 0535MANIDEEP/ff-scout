@@ -4,11 +4,11 @@ This document argues the design from established principles and resolves the har
 
 ## 1. Problem
 
-A free notice board for Free Fire matches in India. **Hosts** post matches, **players** join them, **sponsors** discover opted-in players. The platform must be correct under concurrency, cheap to run (free tiers), and honest with data. It must not need an operator, and no money passes through it.
+A free notice board for Free Fire matches in India. **Hosts** post matches and **players** join them. The platform must be correct under concurrency, cheap to run (free tiers), and honest with data. It must not need an operator, and no money passes through it.
 
 ## 2. Requirements
 
-**Functional:** post a free match; list and filter matches; join and leave; host roster (display name, UID, self-declared BR and CS ranks, optional team name); weekly series with a self-serve ladder; sponsor enquiries by email; report with a category and an automatic consequence.
+**Functional:** post a free match; list and filter matches; join and leave; host roster (display name, UID, self-declared BR and CS ranks, optional team name); weekly series with a self-serve ladder; report with a category and an automatic consequence.
 
 **Non-functional:** correct under concurrent joins; no duplicate joins; no oversold slots; responsive board; no PII leakage; no human approval queue; survives a single DB (no distributed consistency tricks).
 
@@ -21,8 +21,8 @@ A free notice board for Free Fire matches in India. **Hosts** post matches, **pl
 | Idempotency at the storage layer | DDIA (unique constraints as consensus) | One join per (match, player); one report per (match, reporter) |
 | Use the weakest isolation that is still correct | DDIA (transaction isolation) | Serializable for the join transaction; read-committed elsewhere |
 | Back-of-envelope first, scale only when measured | Alex Xu, *System Design Interview* | Tiny scale → one Postgres, no cache layer yet |
-| Least privilege | Saltzer & Schroeder | RBAC catalogue; sponsors see only opted-in fields; host sees own roster only |
-| Privacy by design | DPDP principles | Opt-in sponsor visibility; collect only what a flow needs; no payment data at all |
+| Least privilege | Saltzer & Schroeder | RBAC catalogue with an admin-only moderation capability; host sees own roster only |
+| Privacy by design | Data minimisation | Collect only what a flow needs; no payment data at all; no email on rosters or in audit details |
 | Fail closed | None | Missing session or permission redirects; validation server-side |
 
 ## 4. Capacity (honest)
@@ -35,7 +35,7 @@ Early product: hundreds of matches, thousands of users. One Postgres primary (Ne
 - **`MatchEntry`**: junction table for the M:N between `Match` and `User`. Optional `teamName` is stored per join for competitive and esports modes.
 - **`Report`**: junction with a `category` and a `reason`; unique per (match, reporter) so one player cannot spam reports.
 - **`MatchSeries`**: weekly template with recurrence and lifecycle fields. Occurrences are materialized as `Match` rows with the same free-entry terms.
-- **`User`**: `player`, `sponsor` and `admin` types. `postingPausedUntil` carries the automatic consequence. `visibleToSponsors` gates sponsor discovery.
+- **`User`**: `player`, `sponsor` and `admin` types. `postingPausedUntil` carries the automatic consequence. `visibleToSponsors` and the business fields are legacy columns, unused by the current product.
 - **`AuditLog`**: record of write and safety events, including report consequences.
 - **Indexes**: match board: `@@index([status, date])`; joins: `@@unique([matchId, playerId])`; reports: `@@unique([matchId, reporterId])`; `User.email` unique; `RateLimitEntry @@index([key, createdAt])`.
 - **Why not a `slots` counter cache?** It must be decremented atomically with the join (see §6). A naive `slots - 1` read-modify-write is a lost-update bug.
@@ -60,7 +60,7 @@ await prisma.$transaction(async (tx) => {
 }, { isolationLevel: 'Serializable' });
 ```
 
-`updateMany` compiles to a single `UPDATE ... WHERE slots > 0`; the database serializes concurrent executions, so two players can never take the last slot. Leaving restores the slot in its own transaction.
+`updateMany` compiles to a single `UPDATE ... WHERE slots > 0`; the database serializes concurrent executions, so two players can never take the last slot. Leaving deletes the entry and restores the slot in one transaction, only when an entry was actually removed.
 
 **(c) Close vs join.** A match can be closed while a join is in flight, including when the report consequence fires. The join transaction re-checks `status: 'open'` in the same atomic `updateMany` (above), so a closed match can never accept the insert. Serializable isolation + retrying on `P2034` (serialization failure) closes the remaining window; the retry is cheap and rare at this scale.
 
@@ -76,7 +76,7 @@ await prisma.$transaction(async (tx) => {
 
 ## 8. Abuse and rate limiting
 
-- Per-user token bucket via the existing `RateLimitEntry` limiter: post, join, export and report are all limited.
+- Per-user token bucket via the existing `RateLimitEntry` limiter: post, join and report are all limited.
 - Reports are first-class rows, not fire-and-forget. They carry a category and feed an automatic consequence, not a review queue.
 - Two `payment_request` reports from players who joined close the match, pause the host's posting for exactly seven days from server time, and write an audit entry. No human reviews first.
 - Weekly-series trust is derived from real rows: three hosted matches, two distinct non-host joiners each, a cap of two active series, and an automatic pause after two zero-join occurrences.
@@ -92,10 +92,10 @@ await prisma.$transaction(async (tx) => {
 ## 10. Security and privacy
 
 - **Authentication:** opaque database-backed session cookie (random token, SHA-256 hash in `Session`, row deletion revokes), httpOnly, sameSite lax, secure in prod.
-- **Authorization:** catalogue-first RBAC; every action re-checks, never trusts the client. There is no verifier, moderator or organizer role.
-- **IDOR:** roster and posting management are scoped by the session user; sponsors can only read opted-in players.
-- **PII:** no email address appears on a listing or in the sponsor export. Sponsor data is display name, UID, self-declared BR and CS ranks, role and city. No payment data exists anywhere in the system.
-- **Injection:** Prisma parameterizes everything; CSV export escapes formula-leading cells (`= + - @`) and quotes (existing `csvCell` pattern).
+- **Authorization:** catalogue-first RBAC; every action re-checks, never trusts the client. Admin match moderation uses the admin-only `match:moderate` capability; hosts manage only their own matches. There is no verifier, moderator or organizer role.
+- **IDOR:** roster and posting management are scoped by the session user.
+- **PII:** no email address appears on a listing, a host roster or audit details. Roster data is display name, UID, self-declared BR and CS ranks, role and city. No payment data exists anywhere in the system.
+- **Injection:** Prisma parameterizes everything; there is no raw SQL or CSV export path.
 - **Integrity:** zod on every input; no raw user strings into SQL.
 - **Display:** public views render the fixed free-entry wording. Historical legacy money values are never rendered.
 
@@ -113,7 +113,7 @@ await prisma.$transaction(async (tx) => {
 ## 12. Resolutions to the open questions
 
 1. **Roster visibility** → host only (least privilege).
-2. **Player contact** → no email shared by the board. Sponsors see only opted-in profile fields.
+2. **Player contact** → no email shared by the board, not even to hosts of a joined match.
 3. **Moderation** → categorized report with an automatic consequence and audit entry, no review queue.
 4. **Who posts** → any registered player (one account, both actions; no separate organizer role).
 5. **Slots** → optional; enforced atomically, never oversold.

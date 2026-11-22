@@ -25,7 +25,7 @@ const GHOST = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace
 export default async function AdminMatches({ searchParams }: { searchParams: Promise<{ done?: string; e?: string }> }) {
   const s = await getCurrentUser();
   if (!s) redirect('/login');
-  if (!hasPermission(roleFromDb(s.userType), 'match:manage')) redirect('/player');
+  if (!hasPermission(roleFromDb(s.userType), 'match:moderate')) redirect('/player');
 
   const sp = await searchParams;
   const [matches, reports, series] = await Promise.all([

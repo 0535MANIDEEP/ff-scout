@@ -76,6 +76,18 @@ export async function joinMatch(matchId: string, teamName: string | null): Promi
   }, { isolationLevel: 'Serializable' });
 }
 
+export async function leaveMatch(matchId: string): Promise<void> {
+  const user = await requireUser();
+  await prisma.$transaction(async tx => {
+    const deleted = await tx.matchEntry.deleteMany({ where: { matchId, playerId: user.id } });
+    if (deleted.count !== 1) return;
+    await tx.match.updateMany({
+      where: { id: matchId, slots: { not: null } },
+      data: { slots: { increment: 1 } },
+    });
+  });
+}
+
 async function requireUser(): Promise<SessionUser> {
   const user = await getCurrentUser();
   if (!user) throw new Error('UNAUTHENTICATED');

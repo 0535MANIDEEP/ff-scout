@@ -4,7 +4,7 @@ import { publicMetadata } from '@/shared/seo';
 
 export const metadata = publicMetadata(
   'Privacy notice',
-  'What Final Circle collects, how long it is kept, and how to reach the Grievance Officer under the DPDP Act.',
+  'What Final Circle collects, how long it is kept, and how to reach us.',
   '/privacy',
 );
 
@@ -19,13 +19,12 @@ export default function Privacy() {
   return (
     <div className={NARROW}>
       <h1 className={H1}>Privacy notice</h1>
-      <p className={`mt-3 ${SUBTEXT}`}>Last updated: 19 November 2026. India-focused. We are a Data Fiduciary under the Digital Personal Data Protection Act, 2023 (DPDP).</p>
+      <p className={`mt-3 ${SUBTEXT}`}>Last updated: 19 November 2026. India-focused. We collect only what the flows below need.</p>
 
-      <h2 className={`mt-6 ${H2}`}>Who we are, and who to complain to</h2>
+      <h2 className={`mt-6 ${H2}`}>Who we are, and how to reach us</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. Grievance Officer (as required by the DPDP Rules, contact in writing):
-        <a href={`mailto:${BRAND.email}`} className="text-vermilion"> {BRAND.email}</a>.
-        We acknowledge grievances within 72 hours and resolve them within 30 days. If unsatisfied, you may approach the Data Protection Board of India.
+        Final Circle is built and operated by the Final Circle team, {BRAND.city}, {BRAND.country}. For privacy questions or complaints, write to
+        <a href={`mailto:${BRAND.email}`} className="text-vermilion"> {BRAND.email}</a>. We read every message and reply as soon as we can.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we collect, from whom, why</h2>
@@ -33,13 +32,13 @@ export default function Privacy() {
         <li><strong>Account (players &amp; hosts):</strong> email, password hash (bcrypt, never visible to anyone, including us), display name (IGN), role, rank and city. Used to run accounts and to match hosts to players. We do not ask for a college, guild or employer name at sign-up.</li>
         <li><strong>Match board (hosts):</strong> hosts see the players who joined, with display name, UID, BR and CS ranks, role, city and team name. Players enter their own rank. We never share passwords with anyone.</li>
         <li><strong>Match reports:</strong> category, reason, reporter and timestamp. Used to apply automatic match closures and posting pauses. No human reviews a report before the automatic consequence applies.</li>
-        <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for 90 days for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
+        <li><strong>Operational logs:</strong> sign-in and internal actions (who acted, on what, when) kept for abuse prevention. Rate-limit keys are temporary and discarded on window expiry.</li>
       </ul>
 
       <h2 className={`mt-6 ${H2}`}>18+ only</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
         Final Circle is for users 18 years or older. By signing up you confirm you are 18+, recorded with your consent.
-        We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, write to the grievance officer and we will erase the account.
+        We do not knowingly process data of persons under 18, if you are, or a parent/guardian believes your child signed up, write to us and we will erase the account.
       </p>
 
       <h2 className={`mt-6 ${H2}`}>What we do NOT collect</h2>
@@ -52,24 +51,23 @@ export default function Privacy() {
 
       <h2 className={`mt-6 ${H2}`}>Where your data lives</h2>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Nothing else leaves these two providers.
-        These processors are bound by their DPAs. Data may be transferred outside India where the DPDP Rules permit, no DPDP-blacklisted destination is used, and we re-check whenever those rules change. Backups follow the same terms.
+        Application hosting: Vercel Inc. (USA). Database: Neon (AWS ap-southeast-1, Singapore). Those are the only providers that hold application data.
+        Because those services are hosted there, data may be processed outside India.
       </p>
 
-      <h2 className={`mt-6 ${H2}`}>Your rights under DPDP</h2>
+      <h2 className={`mt-6 ${H2}`}>Your choices</h2>
       <ul className={`mt-[10px] ${LIST}`}>
-        <li><strong>Access:</strong> ask for a copy of what we hold about you, we reply with a CSV of your account and profile details.</li>
-        <li><strong>Correction:</strong> ask us to fix wrong details (e.g., wrong IGN).</li>
-        <li><strong>Erasure:</strong> use Settings → Delete account, or email the Grievance Officer. We delete the user row and confirm within 72 hours.</li>
-        <li><strong>Grievance:</strong> if we fail, contact the Grievance Officer above; beyond that, the Data Protection Board of India.</li>
-        <li><strong>Withdraw consent:</strong> email us; we erase your data on receipt.</li>
+        <li><strong>Access:</strong> write to the address above and ask what we hold about you.</li>
+        <li><strong>Correction:</strong> most profile fields can be edited in Settings; write to us for anything else.</li>
+        <li><strong>Erasure:</strong> use Settings → Delete account, or email the address above. The account and its linked records are removed.</li>
+        <li><strong>Complaints:</strong> use the address above if something goes wrong.</li>
+        <li><strong>Withdraw consent:</strong> email us and we erase your data.</li>
       </ul>
 
       <h2 className={`mt-6 ${H2}`}>Retention, plainly</h2>
       <ul className={`mt-[10px] ${LIST}`}>
         <li>Account data, until you erase it (and always on request).</li>
-        <li>Audit logs, 90 days.</li>
-        <li>Report records (category, reason, reporter and timestamp), 90 days, with operational logs.</li>
+        <li>Audit and report records: kept for abuse prevention. Audit details do not hold email addresses.</li>
         <li>Cookies, session cookie only; 7 days; no tracking cookies.</li>
       </ul>
 

@@ -14,10 +14,9 @@ export async function deleteAccount(formData: FormData): Promise<void> {
   if (s.userType === 'admin') redirect('/settings?e=admin');
   const confirm = String(formData.get('confirm') ?? '').trim().toUpperCase();
   if (confirm !== 'DELETE') redirect('/settings?e=confirm');
-  const email = s.email;
   await eraseAccount(s.id);
   try {
-    await prisma.auditLog.create({ data: { action: 'account_erased', detail: JSON.stringify({ email }) } });
+    await prisma.auditLog.create({ data: { action: 'account_erased', detail: '{}' } });
   } catch {
     // best effort, the row is already gone
   }

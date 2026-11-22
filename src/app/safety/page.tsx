@@ -57,10 +57,10 @@ export default function Safety() {
       <section className="mt-7">
         <h2 className={H2}>Why the rule is this strict</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          India&apos;s Promotion and Regulation of Online Gaming Act 2025 and the Promotion and Regulation of Online Gaming Rules 2026 came into force on 1 May 2026. In plain words, an online money game is a game where a player puts money in and expects money or something monetisable out, whether the game is based on skill, chance or both. Offering, advertising and facilitating such a game are prohibited, with serious penalties.
+          India&apos;s Promotion and Regulation of Online Gaming Act 2025 and the 2026 Rules are the reason this board stays away from money games. In broad terms, an online money game is one where a player puts money in and expects money or something monetisable out. We do not offer, advertise or facilitate that kind of game.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          The esports carve-out needs recognition under the National Sports Governance Act 2025 and registration with the Online Gaming Authority of India. Final Circle is an independent community site and does not hold either. Free entry with no advertised cash prize is the line we stay on.
+          Any esports exemption depends on recognition and registration that we do not hold. Final Circle is an independent community site. Free entry with no advertised cash prize is the line we stay on — a product rule, not a legal status.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
           This is background research, not legal advice or a compliance promise. Background reading:
@@ -99,10 +99,10 @@ export default function Safety() {
       <section className="mt-7">
         <h2 className={H2}>Grievance path</h2>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Report the match in the app first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same email is the Grievance Officer address, and you may then approach the Data Protection Board of India.
+          Report the match in the app first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. Privacy questions and complaints use the same address; see the <Link href="/privacy" className="text-vermilion">privacy notice</Link>. This is our own escalation path, not a promise about legal forums or time limits.
         </p>
         <p className={`mt-[10px] ${SUBTEXT}`}>
-          Point of contact: the Final Circle Grievance Officer, {BRAND.city}, {BRAND.country}.
+          Point of contact: the Final Circle team, {BRAND.city}, {BRAND.country}.
         </p>
       </section>
 

@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
 import { prisma } from '@/shared/db/client';
 import { getCurrentUser } from '@/shared/auth/session';
-import { joinMatch as joinMatchInService } from '@/features/matches/service';
+import { joinMatch as joinMatchInService, leaveMatch as leaveMatchInService } from '@/features/matches/service';
 import { reportMatch as reportMatchService } from '@/features/reports/service';
 import { hasPermission, roleFromDb } from '@/shared/auth/permissions';
 import { normalizeTeamName, isValidTeamName } from '@/features/matches/team';
@@ -50,11 +50,7 @@ export async function leaveMatch(formData: FormData) {
   const matchId = String(formData.get('matchId') ?? '');
   if (!matchId) redirect('/player?e=invalid');
 
-  const m = await prisma.match.findUnique({ where: { id: matchId }, select: { slots: true } });
-  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.id } });
-  if (m?.slots != null) {
-    await prisma.match.update({ where: { id: matchId }, data: { slots: { increment: 1 } } });
-  }
+  await leaveMatchInService(matchId);
   revalidatePath(`/matches/${matchId}`);
   revalidatePath('/player');
   redirect(`/player?done=1`);

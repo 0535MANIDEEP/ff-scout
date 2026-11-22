@@ -29,7 +29,6 @@ const CARD = 'rounded-card border border-[#CFC8B9] bg-panel p-6 shadow-[0_1px_2p
 const LIST = 'flex flex-col gap-3';
 const ROWITEM = 'flex min-h-[72px] items-center justify-between gap-4 rounded-card border border-[#CFC8B9] bg-panel p-4 text-ink hover:border-vermilion max-[600px]:flex-col max-[600px]:items-start';
 const CHIP = 'inline-flex min-h-7 items-center whitespace-nowrap rounded-full border border-[#CFC8B9] bg-[#E4DFD1] px-3 font-mono text-xs font-bold text-ink';
-const CHIP_SAPPHIRE = 'inline-flex min-h-7 items-center whitespace-nowrap rounded-full border border-[#0F4C81] bg-[#E4DFD1] px-3 font-mono text-xs font-bold text-[#0F4C81]';
 const LABEL_FLUSH = 'block text-sm font-bold text-ink';
 const INPUT = 'w-full min-h-11 rounded-lg border border-[#CFC8B9] bg-[#FDFCF8] px-4 text-base text-ink focus:outline-2 focus:outline-offset-1 focus:outline-vermilion';
 const BTN = 'inline-flex min-h-11 items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-vermilion bg-vermilion px-6 text-center text-sm font-bold leading-[1.2] text-panel no-underline transition-[background-color,border-color,color,transform] duration-[120ms] ease-[ease] hover:border-danger hover:bg-danger active:translate-y-px';
@@ -51,7 +50,8 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
         id: true, title: true, mode: true, gameType: true, status: true, date: true, city: true,
         entries: {
           select: {
-            player: { select: { displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true, email: true } },
+            id: true,
+            player: { select: { displayName: true, gameUid: true, brRank: true, csRank: true, role: true, city: true } },
             teamName: true,
           },
         },
@@ -143,13 +143,12 @@ export default async function PostedMatches({ searchParams }: { searchParams: Pr
               ) : (
                 <div className={`mt-2 ${LIST}`}>
                   {sortByTeamKey(m.entries, (e) => e.teamName).map(e => (
-                    <div key={e.player.email + e.player.displayName} className={ROWITEM}>
+                    <div key={e.id} className={ROWITEM}>
                       <div>
                         <strong className="text-base">{e.player.displayName}</strong>
                         <div className={SMALL}>UID {e.player.gameUid ?? '—'} · BR {e.player.brRank ?? '—'} · CS {e.player.csRank ?? '—'} · {e.player.role ?? '—'} · {e.player.city}</div>
                         {e.teamName && <div className={SMALL}>Team: {e.teamName}</div>}
                       </div>
-                      <a className={CHIP_SAPPHIRE} href={`mailto:${e.player.email}`}>Email</a>
                     </div>
                   ))}
                 </div>

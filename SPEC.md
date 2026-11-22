@@ -36,7 +36,7 @@ No organizer tier, no unlock fee, no per-event charge, and no player payment. Ro
 - Final Circle does not collect, hold or pay money, run escrow, verify players, issue verified badges, or adjudicate money disputes.
 - Weekly series use one self-serve trust ladder: 3 hosted matches, each with at least 2 distinct non-host joiners, and at most 2 active series. Two zero-join occurrences pause a series automatically. No approval queue.
 - Reporting is available on every match. Two `payment_request` reports from players who joined close the match automatically, pause the host's posting for exactly 7 days from server time, and write an audit log entry. There is no review before the consequence and no appeal queue.
-- Grievance path: in-app report first, then email the founder using the address in `BRAND`, then the Online Gaming Authority within 30 days if unresolved. No invented service promise.
+- Escalation path: in-app report first, then email the address in `BRAND`. This is our own path, not a promise about legal forums or time limits.
 - `/safety` states the free-entry rule, the no-money rule, the 18+ rule, reporting, grievance, how we earn, the legal background and the independent-site notice. The global disclosure line is "Free entry only. No money handled by Final Circle. 18+."
 
 ## Monetization
@@ -49,7 +49,7 @@ No checkout, no paid digital guide, no player ever pays the platform, and no spo
 
 ## Legal background
 
-The Promotion and Regulation of Online Gaming Act 2025 and the Promotion and Regulation of Online Gaming Rules 2026 came into force on 1 May 2026. They define an online money game as money in plus an expectation of money out, whether the game is based on skill, chance or both. Sections 5, 6 and 7 prohibit offering, advertising and facilitating such games, with penalties up to 2 years imprisonment or 50 lakh rupees. The e-sports carve-out requires recognition under the National Sports Governance Act and registration with the Online Gaming Authority of India, which is not viable for this product now.
+India's Promotion and Regulation of Online Gaming Act 2025 and the 2026 Rules are background for staying away from money games. Broadly, an online money game is one where money goes in with an expectation of money out. Any esports exemption depends on recognition and registration we do not hold. The legal background is secondary-source research, not a compliance claim; see `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 
 The research behind this decision is background, not legal advice or a compliance promise. External legal review was not performed for this release; see `docs/handoff-launch.md` → Legal review decision and `docs/adr/0005-legal-safe-free-entry-and-revenue.md`.
 

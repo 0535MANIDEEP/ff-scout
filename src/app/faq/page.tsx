@@ -20,7 +20,7 @@ const faqs: { q: string; a: ReactNode }[] = [
   },
   {
     q: 'Someone asked me to pay. What now?',
-    a: <>Do not pay. Open the match and choose Report this match, pick the payment request category and add a short note. If two players who joined report the same payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. If it is still unresolved, you may approach the Online Gaming Authority of India within 30 days. More detail is on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.</>,
+    a: <>Do not pay. Open the match and choose Report this match, pick the payment request category and add a short note. If two players who joined report the same payment request, the match closes automatically and the host cannot post for seven days. No human reviews the report first. If you cannot use the app, write to <a href={`mailto:${BRAND.email}`} className="text-vermilion">{BRAND.email}</a>. More detail is on <Link href="/safety" className="text-vermilion">Safety and legal</Link>.</>,
   },
   {
     q: 'How does Final Circle earn?',

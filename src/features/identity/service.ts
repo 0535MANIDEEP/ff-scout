@@ -19,7 +19,7 @@ export async function login(input: unknown): Promise<SessionUser | null> {
   const token = await createSessionToken(user.id);
   const jar = await cookies();
   jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
-  await writeAudit(user.id, 'login', JSON.stringify({ email, type: user.userType }));
+  await writeAudit(user.id, 'login', JSON.stringify({ type: user.userType }));
   return {
     id: user.id, email: user.email, displayName: user.displayName,
     userType: user.userType, postingPausedUntil: user.postingPausedUntil,
@@ -47,7 +47,7 @@ export async function signUp(input: unknown): Promise<SessionUser> {
   const token = await createSessionToken(user.id);
   const jar = await cookies();
   jar.set(SESSION_COOKIE_NAME, token, SESSION_COOKIE_OPTIONS);
-  await writeAudit(user.id, 'signup', JSON.stringify({ email }));
+  await writeAudit(user.id, 'signup', '{}');
   return {
     id: user.id, email: user.email, displayName: user.displayName,
     userType: user.userType, postingPausedUntil: user.postingPausedUntil,

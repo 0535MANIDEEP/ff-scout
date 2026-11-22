@@ -28,6 +28,8 @@ Four commands were run separately, in order, twice (Step 1 after the moves, Step
 | 3 | `Remove-Item Env:DATABASE_URL -ErrorAction SilentlyContinue; npm test` | PASS — 57 tests, 53 pass, 0 fail, 4 DB-gated skips |
 | 4 | `npm run build` | PASS — Next.js 16.4.6, 23 static/dynamic pages generated, no errors |
 
+Re-verified after the audit fixes: lint PASS, `npm run build` PASS (23 routes), no-database tests 62 total / 58 pass / 0 fail / 4 DB-gated skips, and `npm audit --audit-level=high` 0 vulnerabilities.
+
 Final gate 3 tail:
 
 ```txt
@@ -162,7 +164,8 @@ Console warnings observed were browser-level `Permissions-Policy` warnings for `
 ## Outstanding
 
 - The copy audit script reports `RESULT: FAIL` for the four pre-existing-copy false positives documented above; the script itself was not modified and no shipped copy was altered by that release.
+- `public/hero-gaming.jpg` has no source, attribution or license record in this repository. Confirm rights or replace the asset before public launch.
 
 ## Post-release sanitisation
 
-A later commit removed the AI-agent working documents and plan/spec archives from the repository, made the public contact address and canonical URL deployment settings (`NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_SITE_URL`), removed personal names and local machine paths from docs, and deleted the obsolete Cloudinary configuration. No data, schema or auth behaviour changed. The exact disclosure string was not touched.
+A later commit removed the AI-agent working documents and plan/spec archives from the repository, made the public contact address and canonical URL deployment settings (`NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_SITE_URL`), removed personal names and local machine paths from docs, and removed the obsolete Cloudinary configuration from tracked files; leftover `CLOUDINARY_*` keys in an untracked local `.env.local` are outside that commit and were removed locally afterwards. No data, schema or auth behaviour changed. The exact disclosure string was not touched.

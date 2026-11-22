@@ -26,7 +26,7 @@ export default function About() {
         Final Circle started from one observation: Indian Free Fire hosts recruit from group chats where almost everything is spam, outdated rank, or fantasy. Real players get buried in that same pile, and hosts waste time reading through it. One independent builder put up a board to sort that out.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
-        Every listing here is free entry. That is a rule, not a pilot setting. Removing entry fees takes away the ditch-and-run scam where a host collects money and never shows up. It also keeps the board away from the money-game line in India&apos;s PROGA 2025 and the 2026 Rules, which took effect on 1 May 2026. This is background, not legal advice or a compliance promise.
+        Every listing here is free entry. That is a rule, not a pilot setting. Removing entry fees takes away the ditch-and-run scam where a host collects money and never shows up. It also keeps the board away from the money-game line in India&apos;s PROGA 2025 and the 2026 Rules. This is background, not legal advice or a compliance promise.
       </p>
       <p className={`mt-[10px] ${SUBTEXT}`}>
         Final Circle is one board where hosts post matches and players join. There is no approval queue and no checkout. Final Circle does not collect, hold or pay money, and does not advertise cash prizes.

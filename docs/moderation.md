@@ -30,7 +30,7 @@ The consequence applies without human review. There is no review step to wait fo
 
 ## Grievance path
 
-Report the match in the app first. If that is not possible, write to the address configured in `NEXT_PUBLIC_CONTACT_EMAIL`. If it is still unresolved, the complainant may approach the Online Gaming Authority of India within 30 days. For data rights under the DPDP Act, the same address is the Grievance Officer contact.
+Report the match in the app first. If that is not possible, write to the address configured in `NEXT_PUBLIC_CONTACT_EMAIL`. Privacy questions and complaints use the same address. This is our own escalation path; it makes no promise about legal forums or time limits.
 
 ## Operating rules
 

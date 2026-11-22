@@ -1,5 +1,7 @@
 # Discord research: what actually helps people find teams
 
+> Internal research only. Contains verbatim third-party quotes, member counts and third-party names; not shipped as public copy and not a source of product or legal claims.
+
 Date: 2026-11-22  
 Method: web search plus real Chrome reads of the official Free Fire India Esports Discord preview and DISBOARD Free Fire listings. Channel previews are Discord's own AI summary and are marked "might be inaccurate", so treat details as directional, not exact quotes.
 

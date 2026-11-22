@@ -1,5 +1,14 @@
 # Releases
 
+## 2026-11-22, audit fixes
+
+- Admin match console and both admin actions now require the admin-only `match:moderate` capability. Players can no longer reach them through `match:manage`.
+- Both leave paths share one transaction that restores a finite slot only when a join was actually removed. Dashboard leaves no longer consume capacity, and replayed leaves cannot inflate it.
+- Host rosters no longer select or render player email addresses.
+- Audit details no longer store emails, and account erasure scrubs older details containing the address.
+- Internal docs that still described paid entry, prize pools, sponsor exports or roster emails were corrected.
+- Public legal and privacy copy now describes implemented controls only. The exact disclosure string and the launch record's legal paragraph were not touched.
+
 ## 2026-11-22, free-entry reset
 
 Final Circle is now a free notice board. Hosts post a match, players join, and no money moves through the platform. This entry is the current product truth. See [SPEC.md](SPEC.md) and [ADR 0005](docs/adr/0005-legal-safe-free-entry-and-revenue.md).
@@ -24,7 +33,7 @@ The legal background is research, not legal advice. External legal review was no
 
 - Removed AI-agent working documents and plan/spec archives from the repository; no agent instruction files are shipped.
 - Public contact address and canonical URL are deployment settings (`NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_SITE_URL`). No personal name, email, GitHub handle or local machine path remains in tracked files.
-- Deleted obsolete Cloudinary proof-upload configuration and stale demo-account guidance.
+- Deleted obsolete Cloudinary proof-upload configuration and stale demo-account guidance from tracked files. Any leftover `CLOUDINARY_*` keys in an untracked local `.env.local` still need removing.
 - Documentation now points only at files that exist in this tree; no live doc carries a lawyer-review gate or a deleted route.
 - Removed the unstored sign-up "where you are" field and corrected the privacy notice; removed dead exports, dead components and other unreachable code.
 - Rewrote public titles, descriptions and headings for search clarity, added per-page Open Graph and Twitter card metadata, and removed third-party chat-app names and unsourced counts from landing copy.

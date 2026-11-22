@@ -7,6 +7,7 @@ import { getCurrentUser } from '@/shared/auth/session';
 import { revalidatePath } from 'next/cache';
 import { RANKS, ROLE_IDS } from '@/shared/config/match';
 import { normalizeTeamName, isValidTeamName } from '@/features/matches/team';
+import { leaveMatch as leaveMatchInService } from '@/features/matches/service';
 
 const schema = z.object({
   displayName: z.string().trim().min(2).max(40),
@@ -50,7 +51,7 @@ export async function leaveMatch(formData: FormData) {
   if (!s) redirect('/login');
   const matchId = String(formData.get('matchId') ?? '');
   if (!matchId) redirect('/player?e=invalid');
-  await prisma.matchEntry.deleteMany({ where: { matchId, playerId: s.id } });
+  await leaveMatchInService(matchId);
   revalidatePath('/player');
   revalidatePath(`/matches/${matchId}`);
   redirect('/player?done=1');

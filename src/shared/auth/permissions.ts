@@ -7,14 +7,14 @@ export type Role = 'player' | 'sponsor' | 'admin';
 
 export type Permission =
   | 'match:join' | 'match:leave'
-  | 'match:create' | 'match:manage' | 'match:roster'
+  | 'match:create' | 'match:manage' | 'match:roster' | 'match:moderate'
   | 'user:manage' | 'audit:read'
   | 'account:erase' | 'self:delete';
 
 const CAPS: Record<Role, Permission[]> = {
   player:  ['match:create', 'match:manage', 'match:roster', 'match:join', 'match:leave', 'self:delete'],
   sponsor: ['self:delete'],
-  admin:   ['user:manage', 'audit:read', 'account:erase', 'match:manage'],
+  admin:   ['user:manage', 'audit:read', 'account:erase', 'match:moderate'],
 };
 
 export function hasPermission(role: Role, perm: Permission): boolean {

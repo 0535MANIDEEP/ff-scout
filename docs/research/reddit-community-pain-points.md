@@ -1,5 +1,7 @@
 # Reddit research: community pain and who can pay
 
+> Internal research only. Contains verbatim third-party quotes and third-party names; not shipped as public copy and not a source of product or legal claims.
+
 Date: 2026-11-22  
 Method: web search plus real Chrome reads of Reddit threads. Sample is small and directional, not proof of market size.
 

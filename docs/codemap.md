@@ -75,7 +75,7 @@ src/
 | `/settings` | Account settings and erasure | `src/app/settings/page.tsx`, `actions.ts` |
 | `/admin`, `/admin/matches` | Dashboard, close any match | `src/app/admin/*` |
 
-Private routes (`admin`, `player`, `settings`, `login`, `sign-up`) export `noindex, nofollow`. API route handlers are used only when a Server Action cannot serve. `GAMESKINBO_API_KEY`, Cloudinary and the UID-check route were removed on 2026-11-22: they needed external accounts and were not part of the post/join/report happy path.
+Private routes (`admin`, `player`, `settings`, `login`, `sign-up`) export `noindex, nofollow`. API route handlers are used only when a Server Action cannot serve. `GAMESKINBO_API_KEY`, Cloudinary and the UID-check route were removed from tracked config on 2026-11-22: they needed external accounts and were not part of the post/join/report happy path. Check local `.env.local` for leftover keys.
 
 ## Data flow: post to join to roster to report to automatic pause
 

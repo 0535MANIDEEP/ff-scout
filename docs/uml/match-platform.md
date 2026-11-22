@@ -116,12 +116,12 @@ classDiagram
 |---|---|
 | `Match.mode` | `casual` · `competitive` · `ranked` · `esports` |
 | `Match.gameType` | `BR` · `CS` · `BR/CS` |
-| `Match.entry` | `free` · `paid` |
-| `Match.prize` | `none` · `pool` |
+| `Match.entry` | `free` only on new writes |
+| `Match.prize` | `none` only on new writes |
 | `Match.status` | `open` · `closed` |
-| `User.userType` | `player` · `organizer` · `sponsor` · `admin` |
+| `User.userType` | `player` · `sponsor` · `admin` |
 
-`entryFee` / `prizePool` are **notes** (e.g. `₹50`), never amounts the platform collects.
+`entryFee` / `prizePool` are legacy columns, always null on new writes and never rendered. Sponsor and paid-unlock columns are likewise retained for history but unused.
 
 ## Relationships and rules
 
@@ -132,7 +132,7 @@ classDiagram
 | Deleting a match removes its roster | `onDelete: Cascade` |
 | A closed match accepts no joins | join action checks `Match.status` |
 | A player reports a match at most once | `@@unique([matchId, reporterId])` on `Report` |
-| The poster sees the roster (name, UID, email, ranks) | roster query scoped to `Match.organizerId` |
+| The poster sees the roster (name, UID, ranks, city, team) | roster query scoped to `Match.organizerId`; no email selected |
 | Sponsor-facing profile fields are legacy and unused | no sponsor directory or export query exists |
 
 ## Object diagram (one instance of the flow)
@@ -143,17 +143,16 @@ classDiagram
         id = "org_01"
         displayName = "Rajawadi Cyber Game Nite"
         userType = player
-        orgName = "Rajawadi Cyber Game Nite"
     }
     class match_BR {
         id = "m_100"
         title = "Friday BR Squad Night"
         mode = casual
         gameType = BR
-        entry = paid
-        entryFee = "₹50"
-        prize = pool
-        prizePool = "₹2,000"
+        entry = free
+        entryFee = null
+        prize = none
+        prizePool = null
         status = open
         date = "2026-12-05T18:00"
         city = "India"
@@ -165,7 +164,6 @@ classDiagram
         gameUid = "100000001"
         brRank = "Gold"
         csRank = "Platinum"
-        visibleToSponsors = true
     }
     class entry_join {
         id = "e_500"

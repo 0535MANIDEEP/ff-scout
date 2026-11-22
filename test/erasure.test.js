@@ -124,6 +124,7 @@ if (!dbUrl) {
     assert.equal(await prisma.rateLimitEntry.count({ where: { key: { contains: 'victim@example.test' } } }), 0, 'rate-limit rows gone');
     const nulled = await prisma.auditLog.findUnique({ where: { id: audit.id } });
     assert.equal(nulled.userId, null, 'audit user ref nulled, log kept');
+    assert.equal(await prisma.auditLog.count({ where: { detail: { contains: 'victim@example.test' } } }), 0, 'no email left in audit details');
     assert.equal(await prisma.user.findUnique({ where: { id: admin.id } }).then((u) => !!u), true, 'admin untouched');
     await prisma.$disconnect();
   });
