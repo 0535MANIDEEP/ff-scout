@@ -10,8 +10,8 @@ export async function Wire() {
   const line = items.length > 0 ? items.join('  ·  ') : 'THE WIRE IS QUIET · FIRST MATCHES LAND ANY DAY';
   const loop = `${line}  ·  ${line}  ·  ${line}`;
   return (
-    <div className="wire" aria-hidden="true">
-      <div className="wire-inner"><span>{loop}</span></div>
+    <div className="hidden" aria-hidden="true">
+      <div><span>{loop}</span></div>
     </div>
   );
 }

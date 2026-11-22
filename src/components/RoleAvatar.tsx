@@ -25,8 +25,8 @@ export default function RoleAvatar({ role, iglCapable, size = 44 }: { role?: Rol
   const body = GLYPHS[role ?? 'neutral'] ?? GLYPHS.neutral;
   return (
     <span
-      className={iglCapable ? 'role-avatar role-avatar-igl' : 'role-avatar'}
-      style={{ width: size, height: size, display: 'inline-flex', flexShrink: 0 }}
+      className={`relative inline-flex shrink-0 items-center rounded-md border border-[#CFC8B9] bg-[#E4DFD1] align-middle${iglCapable ? ' shadow-[0_0_0_2px_#ECE7DD,0_0_0_4px_#C81E1E]' : ''}`}
+      style={{ width: size, height: size }}
       role="img"
       aria-label={`${LABELS[role ?? 'neutral'] ?? 'Organizer'}${iglCapable ? ', IGL-capable' : ''}`}
       title={`${LABELS[role ?? 'neutral'] ?? 'Organizer'}${iglCapable ? ' · Can IGL' : ''}`}
@@ -35,7 +35,7 @@ export default function RoleAvatar({ role, iglCapable, size = 44 }: { role?: Rol
         <rect width="128" height="128" fill={INK} />
         {body}
       </svg>
-      {iglCapable && <span className="role-avatar-ichip" aria-hidden="true">I</span>}
+      {iglCapable && <span className="absolute -bottom-[6px] -right-[6px] grid h-[18px] w-[18px] place-items-center rounded-full border-2 border-paper bg-vermilion font-mono text-[11px] font-bold text-panel" aria-hidden="true">I</span>}
     </span>
   );
 }

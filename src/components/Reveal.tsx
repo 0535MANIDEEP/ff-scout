@@ -33,9 +33,11 @@ export function Reveal({ children, delay = 0, className = '' }: { children: Reac
     return () => { io.disconnect(); window.clearTimeout(fallback); };
   }, []);
 
-  const cls = armed ? `reveal is-armed${visible ? ' is-visible' : ''}` : 'reveal is-visible';
+  const motion = armed
+    ? `transition-[opacity,transform] duration-[280ms] ease-[ease] ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-[10px]'}`
+    : 'opacity-100 transform-none';
   return (
-    <div ref={ref} className={`${cls}${className ? ` ${className}` : ''}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div ref={ref} className={`${motion}${className ? ` ${className}` : ''}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );
