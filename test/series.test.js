@@ -33,8 +33,14 @@ if (!dbUrl) {
         }
         throw new Error('cannot resolve ' + id + ' from ' + file);
       }
-      // Ruling: erasure loader can't resolve tsconfig aliases; map '@/*' → './src/*'.
-      return Module.createRequire(path.join(root, 'package.json'))(id.replace(/^@\//, path.join(root, 'src') + '/'));
+      if (id.startsWith('@/')) {
+        const base = path.join(root, 'src', id.slice(2));
+        for (const ext of ['.ts', '.js']) {
+          if (fs.existsSync(base + ext)) return loadTs(base + ext);
+        }
+        if (fs.existsSync(base)) return Module.createRequire(path.join(root, 'package.json'))(base);
+      }
+      return Module.createRequire(path.join(root, 'package.json'))(id);
     };
     const wrapper = new Function('exports', 'require', 'module', '__filename', '__dirname', js);
     wrapper.call(mod.exports, mod.exports, localRequire, mod, mod.filename, path.dirname(file));
